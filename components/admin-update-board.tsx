@@ -18,7 +18,7 @@ export function AdminUpdateBoard({ initialUpdates }: { initialUpdates: UpdateEve
 
   const handleResolve = async (
     id: string,
-    action: "approve" | "reject" | "edit",
+    action: "approve" | "reject" | "edit" | "rollback",
     customVal?: unknown
   ) => {
     setProcessingId(id);
@@ -38,11 +38,11 @@ export function AdminUpdateBoard({ initialUpdates }: { initialUpdates: UpdateEve
         setUpdates((prev) =>
           prev.map((u) => (u.id === id ? data.update : u))
         );
-        setFeedback(`✓ Successfully ${action}ed update for ${data.update.entityName}`);
+        setFeedback(`✓ Successfully executed ${action} for ${data.update.entityName}`);
         setEditingId(null);
         setTimeout(() => setFeedback(null), 3000);
       } else {
-        alert(data.error || "Failed to resolve update");
+        alert(data.error || "Failed to execute update action");
       }
     } catch {
       alert("Network error updating event");
@@ -91,7 +91,7 @@ export function AdminUpdateBoard({ initialUpdates }: { initialUpdates: UpdateEve
 
       {/* Filter Tabs */}
       <div className="flex flex-wrap gap-2 text-xs border-b border-line pb-4">
-        {["pending", "applied", "rejected", "all"].map((tab) => (
+        {["pending", "applied", "rolled_back", "rejected", "all"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveFilter(tab)}
@@ -101,7 +101,7 @@ export function AdminUpdateBoard({ initialUpdates }: { initialUpdates: UpdateEve
                 : "border border-line bg-panel text-zinc-300 hover:border-lime"
             }`}
           >
-            {tab} (
+            {tab.replace("_", " ")} (
             {
               updates.filter((u) => (tab === "all" ? true : u.status === tab))
                 .length
@@ -114,7 +114,7 @@ export function AdminUpdateBoard({ initialUpdates }: { initialUpdates: UpdateEve
       {/* Update Diff Cards */}
       {filteredUpdates.length === 0 ? (
         <div className="surface p-12 text-center text-xs text-zinc-500">
-          No update records found matching status &quot;{activeFilter}&quot;.
+          No update records found matching status &quot;{activeFilter.replace("_", " ")}&quot;.
         </div>
       ) : (
         <div className="space-y-6">
@@ -126,66 +126,89 @@ export function AdminUpdateBoard({ initialUpdates }: { initialUpdates: UpdateEve
                   ? "border-lime/40 shadow-glow"
                   : upd.status === "applied"
                   ? "border-emerald-500/30"
+                  : upd.status === "rolled_back"
+                  ? "border-amber-500/30"
                   : "border-zinc-800 opacity-75"
               }`}
             >
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-line/60 pb-4">
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="rounded-md border border-line bg-black/40 px-2 py-0.5 font-mono text-[11px] text-zinc-400">
                       {upd.entityType.toUpperCase()}: {upd.entityName}
                     </span>
                     <span className="text-xs text-zinc-500 font-mono">
                       Field: <strong className="text-white">{upd.fieldPath}</strong>
                     </span>
+                    {/* Risk Badge */}
+                    <span
+                      className={`rounded-full px-2 py-0.5 font-mono text-[10px] font-bold uppercase ${
+                        upd.risk === "high"
+                          ? "bg-red-500/20 text-red-400 border border-red-500/40"
+                          : upd.risk === "medium"
+                          ? "bg-amber-500/20 text-amber-400 border border-amber-500/40"
+                          : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                      }`}
+                    >
+                      {upd.risk || "medium"} Risk
+                    </span>
                   </div>
-                  <h3 className="mt-2 text-lg font-bold text-white">
+                  <h3 className="mt-2 text-sm font-bold text-white">
                     {upd.changeSummary}
                   </h3>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="font-mono text-zinc-400">
-                    Confidence: {(upd.confidenceScore * 100).toFixed(0)}%
-                  </span>
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <div className="text-[11px] text-zinc-500 font-mono">Confidence</div>
+                    <div className="text-xs font-bold text-lime">
+                      {Math.round((upd.confidenceScore || 0.9) * 100)}%
+                    </div>
+                  </div>
                   <span
-                    className={`rounded-full px-2.5 py-0.5 font-bold uppercase text-[10px] ${
+                    className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider ${
                       upd.status === "pending"
-                        ? "bg-lime/20 text-lime border border-lime/40"
+                        ? "bg-amber-500/10 text-amber-400 border border-amber-500/30"
                         : upd.status === "applied"
-                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
-                        : "bg-red-500/20 text-red-400 border border-red-500/40"
+                        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                        : upd.status === "rolled_back"
+                        ? "bg-blue-500/10 text-blue-400 border border-blue-500/30"
+                        : "bg-red-500/10 text-red-400 border border-red-500/30"
                     }`}
                   >
-                    {upd.status}
+                    {upd.status.replace("_", " ")}
                   </span>
                 </div>
               </div>
 
-              {/* Side-by-Side Diff Box */}
-              <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                {/* Previous Value */}
-                <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-4 text-xs font-mono">
-                  <p className="font-bold text-red-400 mb-2 uppercase tracking-wider text-[10px]">
-                    - Previous Value (Current Live)
-                  </p>
+              {/* Side-by-Side Diff Section */}
+              <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                {/* OLD VALUE */}
+                <div className="rounded-xl border border-red-500/20 bg-red-950/10 p-4">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-red-400 mb-2 flex items-center gap-1.5">
+                    <span>− OLD VALUE (CURRENT)</span>
+                  </div>
                   <div className="text-zinc-300 break-words leading-5">
                     {formatValue(upd.previousValue)}
                   </div>
                 </div>
 
-                {/* Proposed New Value */}
-                <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-xs font-mono">
-                  <p className="font-bold text-emerald-400 mb-2 uppercase tracking-wider text-[10px]">
-                    + Proposed New Value (Incoming Signal)
-                  </p>
+                {/* NEW VALUE */}
+                <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/10 p-4">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 mb-2 flex items-center justify-between">
+                    <span>+ NEW VALUE (PROPOSED)</span>
+                    {editingId === upd.id && (
+                      <span className="text-[10px] text-lime">EDITING</span>
+                    )}
+                  </div>
+
                   {editingId === upd.id ? (
                     <div className="space-y-2">
                       <textarea
                         value={editValue}
                         onChange={(e) => setEditValue(e.target.value)}
-                        className="w-full rounded border border-line bg-black/80 p-2 text-white outline-none focus:border-lime"
+                        className="w-full rounded border border-lime bg-black/80 p-2 font-mono text-xs text-white focus:outline-none"
                         rows={3}
                       />
                       <div className="flex gap-2">
@@ -193,7 +216,7 @@ export function AdminUpdateBoard({ initialUpdates }: { initialUpdates: UpdateEve
                           onClick={() => submitEdit(upd.id)}
                           className="rounded bg-lime px-3 py-1 font-bold text-black text-[11px]"
                         >
-                          Save & Apply
+                          Apply Edited Value
                         </button>
                         <button
                           onClick={() => setEditingId(null)}
@@ -228,40 +251,52 @@ export function AdminUpdateBoard({ initialUpdates }: { initialUpdates: UpdateEve
                   </span>
                 </div>
 
-                {upd.status === "pending" && (
-                  <div className="flex items-center gap-2">
-                    <button
-                      disabled={processingId === upd.id}
-                      onClick={() => startEdit(upd)}
-                      className="rounded-lg border border-line bg-panel px-3.5 py-1.5 font-semibold text-zinc-300 hover:border-lime hover:text-white transition"
-                    >
-                      ✎ Edit & Apply
-                    </button>
-                    <button
-                      disabled={processingId === upd.id}
-                      onClick={() => handleResolve(upd.id, "reject")}
-                      className="rounded-lg border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 font-semibold text-red-400 hover:bg-red-500/20 transition"
-                    >
-                      ✗ Reject
-                    </button>
-                    <button
-                      disabled={processingId === upd.id}
-                      onClick={() => handleResolve(upd.id, "approve")}
-                      className="rounded-lg bg-lime px-4 py-1.5 font-bold text-black hover:bg-white transition flex items-center gap-1"
-                    >
-                      <span>✓ Approve & Apply</span>
-                    </button>
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  {upd.status === "pending" && (
+                    <>
+                      <button
+                        disabled={processingId === upd.id}
+                        onClick={() => startEdit(upd)}
+                        className="rounded-lg border border-line bg-panel px-3.5 py-1.5 font-semibold text-zinc-300 hover:border-lime hover:text-white transition"
+                      >
+                        ✎ Edit & Apply
+                      </button>
+                      <button
+                        disabled={processingId === upd.id}
+                        onClick={() => handleResolve(upd.id, "reject")}
+                        className="rounded-lg border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 font-semibold text-red-400 hover:bg-red-500/20 transition"
+                      >
+                        ✗ Reject
+                      </button>
+                      <button
+                        disabled={processingId === upd.id}
+                        onClick={() => handleResolve(upd.id, "approve")}
+                        className="rounded-lg bg-lime px-4 py-1.5 font-bold text-black hover:bg-white transition flex items-center gap-1"
+                      >
+                        <span>✓ Approve & Apply</span>
+                      </button>
+                    </>
+                  )}
 
-                {upd.reviewedBy && (
-                  <span className="text-zinc-500 font-mono text-[11px]">
-                    Reviewed by {upd.reviewedBy} on{" "}
-                    {upd.reviewedAt
-                      ? new Date(upd.reviewedAt).toLocaleDateString()
-                      : "recent"}
-                  </span>
-                )}
+                  {upd.status === "applied" && (
+                    <button
+                      disabled={processingId === upd.id}
+                      onClick={() => handleResolve(upd.id, "rollback")}
+                      className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3.5 py-1.5 font-semibold text-amber-400 hover:bg-amber-500/20 transition flex items-center gap-1"
+                    >
+                      <span>↩ Rollback to Previous Value</span>
+                    </button>
+                  )}
+
+                  {upd.reviewedBy && (
+                    <span className="text-zinc-500 font-mono text-[11px] ml-2">
+                      Reviewed by {upd.reviewedBy} on{" "}
+                      {upd.reviewedAt
+                        ? new Date(upd.reviewedAt).toLocaleDateString()
+                        : "recent"}
+                    </span>
+                  )}
+                </div>
               </div>
             </article>
           ))}

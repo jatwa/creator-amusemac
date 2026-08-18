@@ -4,13 +4,12 @@ import { UpdateEvent } from "@/lib/db/types";
 
 export class UpdateManager {
   /**
-   * Ingest an incoming signal for a tool, detect differences, and stage updates in repository.
+   * Ingest an incoming signal for a tool, detect differences, and stage or auto-apply updates.
    */
   public static async processToolSignal(signal: IncomingToolSignal): Promise<UpdateEvent[]> {
     const tool = db.getToolById(signal.toolId);
     if (!tool) return [];
 
-    // Detect diffs
     const detectedUpdates = detectToolChanges(tool, signal);
     const createdEvents: UpdateEvent[] = [];
 
@@ -21,12 +20,60 @@ export class UpdateManager {
         .find((u) => u.entityId === updateData.entityId && u.fieldPath === updateData.fieldPath);
 
       if (!existingPending) {
-        const created = db.createUpdateEvent(updateData);
-        createdEvents.push(created);
+        // Auto-apply policy: LOW risk + confidence >= 0.95
+        if (updateData.risk === "low" && updateData.confidenceScore >= 0.95) {
+          const created = db.createUpdateEvent({
+            ...updateData,
+            status: "applied",
+            reviewedBy: "System (Auto-Update Policy)",
+            reviewedAt: new Date().toISOString().split("T")[0],
+          });
+          db.applyUpdate(created.id, "System (Auto-Update Policy)");
+          createdEvents.push(created);
+        } else {
+          const created = db.createUpdateEvent(updateData);
+          createdEvents.push(created);
+        }
       }
     }
 
     return createdEvents;
+  }
+
+  /**
+   * Approve and apply a pending update event to the live repository.
+   */
+  public static approveUpdate(eventId: string, reviewer: string = "Admin"): UpdateEvent | null {
+    return db.applyUpdate(eventId, reviewer);
+  }
+
+  /**
+   * Reject a pending update event with a reason.
+   */
+  public static rejectUpdate(
+    eventId: string,
+    reason: string = "Manual Admin Rejection",
+    reviewer: string = "Admin"
+  ): UpdateEvent | null {
+    return db.rejectUpdate(eventId, reason, reviewer);
+  }
+
+  /**
+   * Edit and apply a modified value to the live repository.
+   */
+  public static editAndApplyUpdate(
+    eventId: string,
+    customValue: any,
+    reviewer: string = "Admin"
+  ): UpdateEvent | null {
+    return db.editAndApplyUpdate(eventId, customValue, reviewer);
+  }
+
+  /**
+   * Revert a previously applied update event to its original previousValue.
+   */
+  public static rollbackUpdate(eventId: string, reviewer: string = "Admin"): UpdateEvent | null {
+    return db.rollbackUpdate(eventId, reviewer);
   }
 
   /**
@@ -53,14 +100,13 @@ export class UpdateManager {
     const now = new Date().toISOString();
 
     try {
-      // Make a lightweight HEAD/GET request to verify domain availability
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
 
       const res = await fetch(tool.officialUrl, {
         method: "HEAD",
         signal: controller.signal,
-        headers: { "User-Agent": "CreatorByAmusemac-HealthChecker/1.0" },
+        headers: { "User-Agent": "CreatorByAmusemac-HealthChecker/2.0" },
       });
 
       clearTimeout(timeoutId);

@@ -110,8 +110,10 @@ export class PlatformRepository {
       newValue: "$12/month (New Annual Tiers)",
       changeSummary: "Detected pricing adjustment on midjourney.com/pricing from $10/mo to $12/mo",
       sourceUrl: "https://midjourney.com/pricing",
+      sourceType: "pricing_page",
       detectedAt: new Date().toISOString(),
       confidenceScore: 0.92,
+      risk: "high",
       status: "pending",
     };
     this.updates.set(sampleUpdate.id, sampleUpdate);
@@ -384,6 +386,82 @@ export class PlatformRepository {
     upd.reviewedAt = now;
     this.updates.set(id, upd);
     return { success: true, update: upd };
+  }
+
+  public applyUpdate(id: string, reviewerName: string = "Admin"): UpdateEvent | null {
+    const res = this.resolveUpdate(id, "approve", reviewerName);
+    return res.update || null;
+  }
+
+  public rejectUpdate(
+    id: string,
+    rejectionReason: string = "Rejected by editorial curator",
+    reviewerName: string = "Admin"
+  ): UpdateEvent | null {
+    const res = this.resolveUpdate(id, "reject", reviewerName, undefined, rejectionReason);
+    return res.update || null;
+  }
+
+  public editAndApplyUpdate(
+    id: string,
+    customNewValue: any,
+    reviewerName: string = "Admin"
+  ): UpdateEvent | null {
+    const res = this.resolveUpdate(id, "edit", reviewerName, customNewValue);
+    return res.update || null;
+  }
+
+  public rollbackUpdate(id: string, reviewerName: string = "Admin"): UpdateEvent | null {
+    const upd = this.updates.get(id);
+    if (!upd || upd.status !== "applied") return null;
+
+    const tool = this.tools.get(upd.entityId);
+    if (tool && upd.entityType === "tool") {
+      const rollbackVal = upd.rollbackValue !== undefined ? upd.rollbackValue : upd.previousValue;
+      this.setNestedProperty(tool as unknown as Record<string, unknown>, upd.fieldPath, rollbackVal);
+      const now = new Date().toISOString();
+      tool.updatedAt = now.split("T")[0];
+      this.tools.set(tool.id, tool);
+
+      upd.status = "rolled_back";
+      upd.reviewedBy = reviewerName;
+      upd.reviewedAt = now;
+      this.updates.set(id, upd);
+
+      this.verificationLogs.push({
+        id: `ver-rollback-${Date.now()}`,
+        entityId: tool.id,
+        entityType: "tool",
+        verifiedAt: now,
+        verifiedBy: reviewerName,
+        notes: `Rolled back update [${upd.fieldPath}] to previous value`,
+        sourceUrls: [upd.sourceUrl],
+      });
+
+      return upd;
+    }
+
+    return null;
+  }
+
+  public getSyncMetrics() {
+    const allUpdates = this.getAllUpdates();
+    const pendingCount = allUpdates.filter((u) => u.status === "pending").length;
+    const approvedCount = allUpdates.filter((u) => u.status === "applied" || u.status === "approved").length;
+    const rejectedCount = allUpdates.filter((u) => u.status === "rejected").length;
+    const staleCount = this.getStaleTools(14).length;
+
+    return {
+      lastSuccessfulSync: "2026-08-18",
+      lastFailedSync: null,
+      pendingUpdatesCount: pendingCount,
+      approvedUpdatesCount: approvedCount,
+      rejectedUpdatesCount: rejectedCount,
+      staleRecordsCount: staleCount,
+      totalSourcesCount: this.sources.size,
+      databaseProvider: process.env.DATABASE_URL ? "PostgreSQL" : "In-Memory Repository (Fallback)",
+      isConnected: true,
+    };
   }
 
   public getStaleTools(daysThreshold = 14): { tool: Tool; daysSinceVerification: number }[] {

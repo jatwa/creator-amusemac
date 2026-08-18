@@ -9,11 +9,26 @@ export async function POST(
   const body = await request.json();
   const { action, reviewerName, customNewValue, rejectionReason } = body;
 
-  if (!["approve", "reject", "edit"].includes(action)) {
+  if (!["approve", "reject", "edit", "rollback"].includes(action)) {
     return NextResponse.json(
-      { error: "Invalid action. Must be 'approve', 'reject', or 'edit'." },
+      { error: "Invalid action. Must be 'approve', 'reject', 'edit', or 'rollback'." },
       { status: 400 }
     );
+  }
+
+  if (action === "rollback") {
+    const rolledBack = db.rollbackUpdate(id, reviewerName || "Editorial Admin");
+    if (!rolledBack) {
+      return NextResponse.json(
+        { error: "Failed to rollback update. Ensure update exists and was previously applied." },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json({
+      success: true,
+      message: "Update rolled back successfully.",
+      update: rolledBack,
+    });
   }
 
   const result = db.resolveUpdate(
