@@ -30,7 +30,7 @@ export async function generateMetadata({
   if (!tool) return { title: "Tool Not Found" };
 
   return {
-    title: `${tool.name} Creator Dossier | Creator by Amusemac`,
+    title: `${tool.name} Creator Intelligence Dossier | Creator by Amusemac`,
     description: tool.overview.slice(0, 160),
     openGraph: {
       title: `${tool.name} — AI Tool Review & Workflows for Creators`,
@@ -100,50 +100,66 @@ export default async function ToolDetailPage({
       <StructuredData data={jsonLd} />
       <Navigation />
 
-      {/* Hero Header */}
-      <div className="border-b border-line bg-panel/50 py-12 sm:py-16">
+      {/* Editorial Dossier Header */}
+      <div className="border-b border-line bg-gradient-to-b from-panel via-ink to-ink py-12 sm:py-16">
         <div className="shell">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-6">
-            <Link href="/" className="hover:text-lime">Home</Link>
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-zinc-500 mb-6">
+            <Link href="/" className="hover:text-lime transition">Home</Link>
             <span>/</span>
-            <Link href="/tools" className="hover:text-lime">Tools</Link>
+            <Link href="/tools" className="hover:text-lime transition">Tools</Link>
             <span>/</span>
-            <span className="text-white">{tool.name}</span>
+            <span className="text-zinc-300">{tool.name}</span>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="rounded-full border border-lime/30 bg-lime/10 px-3 py-1 text-xs font-semibold text-lime">
-                  {tool.category.toUpperCase()}
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
+            <div className="max-w-3xl">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="eyebrow text-xs bg-lime/10 px-3 py-1 rounded-full border border-lime/30">
+                  {tool.category}
                 </span>
-                <span className="rounded-full border border-line bg-black/40 px-3 py-1 text-xs text-zinc-300">
+                <span className="rounded-full border border-line bg-panel px-3 py-1 font-mono text-xs text-zinc-300">
                   {tool.pricing.model.toUpperCase()}
                 </span>
-                <span className="text-xs text-zinc-400">
-                  Verified: {tool.verifiedAt}
+                <span className="font-mono text-xs text-zinc-500">
+                  Audited: {tool.verifiedAt}
                 </span>
               </div>
 
-              <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              <h1 className="mt-4 text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
                 {tool.name}
               </h1>
 
-              <p className="mt-2 text-lg text-zinc-300">
+              <p className="mt-3 text-base sm:text-lg text-zinc-300 leading-relaxed font-medium">
                 {tool.tagline}
               </p>
+
+              {/* Core Director Verdict Callout */}
+              <div className="mt-6 rounded-xl border border-lime/20 bg-lime/5 p-4 text-xs sm:text-sm">
+                <span className="font-mono font-bold uppercase text-lime text-[11px] block">
+                  Creator Verdict:
+                </span>
+                <p className="mt-1 text-zinc-200 leading-relaxed">
+                  Best utilized for <strong className="text-white">{tool.bestFor}</strong>. Provides immediate production value in narrative and commercial timelines.
+                </p>
+              </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3">
               <a
                 href={tool.officialUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl bg-lime px-6 py-3 text-sm font-semibold text-black transition hover:bg-white flex items-center gap-2"
+                className="rounded-full bg-lime px-6 py-3 text-xs sm:text-sm font-semibold text-black transition hover:bg-white text-center flex items-center justify-center gap-2 shadow-glow-subtle"
               >
-                <span>Visit official site</span>
+                <span>Launch {tool.name}</span>
                 <span>↗</span>
               </a>
+              <Link
+                href="/compare"
+                className="rounded-full border border-line bg-panel px-6 py-3 text-xs sm:text-sm font-semibold text-zinc-300 transition hover:border-zinc-500 hover:text-white text-center"
+              >
+                Compare Alternatives
+              </Link>
             </div>
           </div>
         </div>
@@ -152,40 +168,44 @@ export default async function ToolDetailPage({
       <div className="shell py-12">
         <div className="grid gap-10 lg:grid-cols-3">
           {/* Main 2-Column Content */}
-          <div className="lg:col-span-2 space-y-12">
-            {/* Overview */}
-            <section className="surface p-8">
-              <h2 className="text-xl font-bold text-white">Creator Overview</h2>
-              <p className="mt-4 text-base leading-7 text-zinc-300">
+          <div className="lg:col-span-2 space-y-10">
+            {/* Creator Overview */}
+            <section className="surface p-6 sm:p-8">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                <h2 className="text-lg sm:text-xl font-bold text-white">Production Overview</h2>
+              </div>
+              <p className="text-sm sm:text-base leading-relaxed text-zinc-300">
                 {tool.overview}
               </p>
-
-              <div className="mt-6 rounded-xl border border-line bg-black/30 p-4">
-                <p className="text-xs font-semibold uppercase tracking-wider text-lime">Best For</p>
-                <p className="mt-1 text-sm font-medium text-white">{tool.bestFor}</p>
-              </div>
             </section>
 
-            {/* Key Features */}
-            <section className="surface p-8">
-              <h2 className="text-xl font-bold text-white">Key Capabilities & Features</h2>
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {/* Key Capabilities */}
+            <section className="surface p-6 sm:p-8">
+              <div className="flex items-center gap-2 mb-6">
+                <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                <h2 className="text-lg sm:text-xl font-bold text-white">Key Capabilities & Features</h2>
+              </div>
+              <ul className="grid gap-3 sm:grid-cols-2">
                 {tool.keyFeatures.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3 rounded-lg border border-line bg-black/20 p-3.5 text-sm text-zinc-300">
-                    <span className="text-lime font-bold">✓</span>
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 rounded-lg border border-line bg-ink/70 p-3.5 text-xs sm:text-sm text-zinc-300"
+                  >
+                    <span className="text-lime font-bold text-xs mt-0.5">✓</span>
                     <span>{feature}</span>
                   </li>
                 ))}
               </ul>
             </section>
 
-            {/* Pros & Cons */}
+            {/* Production Strengths vs Trade-offs */}
             <section className="grid gap-6 sm:grid-cols-2">
-              <div className="surface p-6 border-emerald-500/20">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-emerald-400">
-                  Production Strengths
+              <div className="surface p-6 border-emerald-500/20 bg-emerald-950/10">
+                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">
+                  Verified Strengths
                 </h3>
-                <ul className="mt-4 space-y-2.5 text-sm text-zinc-300">
+                <ul className="mt-4 space-y-2.5 text-xs sm:text-sm text-zinc-300">
                   {tool.strengths.map((str, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <span className="text-emerald-400 font-bold">+</span>
@@ -195,11 +215,11 @@ export default async function ToolDetailPage({
                 </ul>
               </div>
 
-              <div className="surface p-6 border-amber-500/20">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-amber-400">
+              <div className="surface p-6 border-amber-500/20 bg-amber-950/10">
+                <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-amber-400">
                   Production Trade-offs
                 </h3>
-                <ul className="mt-4 space-y-2.5 text-sm text-zinc-300">
+                <ul className="mt-4 space-y-2.5 text-xs sm:text-sm text-zinc-300">
                   {tool.weaknesses.map((weak, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <span className="text-amber-400 font-bold">-</span>
@@ -212,37 +232,38 @@ export default async function ToolDetailPage({
 
             {/* Recommended Prompts for this Tool */}
             {recommendedPrompts.length > 0 && (
-              <section className="surface p-8">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-bold text-white">
-                    Recommended Prompt Recipes for {tool.name}
-                  </h2>
-                  <Link href="/prompts" className="text-xs text-lime hover:underline">
-                    View all prompts →
+              <section className="surface p-6 sm:p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                    <h2 className="text-lg sm:text-xl font-bold text-white">
+                      Recommended Prompt Recipes
+                    </h2>
+                  </div>
+                  <Link href="/prompts" className="text-xs text-lime hover:underline font-mono">
+                    All Prompts →
                   </Link>
                 </div>
 
-                <div className="mt-6 space-y-4">
+                <div className="space-y-4">
                   {recommendedPrompts.map((prompt) => (
                     <div
                       key={prompt.id}
-                      className="rounded-xl border border-line bg-black/30 p-5 transition hover:border-zinc-500"
+                      className="rounded-xl border border-line bg-ink/70 p-5 transition hover:border-zinc-500"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-lime uppercase">
-                          {prompt.useCase}
-                        </span>
+                        <span className="eyebrow text-[10px]">{prompt.useCase}</span>
                         <Link
                           href={`/prompts/${prompt.slug}`}
-                          className="text-xs font-medium text-lime hover:underline"
+                          className="text-xs font-medium text-lime hover:underline font-mono"
                         >
-                          Customize recipe →
+                          Customize →
                         </Link>
                       </div>
                       <h3 className="mt-2 text-base font-bold text-white">
                         {prompt.title}
                       </h3>
-                      <p className="mt-3 rounded-lg border border-zinc-800 bg-black/60 p-3 text-xs font-mono text-zinc-300">
+                      <p className="mt-3 rounded-lg border border-zinc-800 bg-black/60 p-3 font-mono text-xs text-zinc-300 leading-relaxed">
                         {prompt.promptText}
                       </p>
                     </div>
@@ -253,24 +274,32 @@ export default async function ToolDetailPage({
 
             {/* Head-to-Head Comparisons */}
             {comparisons.length > 0 && (
-              <section className="surface p-8">
-                <h2 className="text-xl font-bold text-white">Head-to-Head Comparisons</h2>
-                <div className="mt-6 divide-y divide-line rounded-xl border border-line bg-black/20 overflow-hidden">
+              <section className="surface p-6 sm:p-8">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                  <h2 className="text-lg sm:text-xl font-bold text-white">Head-to-Head Comparisons</h2>
+                </div>
+                <div className="divide-y divide-line rounded-xl border border-line bg-ink/70 overflow-hidden">
                   {comparisons.map((c) => {
                     const opponentId = c.toolAId === tool.id ? c.toolBId : c.toolAId;
                     const opponent = getToolById(opponentId);
                     return (
-                      <div key={c.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div
+                        key={c.id}
+                        className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                      >
                         <div>
-                          <p className="text-xs text-lime font-semibold uppercase">{c.category}</p>
+                          <p className="eyebrow text-[10px]">{c.category}</p>
                           <h3 className="text-base font-bold text-white mt-1">
                             {tool.name} vs {opponent?.name || "Competitor"}
                           </h3>
-                          <p className="mt-1 text-xs text-zinc-400">{c.summaryVerdict}</p>
+                          <p className="mt-1 text-xs text-zinc-400 leading-relaxed">
+                            {c.summaryVerdict}
+                          </p>
                         </div>
                         <Link
                           href={`/compare/${c.slug}`}
-                          className="rounded-lg border border-line bg-ink px-4 py-2 text-xs font-semibold text-lime hover:border-lime transition shrink-0"
+                          className="rounded-lg border border-line bg-panel px-4 py-2 text-xs font-semibold text-lime hover:border-lime transition shrink-0"
                         >
                           Read breakdown →
                         </Link>
@@ -281,64 +310,94 @@ export default async function ToolDetailPage({
               </section>
             )}
 
-            {/* Linked Workflows & Tutorials */}
+            {/* Workflows & Tutorials */}
             {(linkedWorkflows.length > 0 || linkedTutorials.length > 0) && (
-              <section className="surface p-8">
-                <h2 className="text-xl font-bold text-white">Production Workflows & Guides</h2>
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <section className="surface p-6 sm:p-8">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                  <h2 className="text-lg sm:text-xl font-bold text-white">
+                    Production Workflows & Guides
+                  </h2>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
                   {linkedWorkflows.map((wf) => (
                     <Link
                       key={wf.id}
                       href={`/workflows/${wf.slug}`}
-                      className="rounded-xl border border-line bg-black/20 p-5 transition hover:border-lime"
+                      className="rounded-xl border border-line bg-ink/70 p-5 transition hover:border-lime block group"
                     >
-                      <span className="text-xs font-semibold uppercase text-lime">Workflow Pipeline</span>
-                      <h3 className="mt-2 text-sm font-bold text-white">{wf.title}</h3>
-                      <p className="mt-2 text-xs text-zinc-400">{wf.summary.slice(0, 100)}...</p>
+                      <span className="eyebrow text-[10px]">Workflow Pipeline</span>
+                      <h3 className="mt-2 text-sm font-bold text-white group-hover:text-lime transition">
+                        {wf.title}
+                      </h3>
+                      <p className="mt-2 text-xs text-zinc-400 line-clamp-2">
+                        {wf.summary}
+                      </p>
                     </Link>
                   ))}
                   {linkedTutorials.map((tut) => (
                     <Link
                       key={tut.id}
                       href={`/tutorials/${tut.slug}`}
-                      className="rounded-xl border border-line bg-black/20 p-5 transition hover:border-lime"
+                      className="rounded-xl border border-line bg-ink/70 p-5 transition hover:border-lime block group"
                     >
-                      <span className="text-xs font-semibold uppercase text-lime">Editorial Tutorial</span>
-                      <h3 className="mt-2 text-sm font-bold text-white">{tut.title}</h3>
-                      <p className="mt-2 text-xs text-zinc-400">{tut.goal.slice(0, 100)}...</p>
+                      <span className="eyebrow text-[10px]">Tutorial</span>
+                      <h3 className="mt-2 text-sm font-bold text-white group-hover:text-lime transition">
+                        {tut.title}
+                      </h3>
+                      <p className="mt-2 text-xs text-zinc-400 line-clamp-2">
+                        {tut.goal}
+                      </p>
                     </Link>
                   ))}
                 </div>
               </section>
             )}
 
-            {/* Related Editorial Articles & Video Breakdowns */}
+            {/* Editorial Articles & Videos */}
             {(relatedBlogs.length > 0 || relatedVideos.length > 0) && (
-              <section className="space-y-6">
-                <h2 className="text-xl font-bold text-white">Editorial Insights &amp; Video Masterclasses</h2>
+              <section className="space-y-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+                  <h2 className="text-lg sm:text-xl font-bold text-white">
+                    Creator Journal & Video Breakdowns
+                  </h2>
+                </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   {relatedBlogs.map((b) => (
                     <Link
                       key={b.id}
                       href={`/blog/${b.slug}`}
-                      className="surface p-5 transition hover:border-lime block"
+                      className="surface p-5 transition hover:border-lime block group"
                     >
-                      <span className="text-[11px] font-mono font-bold uppercase text-lime">Analysis</span>
-                      <h3 className="mt-2 text-sm font-bold text-white leading-snug">{b.title}</h3>
+                      <span className="font-mono text-[10px] font-bold uppercase text-lime">
+                        Journal Essay
+                      </span>
+                      <h3 className="mt-2 text-sm font-bold text-white leading-snug group-hover:text-lime transition">
+                        {b.title}
+                      </h3>
                       <p className="mt-2 text-xs text-zinc-400 line-clamp-2">{b.excerpt}</p>
-                      <p className="mt-3 text-[11px] text-zinc-500 font-mono">By {b.author.name} • {b.readingTime}</p>
+                      <p className="mt-3 text-[11px] text-zinc-500 font-mono">
+                        By {b.author.name} • {b.readingTime}
+                      </p>
                     </Link>
                   ))}
                   {relatedVideos.map((v) => (
                     <Link
                       key={v.id}
                       href={`/videos/${v.slug}`}
-                      className="surface p-5 transition hover:border-lime block"
+                      className="surface p-5 transition hover:border-lime block group"
                     >
-                      <span className="text-[11px] font-mono font-bold uppercase text-lime">▶ Video Breakdown</span>
-                      <h3 className="mt-2 text-sm font-bold text-white leading-snug">{v.title}</h3>
+                      <span className="font-mono text-[10px] font-bold uppercase text-lime">
+                        ▶ Masterclass
+                      </span>
+                      <h3 className="mt-2 text-sm font-bold text-white leading-snug group-hover:text-lime transition">
+                        {v.title}
+                      </h3>
                       <p className="mt-2 text-xs text-zinc-400 line-clamp-2">{v.description}</p>
-                      <p className="mt-3 text-[11px] text-zinc-500 font-mono">By {v.creator.name} • {v.duration}</p>
+                      <p className="mt-3 text-[11px] text-zinc-500 font-mono">
+                        By {v.creator.name} • {v.duration}
+                      </p>
                     </Link>
                   ))}
                 </div>
@@ -350,28 +409,26 @@ export default async function ToolDetailPage({
           <div className="space-y-6">
             {/* Pricing Card */}
             <div className="surface p-6">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-lime">
-                Pricing & Licensing
-              </h3>
+              <h3 className="eyebrow text-xs">Pricing & Licensing</h3>
               <div className="mt-4">
                 <p className="text-3xl font-bold text-white">
                   {tool.pricing.startingPrice || "Free"}
                 </p>
-                <p className="mt-1 text-xs text-zinc-400">
-                  Pricing model: {tool.pricing.model}
+                <p className="mt-1 font-mono text-xs text-zinc-400">
+                  Model: {tool.pricing.model}
                 </p>
               </div>
 
               {tool.pricing.freeTierDetails && (
-                <div className="mt-4 rounded-lg border border-line bg-black/30 p-3 text-xs">
-                  <p className="font-semibold text-zinc-300">Free Tier:</p>
+                <div className="mt-4 rounded-lg border border-line bg-ink/70 p-3 text-xs">
+                  <p className="font-semibold text-zinc-200">Free Tier:</p>
                   <p className="text-zinc-400 mt-0.5">{tool.pricing.freeTierDetails}</p>
                 </div>
               )}
 
               {tool.pricing.subscriptionInfo && (
-                <div className="mt-3 text-xs text-zinc-400 leading-5">
-                  <p className="font-semibold text-zinc-300">Subscription Plans:</p>
+                <div className="mt-3 text-xs text-zinc-400 leading-relaxed">
+                  <p className="font-semibold text-zinc-200">Subscription Plans:</p>
                   <p>{tool.pricing.subscriptionInfo}</p>
                 </div>
               )}
@@ -384,24 +441,22 @@ export default async function ToolDetailPage({
 
             {/* Technical Specifications */}
             <div className="surface p-6 space-y-4 text-xs">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-lime">
-                Technical Specifications
-              </h3>
+              <h3 className="eyebrow text-xs">Technical Specifications</h3>
 
               <div>
-                <p className="text-zinc-500">Supported AI Models / Engines:</p>
+                <p className="text-zinc-500 font-mono">AI Models / Engines:</p>
                 <p className="mt-1 font-medium text-white">
-                  {tool.supportedModels?.join(", ") || "Proprietary Cloud Model"}
+                  {tool.supportedModels?.join(", ") || "Proprietary Cloud Diffusion"}
                 </p>
               </div>
 
               <div>
-                <p className="text-zinc-500">Supported Platforms:</p>
+                <p className="text-zinc-500 font-mono">Supported Platforms:</p>
                 <div className="mt-1.5 flex flex-wrap gap-1.5">
                   {tool.platforms.map((plat) => (
                     <span
                       key={plat}
-                      className="rounded border border-line bg-black/40 px-2 py-0.5 text-zinc-300"
+                      className="rounded border border-line bg-ink px-2 py-0.5 text-zinc-300 font-mono text-[11px]"
                     >
                       {plat}
                     </span>
@@ -410,12 +465,12 @@ export default async function ToolDetailPage({
               </div>
 
               <div>
-                <p className="text-zinc-500">Subcategories:</p>
+                <p className="text-zinc-500 font-mono">Subcategories:</p>
                 <div className="mt-1.5 flex flex-wrap gap-1.5">
                   {tool.subcategories.map((sub) => (
                     <span
                       key={sub}
-                      className="rounded border border-line bg-black/40 px-2 py-0.5 text-zinc-400"
+                      className="rounded border border-line bg-ink px-2 py-0.5 text-zinc-400 font-mono text-[11px]"
                     >
                       {sub}
                     </span>
@@ -424,29 +479,31 @@ export default async function ToolDetailPage({
               </div>
 
               <div className="border-t border-line/60 pt-3">
-                <p className="text-zinc-500">Last Verified Date:</p>
-                <p className="font-medium text-white">{tool.verifiedAt}</p>
+                <p className="text-zinc-500 font-mono">Last Verified:</p>
+                <p className="font-medium text-white font-mono">{tool.verifiedAt}</p>
               </div>
             </div>
 
-            {/* Direct Competitors */}
+            {/* Direct Alternatives */}
             {competitors.length > 0 && (
               <div className="surface p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-lime">
-                  Direct Alternatives
-                </h3>
+                <h3 className="eyebrow text-xs">Direct Alternatives</h3>
                 <div className="mt-4 space-y-3">
                   {competitors.map((comp) => (
                     <Link
                       key={comp?.id}
                       href={`/tools/${comp?.slug}`}
-                      className="flex items-center justify-between rounded-lg border border-line bg-black/20 p-3 transition hover:border-lime"
+                      className="flex items-center justify-between rounded-lg border border-line bg-ink/70 p-3 transition hover:border-lime group"
                     >
                       <div>
-                        <p className="text-sm font-bold text-white">{comp?.name}</p>
-                        <p className="text-[11px] text-zinc-500">{comp?.bestFor.split(",")[0]}</p>
+                        <p className="text-sm font-bold text-white group-hover:text-lime transition">
+                          {comp?.name}
+                        </p>
+                        <p className="text-[11px] text-zinc-500">
+                          {comp?.bestFor.split(",")[0]}
+                        </p>
                       </div>
-                      <span className="text-xs text-lime">View →</span>
+                      <span className="text-xs text-lime font-mono">View →</span>
                     </Link>
                   ))}
                 </div>

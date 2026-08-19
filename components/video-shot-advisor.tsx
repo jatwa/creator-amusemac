@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 interface ShotPreset {
   id: string;
@@ -163,16 +162,16 @@ export function VideoShotAdvisor() {
   };
 
   return (
-    <section className="surface p-6 sm:p-10 border-lime/30 bg-panel/80">
+    <section className="surface p-6 sm:p-10 border-lime/30 bg-panel/80 shadow-card">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-line pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="rounded-md border border-lime/40 bg-lime/10 px-2 py-0.5 font-mono text-[11px] font-bold text-lime">
+            <span className="eyebrow text-xs bg-lime/10 px-2.5 py-0.5 rounded border border-lime/30">
               DIRECTOR TOOLKIT
             </span>
             <span className="text-xs text-zinc-500 font-mono">Shot-Specific Stack Matcher</span>
           </div>
-          <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-white">
+          <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Which AI Video Model Should I Use for This Shot?
           </h2>
           <p className="mt-1 text-sm text-zinc-300">
@@ -187,10 +186,10 @@ export function VideoShotAdvisor() {
           <button
             key={preset.id}
             onClick={() => setSelectedId(preset.id)}
-            className={`rounded-xl px-4 py-2 text-xs font-semibold transition flex items-center gap-2 ${
+            className={`rounded-full px-4 py-2 text-xs font-semibold transition flex items-center gap-2 ${
               selectedId === preset.id
-                ? "bg-lime text-black shadow-glow"
-                : "border border-line bg-black/40 text-zinc-300 hover:border-lime hover:text-white"
+                ? "bg-lime text-black shadow-glow-subtle font-bold"
+                : "border border-line bg-ink text-zinc-300 hover:border-lime hover:text-white"
             }`}
           >
             <span>{preset.icon}</span>
@@ -203,9 +202,9 @@ export function VideoShotAdvisor() {
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Challenge & Model Recommendations */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="rounded-xl border border-line/60 bg-black/40 p-6">
-            <div className="text-xs font-mono uppercase text-zinc-400">Cinematic Challenge</div>
-            <p className="mt-2 text-base text-zinc-100 leading-relaxed font-medium">
+          <div className="rounded-xl border border-line bg-ink/80 p-6">
+            <div className="eyebrow text-[10px]">Cinematic Challenge</div>
+            <p className="mt-2 text-sm sm:text-base text-zinc-100 leading-relaxed font-medium">
               {activePreset.challenge}
             </p>
           </div>
@@ -214,12 +213,12 @@ export function VideoShotAdvisor() {
             {/* Primary Model */}
             <div className="rounded-xl border border-lime/40 bg-lime/5 p-5">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono uppercase font-bold text-lime">
+                <span className="eyebrow text-[10px] text-lime">
                   ✦ Primary Video Engine
                 </span>
                 <span className="text-[10px] text-zinc-400 font-mono">Recommended</span>
               </div>
-              <h3 className="mt-2 text-lg font-bold text-white">
+              <h3 className="mt-2 text-base sm:text-lg font-bold text-white">
                 {activePreset.recommendedStack.primary.name}
               </h3>
               <p className="mt-2 text-xs text-zinc-300 leading-relaxed">
@@ -230,12 +229,12 @@ export function VideoShotAdvisor() {
             {/* Secondary Model */}
             <div className="rounded-xl border border-line bg-panel p-5">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-mono uppercase font-bold text-zinc-400">
+                <span className="eyebrow text-[10px] text-zinc-400">
                   ⌁ Secondary / Master Frame
                 </span>
                 <span className="text-[10px] text-zinc-500 font-mono">Chaining</span>
               </div>
-              <h3 className="mt-2 text-lg font-bold text-white">
+              <h3 className="mt-2 text-base sm:text-lg font-bold text-white">
                 {activePreset.recommendedStack.secondary.name}
               </h3>
               <p className="mt-2 text-xs text-zinc-300 leading-relaxed">
@@ -245,25 +244,25 @@ export function VideoShotAdvisor() {
           </div>
 
           {/* Pro Director Tip */}
-          <div className="rounded-xl border border-amber-500/20 bg-amber-950/10 p-4 text-xs text-zinc-300 flex items-start gap-3">
-            <span className="text-amber-400 font-bold text-sm">💡</span>
+          <div className="rounded-xl border border-amber-500/30 bg-amber-950/15 p-4 text-xs text-zinc-300 flex items-start gap-3">
+            <span className="text-amber-400 font-bold text-base">💡</span>
             <div>
-              <strong className="text-amber-300 font-mono">Director&apos;s Pro Tip: </strong>
-              {activePreset.recommendedStack.workflowTip}
+              <strong className="text-amber-300 font-mono uppercase text-[11px]">Director&apos;s Pro Tip: </strong>
+              <span>{activePreset.recommendedStack.workflowTip}</span>
             </div>
           </div>
         </div>
 
         {/* Verified Prompt Syntax Box */}
-        <div className="rounded-xl border border-line bg-black/60 p-6 flex flex-col justify-between">
+        <div className="rounded-xl border border-line bg-ink/90 p-6 flex flex-col justify-between shadow-inner">
           <div>
             <div className="flex items-center justify-between border-b border-line/60 pb-3">
-              <span className="text-xs font-mono uppercase text-lime font-bold">
+              <span className="eyebrow text-xs">
                 Camera &amp; Lens Syntax
               </span>
               <span className="text-[10px] text-zinc-500 font-mono">24fps Verified</span>
             </div>
-            <div className="mt-4 rounded-lg border border-zinc-800 bg-black/80 p-4 font-mono text-xs text-zinc-200 leading-relaxed select-all">
+            <div className="mt-4 rounded-lg border border-zinc-800 bg-black/90 p-4 font-mono text-xs text-zinc-200 leading-relaxed select-all">
               &quot;{activePreset.samplePromptSyntax}&quot;
             </div>
           </div>
@@ -271,9 +270,13 @@ export function VideoShotAdvisor() {
           <div className="mt-6 pt-4 border-t border-line/60 flex items-center justify-between gap-3">
             <button
               onClick={handleCopyPrompt}
-              className="w-full rounded-xl bg-lime px-4 py-2.5 text-xs font-bold text-black hover:bg-white transition flex items-center justify-center gap-2"
+              className={`w-full rounded-full px-4 py-2.5 text-xs font-bold transition flex items-center justify-center gap-2 shadow-glow-subtle ${
+                copied
+                  ? "bg-lime text-black"
+                  : "bg-white text-black hover:bg-lime"
+              }`}
             >
-              <span>{copied ? "✓ Copied Syntax!" : "⌁ Copy Shot Prompt"}</span>
+              <span>{copied ? "✓ Copied Syntax to Clipboard!" : "⌁ Copy Shot Prompt Syntax"}</span>
             </button>
           </div>
         </div>

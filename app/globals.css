@@ -3,15 +3,69 @@
 @tailwind utilities;
 
 @layer base {
-  * { @apply border-line; }
-  html { scroll-behavior: smooth; }
-  body { @apply bg-ink text-zinc-100 antialiased; }
-  ::selection { @apply bg-lime text-black; }
+  * {
+    @apply border-line;
+  }
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-ink text-zinc-100 antialiased font-sans selection:bg-lime selection:text-black;
+  }
+
+  /* Accessible focus indicators */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-lime ring-offset-2 ring-offset-black;
+  }
 }
 
 @layer components {
-  .shell { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10; }
-  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-lime; }
-  .section-title { @apply mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl; }
-  .surface { @apply rounded-2xl border border-line bg-panel; }
+  .shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply font-mono text-xs font-semibold uppercase tracking-[0.14em] text-lime;
+  }
+  .section-title {
+    @apply mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl;
+  }
+  .surface {
+    @apply rounded-xl border border-line bg-panel transition-all duration-200;
+  }
+  .surface-hover {
+    @apply hover:border-line-bright hover:bg-panel-hover;
+  }
+  .card-glow {
+    @apply hover:border-lime/40 hover:shadow-glow-subtle;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #08080a;
+}
+::-webkit-scrollbar-thumb {
+  background: #22222a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f4a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

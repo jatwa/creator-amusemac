@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { VideoEngine } from "@/data/types";
-import Link from "next/link";
 
 export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,8 +41,11 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
       <div className="surface p-6 sm:p-8 space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-white">Video Engine Comparison Matrix</h2>
-            <p className="mt-1 text-xs sm:text-sm text-zinc-400">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-lime" />
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Video Engine Comparison Matrix</h2>
+            </div>
+            <p className="text-xs sm:text-sm text-zinc-400">
               Filter diffusion models, transformer engines, resolution caps, and commercial rights.
             </p>
           </div>
@@ -55,7 +57,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
               placeholder="Search engines, models, use-cases..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-line bg-black/60 px-4 py-2.5 text-xs text-white placeholder:text-zinc-600 outline-none focus:border-lime"
+              className="w-full rounded-full border border-line bg-ink px-4 py-2 text-xs text-white placeholder:text-zinc-500 outline-none focus:border-lime transition"
             />
           </div>
         </div>
@@ -64,15 +66,15 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
         <div className="space-y-4 pt-4 border-t border-line/60">
           {/* Pricing Model Filter */}
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-zinc-500 font-mono mr-2">Pricing:</span>
+            <span className="text-zinc-500 font-mono mr-2 text-[11px]">Pricing:</span>
             {["all", "freemium", "open source", "paid"].map((p) => (
               <button
                 key={p}
                 onClick={() => setPricingFilter(p)}
-                className={`rounded-lg px-3 py-1.5 font-semibold capitalize transition ${
+                className={`rounded-full px-3.5 py-1 text-xs font-semibold capitalize transition ${
                   pricingFilter === p
-                    ? "bg-lime text-black"
-                    : "border border-line bg-panel text-zinc-300 hover:border-lime"
+                    ? "bg-lime text-black shadow-glow-subtle font-bold"
+                    : "border border-line bg-ink text-zinc-300 hover:border-lime hover:text-white"
                 }`}
               >
                 {p}
@@ -82,7 +84,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
 
           {/* Capability Filter */}
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-zinc-500 font-mono mr-2">Capability:</span>
+            <span className="text-zinc-500 font-mono mr-2 text-[11px]">Capability:</span>
             {[
               { key: "all", label: "All Capabilities" },
               { key: "t2v", label: "Text-to-Video" },
@@ -96,10 +98,10 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
               <button
                 key={c.key}
                 onClick={() => setCapabilityFilter(c.key)}
-                className={`rounded-lg px-3 py-1.5 font-semibold transition ${
+                className={`rounded-full px-3.5 py-1 text-xs font-semibold transition ${
                   capabilityFilter === c.key
-                    ? "bg-lime text-black"
-                    : "border border-line bg-panel text-zinc-300 hover:border-lime"
+                    ? "bg-lime text-black shadow-glow-subtle font-bold"
+                    : "border border-line bg-ink text-zinc-300 hover:border-lime hover:text-white"
                 }`}
               >
                 {c.label}
@@ -118,7 +120,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
       {/* Empty State */}
       {filteredEngines.length === 0 && (
         <div className="surface p-12 text-center space-y-4">
-          <div className="text-3xl">🔍</div>
+          <div className="text-3xl text-lime font-mono">◌</div>
           <h3 className="text-lg font-bold text-white">No matching video engines found</h3>
           <p className="text-xs text-zinc-400 max-w-md mx-auto">
             No engines matched your current search query &quot;{searchQuery}&quot; or active capability filters.
@@ -129,16 +131,16 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
               setPricingFilter("all");
               setCapabilityFilter("all");
             }}
-            className="rounded-xl bg-lime px-4 py-2 text-xs font-bold text-black hover:bg-white transition"
+            className="rounded-full bg-lime px-5 py-2 text-xs font-bold text-black hover:bg-white transition"
           >
-            Reset all filters
+            Reset All Filters
           </button>
         </div>
       )}
 
       {/* Desktop Multi-Column Comparison Table */}
       {filteredEngines.length > 0 && (
-        <div className="hidden lg:block overflow-x-auto rounded-2xl border border-line bg-panel/60">
+        <div className="hidden lg:block overflow-x-auto rounded-2xl border border-line bg-panel/60 shadow-card">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-line bg-black/60 font-mono text-zinc-400 uppercase text-[11px]">
@@ -176,7 +178,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
                     <div className="mt-1 flex items-center gap-1.5">
                       <span
                         title="Creator Editorial Qualitative Assessment (1.0 - 5.0) based on physical motion coherence, camera fidelity, and artifact resistance."
-                        className="rounded bg-lime/10 px-1.5 py-0.5 text-[10px] font-mono text-lime font-bold cursor-help"
+                        className="rounded bg-lime/10 px-1.5 py-0.5 text-[10px] font-mono text-lime font-bold cursor-help border border-lime/30"
                       >
                         ★ {engine.rating}
                       </span>
@@ -232,7 +234,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
                         e.stopPropagation();
                         setSelectedEngine(engine);
                       }}
-                      className="rounded-lg border border-line bg-black/60 px-3 py-1.5 text-xs font-semibold text-zinc-300 hover:border-lime hover:text-white transition"
+                      className="rounded-full border border-line bg-ink px-3 py-1.5 text-xs font-semibold text-zinc-300 hover:border-lime hover:text-white transition"
                     >
                       View Specs →
                     </button>
@@ -251,7 +253,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
             <div
               key={engine.id}
               onClick={() => setSelectedEngine(engine)}
-              className="surface p-6 space-y-4 hover:border-lime/40 transition cursor-pointer"
+              className="surface surface-hover p-6 space-y-4 cursor-pointer"
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
@@ -262,15 +264,15 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="rounded-full border border-lime/30 bg-lime/10 px-2.5 py-0.5 text-[10px] font-mono text-lime font-bold">
-                    {engine.pricingModel.toUpperCase()}
+                  <span className="eyebrow text-[10px] bg-lime/10 px-2 py-0.5 rounded border border-lime/30">
+                    {engine.pricingModel}
                   </span>
                   <h3 className="mt-2 text-lg font-bold text-white">{engine.name}</h3>
                   <p className="text-xs text-zinc-400 font-mono">{engine.company}</p>
                 </div>
                 <span
                   title="Creator Editorial Qualitative Assessment"
-                  className="rounded-md border border-line bg-black/60 px-2 py-1 font-mono text-xs text-lime font-bold"
+                  className="rounded-md border border-line bg-ink px-2 py-1 font-mono text-xs text-lime font-bold"
                 >
                   ★ {engine.rating}
                 </span>
@@ -296,7 +298,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
 
               <div className="pt-3 border-t border-line/60 flex items-center justify-between text-xs">
                 <span className="text-zinc-500 font-mono text-[11px]">Verified {engine.lastVerified}</span>
-                <span className="text-lime font-semibold">Inspect Engine →</span>
+                <span className="text-lime font-semibold font-mono">Inspect Engine →</span>
               </div>
             </div>
           ))}
@@ -304,7 +306,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
       )}
 
       {/* Methodology Explainer Note */}
-      <div className="rounded-xl border border-line/60 bg-black/40 p-4 text-xs text-zinc-400 flex items-start gap-3">
+      <div className="rounded-xl border border-line/60 bg-ink/80 p-4 text-xs text-zinc-400 flex items-start gap-3">
         <span className="text-lime font-bold font-mono">ℹ</span>
         <p className="leading-relaxed">
           <strong className="text-white">Editorial Rating Methodology: </strong>
@@ -315,7 +317,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
       {/* Engine Modal / Detail Drawer */}
       {selectedEngine && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="surface max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 border-lime/40 shadow-glow">
+          <div className="surface max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 border-lime/40 shadow-card">
             <div className="flex items-start justify-between border-b border-line pb-4">
               <div>
                 <span className="rounded-full border border-lime/30 bg-lime/10 px-3 py-1 text-xs font-mono text-lime font-bold">
@@ -334,15 +336,15 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
 
             {/* Quick Specs Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-              <div className="rounded-xl border border-line bg-black/40 p-3">
+              <div className="rounded-xl border border-line bg-ink p-3">
                 <span className="text-zinc-500 font-mono text-[10px] uppercase">Max Resolution</span>
                 <p className="font-bold text-lime mt-1">{selectedEngine.maxResolution}</p>
               </div>
-              <div className="rounded-xl border border-line bg-black/40 p-3">
+              <div className="rounded-xl border border-line bg-ink p-3">
                 <span className="text-zinc-500 font-mono text-[10px] uppercase">Max Duration</span>
                 <p className="font-bold text-white mt-1">{selectedEngine.maxDuration}</p>
               </div>
-              <div className="rounded-xl border border-line bg-black/40 p-3">
+              <div className="rounded-xl border border-line bg-ink p-3">
                 <span className="text-zinc-500 font-mono text-[10px] uppercase">Audio Support</span>
                 <p className="font-bold text-white mt-1">{selectedEngine.audio}</p>
               </div>
@@ -388,7 +390,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
                 {selectedEngine.bestUseCases.map((u, i) => (
                   <span
                     key={i}
-                    className="rounded-lg border border-line bg-panel px-3 py-1.5 text-zinc-200"
+                    className="rounded-lg border border-line bg-ink px-3 py-1.5 text-zinc-200"
                   >
                     {u}
                   </span>
@@ -406,7 +408,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
                   href={selectedEngine.officialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-xl bg-lime px-4 py-2 text-xs font-bold text-black hover:bg-white transition"
+                  className="rounded-full bg-lime px-5 py-2 text-xs font-bold text-black hover:bg-white transition"
                 >
                   Official Engine Site ↗
                 </a>

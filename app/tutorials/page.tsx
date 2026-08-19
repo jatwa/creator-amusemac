@@ -16,14 +16,20 @@ export default function TutorialsPage() {
     <main className="min-h-screen bg-ink text-zinc-100">
       <Navigation />
 
-      <div className="shell py-12 sm:py-20">
-        <SectionHeading
-          label="Knowledge Base"
-          title="Tutorials That Ship Work"
-          description="Practical, fluff-free guides for building a faster, repeatable creative practice across video, audio, and visual design."
-        />
+      {/* Header */}
+      <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
+        <div className="shell">
+          <SectionHeading
+            as="h1"
+            label="Knowledge Base"
+            title="Production Tutorials"
+            description="Practical, fluff-free guides for building a faster, repeatable creative practice across video, audio, and visual design."
+          />
+        </div>
+      </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
+      <div className="shell py-12">
+        <div className="grid gap-6 md:grid-cols-2">
           {tutorialsData.map((tut, index) => {
             const requiredTools = tut.requiredToolIds
               .map((id) => getToolById(id))
@@ -32,7 +38,7 @@ export default function TutorialsPage() {
             return (
               <article
                 key={tut.id}
-                className="surface group flex flex-col justify-between overflow-hidden p-8 transition duration-200 hover:border-zinc-500"
+                className="surface surface-hover group flex flex-col justify-between overflow-hidden p-6 sm:p-8"
               >
                 <div>
                   <div className="flex items-center justify-between">
@@ -40,34 +46,34 @@ export default function TutorialsPage() {
                       0{index + 1}
                     </span>
                     <div className="flex items-center gap-2">
-                      <span className="rounded-full border border-lime/30 bg-lime/10 px-3 py-0.5 text-xs font-semibold text-lime">
+                      <span className="eyebrow text-xs bg-lime/10 px-3 py-0.5 rounded-full border border-lime/30">
                         {tut.category}
                       </span>
-                      <span className="rounded-full border border-line bg-black/40 px-2.5 py-0.5 text-xs text-zinc-400">
+                      <span className="rounded-full border border-line bg-ink px-2.5 py-0.5 font-mono text-[10px] text-zinc-400">
                         {tut.readTime}
                       </span>
                     </div>
                   </div>
 
-                  <h2 className="mt-6 text-2xl font-bold text-white group-hover:text-lime transition">
+                  <h2 className="mt-6 text-xl sm:text-2xl font-bold text-white group-hover:text-lime transition leading-snug">
                     <Link href={`/tutorials/${tut.slug}`}>
                       {tut.title}
                     </Link>
                   </h2>
 
-                  <p className="mt-3 text-sm leading-6 text-zinc-300">
+                  <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-300">
                     {tut.goal}
                   </p>
 
                   <div className="mt-6">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                    <p className="eyebrow text-[10px] mb-2">
                       Required Tool Stack:
                     </p>
-                    <div className="mt-2 flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2">
                       {requiredTools.map((tool) => (
                         <span
                           key={tool?.id}
-                          className="rounded-md border border-line bg-black/40 px-2.5 py-1 text-xs text-zinc-300"
+                          className="rounded-md border border-line bg-ink px-2.5 py-1 font-mono text-[11px] text-zinc-300"
                         >
                           {tool?.name}
                         </span>
@@ -76,13 +82,13 @@ export default function TutorialsPage() {
                   </div>
                 </div>
 
-                <div className="mt-8 border-t border-line/60 pt-4 flex items-center justify-between">
-                  <span className="text-xs text-zinc-500 uppercase">{tut.difficulty} level</span>
+                <div className="mt-8 border-t border-line/60 pt-4 flex items-center justify-between font-mono text-xs">
+                  <span className="text-zinc-500 uppercase">{tut.difficulty} level</span>
                   <Link
                     href={`/tutorials/${tut.slug}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-lime hover:text-white transition"
+                    className="inline-flex items-center gap-1.5 font-bold text-lime group-hover:text-white transition"
                   >
-                    <span>Read full guide</span>
+                    <span>Read Guide</span>
                     <span>→</span>
                   </Link>
                 </div>

@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { VideoHubHero } from "@/components/video-hub-hero";
 import { VideoShotAdvisor } from "@/components/video-shot-advisor";
 import { VideoEngineMatrix } from "@/components/video-engine-matrix";
+import { ToolCard, PromptCard, EditorialCard, VideoCard, WorkflowCard } from "@/components/ui-cards";
 import {
   categoriesData,
   toolsData,
@@ -112,33 +113,33 @@ export default async function CategoryDetailPage({
           verifiedDate="August 2026"
         />
       ) : (
-        <div className="border-b border-line bg-panel/50 py-12 sm:py-16">
+        <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
           <div className="shell">
-            <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-6">
-              <Link href="/" className="hover:text-lime">
+            <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-zinc-500 mb-6">
+              <Link href="/" className="hover:text-lime transition">
                 Home
               </Link>
               <span>/</span>
-              <Link href="/categories" className="hover:text-lime">
+              <Link href="/categories" className="hover:text-lime transition">
                 Categories
               </Link>
               <span>/</span>
-              <span className="text-white">{cat.name}</span>
+              <span className="text-zinc-300">{cat.name}</span>
             </div>
 
             <div className="flex items-center gap-4">
               <span className="text-4xl text-lime font-mono">{cat.icon}</span>
               <div>
-                <span className="rounded-full border border-lime/30 bg-lime/10 px-3 py-0.5 text-xs font-semibold text-lime">
+                <span className="eyebrow text-xs bg-lime/10 px-3 py-1 rounded-full border border-lime/30">
                   {cat.badge}
                 </span>
-                <h1 className="mt-2 text-3xl sm:text-5xl font-bold text-white">
+                <h1 className="mt-2 text-3xl sm:text-5xl font-bold text-white tracking-tight">
                   {cat.name}
                 </h1>
               </div>
             </div>
 
-            <p className="mt-4 text-base text-zinc-300 max-w-3xl leading-7">
+            <p className="mt-4 text-base sm:text-lg text-zinc-300 max-w-3xl leading-relaxed">
               {cat.description}
             </p>
           </div>
@@ -163,32 +164,9 @@ export default async function CategoryDetailPage({
               description="Evaluated for real production quality, control, and reliability."
             />
 
-            <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {categoryTools.map((tool) => (
-                <Link
-                  key={tool.id}
-                  href={`/tools/${tool.slug}`}
-                  className="surface p-6 transition hover:border-lime block group"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-lime uppercase">
-                      {tool.subcategories[0]}
-                    </span>
-                    <span className="rounded bg-black/40 px-2 py-0.5 text-[11px] text-zinc-400 font-mono">
-                      {tool.pricing.model}
-                    </span>
-                  </div>
-                  <h3 className="mt-3 text-xl font-bold text-white group-hover:text-lime transition">
-                    {tool.name}
-                  </h3>
-                  <p className="mt-2 text-xs leading-5 text-zinc-400 line-clamp-2">
-                    {tool.description}
-                  </p>
-                  <div className="mt-4 pt-3 border-t border-line/60 flex items-center justify-between text-[11px] text-zinc-500">
-                    <span>Best for: {tool.bestFor.split(",")[0]}</span>
-                    <span className="text-lime group-hover:underline">Dossier →</span>
-                  </div>
-                </Link>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {categoryTools.map((tool, index) => (
+                <ToolCard key={tool.id} tool={tool} index={index} />
               ))}
             </div>
           </section>
@@ -203,28 +181,9 @@ export default async function CategoryDetailPage({
               description="Production-ready prompts with customizable variables and model settings."
             />
 
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {categoryPrompts.map((p) => (
-                <Link
-                  key={p.id}
-                  href={`/prompts/${p.slug}`}
-                  className="surface p-6 transition hover:border-lime block group"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-lime uppercase">
-                      {p.useCase}
-                    </span>
-                    <span className="text-[10px] font-mono text-zinc-500">
-                      {p.variables.length} variables
-                    </span>
-                  </div>
-                  <h3 className="mt-1.5 text-lg font-bold text-white group-hover:text-lime transition">
-                    {p.title}
-                  </h3>
-                  <p className="mt-3 rounded-lg border border-zinc-800 bg-black/40 p-3 font-mono text-xs text-zinc-300 line-clamp-2">
-                    {p.promptText}
-                  </p>
-                </Link>
+                <PromptCard key={p.id} prompt={p} />
               ))}
             </div>
           </section>
@@ -239,35 +198,23 @@ export default async function CategoryDetailPage({
               description="End-to-end pipelines utilizing this domain."
             />
 
-            <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 sm:grid-cols-2">
               {categoryWorkflows.map((wf) => (
-                <Link
-                  key={wf.id}
-                  href={`/workflows/${wf.slug}`}
-                  className="surface p-6 transition hover:border-lime block group"
-                >
-                  <span className="text-xs font-semibold text-lime uppercase">
-                    Pipeline Blueprint
-                  </span>
-                  <h3 className="mt-2 text-base font-bold text-white group-hover:text-lime transition">
-                    {wf.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-zinc-400">{wf.summary}</p>
-                </Link>
+                <WorkflowCard key={wf.id} workflow={wf} />
               ))}
               {categoryTutorials.map((tut) => (
                 <Link
                   key={tut.id}
                   href={`/tutorials/${tut.slug}`}
-                  className="surface p-6 transition hover:border-lime block group"
+                  className="surface surface-hover p-6 block group"
                 >
-                  <span className="text-xs font-semibold text-lime uppercase">
-                    Editorial Tutorial
+                  <span className="eyebrow text-[10px]">
+                    Tutorial Guide
                   </span>
                   <h3 className="mt-2 text-base font-bold text-white group-hover:text-lime transition">
                     {tut.title}
                   </h3>
-                  <p className="mt-2 text-xs text-zinc-400">{tut.goal}</p>
+                  <p className="mt-2 text-xs text-zinc-400 line-clamp-2">{tut.goal}</p>
                 </Link>
               ))}
             </div>
@@ -278,48 +225,18 @@ export default async function CategoryDetailPage({
         {(relatedVideos.length > 0 || relatedBlogs.length > 0) && (
           <section>
             <SectionHeading
-              label="Intelligence & Masterclasses"
-              title="Video Production Breakdowns"
+              label="Media & Masterclasses"
+              title="Production Breakdowns & Analysis"
               description="Deep dives and video breakdowns on model capabilities."
             />
 
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {relatedVideos.map((vid) => (
-                <Link
-                  key={vid.id}
-                  href={`/videos/${vid.slug}`}
-                  className="surface p-6 transition hover:border-lime block group"
-                >
-                  <div className="flex items-center justify-between text-xs text-zinc-400">
-                    <span className="text-lime font-mono">▶ Video Masterclass</span>
-                    <span>{vid.duration}</span>
-                  </div>
-                  <h3 className="mt-2 text-base font-bold text-white group-hover:text-lime transition">
-                    {vid.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-zinc-400 line-clamp-2">
-                    {vid.description}
-                  </p>
-                </Link>
+                <VideoCard key={vid.id} video={vid} />
               ))}
 
               {relatedBlogs.map((blog) => (
-                <Link
-                  key={blog.id}
-                  href={`/blog/${blog.slug}`}
-                  className="surface p-6 transition hover:border-lime block group"
-                >
-                  <div className="flex items-center justify-between text-xs text-zinc-400">
-                    <span className="text-lime font-mono">Editorial Deep Dive</span>
-                    <span>{blog.readingTime}</span>
-                  </div>
-                  <h3 className="mt-2 text-base font-bold text-white group-hover:text-lime transition">
-                    {blog.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-zinc-400 line-clamp-2">
-                    {blog.excerpt}
-                  </p>
-                </Link>
+                <EditorialCard key={blog.id} post={blog} />
               ))}
             </div>
           </section>

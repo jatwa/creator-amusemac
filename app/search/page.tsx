@@ -17,6 +17,7 @@ export default function SearchPage() {
 
       <div className="shell py-12 sm:py-20">
         <SectionHeading
+          as="h1"
           label="Creator Intelligence"
           title="Universal Search & Discovery"
           description="Find the right tool, prompt recipe, tutorial guide, or workflow pipeline for your next visual production."
