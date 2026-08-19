@@ -5,6 +5,19 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Enforce ADMIN_SECRET if configured in environment
+  const adminSecret = process.env.ADMIN_SECRET;
+  const authHeader = request.headers.get("authorization");
+  const customSecret = request.headers.get("x-admin-secret");
+
+  if (
+    adminSecret &&
+    customSecret !== adminSecret &&
+    authHeader !== `Bearer ${adminSecret}`
+  ) {
+    return NextResponse.json({ error: "Unauthorized: Invalid admin credentials" }, { status: 401 });
+  }
+
   const { id } = await params;
   const body = await request.json();
   const { action, reviewerName, customNewValue, rejectionReason } = body;

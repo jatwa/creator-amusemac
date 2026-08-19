@@ -9,6 +9,7 @@ import {
   BlogPost,
   VideoItem,
   UpdateLog,
+  VideoEngine,
 } from "./types";
 
 export const categoriesData: CategoryInfo[] = [
@@ -1429,3 +1430,326 @@ export const updateLogsData: UpdateLog[] = [
     timestamp: "2026-08-16T18:00:00Z",
   },
 ];
+
+export const videoEnginesData: VideoEngine[] = [
+  {
+    id: "engine-runway-gen3",
+    name: "Runway Gen-3 Alpha",
+    slug: "runway-gen-3-alpha",
+    company: "Runway AI, Inc.",
+    model: "Gen-3 Alpha / Gen-3 Turbo / Act-One",
+    officialUrl: "https://runwayml.com",
+    pricingModel: "Freemium",
+    startingPrice: "$12/month (Standard Tier)",
+    freeTier: "125 one-time free generation credits",
+    maxResolution: "4K (via built-in generative upscaler)",
+    maxDuration: "10s per generation (extendable to 40s+)",
+    t2v: true,
+    i2v: true,
+    v2v: true,
+    cameraControl: "6-DOF Directional Control + Motion Brush + Custom Speed Curves",
+    motionControl: "High Precision Scale (1-10) with Structural Adherence",
+    characterConsistency: "Act-One Facial Performance Capture + Fixed Keyframe Reference",
+    audio: "Native Sound FX Generator + Text-to-Audio Stems",
+    dialogue: true,
+    lipSync: true,
+    referenceImages: true,
+    seedControl: true,
+    aspectRatios: ["16:9", "9:16", "1:1", "21:9", "4:5"],
+    apiAvailability: true,
+    commercialUse: "Full commercial licensing on paid plans",
+    strengths: [
+      "Industry-standard cinematic camera syntax (FPV, orbital, crane, dolly)",
+      "Act-One facial performance transfer from single webcam video",
+      "Robust motion brush targeting specific frame sub-regions",
+      "Fast turnarounds on Gen-3 Turbo model"
+    ],
+    weaknesses: [
+      "Credit burn rate is steep on iterative 10-second 4K renders",
+      "Occasional anatomical morphing during complex hand gestures"
+    ],
+    bestUseCases: [
+      "Commercial cinematic narrative shots",
+      "Automotive and tracking action sequences",
+      "Actor performance transfer and dialogue close-ups",
+      "Visual effects plates and previsualization"
+    ],
+    lastVerified: "2026-08-19",
+    sourceUrl: "https://runwayml.com/changelog",
+    rating: 4.9,
+    useCaseTags: ["commercial", "narrative", "previs", "vfx"]
+  },
+  {
+    id: "engine-kling",
+    name: "Kling AI 1.5",
+    slug: "kling-ai",
+    company: "Kuaishou Technology",
+    model: "Kling 1.5 Pro / High Performance",
+    officialUrl: "https://klingai.org",
+    pricingModel: "Freemium",
+    startingPrice: "$10/month (Standard)",
+    freeTier: "66 daily recurring credits",
+    maxResolution: "1080p Full HD (60fps output support)",
+    maxDuration: "10s standard (extendable to 3 minutes continuous)",
+    t2v: true,
+    i2v: true,
+    v2v: true,
+    cameraControl: "Camera Movement Presets (Pan, Tilt, Zoom, Roll, 3D Orbit)",
+    motionControl: "Full Real-World Physics Simulation (Gravity, Fluid, Collision)",
+    characterConsistency: "End-Frame & Start-Frame Image Interpolation + Reference Face",
+    audio: "Ambient Sound Effects Generation",
+    dialogue: false,
+    lipSync: true,
+    referenceImages: true,
+    seedControl: false,
+    aspectRatios: ["16:9", "9:16", "1:1"],
+    apiAvailability: true,
+    commercialUse: "Commercial rights on all paid subscriptions",
+    strengths: [
+      "Unmatched real-world physical dynamics (spilling liquid, eating, complex cloth)",
+      "High duration continuity with seamless 3-minute extension timeline",
+      "Start-frame to end-frame interpolation delivers predictable camera motions",
+      "Extremely photorealistic rendering of Asian and global human anatomy"
+    ],
+    weaknesses: [
+      "Generation queue times can spike during peak global hours",
+      "Camera controls are less granular compared to Runway's coordinate system"
+    ],
+    bestUseCases: [
+      "Realistic human action and culinary/food commercials",
+      "Long-sequence storytelling requiring continuity",
+      "Character interactions with physical objects",
+      "Social media short-form video ads"
+    ],
+    lastVerified: "2026-08-19",
+    sourceUrl: "https://klingai.org/pricing",
+    rating: 4.8,
+    useCaseTags: ["commercial", "narrative", "social"]
+  },
+  {
+    id: "engine-veo",
+    name: "Google Veo",
+    slug: "google-veo",
+    company: "Google DeepMind",
+    model: "Veo Generative High-Definition Video Model",
+    officialUrl: "https://deepmind.google/technologies/veo",
+    pricingModel: "Paid",
+    startingPrice: "Enterprise / Vertex AI API tier pricing",
+    freeTier: "Research preview access via VideoFX / Labs",
+    maxResolution: "1080p Full HD native (high temporal consistency)",
+    maxDuration: "60s+ sustained scenes",
+    t2v: true,
+    i2v: true,
+    v2v: true,
+    cameraControl: "Natural Language Cinematic Prompting (e.g. 'aerial timelapse', 'shaky handheld 35mm')",
+    motionControl: "Semantic Visual Understanding + Visual Mask Editing",
+    characterConsistency: "High Scene & Character Persistence",
+    audio: "Integrated Dialogue & Score Synthesis via DeepMind Audio",
+    dialogue: true,
+    lipSync: true,
+    referenceImages: true,
+    seedControl: true,
+    aspectRatios: ["16:9", "9:16", "1:1", "2.39:1 Anamorphic"],
+    apiAvailability: true,
+    commercialUse: "Enterprise Vertex AI commercial licensing",
+    strengths: [
+      "Deep understanding of film terminology (timelapse, lens choices, lighting types)",
+      "Industry-leading visual consistency across extended 60+ second sequences",
+      "Masked video inpainting and localized editing without whole-frame regeneration"
+    ],
+    weaknesses: [
+      "Access is curated and primarily available via Vertex AI enterprise channels",
+      "Consumer web app interface is limited to invitation-only previews"
+    ],
+    bestUseCases: [
+      "High-concept feature film previsualization",
+      "Broadcast commercial post-production and inpainting",
+      "Complex multi-shot sequence consistency"
+    ],
+    lastVerified: "2026-08-19",
+    sourceUrl: "https://deepmind.google/technologies/veo",
+    rating: 4.9,
+    useCaseTags: ["narrative", "commercial", "previs"]
+  },
+  {
+    id: "engine-luma",
+    name: "Luma Dream Machine 1.5",
+    slug: "luma-dream-machine",
+    company: "Luma AI",
+    model: "Dream Machine 1.5 Transformer Diffusion",
+    officialUrl: "https://lumalabs.ai/dream-machine",
+    pricingModel: "Freemium",
+    startingPrice: "$9.99/month (Lite Tier)",
+    freeTier: "30 free generations per month",
+    maxResolution: "1080p (high frame-rate interpolation)",
+    maxDuration: "5s (extendable in 5s increments)",
+    t2v: true,
+    i2v: true,
+    v2v: false,
+    cameraControl: "Camera Movement Sliders + Natural Language Orbit",
+    motionControl: "Fast Dynamic Camera Translation & Parallax",
+    characterConsistency: "Keyframe Lock + Reference Image Slots",
+    audio: "None (Visual Engine Only)",
+    dialogue: false,
+    lipSync: false,
+    referenceImages: true,
+    seedControl: false,
+    aspectRatios: ["16:9", "9:16", "1:1", "21:9", "4:3"],
+    apiAvailability: true,
+    commercialUse: "Commercial license included on all paid tiers",
+    strengths: [
+      "Near real-time fast generation speeds (under 60 seconds per clip)",
+      "Exceptional 3D parallax and high-speed motion tracking",
+      "Intuitive web interface with smooth extension timeline"
+    ],
+    weaknesses: [
+      "Can struggle with complex text rendering and fine typography",
+      "Lacks native audio/sound generation"
+    ],
+    bestUseCases: [
+      "Fast turnaround rapid ideation and mood boards",
+      "High-speed cinematic camera pans and sweeping environmental fly-throughs",
+      "Social media visual loops and motion graphics"
+    ],
+    lastVerified: "2026-08-19",
+    sourceUrl: "https://lumalabs.ai/dream-machine",
+    rating: 4.6,
+    useCaseTags: ["social", "commercial", "previs"]
+  },
+  {
+    id: "engine-minimax",
+    name: "MiniMax / Hailuo Video-01",
+    slug: "minimax-hailuo-ai",
+    company: "MiniMax Technology",
+    model: "Hailuo Video-01 Live / Director",
+    officialUrl: "https://hailuoai.video",
+    pricingModel: "Freemium",
+    startingPrice: "$10/month (Pro Tier)",
+    freeTier: "Free daily trial allocations",
+    maxResolution: "720p / 1080p HD at 25fps",
+    maxDuration: "6s per generation",
+    t2v: true,
+    i2v: true,
+    v2v: false,
+    cameraControl: "Prompt-driven cinematic terminology and perspective cues",
+    motionControl: "High Dynamic Human Action and Facial Realism",
+    characterConsistency: "High Single-Image Anchor Fidelity",
+    audio: "Ambient audio track synthesis",
+    dialogue: false,
+    lipSync: false,
+    referenceImages: true,
+    seedControl: false,
+    aspectRatios: ["16:9", "9:16", "1:1"],
+    apiAvailability: true,
+    commercialUse: "Commercial use granted under terms of service",
+    strengths: [
+      "Extraordinary character emotional expression and micro-facial movements",
+      "True-to-life skin textures without plastic AI smoothing",
+      "Impressive camera tracking through atmospheric haze and dynamic lighting"
+    ],
+    weaknesses: [
+      "6-second generation cap requires manual stitching in external NLEs",
+      "Interface language translations can occasionally have quirks"
+    ],
+    bestUseCases: [
+      "Character-driven emotional close-ups and documentary reenactments",
+      "Fashion lookbooks and beauty commercial sequences",
+      "Atmospheric environmental establishing shots"
+    ],
+    lastVerified: "2026-08-19",
+    sourceUrl: "https://hailuoai.video",
+    rating: 4.7,
+    useCaseTags: ["commercial", "narrative", "documentary"]
+  },
+  {
+    id: "engine-wan",
+    name: "Wan 2.1",
+    slug: "wan-2-1",
+    company: "Alibaba Cloud / WanX Open Research",
+    model: "Wan 2.1 14B / 1.3B Open Weights",
+    officialUrl: "https://github.com/Wan-Video/Wan2.1",
+    pricingModel: "Open Source",
+    startingPrice: "$0 (Free Self-Hosted) / Pay-per-second on Cloud GPUs",
+    freeTier: "100% Free Apache-2.0 / Open Weights",
+    maxResolution: "1080p native (Supports arbitrary resolution scaling)",
+    maxDuration: "5s standard / Custom frame count on local ComfyUI",
+    t2v: true,
+    i2v: true,
+    v2v: true,
+    cameraControl: "ComfyUI Camera Nodes + LoRA Motion Control",
+    motionControl: "Complete Local GPU Parameter Control",
+    characterConsistency: "IP-Adapter + Custom LoRA Weights + FaceID",
+    audio: "None (Pipeline Modular via ComfyUI Audio Nodes)",
+    dialogue: false,
+    lipSync: false,
+    referenceImages: true,
+    seedControl: true,
+    aspectRatios: ["Custom", "16:9", "9:16", "2.39:1", "1:1"],
+    apiAvailability: true,
+    commercialUse: "Full Commercial Freedom (Open Weights / Apache 2.0)",
+    strengths: [
+      "Zero vendor lock-in with 100% private local GPU execution",
+      "Infinite customizability via ComfyUI nodes, ControlNet, and custom LoRAs",
+      "Unrestricted commercial licensing with zero per-clip credit costs"
+    ],
+    weaknesses: [
+      "Requires high-end NVIDIA GPU hardware (16GB+ VRAM recommended)",
+      "Steeper learning curve compared to turn-key web SaaS platforms"
+    ],
+    bestUseCases: [
+      "Indie film production teams with local GPU workstations",
+      "Proprietary IP and confidential brand client projects",
+      "VFX artists requiring fine ControlNet depth and pose conditioning"
+    ],
+    lastVerified: "2026-08-19",
+    sourceUrl: "https://github.com/Wan-Video/Wan2.1",
+    rating: 4.8,
+    useCaseTags: ["narrative", "vfx", "previs", "commercial"]
+  },
+  {
+    id: "engine-flux-animation",
+    name: "Flux.1 + LoRA Motion Suite",
+    slug: "flux-animation-suite",
+    company: "Black Forest Labs / Community",
+    model: "Flux.1 Schnell / Dev + AnimateDiff / Wan Pipelines",
+    officialUrl: "https://blackforestlabs.ai",
+    pricingModel: "Open Source",
+    startingPrice: "$0 (Local) or $0.003/frame (Cloud API)",
+    freeTier: "Open weights for non-commercial & research",
+    maxResolution: "2K / 4K Photorealistic Master Frames",
+    maxDuration: "Variable frame chains",
+    t2v: true,
+    i2v: true,
+    v2v: true,
+    cameraControl: "AnimateDiff Motion Module Coordinates + Camera LoRAs",
+    motionControl: "Flow-Matching Guidance (1-5 Scale)",
+    characterConsistency: "Single-Seed Identity Persistence + Multi-LoRA Blending",
+    audio: "None",
+    dialogue: false,
+    lipSync: false,
+    referenceImages: true,
+    seedControl: true,
+    aspectRatios: ["Custom arbitrary aspect ratios"],
+    apiAvailability: true,
+    commercialUse: "Commercial use via Flux.1 Pro API or Dev Commercial License",
+    strengths: [
+      "Unrivaled visual aesthetic quality, color grading, and lighting realism",
+      "Flawless rendering of hands, text, typography, and complex micro-textures",
+      "Flow-matching architecture provides superior prompt adherence"
+    ],
+    weaknesses: [
+      "Direct video generation requires hybrid ComfyUI chaining with I2V engines",
+      "High compute requirements for local Dev inference"
+    ],
+    bestUseCases: [
+      "Master cinematic keyframe generation for I2V video pipelines",
+      "High-end luxury brand commercials and typography animation",
+      "Concept art and pitch deck visual development"
+    ],
+    lastVerified: "2026-08-19",
+    sourceUrl: "https://blackforestlabs.ai",
+    rating: 4.9,
+    useCaseTags: ["commercial", "narrative", "music-video", "vfx"]
+  }
+];
+
