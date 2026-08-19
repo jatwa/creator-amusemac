@@ -6,28 +6,28 @@ import { SectionHeading } from "@/components/section-heading";
 import { resourcesData } from "@/data/platform-data";
 
 export const metadata: Metadata = {
-  title: "Creator AI Resources, Templates & LUTs | Creator by Amusemac",
+  title: "Creator Resources, Templates & LUTs — Creator by Amusemac",
   description: "Free storyboard kits, cinematic camera cheat sheets, commercial treatment decks, and LUT packs.",
 };
 
 export default function ResourcesPage() {
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"
             label="Production Assets"
-            title="Director Toolkits & Resources"
+            title="Director Toolkits &amp; Resources"
             description="High-value templates, prompt cheat sheets, treatment decks, and color LUTs to accelerate your creative workflow."
           />
         </div>
       </div>
 
-      <div className="shell py-12">
+      <div className="shell py-14">
         <div className="grid gap-6 sm:grid-cols-2">
           {resourcesData.map((res) => (
             <article
@@ -36,28 +36,28 @@ export default function ResourcesPage() {
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="eyebrow text-xs bg-lime/10 px-3 py-0.5 rounded-full border border-lime/30">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                     {res.type}
                   </span>
-                  <span className="rounded-md border border-line bg-ink px-2.5 py-0.5 text-xs text-zinc-400 font-mono">
+                  <span className="rounded-full border border-border bg-surface-elevated px-2.5 py-0.5 text-xs text-secondary font-mono">
                     {res.format}
                   </span>
                 </div>
 
-                <h2 className="mt-4 text-xl sm:text-2xl font-bold text-white leading-snug">
+                <h2 className="mt-4 text-xl sm:text-2xl font-semibold text-primary leading-snug">
                   {res.title}
                 </h2>
 
-                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-300">
+                <p className="mt-3 text-xs sm:text-sm leading-relaxed text-secondary font-normal">
                   {res.description}
                 </p>
               </div>
 
-              <div className="mt-8 border-t border-line/60 pt-4 flex items-center justify-between font-mono text-xs">
-                <span className="text-zinc-500 text-[11px]">Updated: {res.updatedAt}</span>
+              <div className="mt-8 border-t border-border-subtle pt-4 flex items-center justify-between font-mono text-xs">
+                <span className="text-tertiary text-[11px]">Updated: {res.updatedAt}</span>
                 <Link
                   href="/prompts"
-                  className="rounded-full bg-white px-4 py-1.5 text-xs font-bold text-black hover:bg-lime transition shadow-glow-subtle"
+                  className="rounded-full bg-foreground px-4 py-1.5 text-xs font-medium text-background hover:opacity-90 transition shadow-sm"
                 >
                   Access Resource →
                 </Link>
@@ -67,18 +67,18 @@ export default function ResourcesPage() {
         </div>
 
         {/* Community Submission Box */}
-        <div className="mt-16 rounded-2xl border border-line bg-panel p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-card">
-          <span className="text-3xl text-lime font-mono">✦</span>
-          <h3 className="mt-4 text-2xl font-bold text-white tracking-tight">
+        <div className="mt-16 rounded-2xl border border-border bg-surface p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-subtle">
+          <span className="text-3xl text-secondary font-mono">✦</span>
+          <h3 className="mt-4 text-2xl font-semibold text-primary tracking-tight">
             Have a production kit or prompt recipe to share?
           </h3>
-          <p className="mt-2 text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-2 text-xs sm:text-sm text-secondary max-w-xl mx-auto leading-relaxed font-normal">
             Creator by Amusemac is continuously audited by working filmmakers and designers. Submit your tested workflows for inclusion in our knowledge base.
           </p>
           <div className="mt-6">
             <a
               href="mailto:hello@amusemac.com?subject=Creator Resource Submission"
-              className="inline-block rounded-full bg-lime px-6 py-2.5 text-xs sm:text-sm font-bold text-black hover:bg-white transition shadow-glow-subtle"
+              className="inline-block rounded-full bg-foreground px-6 py-2.5 text-xs sm:text-sm font-medium text-background hover:opacity-90 transition shadow-sm"
             >
               Submit a Workflow or Resource
             </a>

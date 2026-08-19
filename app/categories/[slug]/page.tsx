@@ -37,7 +37,7 @@ export async function generateMetadata({
 
   if (slug === "video") {
     return {
-      title: "AI Video Generation Intelligence Hub | Creator by Amusemac",
+      title: "AI Video Generation Intelligence Hub — Creator by Amusemac",
       description:
         "Director-level comparison of AI video engines: Runway Gen-3 Alpha, Kling AI, Google Veo, Luma Dream Machine, MiniMax, Wan 2.1, and Flux animation pipelines.",
       openGraph: {
@@ -49,7 +49,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${cat.name} AI Tools & Workflows | Creator by Amusemac`,
+    title: `${cat.name} AI Tools & Workflows — Creator by Amusemac`,
     description: cat.description,
   };
 }
@@ -103,7 +103,7 @@ export default async function CategoryDetailPage({
   );
 
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
 
       {/* Flagship Video Hub or Standard Category Header */}
@@ -113,41 +113,41 @@ export default async function CategoryDetailPage({
           verifiedDate="August 2026"
         />
       ) : (
-        <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
+        <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
           <div className="shell">
-            <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-zinc-500 mb-6">
-              <Link href="/" className="hover:text-lime transition">
+            <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-tertiary mb-6">
+              <Link href="/" className="hover:text-primary transition-colors">
                 Home
               </Link>
               <span>/</span>
-              <Link href="/categories" className="hover:text-lime transition">
+              <Link href="/categories" className="hover:text-primary transition-colors">
                 Categories
               </Link>
               <span>/</span>
-              <span className="text-zinc-300">{cat.name}</span>
+              <span className="text-secondary">{cat.name}</span>
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="text-4xl text-lime font-mono">{cat.icon}</span>
+              <span className="text-4xl text-primary font-mono">{cat.icon}</span>
               <div>
-                <span className="eyebrow text-xs bg-lime/10 px-3 py-1 rounded-full border border-lime/30">
+                <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                   {cat.badge}
                 </span>
-                <h1 className="mt-2 text-3xl sm:text-5xl font-bold text-white tracking-tight">
+                <h1 className="mt-2 text-3xl sm:text-5xl font-semibold text-primary tracking-tight">
                   {cat.name}
                 </h1>
               </div>
             </div>
 
-            <p className="mt-4 text-base sm:text-lg text-zinc-300 max-w-3xl leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-secondary max-w-3xl leading-relaxed font-normal">
               {cat.description}
             </p>
           </div>
         </div>
       )}
 
-      <div className="shell py-12 space-y-16">
-        {/* If Video Hub: Render Shot Advisor & Multi-Dimensional Matrix First */}
+      <div className="shell py-14 space-y-20">
+        {/* If Video Hub: Render Shot Advisor & Multi-Dimensional Matrix */}
         {isVideoHub && (
           <>
             <VideoShotAdvisor />
@@ -208,13 +208,13 @@ export default async function CategoryDetailPage({
                   href={`/tutorials/${tut.slug}`}
                   className="surface surface-hover p-6 block group"
                 >
-                  <span className="eyebrow text-[10px]">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-secondary">
                     Tutorial Guide
                   </span>
-                  <h3 className="mt-2 text-base font-bold text-white group-hover:text-lime transition">
+                  <h3 className="mt-2 text-base font-semibold text-primary group-hover:text-accent transition-colors">
                     {tut.title}
                   </h3>
-                  <p className="mt-2 text-xs text-zinc-400 line-clamp-2">{tut.goal}</p>
+                  <p className="mt-2 text-xs text-secondary line-clamp-2">{tut.goal}</p>
                 </Link>
               ))}
             </div>

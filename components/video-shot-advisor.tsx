@@ -19,7 +19,7 @@ interface ShotPreset {
 const SHOT_PRESETS: ShotPreset[] = [
   {
     id: "preset-commercial",
-    title: "Realistic Luxury / Automotive Commercial",
+    title: "Luxury / Automotive Commercial",
     category: "Commercial",
     icon: "🚘",
     challenge: "High-speed reflections, metal surfaces, and precise camera tracking without motion blur artifacts.",
@@ -40,7 +40,7 @@ const SHOT_PRESETS: ShotPreset[] = [
   },
   {
     id: "preset-character",
-    title: "Character Performance & Dialogue Close-Up",
+    title: "Character Performance & Dialogue",
     category: "Narrative",
     icon: "🎭",
     challenge: "Preserving facial identity, natural blinking, eye micro-saccades, and lip sync.",
@@ -61,7 +61,7 @@ const SHOT_PRESETS: ShotPreset[] = [
   },
   {
     id: "preset-physics",
-    title: "Complex Physical Dynamics & Fluids",
+    title: "Physical Dynamics & Fluids",
     category: "VFX / Food",
     icon: "🌊",
     challenge: "Accurate gravity, splashing liquids, steam, cloth simulation, and interaction with hands.",
@@ -82,7 +82,7 @@ const SHOT_PRESETS: ShotPreset[] = [
   },
   {
     id: "preset-cinematic-cam",
-    title: "Complex Camera Choreography (FPV / Orbit)",
+    title: "Camera Choreography (FPV / Orbit)",
     category: "Cinematography",
     icon: "🎥",
     challenge: "Long sustained camera movements without geometric distortion or scene melting.",
@@ -124,7 +124,7 @@ const SHOT_PRESETS: ShotPreset[] = [
   },
   {
     id: "preset-private-studio",
-    title: "Confidential Studio IP & Local GPU Execution",
+    title: "Confidential Studio IP & Local GPU",
     category: "Production",
     icon: "🔒",
     challenge: "Zero third-party data transmission, strict copyright safety, and custom LoRA character training.",
@@ -157,126 +157,126 @@ export function VideoShotAdvisor() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback
+      // Clipboard fallback
     }
   };
 
   return (
-    <section className="surface p-6 sm:p-10 border-lime/30 bg-panel/80 shadow-card">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-line pb-6">
+    <section className="surface p-6 sm:p-10 border-border bg-surface shadow-subtle transition-colors">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border-subtle pb-6">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="eyebrow text-xs bg-lime/10 px-2.5 py-0.5 rounded border border-lime/30">
-              DIRECTOR TOOLKIT
-            </span>
-            <span className="text-xs text-zinc-500 font-mono">Shot-Specific Stack Matcher</span>
-          </div>
-          <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            Which AI Video Model Should I Use for This Shot?
+          <span className="text-xs font-semibold uppercase tracking-wider text-accent">
+            Director Toolkit
+          </span>
+          <h2 className="mt-2 text-2xl sm:text-3xl font-semibold text-primary tracking-tight">
+            Which Video Engine Should You Use for This Shot?
           </h2>
-          <p className="mt-1 text-sm text-zinc-300">
-            Select your scene objective below to receive verified model recommendations, camera syntax, and pipeline tips.
+          <p className="mt-1 text-sm text-secondary font-normal">
+            Select a scene objective below to receive verified model recommendations, camera syntax, and pipeline tips.
           </p>
         </div>
       </div>
 
       {/* Preset Selector Tabs */}
       <div className="mt-6 flex flex-wrap gap-2">
-        {SHOT_PRESETS.map((preset) => (
-          <button
-            key={preset.id}
-            onClick={() => setSelectedId(preset.id)}
-            className={`rounded-full px-4 py-2 text-xs font-semibold transition flex items-center gap-2 ${
-              selectedId === preset.id
-                ? "bg-lime text-black shadow-glow-subtle font-bold"
-                : "border border-line bg-ink text-zinc-300 hover:border-lime hover:text-white"
-            }`}
-          >
-            <span>{preset.icon}</span>
-            <span>{preset.title}</span>
-          </button>
-        ))}
+        {SHOT_PRESETS.map((preset) => {
+          const isSelected = selectedId === preset.id;
+          return (
+            <button
+              key={preset.id}
+              onClick={() => setSelectedId(preset.id)}
+              className={`rounded-full px-4 py-2 text-xs font-medium transition flex items-center gap-2 ${
+                isSelected
+                  ? "bg-foreground text-background shadow-sm"
+                  : "border border-border bg-surface-elevated text-secondary hover:text-primary hover:border-border-bright"
+              }`}
+            >
+              <span>{preset.icon}</span>
+              <span>{preset.title}</span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Active Preset Recommendation Card */}
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Challenge & Model Recommendations */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="rounded-xl border border-line bg-ink/80 p-6">
-            <div className="eyebrow text-[10px]">Cinematic Challenge</div>
-            <p className="mt-2 text-sm sm:text-base text-zinc-100 leading-relaxed font-medium">
+        <div className="lg:col-span-2 space-y-5">
+          <div className="rounded-xl border border-border-subtle bg-surface-elevated p-5 sm:p-6">
+            <div className="text-[11px] font-medium uppercase tracking-wider text-tertiary">Cinematic Challenge</div>
+            <p className="mt-2 text-sm sm:text-base text-primary leading-relaxed font-normal">
               {activePreset.challenge}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Primary Model */}
-            <div className="rounded-xl border border-lime/40 bg-lime/5 p-5">
+            <div className="rounded-xl border border-accent/30 bg-accent/5 p-5">
               <div className="flex items-center justify-between">
-                <span className="eyebrow text-[10px] text-lime">
-                  ✦ Primary Video Engine
+                <span className="text-[11px] font-medium uppercase tracking-wider text-accent">
+                  Primary Video Engine
                 </span>
-                <span className="text-[10px] text-zinc-400 font-mono">Recommended</span>
+                <span className="text-[10px] text-tertiary font-mono">Recommended</span>
               </div>
-              <h3 className="mt-2 text-base sm:text-lg font-bold text-white">
+              <h3 className="mt-2 text-base font-semibold text-primary">
                 {activePreset.recommendedStack.primary.name}
               </h3>
-              <p className="mt-2 text-xs text-zinc-300 leading-relaxed">
+              <p className="mt-2 text-xs text-secondary leading-relaxed font-normal">
                 {activePreset.recommendedStack.primary.reason}
               </p>
             </div>
 
             {/* Secondary Model */}
-            <div className="rounded-xl border border-line bg-panel p-5">
+            <div className="rounded-xl border border-border-subtle bg-surface-elevated p-5">
               <div className="flex items-center justify-between">
-                <span className="eyebrow text-[10px] text-zinc-400">
-                  ⌁ Secondary / Master Frame
+                <span className="text-[11px] font-medium uppercase tracking-wider text-secondary">
+                  Secondary / Keyframe
                 </span>
-                <span className="text-[10px] text-zinc-500 font-mono">Chaining</span>
+                <span className="text-[10px] text-tertiary font-mono">Chaining</span>
               </div>
-              <h3 className="mt-2 text-base sm:text-lg font-bold text-white">
+              <h3 className="mt-2 text-base font-semibold text-primary">
                 {activePreset.recommendedStack.secondary.name}
               </h3>
-              <p className="mt-2 text-xs text-zinc-300 leading-relaxed">
+              <p className="mt-2 text-xs text-secondary leading-relaxed font-normal">
                 {activePreset.recommendedStack.secondary.reason}
               </p>
             </div>
           </div>
 
           {/* Pro Director Tip */}
-          <div className="rounded-xl border border-amber-500/30 bg-amber-950/15 p-4 text-xs text-zinc-300 flex items-start gap-3">
-            <span className="text-amber-400 font-bold text-base">💡</span>
+          <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs text-secondary flex items-start gap-3">
+            <span className="text-accent font-semibold text-sm">💡</span>
             <div>
-              <strong className="text-amber-300 font-mono uppercase text-[11px]">Director&apos;s Pro Tip: </strong>
+              <strong className="text-primary font-medium text-xs">Director&apos;s Pro Tip: </strong>
               <span>{activePreset.recommendedStack.workflowTip}</span>
             </div>
           </div>
         </div>
 
         {/* Verified Prompt Syntax Box */}
-        <div className="rounded-xl border border-line bg-ink/90 p-6 flex flex-col justify-between shadow-inner">
+        <div className="rounded-xl border border-border-subtle bg-surface-elevated p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-line/60 pb-3">
-              <span className="eyebrow text-xs">
+            <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+              <span className="text-xs font-medium text-primary">
                 Camera &amp; Lens Syntax
               </span>
-              <span className="text-[10px] text-zinc-500 font-mono">24fps Verified</span>
+              <span className="text-[10px] text-tertiary font-mono">24fps Verified</span>
             </div>
-            <div className="mt-4 rounded-lg border border-zinc-800 bg-black/90 p-4 font-mono text-xs text-zinc-200 leading-relaxed select-all">
+            <div className="mt-4 rounded-lg border border-border bg-surface p-4 font-mono text-xs text-primary leading-relaxed select-all">
               &quot;{activePreset.samplePromptSyntax}&quot;
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-line/60 flex items-center justify-between gap-3">
+          <div className="mt-6 pt-4 border-t border-border-subtle flex items-center justify-between gap-3">
             <button
               onClick={handleCopyPrompt}
-              className={`w-full rounded-full px-4 py-2.5 text-xs font-bold transition flex items-center justify-center gap-2 shadow-glow-subtle ${
+              className={`w-full rounded-full px-4 py-2.5 text-xs font-medium transition flex items-center justify-center gap-2 shadow-sm ${
                 copied
-                  ? "bg-lime text-black"
-                  : "bg-white text-black hover:bg-lime"
+                  ? "bg-accent text-accent-foreground"
+                  : "bg-foreground text-background hover:opacity-90"
               }`}
             >
-              <span>{copied ? "✓ Copied Syntax to Clipboard!" : "⌁ Copy Shot Prompt Syntax"}</span>
+              <span>{copied ? "✓ Copied Syntax to Clipboard!" : "Copy Shot Prompt Syntax"}</span>
             </button>
           </div>
         </div>

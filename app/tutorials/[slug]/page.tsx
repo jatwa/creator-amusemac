@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!tut) return { title: "Tutorial Not Found" };
 
   return {
-    title: `${tut.title} | Creator by Amusemac`,
+    title: `${tut.title} — Creator by Amusemac`,
     description: tut.goal,
   };
 }
@@ -63,55 +63,55 @@ export default async function TutorialDetailPage({
   };
 
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <StructuredData data={jsonLd} />
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-line bg-gradient-to-b from-panel via-ink to-ink py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell max-w-4xl">
-          <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-zinc-500 mb-6">
-            <Link href="/" className="hover:text-lime transition">Home</Link>
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-tertiary mb-6">
+            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/tutorials" className="hover:text-lime transition">Tutorials</Link>
+            <Link href="/tutorials" className="hover:text-primary transition-colors">Tutorials</Link>
             <span>/</span>
-            <span className="text-zinc-300">{tut.title}</span>
+            <span className="text-secondary">{tut.title}</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="eyebrow text-xs bg-lime/10 px-3 py-1 rounded-full border border-lime/30">
+            <span className="rounded-full bg-accent/10 px-3 py-1 font-medium text-accent font-mono text-xs">
               {tut.category}
             </span>
-            <span className="rounded-full border border-line bg-panel px-3 py-1 font-mono text-xs text-zinc-300">
+            <span className="rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-secondary">
               {tut.readTime}
             </span>
-            <span className="rounded-full border border-line bg-panel px-3 py-1 font-mono text-[10px] text-zinc-400 uppercase">
+            <span className="rounded-full border border-border bg-surface px-3 py-1 font-mono text-[10px] text-tertiary uppercase">
               {tut.difficulty}
             </span>
           </div>
 
-          <h1 className="mt-4 text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="mt-4 text-3xl sm:text-5xl font-semibold tracking-tight text-primary leading-tight">
             {tut.title}
           </h1>
 
-          <div className="mt-6 rounded-xl border border-lime/30 bg-lime/5 p-5">
-            <p className="eyebrow text-[10px] text-lime">Goal of this Tutorial:</p>
-            <p className="mt-1 text-base text-zinc-200 leading-relaxed font-medium">{tut.goal}</p>
+          <div className="mt-6 rounded-2xl border border-border-subtle bg-surface-elevated p-5">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-accent mb-1">Goal of this Tutorial:</p>
+            <p className="text-base text-secondary leading-relaxed font-normal">{tut.goal}</p>
           </div>
         </div>
       </div>
 
-      <div className="shell max-w-4xl py-12 space-y-12">
+      <div className="shell max-w-4xl py-14 space-y-16">
         {/* Required Tools & Prerequisites */}
         <section className="grid gap-6 sm:grid-cols-2">
           <div className="surface p-6">
-            <h3 className="eyebrow text-xs">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
               Prerequisites
             </h3>
-            <ul className="mt-3 space-y-2 text-xs sm:text-sm text-zinc-300">
+            <ul className="mt-3 space-y-2 text-xs sm:text-sm text-secondary">
               {tut.prerequisites.map((req, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <span className="text-lime">•</span>
+                  <span className="text-accent">•</span>
                   <span>{req}</span>
                 </li>
               ))}
@@ -119,7 +119,7 @@ export default async function TutorialDetailPage({
           </div>
 
           <div className="surface p-6">
-            <h3 className="eyebrow text-xs">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
               Required Tool Stack
             </h3>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -127,10 +127,10 @@ export default async function TutorialDetailPage({
                 <Link
                   key={tool?.id}
                   href={`/tools/${tool?.slug}`}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-line bg-ink px-3.5 py-1.5 text-xs font-semibold text-white hover:border-lime transition"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-elevated px-3.5 py-1.5 text-xs font-medium text-primary hover:border-border-bright transition"
                 >
                   <span>{tool?.name}</span>
-                  <span className="text-lime">→</span>
+                  <span className="text-accent">→</span>
                 </Link>
               ))}
             </div>
@@ -145,49 +145,49 @@ export default async function TutorialDetailPage({
 
             return (
               <section key={idx} className="surface p-6 sm:p-8 space-y-6">
-                <h2 className="text-xl sm:text-2xl font-bold text-white">
+                <h2 className="text-xl sm:text-2xl font-semibold text-primary">
                   {section.heading}
                 </h2>
 
-                <p className="text-sm sm:text-base leading-relaxed text-zinc-300">
+                <p className="text-sm sm:text-base leading-relaxed text-secondary font-normal">
                   {section.contentMarkdown}
                 </p>
 
                 {section.tipBox && (
-                  <div className="rounded-xl border border-lime/30 bg-lime/5 p-4 text-xs sm:text-sm text-zinc-200">
-                    <span className="font-bold text-lime font-mono uppercase text-[11px]">Director Tip: </span>
-                    <span>{section.tipBox}</span>
+                  <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs sm:text-sm text-secondary">
+                    <span className="font-semibold text-accent font-mono uppercase text-[11px]">Director Tip: </span>
+                    <span className="font-normal">{section.tipBox}</span>
                   </div>
                 )}
 
                 {linkedPrompt && (
-                  <div className="rounded-xl border border-line bg-ink/70 p-5">
+                  <div className="rounded-xl border border-border-subtle bg-surface-elevated p-5">
                     <div className="flex items-center justify-between">
-                      <span className="eyebrow text-[10px]">
+                      <span className="text-xs font-semibold text-primary">
                         Recipe: {linkedPrompt.title}
                       </span>
                       <Link
                         href={`/prompts/${linkedPrompt.slug}`}
-                        className="text-xs text-lime hover:underline font-mono"
+                        className="text-xs text-accent hover:underline font-mono"
                       >
                         Customize Prompt →
                       </Link>
                     </div>
-                    <p className="mt-2 rounded-lg border border-zinc-800 bg-ink p-3 font-mono text-xs text-zinc-300 select-all">
+                    <p className="mt-2 rounded-lg border border-border bg-surface p-3 font-mono text-xs text-secondary select-all">
                       {linkedPrompt.promptText}
                     </p>
                   </div>
                 )}
 
                 {linkedTool && (
-                  <div className="flex items-center justify-between rounded-xl border border-line bg-ink/70 p-4">
+                  <div className="flex items-center justify-between rounded-xl border border-border-subtle bg-surface-elevated p-4">
                     <div>
-                      <span className="text-zinc-500 font-mono uppercase text-[10px]">Tool Mentioned</span>
-                      <p className="text-sm font-bold text-white mt-0.5">{linkedTool.name}</p>
+                      <span className="text-tertiary font-mono uppercase text-[10px]">Tool Mentioned</span>
+                      <p className="text-sm font-semibold text-primary mt-0.5">{linkedTool.name}</p>
                     </div>
                     <Link
                       href={`/tools/${linkedTool.slug}`}
-                      className="rounded-full border border-line bg-panel px-3 py-1.5 text-xs font-semibold text-lime hover:border-lime transition font-mono"
+                      className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-secondary hover:text-primary transition font-mono"
                     >
                       View Dossier →
                     </Link>
@@ -200,14 +200,14 @@ export default async function TutorialDetailPage({
 
         {/* Common Mistakes & Creator Pitfalls */}
         {tut.commonMistakes.length > 0 && (
-          <section className="surface p-6 sm:p-8 border-red-500/20 bg-red-950/10">
-            <h2 className="text-lg sm:text-xl font-bold text-red-400 font-mono uppercase text-xs">
+          <section className="surface p-6 sm:p-8 bg-surface-elevated">
+            <h2 className="text-xs font-semibold text-tertiary font-mono uppercase">
               Common Production Mistakes to Avoid
             </h2>
-            <ul className="mt-4 space-y-3 text-xs sm:text-sm text-zinc-300">
+            <ul className="mt-4 space-y-3 text-xs sm:text-sm text-secondary">
               {tut.commonMistakes.map((mistake, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-red-400 font-bold">✗</span>
+                  <span className="text-tertiary font-bold">✗</span>
                   <span>{mistake}</span>
                 </li>
               ))}
@@ -218,20 +218,17 @@ export default async function TutorialDetailPage({
         {/* Linked Workflows */}
         {relatedWorkflows.length > 0 && (
           <section className="surface p-6 sm:p-8">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="h-1.5 w-1.5 rounded-full bg-lime" />
-              <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">Full Production Workflows</h2>
-            </div>
+            <h2 className="text-lg sm:text-xl font-semibold text-primary tracking-tight mb-6">Full Production Workflows</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               {relatedWorkflows.map((wf) => (
                 <Link
                   key={wf.id}
                   href={`/workflows/${wf.slug}`}
-                  className="rounded-xl border border-line bg-ink/70 p-5 transition hover:border-lime block group"
+                  className="rounded-xl border border-border-subtle bg-surface-elevated p-5 transition hover:border-border-bright block group"
                 >
-                  <p className="eyebrow text-[10px]">Production Pipeline</p>
-                  <h3 className="mt-1.5 text-sm sm:text-base font-bold text-white group-hover:text-lime transition">{wf.title}</h3>
-                  <p className="mt-2 text-xs text-zinc-400 line-clamp-2">{wf.summary}</p>
+                  <p className="text-xs font-medium uppercase tracking-wider text-secondary">Production Pipeline</p>
+                  <h3 className="mt-1.5 text-sm sm:text-base font-semibold text-primary group-hover:text-accent transition-colors">{wf.title}</h3>
+                  <p className="mt-2 text-xs text-secondary line-clamp-2">{wf.summary}</p>
                 </Link>
               ))}
             </div>

@@ -17,125 +17,86 @@ export function Hero() {
     }
   };
 
-  const productionIntents = [
-    { label: "Commercials", href: "/search?q=commercial" },
-    { label: "Video Generation", href: "/categories/video" },
-    { label: "Character Consistency", href: "/search?q=character" },
-    { label: "Cinematic Film Stills", href: "/prompts/realistic-film-still" },
-    { label: "VFX & Motion", href: "/categories/vfx" },
-    { label: "Runway vs Kling", href: "/compare/runway-vs-kling" },
-  ];
-
   return (
-    <section id="top" className="relative overflow-hidden border-b border-line bg-ink">
-      {/* Cinematic Ambient Atmosphere */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900/40 via-ink to-ink pointer-events-none" />
-      <div className="absolute -top-40 right-1/4 h-96 w-96 rounded-full bg-lime/5 blur-3xl pointer-events-none" />
-
-      <div className="shell relative z-10 py-20 sm:py-28 text-center">
-        <div className="mx-auto max-w-4xl">
-          {/* Eyebrow Status Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-lime/30 bg-lime/10 px-4 py-1.5 backdrop-blur-md">
-            <span className="h-2 w-2 rounded-full bg-lime animate-pulse" />
-            <span className="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-lime">
-              AI Production Intelligence
-            </span>
-          </div>
-
-          {/* Cinematic Headline */}
-          <h1 className="mt-6 text-3xl sm:text-6xl lg:text-7xl font-bold tracking-[-0.04em] text-white leading-[1.1]">
-            For people who <br />
-            <span className="text-zinc-500">make things.</span>
-          </h1>
-
-          {/* Value Pitch */}
-          <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-zinc-300">
-            Discover tools, build prompts, compare models, and design complete AI production workflows for directors, cinematographers, and visual storytellers.
+    <section className="relative overflow-hidden pt-24 pb-20 sm:pt-32 sm:pb-28 text-center transition-colors">
+      <div className="shell relative z-10">
+        <div className="mx-auto max-w-3xl">
+          {/* Subtle Eyebrow */}
+          <p className="eyebrow mb-6 text-tertiary">
+            Creator by Amusemac
           </p>
 
-          {/* Primary Action Buttons */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+          {/* Huge Apple-inspired Headline */}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tighter text-primary leading-[1.08]">
+            AI tools for people <br />
+            <span className="text-tertiary">who make things.</span>
+          </h1>
+
+          {/* Calm, Confident Subheadline */}
+          <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-secondary font-normal">
+            Production intelligence, verified camera models, prompt architecture, and director workflows for filmmakers and visual storytellers.
+          </p>
+
+          {/* Restrained CTAs */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/tools"
-              className="rounded-full bg-lime px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-black transition hover:bg-white shadow-glow-subtle"
+              className="rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 shadow-sm"
             >
-              Explore AI Tools
-            </Link>
-            <Link
-              href="/prompts"
-              className="rounded-full border border-line bg-panel px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-white transition hover:border-zinc-500 hover:bg-panel-hover"
-            >
-              Build a Prompt
+              Explore Creator
             </Link>
             <Link
               href="/categories/video"
-              className="rounded-full border border-lime/30 bg-lime/5 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-lime transition hover:bg-lime/20"
+              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:opacity-80 transition-opacity"
             >
-              Video AI Hub →
+              <span>Explore Video AI Hub</span>
+              <span>→</span>
             </Link>
           </div>
 
-          {/* Production Search Input */}
+          {/* Minimalist Search Bar */}
           <form
             onSubmit={handleSearch}
-            className="mx-auto mt-10 flex w-full max-w-2xl items-center rounded-2xl border border-line bg-panel p-1.5 sm:p-2 shadow-card transition focus-within:border-lime/60 focus-within:shadow-glow-subtle"
+            className="mx-auto mt-12 flex w-full max-w-xl items-center rounded-full border border-border bg-surface px-4 py-2.5 shadow-subtle transition focus-within:border-accent/40 focus-within:shadow-card"
           >
-            <label className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3 px-2 sm:px-3">
-              <span className="shrink-0 font-mono text-base text-lime">⌕</span>
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                aria-label="Search Creator Platform"
-                className="w-full min-w-0 bg-transparent text-xs sm:text-sm text-white outline-none placeholder:text-zinc-500"
-                placeholder="Search tools, prompt recipes, workflows..."
+            <svg
+              className="h-4 w-4 shrink-0 text-secondary mr-3"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
-            </label>
+            </svg>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search Creator Platform"
+              className="w-full min-w-0 bg-transparent text-sm text-primary outline-none placeholder:text-tertiary"
+              placeholder="Search tools, prompt recipes, workflows..."
+            />
             <button
               type="submit"
-              className="shrink-0 rounded-xl bg-white px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-black transition hover:bg-lime"
+              className="shrink-0 text-xs font-medium text-secondary hover:text-primary transition-colors px-2 py-1"
             >
               Search
             </button>
           </form>
 
-          {/* "What Are You Making?" Intent Pills */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs">
-            <span className="font-mono text-[11px] text-zinc-500 py-1 uppercase tracking-wider">
-              Quick Focus:
-            </span>
-            {productionIntents.map((intent) => (
-              <Link
-                key={intent.label}
-                href={intent.href}
-                className="rounded-full border border-line bg-panel/80 px-3 py-1 font-mono text-[11px] text-zinc-300 transition hover:border-lime hover:text-lime"
-              >
-                {intent.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Production Credibility Bar */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-line/60 pt-8 text-left">
-            <div>
-              <div className="font-mono text-[10px] uppercase text-zinc-500">Domain</div>
-              <div className="mt-1 font-bold text-sm text-white">Curated AI Tools</div>
-              <div className="text-[11px] text-zinc-400">Zero sponsored clutter</div>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase text-zinc-500">Video Engine Hub</div>
-              <div className="mt-1 font-bold text-sm text-lime">6 Verified Models</div>
-              <div className="text-[11px] text-zinc-400">Physics &amp; camera specs</div>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase text-zinc-500">Formula Library</div>
-              <div className="mt-1 font-bold text-sm text-white">Cinematic Prompts</div>
-              <div className="text-[11px] text-zinc-400">Variable-ready syntax</div>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase text-zinc-500">Pipelines</div>
-              <div className="mt-1 font-bold text-sm text-white">Director Blueprints</div>
-              <div className="text-[11px] text-zinc-400">End-to-end workflows</div>
-            </div>
+          {/* Quick Focus Links */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-secondary">
+            <span className="text-tertiary">Quick links:</span>
+            <Link href="/categories/video" className="hover:text-primary underline-offset-4 hover:underline">Video Hub</Link>
+            <span className="text-border">•</span>
+            <Link href="/prompts" className="hover:text-primary underline-offset-4 hover:underline">Prompts</Link>
+            <span className="text-border">•</span>
+            <Link href="/compare/runway-vs-kling" className="hover:text-primary underline-offset-4 hover:underline">Runway vs Kling</Link>
+            <span className="text-border">•</span>
+            <Link href="/workflows" className="hover:text-primary underline-offset-4 hover:underline">Workflows</Link>
           </div>
         </div>
       </div>

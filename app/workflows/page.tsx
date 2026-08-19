@@ -7,17 +7,17 @@ import { workflowsData } from "@/data/platform-data";
 import { getToolById } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "End-to-End Creator AI Workflows | Creator by Amusemac",
+  title: "Production Workflows — Creator by Amusemac",
   description: "Production-ready pipeline blueprints for commercial filmmaking, sci-fi worldbuilding pre-pro, and music videos.",
 };
 
 export default function WorkflowsPage() {
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"
@@ -28,9 +28,8 @@ export default function WorkflowsPage() {
         </div>
       </div>
 
-      <div className="shell py-12 space-y-8">
+      <div className="shell py-14 space-y-8">
         {workflowsData.map((wf) => {
-          // Collect all unique tools used across steps
           const allToolIds = Array.from(
             new Set(wf.steps.flatMap((s) => s.recommendedToolIds))
           );
@@ -44,31 +43,31 @@ export default function WorkflowsPage() {
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                 <div>
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="eyebrow text-xs bg-lime/10 px-3 py-1 rounded-full border border-lime/30">
+                    <span className="rounded-full bg-accent/10 px-3 py-1 font-medium text-accent font-mono text-[11px]">
                       {wf.category} Pipeline
                     </span>
-                    <span className="font-mono text-xs text-zinc-400">
+                    <span className="font-mono text-xs text-secondary">
                       ⏱ {wf.estimatedTime}
                     </span>
-                    <span className="rounded-full border border-line bg-ink px-2.5 py-0.5 font-mono text-[10px] text-zinc-400 uppercase">
+                    <span className="rounded-full border border-border bg-surface-elevated px-2.5 py-0.5 font-mono text-[10px] text-tertiary uppercase">
                       {wf.difficulty}
                     </span>
                   </div>
 
-                  <h2 className="mt-4 text-2xl sm:text-3xl font-bold text-white leading-tight">
-                    <Link href={`/workflows/${wf.slug}`} className="hover:text-lime transition">
+                  <h2 className="mt-4 text-2xl sm:text-3xl font-semibold text-primary leading-tight">
+                    <Link href={`/workflows/${wf.slug}`} className="hover:text-accent transition-colors">
                       {wf.title}
                     </Link>
                   </h2>
 
-                  <p className="mt-3 text-sm sm:text-base text-zinc-300 leading-relaxed max-w-3xl">
+                  <p className="mt-3 text-sm sm:text-base text-secondary leading-relaxed max-w-3xl font-normal">
                     {wf.summary}
                   </p>
                 </div>
 
                 <Link
                   href={`/workflows/${wf.slug}`}
-                  className="rounded-full bg-lime px-6 py-2.5 text-xs sm:text-sm font-bold text-black hover:bg-white transition shrink-0 self-start md:self-center flex items-center gap-2 shadow-glow-subtle"
+                  className="rounded-full bg-foreground px-6 py-2.5 text-xs sm:text-sm font-medium text-background hover:opacity-90 transition shrink-0 self-start md:self-center flex items-center gap-2 shadow-sm"
                 >
                   <span>Inspect Blueprint</span>
                   <span>→</span>
@@ -76,8 +75,8 @@ export default function WorkflowsPage() {
               </div>
 
               {/* Pipeline Steps Preview */}
-              <div className="border-t border-line/60 pt-6">
-                <p className="eyebrow text-xs mb-3">
+              <div className="border-t border-border-subtle pt-6">
+                <p className="text-xs font-semibold uppercase tracking-wider text-secondary mb-3">
                   Production Stages ({wf.steps.length} Phases):
                 </p>
 
@@ -85,15 +84,15 @@ export default function WorkflowsPage() {
                   {wf.steps.map((step) => (
                     <div
                       key={step.stepNumber}
-                      className="rounded-xl border border-line bg-ink/70 p-3.5"
+                      className="rounded-xl border border-border-subtle bg-surface-elevated p-3.5"
                     >
-                      <span className="font-mono text-xs text-lime font-bold">
+                      <span className="font-mono text-xs text-accent font-semibold">
                         Phase 0{step.stepNumber}
                       </span>
-                      <p className="mt-1 text-xs font-bold text-white line-clamp-1">
+                      <p className="mt-1 text-xs font-semibold text-primary line-clamp-1">
                         {step.phaseName}
                       </p>
-                      <p className="mt-1 text-[11px] text-zinc-400 line-clamp-2">
+                      <p className="mt-1 text-[11px] text-secondary line-clamp-2">
                         {step.goal}
                       </p>
                     </div>
@@ -103,11 +102,11 @@ export default function WorkflowsPage() {
 
               {/* Tools Stack Strip */}
               <div className="flex flex-wrap items-center gap-2 text-xs pt-2">
-                <span className="text-zinc-500 font-mono text-[11px]">Pipeline Stack:</span>
+                <span className="text-tertiary font-mono text-[11px]">Pipeline Stack:</span>
                 {toolsUsed.map((tool) => (
                   <span
                     key={tool?.id}
-                    className="rounded-md border border-line bg-ink px-2.5 py-0.5 text-zinc-300 font-mono text-[11px]"
+                    className="rounded-md border border-border bg-surface-elevated px-2.5 py-0.5 text-secondary font-mono text-[11px]"
                   >
                     {tool?.name}
                   </span>

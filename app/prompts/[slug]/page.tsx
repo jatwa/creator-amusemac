@@ -24,7 +24,7 @@ export async function generateMetadata({
   if (!prompt) return { title: "Prompt Not Found" };
 
   return {
-    title: `${prompt.title} — AI Prompt Recipe | Creator by Amusemac`,
+    title: `${prompt.title} — AI Prompt Recipe — Creator by Amusemac`,
     description: prompt.description,
   };
 }
@@ -63,46 +63,46 @@ export default async function PromptDetailPage({
   };
 
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <StructuredData data={jsonLd} />
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-line bg-panel/50 py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 mb-6">
-            <Link href="/" className="hover:text-lime">Home</Link>
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-tertiary mb-6">
+            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/prompts" className="hover:text-lime">Prompts</Link>
+            <Link href="/prompts" className="hover:text-primary transition-colors">Prompts</Link>
             <span>/</span>
-            <span className="text-white">{prompt.title}</span>
+            <span className="text-secondary">{prompt.title}</span>
           </div>
 
           <div className="max-w-3xl">
             <div className="flex items-center gap-3">
-              <span className="rounded-full border border-lime/30 bg-lime/10 px-3 py-1 text-xs font-semibold text-lime">
+              <span className="rounded-full bg-accent/10 px-3 py-1 font-mono text-xs font-medium text-accent">
                 {prompt.useCase}
               </span>
-              <span className="rounded-full border border-line bg-black/40 px-3 py-1 text-xs text-zinc-300">
+              <span className="rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-secondary">
                 {prompt.category.toUpperCase()}
               </span>
-              <span className="text-xs text-zinc-400">
+              <span className="text-xs text-tertiary font-mono">
                 Verified: {prompt.verifiedAt}
               </span>
             </div>
 
-            <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">
+            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-primary sm:text-5xl">
               {prompt.title}
             </h1>
 
-            <p className="mt-3 text-base text-zinc-300 leading-7">
+            <p className="mt-3 text-base sm:text-lg text-secondary leading-relaxed font-normal">
               {prompt.description}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="shell py-12">
+      <div className="shell py-14">
         <div className="grid gap-10 lg:grid-cols-3">
           {/* Left Column: Interactive Customizer */}
           <div className="lg:col-span-2 space-y-10">
@@ -111,12 +111,12 @@ export default async function PromptDetailPage({
             {/* Prompt Variations */}
             {prompt.variations && prompt.variations.length > 0 && (
               <section className="surface p-8">
-                <h2 className="text-xl font-bold text-white">Recipe Variations</h2>
+                <h2 className="text-xl font-semibold text-primary">Recipe Variations</h2>
                 <div className="mt-6 space-y-4">
                   {prompt.variations.map((v, i) => (
-                    <div key={i} className="rounded-xl border border-line bg-black/30 p-5">
-                      <h3 className="text-sm font-bold text-lime">{v.name}</h3>
-                      <p className="mt-2 rounded-lg border border-zinc-800 bg-black/60 p-3 font-mono text-xs text-zinc-200">
+                    <div key={i} className="rounded-xl border border-border-subtle bg-surface-elevated p-5">
+                      <h3 className="text-sm font-semibold text-accent">{v.name}</h3>
+                      <p className="mt-2 rounded-lg border border-border bg-surface p-3 font-mono text-xs text-secondary leading-relaxed">
                         {v.promptText}
                       </p>
                     </div>
@@ -128,16 +128,16 @@ export default async function PromptDetailPage({
             {/* Related Prompts */}
             {relatedPrompts.length > 0 && (
               <section className="surface p-8">
-                <h2 className="text-xl font-bold text-white">Related Prompt Recipes</h2>
+                <h2 className="text-xl font-semibold text-primary">Related Prompt Recipes</h2>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
                   {relatedPrompts.map((p) => (
                     <Link
                       key={p.id}
                       href={`/prompts/${p.slug}`}
-                      className="rounded-xl border border-line bg-black/20 p-4 transition hover:border-lime"
+                      className="rounded-xl border border-border-subtle bg-surface-elevated p-4 transition hover:border-border-bright"
                     >
-                      <p className="text-xs text-lime font-semibold uppercase">{p.useCase}</p>
-                      <h3 className="mt-1 text-sm font-bold text-white">{p.title}</h3>
+                      <p className="text-xs text-accent font-medium uppercase tracking-wider">{p.useCase}</p>
+                      <h3 className="mt-1 text-sm font-semibold text-primary">{p.title}</h3>
                     </Link>
                   ))}
                 </div>
@@ -150,14 +150,14 @@ export default async function PromptDetailPage({
             {/* Recommended Model Settings */}
             {prompt.recommendedSettings && (
               <div className="surface p-6 space-y-4 text-xs">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-lime">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
                   Recommended Model Settings
                 </h3>
 
                 {prompt.recommendedSettings.aspectRatio && (
                   <div>
-                    <p className="text-zinc-500">Aspect Ratio:</p>
-                    <p className="mt-0.5 font-mono text-white font-medium">
+                    <p className="text-tertiary font-mono">Aspect Ratio:</p>
+                    <p className="mt-0.5 font-mono text-primary font-medium">
                       {prompt.recommendedSettings.aspectRatio}
                     </p>
                   </div>
@@ -165,8 +165,8 @@ export default async function PromptDetailPage({
 
                 {prompt.recommendedSettings.model && (
                   <div>
-                    <p className="text-zinc-500">Optimized For:</p>
-                    <p className="mt-0.5 font-medium text-white">
+                    <p className="text-tertiary font-mono">Optimized For:</p>
+                    <p className="mt-0.5 font-medium text-primary">
                       {prompt.recommendedSettings.model}
                     </p>
                   </div>
@@ -174,17 +174,17 @@ export default async function PromptDetailPage({
 
                 {prompt.recommendedSettings.guidanceScale && (
                   <div>
-                    <p className="text-zinc-500">Guidance / CFG Scale:</p>
-                    <p className="mt-0.5 font-mono text-white">
+                    <p className="text-tertiary font-mono">Guidance / CFG Scale:</p>
+                    <p className="mt-0.5 font-mono text-primary">
                       {prompt.recommendedSettings.guidanceScale}
                     </p>
                   </div>
                 )}
 
                 {prompt.recommendedSettings.additionalNotes && (
-                  <div className="rounded-lg border border-line bg-black/30 p-3 text-zinc-300">
-                    <p className="font-semibold text-lime">Director Note:</p>
-                    <p className="mt-1 leading-5">{prompt.recommendedSettings.additionalNotes}</p>
+                  <div className="rounded-lg border border-border-subtle bg-surface-elevated p-3 text-secondary">
+                    <p className="font-medium text-accent">Director Note:</p>
+                    <p className="mt-1 leading-relaxed font-normal">{prompt.recommendedSettings.additionalNotes}</p>
                   </div>
                 )}
               </div>
@@ -192,7 +192,7 @@ export default async function PromptDetailPage({
 
             {/* Compatible Tools */}
             <div className="surface p-6">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-lime">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
                 Compatible AI Tools
               </h3>
               <div className="mt-4 space-y-3">
@@ -200,13 +200,13 @@ export default async function PromptDetailPage({
                   <Link
                     key={tool?.id}
                     href={`/tools/${tool?.slug}`}
-                    className="flex items-center justify-between rounded-lg border border-line bg-black/20 p-3 transition hover:border-lime"
+                    className="flex items-center justify-between rounded-lg border border-border-subtle bg-surface-elevated p-3 transition hover:border-border-bright"
                   >
                     <div>
-                      <p className="text-sm font-bold text-white">{tool?.name}</p>
-                      <p className="text-[11px] text-zinc-400">{tool?.category}</p>
+                      <p className="text-sm font-semibold text-primary">{tool?.name}</p>
+                      <p className="text-[11px] text-tertiary">{tool?.category}</p>
                     </div>
-                    <span className="text-xs text-lime">View tool →</span>
+                    <span className="text-xs text-accent font-medium">View tool →</span>
                   </Link>
                 ))}
               </div>
@@ -215,7 +215,7 @@ export default async function PromptDetailPage({
             {/* Related Tutorials */}
             {relatedTutorials.length > 0 && (
               <div className="surface p-6">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-lime">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
                   Workflow Guides Using This Prompt
                 </h3>
                 <div className="mt-4 space-y-3">
@@ -223,10 +223,10 @@ export default async function PromptDetailPage({
                     <Link
                       key={tut.id}
                       href={`/tutorials/${tut.slug}`}
-                      className="block rounded-lg border border-line bg-black/20 p-3 transition hover:border-lime"
+                      className="block rounded-lg border border-border-subtle bg-surface-elevated p-3 transition hover:border-border-bright"
                     >
-                      <p className="text-xs font-bold text-white">{tut.title}</p>
-                      <p className="mt-1 text-[11px] text-zinc-500">{tut.readTime} • {tut.difficulty}</p>
+                      <p className="text-xs font-semibold text-primary">{tut.title}</p>
+                      <p className="mt-1 text-[11px] text-tertiary">{tut.readTime} • {tut.difficulty}</p>
                     </Link>
                   ))}
                 </div>

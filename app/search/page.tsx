@@ -6,16 +6,16 @@ import { SectionHeading } from "@/components/section-heading";
 import { SearchView } from "@/components/search-view";
 
 export const metadata: Metadata = {
-  title: "Universal Creator Search | Creator by Amusemac",
+  title: "Universal Search — Creator by Amusemac",
   description: "Search across creator AI tools, prompt recipes, production workflows, tutorials, and head-to-head comparisons.",
 };
 
 export default function SearchPage() {
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
 
-      <div className="shell py-12 sm:py-20">
+      <div className="shell py-16 sm:py-20">
         <SectionHeading
           as="h1"
           label="Creator Intelligence"
@@ -24,7 +24,7 @@ export default function SearchPage() {
         />
 
         <div className="mt-8">
-          <Suspense fallback={<div className="text-zinc-500 py-12 text-center">Loading search engine...</div>}>
+          <Suspense fallback={<div className="text-secondary py-12 text-center font-mono text-xs">Loading search engine...</div>}>
             <SearchView />
           </Suspense>
         </div>

@@ -20,10 +20,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const blog = db.getBlogBySlug(slug);
-  if (!blog) return { title: "Article Not Found | Creator by Amusemac" };
+  if (!blog) return { title: "Article Not Found — Creator by Amusemac" };
 
   return {
-    title: `${blog.title} | Creator Journal`,
+    title: `${blog.title} — Creator Journal`,
     description: blog.excerpt,
     authors: [{ name: blog.author.name }],
     openGraph: {
@@ -74,70 +74,70 @@ export default async function BlogPostPage({
   };
 
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <StructuredData data={jsonLd} />
       <Navigation />
 
       {/* Editorial Header */}
-      <div className="border-b border-line bg-gradient-to-b from-panel via-ink to-ink py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-zinc-500 font-mono mb-6">
-            <Link href="/" className="hover:text-lime transition">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-tertiary font-mono mb-6">
+            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/blog" className="hover:text-lime transition">Journal</Link>
+            <Link href="/blog" className="hover:text-primary transition-colors">Journal</Link>
             <span>/</span>
-            <span className="text-zinc-300 truncate max-w-xs">{blog.slug}</span>
+            <span className="text-secondary truncate max-w-xs">{blog.slug}</span>
           </nav>
 
           <div className="flex flex-wrap items-center gap-3 text-xs">
-            <span className="rounded-full border border-lime/30 bg-lime/10 px-3 py-1 font-bold uppercase tracking-wider text-lime font-mono text-[11px]">
+            <span className="rounded-full bg-accent/10 px-3 py-1 font-medium text-accent font-mono text-[11px]">
               {blog.category}
             </span>
-            <span className="font-mono text-zinc-400">{blog.readingTime}</span>
-            <span className="text-zinc-600">•</span>
-            <span className="font-mono text-zinc-400">Published {blog.publishedAt}</span>
-            <span className="text-zinc-600">•</span>
-            <span className="font-mono text-zinc-500">Updated {blog.updatedAt}</span>
+            <span className="font-mono text-secondary">{blog.readingTime}</span>
+            <span className="text-tertiary">•</span>
+            <span className="font-mono text-secondary">Published {blog.publishedAt}</span>
+            <span className="text-tertiary">•</span>
+            <span className="font-mono text-tertiary">Updated {blog.updatedAt}</span>
           </div>
 
-          <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl leading-tight max-w-4xl">
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-primary sm:text-4xl lg:text-5xl leading-tight max-w-4xl">
             {blog.title}
           </h1>
 
-          <p className="mt-4 text-base sm:text-lg text-zinc-300 leading-relaxed max-w-3xl font-medium">
+          <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed max-w-3xl font-normal">
             {blog.excerpt}
           </p>
 
           {/* Author Card */}
-          <div className="flex items-center gap-3 pt-6 border-t border-line/60 mt-6">
-            <div className="h-11 w-11 rounded-full bg-lime/20 border border-lime/40 flex items-center justify-center font-bold text-lime">
+          <div className="flex items-center gap-3 pt-6 border-t border-border-subtle mt-8">
+            <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center font-semibold text-accent text-sm">
               {blog.author.name[0]}
             </div>
             <div>
-              <p className="text-sm font-bold text-white">{blog.author.name}</p>
-              <p className="text-xs text-zinc-400 font-mono">{blog.author.role}</p>
+              <p className="text-sm font-semibold text-primary">{blog.author.name}</p>
+              <p className="text-xs text-tertiary font-mono">{blog.author.role}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Article Content Layout */}
-      <div className="shell py-12">
+      <div className="shell py-14">
         <div className="grid gap-12 lg:grid-cols-4">
           {/* Main Editorial Text */}
           <article className="lg:col-span-3 space-y-8">
-            <div className="prose prose-invert max-w-none text-zinc-300 leading-relaxed text-sm sm:text-base space-y-6">
+            <div className="prose max-w-none text-secondary leading-relaxed text-base space-y-6">
               {blog.contentMarkdown.split("\n\n").map((paragraph, index) => {
                 if (paragraph.startsWith("## ")) {
                   return (
-                    <h2 key={index} className="text-2xl font-bold text-white pt-6 pb-2 border-b border-line/60">
+                    <h2 key={index} className="text-2xl font-semibold text-primary pt-6 pb-2 border-b border-border-subtle">
                       {paragraph.replace("## ", "")}
                     </h2>
                   );
                 }
                 if (paragraph.startsWith("### ")) {
                   return (
-                    <h3 key={index} className="text-lg font-bold text-lime pt-4 pb-1">
+                    <h3 key={index} className="text-lg font-semibold text-primary pt-4 pb-1">
                       {paragraph.replace("### ", "")}
                     </h3>
                   );
@@ -145,7 +145,7 @@ export default async function BlogPostPage({
                 if (paragraph.startsWith("```")) {
                   const code = paragraph.replace(/```[a-z]*\n?/g, "").trim();
                   return (
-                    <pre key={index} className="rounded-xl border border-line bg-ink/90 p-4 font-mono text-xs text-zinc-200 overflow-x-auto shadow-inner">
+                    <pre key={index} className="rounded-xl border border-border-subtle bg-surface-elevated p-4 font-mono text-xs text-primary overflow-x-auto">
                       <code>{code}</code>
                     </pre>
                   );
@@ -153,21 +153,21 @@ export default async function BlogPostPage({
                 if (paragraph.startsWith("- ")) {
                   const items = paragraph.split("\n").map((item) => item.replace("- ", ""));
                   return (
-                    <ul key={index} className="space-y-2 list-disc list-inside text-zinc-300">
+                    <ul key={index} className="space-y-2 list-disc list-inside text-secondary">
                       {items.map((it, i) => (
                         <li key={i}>{it}</li>
                       ))}
                     </ul>
                   );
                 }
-                return <p key={index} className="leading-7 sm:leading-8">{paragraph}</p>;
+                return <p key={index} className="leading-7 sm:leading-8 font-normal">{paragraph}</p>;
               })}
             </div>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-2 pt-6 border-t border-line">
+            <div className="flex flex-wrap gap-2 pt-6 border-t border-border-subtle">
               {blog.tags.map((tag) => (
-                <span key={tag} className="rounded-full border border-line bg-panel px-3 py-1 text-xs text-zinc-400 font-mono">
+                <span key={tag} className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-secondary font-mono">
                   #{tag}
                 </span>
               ))}
@@ -175,14 +175,14 @@ export default async function BlogPostPage({
 
             {/* Sources and Attributions */}
             {blog.sourceUrls && blog.sourceUrls.length > 0 && (
-              <div className="rounded-xl border border-line bg-panel/60 p-4 text-xs">
-                <p className="font-bold text-zinc-300 uppercase tracking-wider text-[11px] mb-2 font-mono">
+              <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs">
+                <p className="font-semibold text-primary uppercase tracking-wider text-[11px] mb-2 font-mono">
                   Verified External Sources &amp; Primary Benchmarks:
                 </p>
                 <ul className="space-y-1">
                   {blog.sourceUrls.map((url) => (
                     <li key={url}>
-                      <a href={url} target="_blank" rel="noopener noreferrer" className="text-lime underline hover:text-white font-mono">
+                      <a href={url} target="_blank" rel="noopener noreferrer" className="text-accent underline hover:opacity-80 font-mono">
                         {url} ↗
                       </a>
                     </li>
@@ -197,7 +197,7 @@ export default async function BlogPostPage({
             {/* Related Tools */}
             {relatedTools.length > 0 && (
               <div className="surface p-5 space-y-3">
-                <h3 className="eyebrow text-xs">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
                   Referenced Tools ({relatedTools.length})
                 </h3>
                 <div className="space-y-2.5">
@@ -205,10 +205,10 @@ export default async function BlogPostPage({
                     <Link
                       key={tool.id}
                       href={`/tools/${tool.slug}`}
-                      className="block rounded-lg border border-line/60 bg-ink/70 p-3 text-xs transition hover:border-lime group"
+                      className="block rounded-lg border border-border-subtle bg-surface-elevated p-3 text-xs transition hover:border-border-bright group"
                     >
-                      <p className="font-bold text-white group-hover:text-lime transition">{tool.name}</p>
-                      <p className="text-[11px] text-zinc-400 line-clamp-1">{tool.tagline}</p>
+                      <p className="font-semibold text-primary group-hover:text-accent transition-colors">{tool.name}</p>
+                      <p className="text-[11px] text-tertiary line-clamp-1">{tool.tagline}</p>
                     </Link>
                   ))}
                 </div>
@@ -218,7 +218,7 @@ export default async function BlogPostPage({
             {/* Related Prompts */}
             {relatedPrompts.length > 0 && (
               <div className="surface p-5 space-y-3">
-                <h3 className="eyebrow text-xs">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
                   Linked Prompt Recipes
                 </h3>
                 <div className="space-y-2.5">
@@ -226,10 +226,10 @@ export default async function BlogPostPage({
                     <Link
                       key={prompt.id}
                       href={`/prompts/${prompt.slug}`}
-                      className="block rounded-lg border border-line/60 bg-ink/70 p-3 text-xs transition hover:border-lime group"
+                      className="block rounded-lg border border-border-subtle bg-surface-elevated p-3 text-xs transition hover:border-border-bright group"
                     >
-                      <p className="font-bold text-white group-hover:text-lime transition">{prompt.title}</p>
-                      <p className="text-[11px] text-zinc-400 line-clamp-1">{prompt.useCase}</p>
+                      <p className="font-semibold text-primary group-hover:text-accent transition-colors">{prompt.title}</p>
+                      <p className="text-[11px] text-tertiary line-clamp-1">{prompt.useCase}</p>
                     </Link>
                   ))}
                 </div>
@@ -239,7 +239,7 @@ export default async function BlogPostPage({
             {/* Related Videos */}
             {relatedVideos.length > 0 && (
               <div className="surface p-5 space-y-3">
-                <h3 className="eyebrow text-xs">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
                   Video Masterclasses
                 </h3>
                 <div className="space-y-2.5">
@@ -247,10 +247,10 @@ export default async function BlogPostPage({
                     <Link
                       key={vid.id}
                       href={`/videos/${vid.slug}`}
-                      className="block rounded-lg border border-line/60 bg-ink/70 p-3 text-xs transition hover:border-lime group"
+                      className="block rounded-lg border border-border-subtle bg-surface-elevated p-3 text-xs transition hover:border-border-bright group"
                     >
-                      <p className="font-bold text-white line-clamp-1 group-hover:text-lime transition">{vid.title}</p>
-                      <p className="text-[11px] text-zinc-500 font-mono">▶ {vid.duration}</p>
+                      <p className="font-semibold text-primary line-clamp-1 group-hover:text-accent transition-colors">{vid.title}</p>
+                      <p className="text-[11px] text-tertiary font-mono">▶ {vid.duration}</p>
                     </Link>
                   ))}
                 </div>
@@ -260,7 +260,7 @@ export default async function BlogPostPage({
             {/* Related Tutorials */}
             {relatedTutorials.length > 0 && (
               <div className="surface p-5 space-y-3">
-                <h3 className="eyebrow text-xs">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
                   Practical Tutorials
                 </h3>
                 <div className="space-y-2.5">
@@ -268,10 +268,10 @@ export default async function BlogPostPage({
                     <Link
                       key={tut.id}
                       href={`/tutorials/${tut.slug}`}
-                      className="block rounded-lg border border-line/60 bg-ink/70 p-3 text-xs transition hover:border-lime group"
+                      className="block rounded-lg border border-border-subtle bg-surface-elevated p-3 text-xs transition hover:border-border-bright group"
                     >
-                      <p className="font-bold text-white line-clamp-1 group-hover:text-lime transition">{tut.title}</p>
-                      <p className="text-[11px] text-zinc-500 font-mono">{tut.readTime}</p>
+                      <p className="font-semibold text-primary line-clamp-1 group-hover:text-accent transition-colors">{tut.title}</p>
+                      <p className="text-[11px] text-tertiary font-mono">{tut.readTime}</p>
                     </Link>
                   ))}
                 </div>

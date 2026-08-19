@@ -7,17 +7,17 @@ import { tutorialsData } from "@/data/platform-data";
 import { getToolById } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Workflow Tutorials for Visual Storytellers | Creator by Amusemac",
+  title: "Workflow Tutorials for Visual Storytellers — Creator by Amusemac",
   description: "Step-by-step production guides on AI pre-production, commercial filmmaking, dialogue editing, and look development.",
 };
 
 export default function TutorialsPage() {
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"
@@ -28,7 +28,7 @@ export default function TutorialsPage() {
         </div>
       </div>
 
-      <div className="shell py-12">
+      <div className="shell py-14">
         <div className="grid gap-6 md:grid-cols-2">
           {tutorialsData.map((tut, index) => {
             const requiredTools = tut.requiredToolIds
@@ -42,38 +42,38 @@ export default function TutorialsPage() {
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-4xl font-bold font-mono text-lime/80">
+                    <span className="text-3xl font-semibold font-mono text-tertiary">
                       0{index + 1}
                     </span>
                     <div className="flex items-center gap-2">
-                      <span className="eyebrow text-xs bg-lime/10 px-3 py-0.5 rounded-full border border-lime/30">
+                      <span className="rounded-full bg-accent/10 px-3 py-0.5 font-mono text-xs font-medium text-accent">
                         {tut.category}
                       </span>
-                      <span className="rounded-full border border-line bg-ink px-2.5 py-0.5 font-mono text-[10px] text-zinc-400">
+                      <span className="rounded-full border border-border bg-surface-elevated px-2.5 py-0.5 font-mono text-[10px] text-tertiary">
                         {tut.readTime}
                       </span>
                     </div>
                   </div>
 
-                  <h2 className="mt-6 text-xl sm:text-2xl font-bold text-white group-hover:text-lime transition leading-snug">
+                  <h2 className="mt-6 text-xl sm:text-2xl font-semibold text-primary group-hover:text-accent transition-colors leading-snug">
                     <Link href={`/tutorials/${tut.slug}`}>
                       {tut.title}
                     </Link>
                   </h2>
 
-                  <p className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-300">
+                  <p className="mt-3 text-xs sm:text-sm leading-relaxed text-secondary font-normal">
                     {tut.goal}
                   </p>
 
                   <div className="mt-6">
-                    <p className="eyebrow text-[10px] mb-2">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-secondary mb-2">
                       Required Tool Stack:
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {requiredTools.map((tool) => (
                         <span
                           key={tool?.id}
-                          className="rounded-md border border-line bg-ink px-2.5 py-1 font-mono text-[11px] text-zinc-300"
+                          className="rounded-md border border-border bg-surface-elevated px-2.5 py-1 font-mono text-[11px] text-secondary"
                         >
                           {tool?.name}
                         </span>
@@ -82,11 +82,11 @@ export default function TutorialsPage() {
                   </div>
                 </div>
 
-                <div className="mt-8 border-t border-line/60 pt-4 flex items-center justify-between font-mono text-xs">
-                  <span className="text-zinc-500 uppercase">{tut.difficulty} level</span>
+                <div className="mt-8 border-t border-border-subtle pt-4 flex items-center justify-between font-mono text-xs">
+                  <span className="text-tertiary uppercase">{tut.difficulty} level</span>
                   <Link
                     href={`/tutorials/${tut.slug}`}
-                    className="inline-flex items-center gap-1.5 font-bold text-lime group-hover:text-white transition"
+                    className="inline-flex items-center gap-1.5 font-medium text-accent hover:opacity-80 transition"
                   >
                     <span>Read Guide</span>
                     <span>→</span>

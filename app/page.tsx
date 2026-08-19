@@ -3,9 +3,21 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
 import { SectionHeading } from "@/components/section-heading";
-import { ToolCard, PromptCard, EditorialCard, VideoCard, ComparisonCard, WorkflowCard } from "@/components/ui-cards";
+import {
+  ToolCard,
+  PromptCard,
+  EditorialCard,
+  VideoCard,
+  ComparisonCard,
+  WorkflowCard,
+} from "@/components/ui-cards";
 import { CategoryGrid } from "@/components/category-grid";
-import { toolsData, promptsData, comparisonsData, workflowsData } from "@/data/platform-data";
+import {
+  toolsData,
+  promptsData,
+  comparisonsData,
+  workflowsData,
+} from "@/data/platform-data";
 import { db } from "@/lib/db/repository";
 
 export default function Home() {
@@ -17,12 +29,12 @@ export default function Home() {
   const latestVideos = db.getPublishedVideos().slice(0, 2);
 
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
       <Hero />
 
       {/* STAGE 1: CREATIVE INTENT & DOMAINS */}
-      <section id="categories" className="shell py-16 sm:py-24 border-b border-line/60">
+      <section id="categories" className="shell py-20 sm:py-28 border-t border-border-subtle">
         <SectionHeading
           label="Domain Selection"
           title="What are you making?"
@@ -35,29 +47,27 @@ export default function Home() {
 
       {/* STAGE 2: FLAGSHIP VIDEO GENERATION SPOTLIGHT BANNER */}
       <section className="shell py-12">
-        <div className="surface p-8 sm:p-12 relative overflow-hidden border-lime/30 bg-gradient-to-r from-panel via-panel-hover to-zinc-950">
-          <div className="absolute top-0 right-0 h-64 w-64 bg-lime/10 blur-3xl pointer-events-none" />
+        <div className="surface p-8 sm:p-14 relative overflow-hidden bg-surface-elevated">
           <div className="relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-lime/40 bg-lime/10 px-3 py-1 font-mono text-xs font-semibold text-lime">
-              <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
-              FLAGSHIP INTELLIGENCE HUB
-            </div>
-            <h2 className="mt-4 text-2xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
+            <p className="eyebrow text-accent mb-3">
+              Flagship Intelligence
+            </p>
+            <h2 className="text-2xl sm:text-4xl font-semibold tracking-tight text-primary leading-tight">
               Cinematic AI Video Generation Engine Matrix
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-zinc-300 leading-relaxed">
+            <p className="mt-4 text-sm sm:text-base text-secondary leading-relaxed font-normal">
               Compare 6 verified video engines including Runway Gen-3 Alpha, Kling AI 1.5, Google Veo, Luma Dream Machine, MiniMax, and Wan 2.1 across camera coordinate syntax, character persistence, and physics coherence.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href="/categories/video"
-                className="rounded-full bg-lime px-6 py-2.5 text-xs sm:text-sm font-semibold text-black transition hover:bg-white"
+                className="rounded-full bg-foreground px-6 py-2.5 text-xs sm:text-sm font-medium text-background transition-opacity hover:opacity-90 shadow-sm"
               >
                 Launch Video Hub →
               </Link>
               <Link
                 href="/compare/runway-vs-kling"
-                className="text-xs sm:text-sm font-medium text-zinc-400 hover:text-white transition"
+                className="text-xs sm:text-sm font-medium text-secondary hover:text-primary transition-colors"
               >
                 Read Runway vs Kling Breakdown
               </Link>
@@ -67,7 +77,7 @@ export default function Home() {
       </section>
 
       {/* STAGE 3: CURATED TOOL INTELLIGENCE */}
-      <section id="tools" className="shell py-16 sm:py-24 border-b border-line/60">
+      <section id="tools" className="shell py-20 sm:py-28 border-t border-border-subtle">
         <SectionHeading
           label="Intelligence Dossiers"
           title="Featured AI Production Tools"
@@ -83,7 +93,7 @@ export default function Home() {
       </section>
 
       {/* STAGE 4: PROMPT RECIPES & FORMULA LIBRARY */}
-      <section id="prompts" className="shell py-16 sm:py-24 border-b border-line/60">
+      <section id="prompts" className="shell py-20 sm:py-28 border-t border-border-subtle">
         <SectionHeading
           label="Prompt Formulas"
           title="Production-Tested Prompt Recipes"
@@ -99,7 +109,7 @@ export default function Home() {
       </section>
 
       {/* STAGE 5: VERDICT-FIRST COMPARISONS */}
-      <section id="compare" className="shell py-16 sm:py-24 border-b border-line/60">
+      <section id="compare" className="shell py-20 sm:py-28 border-t border-border-subtle">
         <SectionHeading
           label="Editorial Decisions"
           title="Model & Tool Comparisons"
@@ -115,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* STAGE 6: PRODUCTION WORKFLOWS */}
-      <section id="workflows" className="shell py-16 sm:py-24 border-b border-line/60">
+      <section id="workflows" className="shell py-20 sm:py-28 border-t border-border-subtle">
         <SectionHeading
           label="Pipeline Blueprints"
           title="End-to-End Production Workflows"
@@ -131,7 +141,7 @@ export default function Home() {
       </section>
 
       {/* STAGE 7: CREATOR JOURNAL & MASTERCLASSES */}
-      <section id="media" className="shell py-16 sm:py-24">
+      <section id="media" className="shell py-20 sm:py-28 border-t border-border-subtle">
         <SectionHeading
           label="Media & Essays"
           title="Creator Journal & Video Masterclasses"
@@ -140,14 +150,14 @@ export default function Home() {
           viewAllLabel="Read All Essays"
         />
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-10 lg:grid-cols-2">
           {/* Journal Column */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-line/60">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-lime">
+            <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
+              <span className="text-xs font-semibold uppercase tracking-wider text-secondary">
                 Creator Journal
               </span>
-              <Link href="/blog" className="text-xs text-zinc-400 hover:text-white transition">
+              <Link href="/blog" className="text-xs text-secondary hover:text-primary transition-colors">
                 View Journal →
               </Link>
             </div>
@@ -160,11 +170,11 @@ export default function Home() {
 
           {/* Masterclasses Column */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-line/60">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-lime">
+            <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
+              <span className="text-xs font-semibold uppercase tracking-wider text-secondary">
                 Video Masterclasses
               </span>
-              <Link href="/videos" className="text-xs text-zinc-400 hover:text-white transition">
+              <Link href="/videos" className="text-xs text-secondary hover:text-primary transition-colors">
                 View Masterclasses →
               </Link>
             </div>

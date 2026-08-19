@@ -15,7 +15,7 @@ export function SectionHeading({
   title,
   description,
   viewAllHref,
-  viewAllLabel = "Explore domain",
+  viewAllLabel = "View all",
   align = "left",
   as = "h2",
 }: SectionHeadingProps) {
@@ -23,22 +23,17 @@ export function SectionHeading({
 
   return (
     <div
-      className={`mb-10 sm:mb-12 ${
+      className={`mb-10 sm:mb-14 ${
         align === "center"
           ? "mx-auto max-w-3xl text-center"
           : "flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
       }`}
     >
       <div>
-        <div className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-lime" />
-          <p className="eyebrow">{label}</p>
-        </div>
+        <p className="eyebrow">{label}</p>
         <HeadingTag className="section-title">{title}</HeadingTag>
         {description && (
-          <p className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed text-zinc-400">
-            {description}
-          </p>
+          <p className="section-sub">{description}</p>
         )}
       </div>
 
@@ -46,10 +41,12 @@ export function SectionHeading({
         <div className="shrink-0">
           <Link
             href={viewAllHref}
-            className="group inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-lime transition hover:text-white"
+            className="group inline-flex items-center gap-1 text-sm font-medium text-accent hover:opacity-80 transition-opacity"
           >
             <span>{viewAllLabel}</span>
-            <span className="transition-transform duration-150 group-hover:translate-x-1">→</span>
+            <span className="transition-transform duration-150 group-hover:translate-x-0.5">
+              →
+            </span>
           </Link>
         </div>
       )}

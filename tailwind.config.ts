@@ -1,45 +1,91 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        surface: {
+          DEFAULT: "var(--surface)",
+          elevated: "var(--surface-elevated)",
+          hover: "var(--surface-hover)",
+        },
+        border: {
+          DEFAULT: "var(--border)",
+          subtle: "var(--border-subtle)",
+          bright: "var(--border-bright)",
+        },
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+          muted: "var(--accent-muted)",
+        },
+        // Text semantic aliases
+        primary: "var(--foreground)",
+        secondary: "var(--muted-foreground)",
+        tertiary: "var(--tertiary)",
+
+        // Backward compatibility mappings
         ink: {
-          DEFAULT: "#08080a",
-          deep: "#050507",
-          elevated: "#0e0e12",
+          DEFAULT: "var(--background)",
+          deep: "var(--background)",
+          elevated: "var(--surface)",
         },
         panel: {
-          DEFAULT: "#131318",
-          hover: "#1a1a22",
-          active: "#22222c",
+          DEFAULT: "var(--surface)",
+          hover: "var(--surface-hover)",
+          active: "var(--surface-elevated)",
         },
         line: {
-          DEFAULT: "#22222a",
-          subtle: "#1c1c24",
-          bright: "#3f3f4a",
+          DEFAULT: "var(--border)",
+          subtle: "var(--border-subtle)",
+          bright: "var(--border-bright)",
         },
         lime: {
-          DEFAULT: "#d9ff4a",
-          dim: "#a8cc28",
-          muted: "rgba(217, 255, 74, 0.15)",
-        },
-        cine: {
-          amber: "#f59e0b",
-          cyan: "#38bdf8",
-          emerald: "#10b981",
-          rose: "#f43f5e",
+          DEFAULT: "var(--accent)",
+          dim: "var(--accent)",
+          muted: "var(--accent-muted)",
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+        sans: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"SF Pro Display"',
+          '"SF Pro Text"',
+          '"Segoe UI"',
+          "Roboto",
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+        ],
+        mono: [
+          '"SF Mono"',
+          "ui-monospace",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          '"Liberation Mono"',
+          "monospace",
+        ],
       },
       boxShadow: {
-        glow: "0 0 48px rgba(217, 255, 74, .12)",
-        "glow-subtle": "0 0 24px rgba(217, 255, 74, .06)",
-        card: "0 8px 30px rgba(0, 0, 0, 0.4)",
+        subtle: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        card: "0 4px 20px -2px rgba(0, 0, 0, 0.08)",
+        "card-hover": "0 12px 32px -4px rgba(0, 0, 0, 0.12)",
+        "dark-card": "0 4px 20px -2px rgba(0, 0, 0, 0.4)",
+        "glow-subtle": "0 0 24px var(--accent-muted)",
+      },
+      letterSpacing: {
+        tighter: "-0.04em",
+        tight: "-0.02em",
       },
     },
   },

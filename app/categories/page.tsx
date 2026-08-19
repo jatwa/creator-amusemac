@@ -6,17 +6,17 @@ import { SectionHeading } from "@/components/section-heading";
 import { categoriesData } from "@/data/platform-data";
 
 export const metadata: Metadata = {
-  title: "Creative Stage Categories | Creator by Amusemac",
+  title: "Creative Disciplines — Creator by Amusemac",
   description: "Browse AI creative tools and workflows organized by production domains: Video, Image, Audio, Editing, VFX, and Systems.",
 };
 
 export default function CategoriesPage() {
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"
@@ -27,7 +27,7 @@ export default function CategoriesPage() {
         </div>
       </div>
 
-      <div className="shell py-12">
+      <div className="shell py-14">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {categoriesData.map((cat) => (
             <Link
@@ -37,26 +37,26 @@ export default function CategoriesPage() {
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-4xl text-lime font-mono group-hover:scale-110 transition-transform">
+                  <span className="text-3xl text-primary font-mono group-hover:scale-105 transition-transform">
                     {cat.icon}
                   </span>
-                  <span className="rounded-full border border-line bg-ink px-3 py-1 font-mono text-[10px] uppercase text-zinc-400">
+                  <span className="rounded-full border border-border bg-surface-elevated px-3 py-1 font-mono text-[10px] uppercase text-tertiary">
                     {cat.badge}
                   </span>
                 </div>
 
-                <h2 className="mt-8 text-2xl font-bold text-white group-hover:text-lime transition leading-snug">
+                <h2 className="mt-8 text-2xl font-semibold text-primary group-hover:text-accent transition-colors leading-snug">
                   {cat.name}
                 </h2>
 
-                <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+                <p className="mt-3 text-sm leading-relaxed text-secondary font-normal">
                   {cat.description}
                 </p>
               </div>
 
-              <div className="mt-8 border-t border-line/60 pt-4 flex items-center justify-between text-xs font-mono">
-                <span className="text-zinc-500">{cat.toolCount} verified stacks</span>
-                <span className="font-semibold text-lime group-hover:translate-x-1 transition duration-150 inline-flex items-center gap-1">
+              <div className="mt-8 border-t border-border-subtle pt-4 flex items-center justify-between text-xs font-mono">
+                <span className="text-tertiary">{cat.toolCount} verified stacks</span>
+                <span className="font-medium text-accent group-hover:translate-x-1 transition duration-150 inline-flex items-center gap-1">
                   Explore domain →
                 </span>
               </div>

@@ -7,17 +7,17 @@ import { comparisonsData } from "@/data/platform-data";
 import { ComparisonCard } from "@/components/ui-cards";
 
 export const metadata: Metadata = {
-  title: "AI Model & Tool Comparisons | Creator by Amusemac",
+  title: "AI Model & Tool Comparisons — Creator by Amusemac",
   description: "Direct head-to-head assessments between Runway vs Kling, Midjourney vs Ideogram, and leading generative production engines.",
 };
 
 export default function ComparePage() {
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
 
       {/* Hero Banner */}
-      <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"
@@ -30,25 +30,25 @@ export default function ComparePage() {
           <div className="mt-8 flex flex-wrap gap-2">
             <Link
               href="/compare"
-              className="rounded-full bg-lime px-4 py-1.5 text-xs font-semibold text-black shadow-glow-subtle"
+              className="rounded-full bg-foreground px-4 py-1.5 text-xs font-medium text-background shadow-sm"
             >
               All Comparisons ({comparisonsData.length})
             </Link>
             <Link
               href="/compare/runway-vs-kling"
-              className="rounded-full border border-lime/30 bg-lime/10 px-4 py-1.5 text-xs font-medium text-lime hover:bg-lime/20 transition"
+              className="rounded-full bg-accent/10 px-4 py-1.5 text-xs font-medium text-accent hover:opacity-80 transition"
             >
-              ★ Runway Gen-3 vs Kling AI
+              Runway Gen-3 vs Kling AI
             </Link>
             <Link
               href="/compare/midjourney-vs-ideogram"
-              className="rounded-full border border-line bg-panel px-4 py-1.5 text-xs font-medium text-zinc-300 hover:border-lime hover:text-white transition"
+              className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-border-bright transition"
             >
               Midjourney vs Ideogram
             </Link>
             <Link
               href="/compare/descript-vs-capcut"
-              className="rounded-full border border-line bg-panel px-4 py-1.5 text-xs font-medium text-zinc-300 hover:border-lime hover:text-white transition"
+              className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-border-bright transition"
             >
               Descript vs CapCut
             </Link>
@@ -57,7 +57,7 @@ export default function ComparePage() {
       </div>
 
       {/* Comparisons Grid */}
-      <div className="shell py-12">
+      <div className="shell py-14">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {comparisonsData.map((comp) => (
             <ComparisonCard key={comp.id} comparison={comp} />

@@ -7,17 +7,17 @@ import { ToolCard } from "@/components/ui-cards";
 import { toolsData } from "@/data/platform-data";
 
 export const metadata: Metadata = {
-  title: "Creator AI Tools Directory | Curated Creative Stacks",
+  title: "AI Tools Directory — Creator by Amusemac",
   description: "Browse verified AI tools for video generation, image direction, voice synthesis, editing, and VFX.",
 };
 
 export default function ToolsPage() {
   return (
-    <main className="min-h-screen bg-ink text-zinc-100">
+    <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
 
       {/* Directory Hero Banner */}
-      <div className="border-b border-line bg-gradient-to-b from-panel/80 via-ink to-ink py-12 sm:py-16">
+      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"
@@ -30,37 +30,37 @@ export default function ToolsPage() {
           <div className="mt-8 flex flex-wrap gap-2">
             <Link
               href="/tools"
-              className="rounded-full bg-lime px-4 py-1.5 text-xs font-semibold text-black shadow-glow-subtle"
+              className="rounded-full bg-foreground px-4 py-1.5 text-xs font-medium text-background shadow-sm"
             >
               All Tools ({toolsData.length})
             </Link>
             <Link
               href="/categories/video"
-              className="rounded-full border border-lime/30 bg-lime/10 px-4 py-1.5 text-xs font-medium text-lime hover:bg-lime/20 transition"
+              className="rounded-full bg-accent/10 px-4 py-1.5 text-xs font-medium text-accent hover:opacity-80 transition"
             >
-              ★ Video Generation Hub
+              Video Generation Hub
             </Link>
             <Link
               href="/categories/image"
-              className="rounded-full border border-line bg-panel px-4 py-1.5 text-xs font-medium text-zinc-300 hover:border-lime hover:text-white transition"
+              className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-border-bright transition"
             >
-              Image Direction
+              Image Generation
             </Link>
             <Link
               href="/categories/editing"
-              className="rounded-full border border-line bg-panel px-4 py-1.5 text-xs font-medium text-zinc-300 hover:border-lime hover:text-white transition"
+              className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-border-bright transition"
             >
               Editing &amp; Post
             </Link>
             <Link
               href="/categories/audio"
-              className="rounded-full border border-line bg-panel px-4 py-1.5 text-xs font-medium text-zinc-300 hover:border-lime hover:text-white transition"
+              className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-border-bright transition"
             >
               Voice &amp; Audio
             </Link>
             <Link
               href="/categories/vfx"
-              className="rounded-full border border-line bg-panel px-4 py-1.5 text-xs font-medium text-zinc-300 hover:border-lime hover:text-white transition"
+              className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-border-bright transition"
             >
               Upscaling &amp; VFX
             </Link>
@@ -69,7 +69,7 @@ export default function ToolsPage() {
       </div>
 
       {/* Tools Grid */}
-      <div className="shell py-12">
+      <div className="shell py-14">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {toolsData.map((tool, index) => (
             <ToolCard key={tool.id} tool={tool} index={index} />

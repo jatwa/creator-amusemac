@@ -4,37 +4,44 @@ import { categoriesData } from "@/data/platform-data";
 export function CategoryGrid() {
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {categoriesData.map((category) => (
-        <Link
-          key={category.slug}
-          href={`/categories/${category.slug}`}
-          className="surface surface-hover group p-6 sm:p-7 block transition duration-200"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-3xl text-lime font-mono group-hover:scale-110 transition-transform">
-              {category.icon}
-            </span>
-            <span className="rounded-full border border-line bg-ink px-2.5 py-0.5 font-mono text-[10px] uppercase text-zinc-400">
-              {category.badge}
-            </span>
-          </div>
+      {categoriesData.map((category) => {
+        const isVideo = category.slug === "video";
+        return (
+          <Link
+            key={category.slug}
+            href={`/categories/${category.slug}`}
+            className="surface surface-hover group p-6 sm:p-7 block transition-all duration-200"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-2xl text-primary font-mono group-hover:scale-105 transition-transform">
+                {category.icon}
+              </span>
+              <span className={`rounded-full px-2 py-0.5 text-[10px] uppercase font-mono font-medium ${
+                isVideo
+                  ? "bg-accent/10 text-accent"
+                  : "bg-surface-elevated text-tertiary"
+              }`}>
+                {category.badge}
+              </span>
+            </div>
 
-          <h3 className="mt-6 text-lg sm:text-xl font-bold text-white group-hover:text-lime transition leading-snug">
-            {category.name}
-          </h3>
+            <h3 className="mt-5 text-base sm:text-lg font-semibold text-primary group-hover:text-accent transition-colors leading-snug">
+              {category.name}
+            </h3>
 
-          <p className="mt-2 text-xs sm:text-sm leading-relaxed text-zinc-400 line-clamp-2">
-            {category.description}
-          </p>
+            <p className="mt-2 text-xs sm:text-sm leading-relaxed text-secondary line-clamp-2 font-normal">
+              {category.description}
+            </p>
 
-          <div className="mt-6 flex items-center justify-between pt-4 border-t border-line/60 text-xs font-mono">
-            <span className="text-zinc-500">{category.toolCount} curated tools</span>
-            <span className="text-lime group-hover:translate-x-1 transition duration-150 inline-flex items-center gap-1 font-bold">
-              Explore →
-            </span>
-          </div>
-        </Link>
-      ))}
+            <div className="mt-6 flex items-center justify-between pt-4 border-t border-border-subtle text-xs">
+              <span className="text-tertiary font-mono">{category.toolCount} curated tools</span>
+              <span className="text-accent font-medium group-hover:translate-x-0.5 transition-transform duration-150 inline-flex items-center gap-1">
+                Explore →
+              </span>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 }
