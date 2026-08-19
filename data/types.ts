@@ -2,12 +2,165 @@ export type CategoryType = "video" | "image" | "audio" | "3d" | "editing" | "wor
 
 export type PricingModel = "free" | "freemium" | "paid" | "open-source" | "usage-based";
 
+export type RoleMode = "director" | "cinematographer" | "production_designer" | "editor" | "producer";
+
 export interface ToolPricing {
   model: PricingModel;
   startingPrice?: string;
   freeTierDetails?: string;
   subscriptionInfo?: string;
   commercialUse: boolean | string;
+}
+
+export interface CreatorVerdict {
+  rating: number; // e.g. 4.7
+  bestFor: string;
+  useWhen: string;
+  avoidWhen: string;
+  primaryAlternative: {
+    name: string;
+    slug: string;
+    reason: string;
+  };
+  editorialQuote: string;
+}
+
+export interface QuickFacts {
+  developer: string;
+  releaseYear: string;
+  verifiedModel: string;
+  platforms: string[];
+  commercialTerms: string;
+  apiSupport: string;
+  lastVerified: string;
+  officialUrl: string;
+  pricingSummary: string;
+  freeTierStatus: string;
+}
+
+export interface FunctionalBreakdown {
+  generation: string[];
+  transformation: string[];
+  performance: string[];
+  camera: string[];
+  audio: string[];
+}
+
+export interface ShotBreakdownItem {
+  shotType: string;
+  recommendedModel: string;
+  why: string;
+  promptStrategy: string;
+  expectedResult: string;
+  commonFailure: string;
+}
+
+export interface ProductionPipelineStage {
+  stageNumber: number;
+  stageName: string;
+  action: string;
+  featureUsed: string;
+  outputArtifact: string;
+  potentialPitfall: string;
+}
+
+export interface UsageGuide {
+  beginner: string[];
+  intermediate: string[];
+  advanced: string[];
+}
+
+export interface PromptExampleItem {
+  title: string;
+  category: "Cinematic" | "Commercial" | "Product" | "Character" | "Camera Movement" | "VFX";
+  promptText: string;
+  anatomy: {
+    subject: string;
+    action: string;
+    camera: string;
+    lens: string;
+    light: string;
+    environment: string;
+    motion: string;
+    physics: string;
+    style: string;
+  };
+  explanation: string;
+}
+
+export interface CommonMistakeItem {
+  mistake: string;
+  impact: string;
+  fix: string;
+}
+
+export interface AlternativeMatrixItem {
+  need: string;
+  useTool: string;
+  slug: string;
+  why: string;
+}
+
+export interface PricingTierDetail {
+  name: string;
+  price: string;
+  creditsOrLimits: string;
+  watermark: boolean;
+  commercialRights: boolean;
+  notes: string;
+}
+
+export interface CreatorScorecard {
+  cinematicQuality: number; // 1.0 - 5.0
+  cameraControl: number;
+  motionRealism: number;
+  characterConsistency: number;
+  promptAdherence: number;
+  speed: number;
+  easeOfUse: number;
+  commercialSafety: number;
+  workflowIntegration: number;
+}
+
+export interface SourceLedgerRecord {
+  title: string;
+  url: string;
+  lastVerified: string;
+  verificationConfidence: "Primary Documentation" | "API Specs" | "Direct Benchmark";
+}
+
+export interface DetailedToolDossier {
+  toolId: string;
+  slug: string;
+  name: string;
+  category: CategoryType;
+  tagline: string;
+  creatorVerdict: CreatorVerdict;
+  quickFacts: QuickFacts;
+  pros: string[];
+  cons: string[];
+  whyCreatorsUseIt: string;
+  functionalBreakdown: FunctionalBreakdown;
+  filmmakerTake: string;
+  bestUseCases: { title: string; explanation: string }[];
+  notBestFor: { title: string; explanation: string; betterAlternative: string }[];
+  shotByShotBreakdown: ShotBreakdownItem[];
+  productionPipeline: ProductionPipelineStage[];
+  usageGuide: UsageGuide;
+  promptExamples: PromptExampleItem[];
+  commonMistakes: CommonMistakeItem[];
+  alternativesMatrix: AlternativeMatrixItem[];
+  pricingTiers: PricingTierDetail[];
+  limitations: string[];
+  creatorScorecard: CreatorScorecard;
+  sourceLedger: SourceLedgerRecord[];
+  rolePerspectives?: {
+    director: string;
+    cinematographer: string;
+    production_designer: string;
+    editor: string;
+    producer: string;
+  };
 }
 
 export interface Tool {
@@ -38,6 +191,7 @@ export interface Tool {
   workflowIds: string[];
   relatedBlogIds?: string[];
   relatedVideoIds?: string[];
+  dossier?: DetailedToolDossier;
 }
 
 export interface PromptVariable {
@@ -270,17 +424,17 @@ export interface VideoEngine {
   t2v: boolean;
   i2v: boolean;
   v2v: boolean;
-  cameraControl: string; // e.g. "6-DOF Syntax + Motion Brush", "Basic Pan/Zoom", "Prompt-only"
-  motionControl: string; // e.g. "Fidelity Scale (1-10)", "Dynamic Motion"
-  characterConsistency: string; // e.g. "Reference Face Slot", "Seed Control", "Prompt Lock"
-  audio: string; // e.g. "Native Sound FX + Ambient", "Lip Sync", "Silent"
+  cameraControl: string;
+  motionControl: string;
+  characterConsistency: string;
+  audio: string;
   dialogue: boolean;
   lipSync: boolean;
   referenceImages: boolean;
   seedControl: boolean;
   aspectRatios: string[];
   apiAvailability: boolean;
-  commercialUse: string; // e.g. "Full Commercial Rights (Paid Tiers)", "Non-commercial Free"
+  commercialUse: string;
   strengths: string[];
   weaknesses: string[];
   bestUseCases: string[];
@@ -289,4 +443,3 @@ export interface VideoEngine {
   rating: number;
   useCaseTags: ("commercial" | "narrative" | "previs" | "vfx" | "social" | "music-video" | "documentary")[];
 }
-

@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 import { ToolCard } from "@/components/ui-cards";
 import { toolsData } from "@/data/platform-data";
+import { DirectoryAtAGlance } from "@/components/directory-at-a-glance";
 
 export const metadata: Metadata = {
   title: "AI Tools Directory — Creator by Amusemac",
@@ -17,13 +18,13 @@ export default function ToolsPage() {
       <Navigation />
 
       {/* Directory Hero Banner */}
-      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
+      <div className="border-b border-border-subtle bg-surface/30 py-14 sm:py-18">
         <div className="shell">
           <SectionHeading
             as="h1"
-            label="Verified Directory"
-            title="Curated AI Tool Stack"
-            description="Tested models and creative software for filmmakers, editors, 3D artists, and visual storytellers. Filtered by production discipline."
+            label="Editorial Intelligence Desk"
+            title="Curated AI Production Stack"
+            description="Deeply tested models and creative software for filmmakers, cinematographers, production designers, and editors. Verified capabilities and transparent pricing."
           />
 
           {/* Category Filter Pills */}
@@ -68,12 +69,31 @@ export default function ToolsPage() {
         </div>
       </div>
 
-      {/* Tools Grid */}
-      <div className="shell py-14">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {toolsData.map((tool, index) => (
-            <ToolCard key={tool.id} tool={tool} index={index} />
-          ))}
+      <div className="shell py-12 space-y-12">
+        {/* At A Glance Comparison Matrix */}
+        <DirectoryAtAGlance tools={toolsData} />
+
+        {/* Detailed Tool Cards Section */}
+        <div>
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-widest text-accent font-semibold">
+                Dossier Archives
+              </span>
+              <h2 className="text-xl font-semibold text-primary mt-0.5">
+                Full Production Intelligence Dossiers
+              </h2>
+            </div>
+            <span className="text-xs text-tertiary font-mono">
+              {toolsData.length} Audited Engines
+            </span>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {toolsData.map((tool, index) => (
+              <ToolCard key={tool.id} tool={tool} index={index} />
+            ))}
+          </div>
         </div>
       </div>
 
