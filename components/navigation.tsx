@@ -144,7 +144,7 @@ export function Navigation() {
 
           <Link
             href="/tools"
-            className="rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-black transition hover:bg-lime"
+            className="hidden sm:inline-flex rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-black transition hover:bg-lime"
           >
             Explore Tools
           </Link>

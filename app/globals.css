@@ -9,9 +9,11 @@
   html {
     scroll-behavior: smooth;
     color-scheme: dark;
+    overflow-x: hidden;
   }
   body {
     @apply bg-ink text-zinc-100 antialiased font-sans selection:bg-lime selection:text-black;
+    overflow-x: hidden;
   }
 
   /* Accessible focus indicators */

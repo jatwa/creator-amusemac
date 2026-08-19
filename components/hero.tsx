@@ -43,8 +43,8 @@ export function Hero() {
           </div>
 
           {/* Cinematic Headline */}
-          <h1 className="mt-6 text-4xl sm:text-6xl lg:text-7xl font-bold tracking-[-0.04em] text-white leading-[1.08]">
-            For people who <br className="hidden sm:inline" />
+          <h1 className="mt-6 text-3xl sm:text-6xl lg:text-7xl font-bold tracking-[-0.04em] text-white leading-[1.1]">
+            For people who <br />
             <span className="text-zinc-500">make things.</span>
           </h1>
 
@@ -54,22 +54,22 @@ export function Hero() {
           </p>
 
           {/* Primary Action Buttons */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
             <Link
               href="/tools"
-              className="rounded-full bg-lime px-6 py-3 text-sm font-semibold text-black transition hover:bg-white shadow-glow-subtle"
+              className="rounded-full bg-lime px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-black transition hover:bg-white shadow-glow-subtle"
             >
               Explore AI Tools
             </Link>
             <Link
               href="/prompts"
-              className="rounded-full border border-line bg-panel px-6 py-3 text-sm font-semibold text-white transition hover:border-zinc-500 hover:bg-panel-hover"
+              className="rounded-full border border-line bg-panel px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-white transition hover:border-zinc-500 hover:bg-panel-hover"
             >
               Build a Prompt
             </Link>
             <Link
               href="/categories/video"
-              className="rounded-full border border-lime/30 bg-lime/5 px-6 py-3 text-sm font-semibold text-lime transition hover:bg-lime/20"
+              className="rounded-full border border-lime/30 bg-lime/5 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-lime transition hover:bg-lime/20"
             >
               Video AI Hub →
             </Link>
@@ -78,21 +78,21 @@ export function Hero() {
           {/* Production Search Input */}
           <form
             onSubmit={handleSearch}
-            className="mx-auto mt-10 flex max-w-2xl items-center rounded-2xl border border-line bg-panel p-2 shadow-card transition focus-within:border-lime/60 focus-within:shadow-glow-subtle"
+            className="mx-auto mt-10 flex w-full max-w-2xl items-center rounded-2xl border border-line bg-panel p-1.5 sm:p-2 shadow-card transition focus-within:border-lime/60 focus-within:shadow-glow-subtle"
           >
-            <label className="flex flex-1 items-center gap-3 px-3">
-              <span className="font-mono text-base text-lime">⌕</span>
+            <label className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3 px-2 sm:px-3">
+              <span className="shrink-0 font-mono text-base text-lime">⌕</span>
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 aria-label="Search Creator Platform"
-                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-zinc-500"
-                placeholder="Search tools, prompt recipes, workflows (e.g. 'cinematic commercial', 'Runway', 'Midjourney')..."
+                className="w-full min-w-0 bg-transparent text-xs sm:text-sm text-white outline-none placeholder:text-zinc-500"
+                placeholder="Search tools, prompt recipes, workflows..."
               />
             </label>
             <button
               type="submit"
-              className="rounded-xl bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-black transition hover:bg-lime"
+              className="shrink-0 rounded-xl bg-white px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-black transition hover:bg-lime"
             >
               Search
             </button>

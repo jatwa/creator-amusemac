@@ -48,8 +48,8 @@ export function VideoHubHero({
         </p>
 
         {/* Quick Value Metrics */}
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-line/60">
-          <div className="surface p-4 bg-ink/70">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pt-6 border-t border-line/60">
+          <div className="surface p-3.5 sm:p-4 bg-ink/70">
             <div className="text-[11px] text-zinc-500 font-mono uppercase">Camera Control</div>
             <div className="mt-1 text-sm sm:text-base font-bold text-white">Directional 6-DOF &amp; Presets</div>
           </div>

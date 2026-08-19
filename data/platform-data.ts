@@ -1326,7 +1326,7 @@ export const videosData: VideoItem[] = [
     platform: "youtube",
     videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // verified placeholder format
     embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
-    thumbnailUrl: "https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=800&auto=format&fit=crop",
+    thumbnailUrl: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=800&auto=format&fit=crop",
     duration: "14:20",
     creator: {
       name: "Curated Creator Lab",
