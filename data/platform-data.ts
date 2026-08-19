@@ -1442,12 +1442,12 @@ export const videoEnginesData: VideoEngine[] = [
     pricingModel: "Freemium",
     startingPrice: "$12/month (Standard Tier)",
     freeTier: "125 one-time free generation credits",
-    maxResolution: "4K (via built-in generative upscaler)",
+    maxResolution: "1080p Full HD Native (4K via Upscaler Tool)",
     maxDuration: "10s per generation (extendable to 40s+)",
     t2v: true,
     i2v: true,
     v2v: true,
-    cameraControl: "6-DOF Directional Control + Motion Brush + Custom Speed Curves",
+    cameraControl: "Directional 6-DOF Syntax + Motion Brush + Speed Curves",
     motionControl: "High Precision Scale (1-10) with Structural Adherence",
     characterConsistency: "Act-One Facial Performance Capture + Fixed Keyframe Reference",
     audio: "Native Sound FX Generator + Text-to-Audio Stems",
@@ -1465,7 +1465,7 @@ export const videoEnginesData: VideoEngine[] = [
       "Fast turnarounds on Gen-3 Turbo model"
     ],
     weaknesses: [
-      "Credit burn rate is steep on iterative 10-second 4K renders",
+      "Credit burn rate is steep on iterative 10-second high-density renders",
       "Occasional anatomical morphing during complex hand gestures"
     ],
     bestUseCases: [
@@ -1485,7 +1485,7 @@ export const videoEnginesData: VideoEngine[] = [
     slug: "kling-ai",
     company: "Kuaishou Technology",
     model: "Kling 1.5 Pro / High Performance",
-    officialUrl: "https://klingai.org",
+    officialUrl: "https://klingai.com",
     pricingModel: "Freemium",
     startingPrice: "$10/month (Standard)",
     freeTier: "66 daily recurring credits",
@@ -1522,7 +1522,7 @@ export const videoEnginesData: VideoEngine[] = [
       "Social media short-form video ads"
     ],
     lastVerified: "2026-08-19",
-    sourceUrl: "https://klingai.org/pricing",
+    sourceUrl: "https://klingai.com",
     rating: 4.8,
     useCaseTags: ["commercial", "narrative", "social"]
   },
@@ -1705,51 +1705,7 @@ export const videoEnginesData: VideoEngine[] = [
     sourceUrl: "https://github.com/Wan-Video/Wan2.1",
     rating: 4.8,
     useCaseTags: ["narrative", "vfx", "previs", "commercial"]
-  },
-  {
-    id: "engine-flux-animation",
-    name: "Flux.1 + LoRA Motion Suite",
-    slug: "flux-animation-suite",
-    company: "Black Forest Labs / Community",
-    model: "Flux.1 Schnell / Dev + AnimateDiff / Wan Pipelines",
-    officialUrl: "https://blackforestlabs.ai",
-    pricingModel: "Open Source",
-    startingPrice: "$0 (Local) or $0.003/frame (Cloud API)",
-    freeTier: "Open weights for non-commercial & research",
-    maxResolution: "2K / 4K Photorealistic Master Frames",
-    maxDuration: "Variable frame chains",
-    t2v: true,
-    i2v: true,
-    v2v: true,
-    cameraControl: "AnimateDiff Motion Module Coordinates + Camera LoRAs",
-    motionControl: "Flow-Matching Guidance (1-5 Scale)",
-    characterConsistency: "Single-Seed Identity Persistence + Multi-LoRA Blending",
-    audio: "None",
-    dialogue: false,
-    lipSync: false,
-    referenceImages: true,
-    seedControl: true,
-    aspectRatios: ["Custom arbitrary aspect ratios"],
-    apiAvailability: true,
-    commercialUse: "Commercial use via Flux.1 Pro API or Dev Commercial License",
-    strengths: [
-      "Unrivaled visual aesthetic quality, color grading, and lighting realism",
-      "Flawless rendering of hands, text, typography, and complex micro-textures",
-      "Flow-matching architecture provides superior prompt adherence"
-    ],
-    weaknesses: [
-      "Direct video generation requires hybrid ComfyUI chaining with I2V engines",
-      "High compute requirements for local Dev inference"
-    ],
-    bestUseCases: [
-      "Master cinematic keyframe generation for I2V video pipelines",
-      "High-end luxury brand commercials and typography animation",
-      "Concept art and pitch deck visual development"
-    ],
-    lastVerified: "2026-08-19",
-    sourceUrl: "https://blackforestlabs.ai",
-    rating: 4.9,
-    useCaseTags: ["commercial", "narrative", "music-video", "vfx"]
   }
 ];
+
 

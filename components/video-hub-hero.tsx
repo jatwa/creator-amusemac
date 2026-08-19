@@ -51,19 +51,19 @@ export function VideoHubHero({
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-line/60">
           <div>
             <div className="text-xs text-zinc-500 font-mono uppercase">Camera Control</div>
-            <div className="mt-1 text-sm sm:text-base font-bold text-white">6-DOF &amp; Orbit Sliders</div>
+            <div className="mt-1 text-sm sm:text-base font-bold text-white">Directional 6-DOF &amp; Presets</div>
           </div>
           <div>
             <div className="text-xs text-zinc-500 font-mono uppercase">Max Resolution</div>
-            <div className="mt-1 text-sm sm:text-base font-bold text-lime">4K Generative</div>
+            <div className="mt-1 text-sm sm:text-base font-bold text-lime">1080p (4K Upscaled)</div>
           </div>
           <div>
             <div className="text-xs text-zinc-500 font-mono uppercase">Continuity</div>
-            <div className="mt-1 text-sm sm:text-base font-bold text-white">I2V &amp; Act-One</div>
+            <div className="mt-1 text-sm sm:text-base font-bold text-white">I2V Keyframing &amp; Motion</div>
           </div>
           <div>
             <div className="text-xs text-zinc-500 font-mono uppercase">Licensing</div>
-            <div className="mt-1 text-sm sm:text-base font-bold text-white">Commercial Rights</div>
+            <div className="mt-1 text-sm sm:text-base font-bold text-white">Commercial Rights (Paid)</div>
           </div>
         </div>
       </div>

@@ -112,150 +112,204 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
       {/* Results Header */}
       <div className="flex items-center justify-between text-xs text-zinc-400 px-2 font-mono">
         <span>Showing {filteredEngines.length} of {engines.length} verified video engines</span>
-        <span>Source-backed factual data</span>
+        <span className="hidden sm:inline">Source-backed factual data • Qualitative editorial scores</span>
       </div>
+
+      {/* Empty State */}
+      {filteredEngines.length === 0 && (
+        <div className="surface p-12 text-center space-y-4">
+          <div className="text-3xl">🔍</div>
+          <h3 className="text-lg font-bold text-white">No matching video engines found</h3>
+          <p className="text-xs text-zinc-400 max-w-md mx-auto">
+            No engines matched your current search query &quot;{searchQuery}&quot; or active capability filters.
+          </p>
+          <button
+            onClick={() => {
+              setSearchQuery("");
+              setPricingFilter("all");
+              setCapabilityFilter("all");
+            }}
+            className="rounded-xl bg-lime px-4 py-2 text-xs font-bold text-black hover:bg-white transition"
+          >
+            Reset all filters
+          </button>
+        </div>
+      )}
 
       {/* Desktop Multi-Column Comparison Table */}
-      <div className="hidden lg:block overflow-x-auto rounded-2xl border border-line bg-panel/60">
-        <table className="w-full text-left text-xs border-collapse">
-          <thead>
-            <tr className="border-b border-line bg-black/60 font-mono text-zinc-400 uppercase text-[11px]">
-              <th className="py-4 px-5">Engine / Company</th>
-              <th className="py-4 px-4">Pricing &amp; Free Tier</th>
-              <th className="py-4 px-4">Resolution &amp; Duration</th>
-              <th className="py-4 px-4">Camera &amp; Motion Control</th>
-              <th className="py-4 px-4">Audio &amp; Dialogue</th>
-              <th className="py-4 px-4">Commercial Rights</th>
-              <th className="py-4 px-4 text-right">Details</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-line/60">
-            {filteredEngines.map((engine) => (
-              <tr
-                key={engine.id}
-                className="hover:bg-lime/5 transition group cursor-pointer"
-                onClick={() => setSelectedEngine(engine)}
-              >
-                {/* Engine / Company */}
-                <td className="py-4 px-5">
-                  <div className="font-bold text-white text-sm group-hover:text-lime transition">
-                    {engine.name}
-                  </div>
-                  <div className="text-[11px] text-zinc-400 font-mono mt-0.5">
-                    {engine.company}
-                  </div>
-                  <div className="mt-1 flex items-center gap-1.5">
-                    <span className="rounded bg-lime/10 px-1.5 py-0.5 text-[10px] font-mono text-lime font-bold">
-                      ★ {engine.rating}
-                    </span>
-                    <span className="text-[10px] text-zinc-500 font-mono">
-                      {engine.pricingModel}
-                    </span>
-                  </div>
-                </td>
-
-                {/* Pricing */}
-                <td className="py-4 px-4">
-                  <div className="font-semibold text-zinc-100">{engine.startingPrice}</div>
-                  <div className="text-[11px] text-zinc-400 mt-1 line-clamp-1">
-                    {engine.freeTier}
-                  </div>
-                </td>
-
-                {/* Resolution & Duration */}
-                <td className="py-4 px-4">
-                  <div className="font-semibold text-lime">{engine.maxResolution}</div>
-                  <div className="text-[11px] text-zinc-400 mt-1">{engine.maxDuration}</div>
-                </td>
-
-                {/* Camera & Motion */}
-                <td className="py-4 px-4 max-w-xs">
-                  <div className="text-zinc-200 line-clamp-2 leading-relaxed">
-                    {engine.cameraControl}
-                  </div>
-                </td>
-
-                {/* Audio */}
-                <td className="py-4 px-4">
-                  <div className="text-zinc-200">{engine.audio}</div>
-                  {engine.lipSync && (
-                    <span className="mt-1 inline-block rounded bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 text-[10px] text-emerald-400 font-mono">
-                      Lip Sync ✓
-                    </span>
-                  )}
-                </td>
-
-                {/* Commercial Rights */}
-                <td className="py-4 px-4">
-                  <div className="text-zinc-300 line-clamp-2">{engine.commercialUse}</div>
-                  <div className="text-[10px] text-zinc-500 font-mono mt-1">
-                    Verified: {engine.lastVerified}
-                  </div>
-                </td>
-
-                {/* Actions */}
-                <td className="py-4 px-4 text-right">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedEngine(engine);
-                    }}
-                    className="rounded-lg border border-line bg-black/60 px-3 py-1.5 text-xs font-semibold text-zinc-300 hover:border-lime hover:text-white transition"
-                  >
-                    View Specs →
-                  </button>
-                </td>
+      {filteredEngines.length > 0 && (
+        <div className="hidden lg:block overflow-x-auto rounded-2xl border border-line bg-panel/60">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-line bg-black/60 font-mono text-zinc-400 uppercase text-[11px]">
+                <th className="py-4 px-5">Engine / Developer</th>
+                <th className="py-4 px-4">Pricing &amp; Free Tier</th>
+                <th className="py-4 px-4">Resolution &amp; Duration</th>
+                <th className="py-4 px-4">Camera &amp; Motion Control</th>
+                <th className="py-4 px-4">Audio &amp; Dialogue</th>
+                <th className="py-4 px-4">Commercial Rights</th>
+                <th className="py-4 px-4 text-right">Details</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody className="divide-y divide-line/60">
+              {filteredEngines.map((engine) => (
+                <tr
+                  key={engine.id}
+                  className="hover:bg-lime/5 transition group cursor-pointer"
+                  onClick={() => setSelectedEngine(engine)}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      setSelectedEngine(engine);
+                    }
+                  }}
+                  aria-label={`View specs for ${engine.name}`}
+                >
+                  {/* Engine / Company */}
+                  <td className="py-4 px-5">
+                    <div className="font-bold text-white text-sm group-hover:text-lime transition">
+                      {engine.name}
+                    </div>
+                    <div className="text-[11px] text-zinc-400 font-mono mt-0.5">
+                      {engine.company}
+                    </div>
+                    <div className="mt-1 flex items-center gap-1.5">
+                      <span
+                        title="Creator Editorial Qualitative Assessment (1.0 - 5.0) based on physical motion coherence, camera fidelity, and artifact resistance."
+                        className="rounded bg-lime/10 px-1.5 py-0.5 text-[10px] font-mono text-lime font-bold cursor-help"
+                      >
+                        ★ {engine.rating}
+                      </span>
+                      <span className="text-[10px] text-zinc-500 font-mono">
+                        {engine.pricingModel}
+                      </span>
+                    </div>
+                  </td>
+
+                  {/* Pricing */}
+                  <td className="py-4 px-4">
+                    <div className="font-semibold text-zinc-100">{engine.startingPrice}</div>
+                    <div className="text-[11px] text-zinc-400 mt-1 line-clamp-1">
+                      {engine.freeTier}
+                    </div>
+                  </td>
+
+                  {/* Resolution & Duration */}
+                  <td className="py-4 px-4">
+                    <div className="font-semibold text-lime">{engine.maxResolution}</div>
+                    <div className="text-[11px] text-zinc-400 mt-1">{engine.maxDuration}</div>
+                  </td>
+
+                  {/* Camera & Motion */}
+                  <td className="py-4 px-4 max-w-xs">
+                    <div className="text-zinc-200 line-clamp-2 leading-relaxed">
+                      {engine.cameraControl}
+                    </div>
+                  </td>
+
+                  {/* Audio */}
+                  <td className="py-4 px-4">
+                    <div className="text-zinc-200">{engine.audio}</div>
+                    {engine.lipSync && (
+                      <span className="mt-1 inline-block rounded bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.5 text-[10px] text-emerald-400 font-mono">
+                        Lip Sync ✓
+                      </span>
+                    )}
+                  </td>
+
+                  {/* Commercial Rights */}
+                  <td className="py-4 px-4">
+                    <div className="text-zinc-300 line-clamp-2">{engine.commercialUse}</div>
+                    <div className="text-[10px] text-zinc-500 font-mono mt-1">
+                      Verified: {engine.lastVerified}
+                    </div>
+                  </td>
+
+                  {/* Actions */}
+                  <td className="py-4 px-4 text-right">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedEngine(engine);
+                      }}
+                      className="rounded-lg border border-line bg-black/60 px-3 py-1.5 text-xs font-semibold text-zinc-300 hover:border-lime hover:text-white transition"
+                    >
+                      View Specs →
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {/* Mobile Card View (390px / 768px) */}
-      <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filteredEngines.map((engine) => (
-          <div
-            key={engine.id}
-            onClick={() => setSelectedEngine(engine)}
-            className="surface p-6 space-y-4 hover:border-lime/40 transition cursor-pointer"
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <span className="rounded-full border border-lime/30 bg-lime/10 px-2.5 py-0.5 text-[10px] font-mono text-lime font-bold">
-                  {engine.pricingModel.toUpperCase()}
+      {filteredEngines.length > 0 && (
+        <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
+          {filteredEngines.map((engine) => (
+            <div
+              key={engine.id}
+              onClick={() => setSelectedEngine(engine)}
+              className="surface p-6 space-y-4 hover:border-lime/40 transition cursor-pointer"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  setSelectedEngine(engine);
+                }
+              }}
+              aria-label={`View specs for ${engine.name}`}
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="rounded-full border border-lime/30 bg-lime/10 px-2.5 py-0.5 text-[10px] font-mono text-lime font-bold">
+                    {engine.pricingModel.toUpperCase()}
+                  </span>
+                  <h3 className="mt-2 text-lg font-bold text-white">{engine.name}</h3>
+                  <p className="text-xs text-zinc-400 font-mono">{engine.company}</p>
+                </div>
+                <span
+                  title="Creator Editorial Qualitative Assessment"
+                  className="rounded-md border border-line bg-black/60 px-2 py-1 font-mono text-xs text-lime font-bold"
+                >
+                  ★ {engine.rating}
                 </span>
-                <h3 className="mt-2 text-lg font-bold text-white">{engine.name}</h3>
-                <p className="text-xs text-zinc-400 font-mono">{engine.company}</p>
               </div>
-              <span className="rounded-md border border-line bg-black/60 px-2 py-1 font-mono text-xs text-lime font-bold">
-                ★ {engine.rating}
-              </span>
-            </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-line/60 text-xs">
-              <div>
-                <span className="text-zinc-500 font-mono text-[10px] uppercase">Starting Price</span>
-                <p className="font-semibold text-white mt-0.5">{engine.startingPrice}</p>
+              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-line/60 text-xs">
+                <div>
+                  <span className="text-zinc-500 font-mono text-[10px] uppercase">Starting Price</span>
+                  <p className="font-semibold text-white mt-0.5">{engine.startingPrice}</p>
+                </div>
+                <div>
+                  <span className="text-zinc-500 font-mono text-[10px] uppercase">Max Resolution</span>
+                  <p className="font-semibold text-lime mt-0.5">{engine.maxResolution}</p>
+                </div>
               </div>
-              <div>
-                <span className="text-zinc-500 font-mono text-[10px] uppercase">Max Resolution</span>
-                <p className="font-semibold text-lime mt-0.5">{engine.maxResolution}</p>
+
+              <div className="text-xs text-zinc-300">
+                <span className="text-zinc-500 font-mono text-[10px] uppercase block mb-1">
+                  Camera Control
+                </span>
+                <p className="line-clamp-2 leading-relaxed">{engine.cameraControl}</p>
+              </div>
+
+              <div className="pt-3 border-t border-line/60 flex items-center justify-between text-xs">
+                <span className="text-zinc-500 font-mono text-[11px]">Verified {engine.lastVerified}</span>
+                <span className="text-lime font-semibold">Inspect Engine →</span>
               </div>
             </div>
+          ))}
+        </div>
+      )}
 
-            <div className="text-xs text-zinc-300">
-              <span className="text-zinc-500 font-mono text-[10px] uppercase block mb-1">
-                Camera Control
-              </span>
-              <p className="line-clamp-2 leading-relaxed">{engine.cameraControl}</p>
-            </div>
-
-            <div className="pt-3 border-t border-line/60 flex items-center justify-between text-xs">
-              <span className="text-zinc-500 font-mono text-[11px]">Verified {engine.lastVerified}</span>
-              <span className="text-lime font-semibold">Inspect Engine →</span>
-            </div>
-          </div>
-        ))}
+      {/* Methodology Explainer Note */}
+      <div className="rounded-xl border border-line/60 bg-black/40 p-4 text-xs text-zinc-400 flex items-start gap-3">
+        <span className="text-lime font-bold font-mono">ℹ</span>
+        <p className="leading-relaxed">
+          <strong className="text-white">Editorial Rating Methodology: </strong>
+          Scores reflect qualitative assessments (1.0–5.0 scale) conducted by the Creator by Amusemac testing desk across four criteria: physical motion coherence (liquid/collision fidelity), camera coordinate precision, facial identity stability, and prompt adherence. Scores are qualitative editorial reviews and not synthetic synthetic benchmarks.
+        </p>
       </div>
 
       {/* Engine Modal / Detail Drawer */}

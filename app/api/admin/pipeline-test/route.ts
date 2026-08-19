@@ -1,9 +1,30 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { testLivePipeline } from "@/lib/engine/pipeline-test";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // Enforce ADMIN_SECRET in production or when configured
+  const adminSecret = process.env.ADMIN_SECRET;
+  const isProd = process.env.NODE_ENV === "production";
+
+  if (isProd && !adminSecret) {
+    return NextResponse.json(
+      { error: "Server Configuration Error: ADMIN_SECRET is not configured in production." },
+      { status: 500 }
+    );
+  }
+
+  const authHeader = request.headers.get("authorization");
+  const customSecret = request.headers.get("x-admin-secret");
+
+  if (
+    adminSecret &&
+    customSecret !== adminSecret &&
+    authHeader !== `Bearer ${adminSecret}`
+  ) {
+    return NextResponse.json({ error: "Unauthorized: Invalid admin credentials." }, { status: 401 });
+  }
   try {
     const result = testLivePipeline();
     return NextResponse.json({

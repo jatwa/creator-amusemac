@@ -32,7 +32,7 @@ const SHOT_PRESETS: ShotPreset[] = [
       },
       secondary: {
         name: "Flux.1 + LoRA",
-        slug: "flux-animation-suite",
+        slug: "flux",
         reason: "Generate photorealistic 4K master keyframes to feed as start-frame I2V references."
       },
       workflowTip: "Lock the car silhouette using Flux.1 first, then animate in Runway Gen-3 with custom speed curves."
@@ -137,7 +137,7 @@ const SHOT_PRESETS: ShotPreset[] = [
       },
       secondary: {
         name: "Flux.1 Dev (Self-Hosted)",
-        slug: "flux-animation-suite",
+        slug: "flux",
         reason: "Train custom IP LoRAs locally and chain into Wan 2.1 I2V pipeline."
       },
       workflowTip: "Deploy on a local 24GB VRAM workstation with IP-Adapter for deterministic character locking."
