@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { VideoEngine } from "@/data/types";
 
 export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
@@ -67,8 +68,10 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
           <div className="flex flex-wrap items-center gap-2 text-xs">
             <span className="text-tertiary font-mono mr-2 text-[11px]">Pricing:</span>
             {["all", "freemium", "open source", "paid"].map((p) => (
-              <button
+              <motion.button
                 key={p}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setPricingFilter(p)}
                 className={`rounded-full px-3.5 py-1 text-xs capitalize transition ${
                   pricingFilter === p
@@ -77,7 +80,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
                 }`}
               >
                 {p}
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -94,8 +97,10 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
               { key: "lip-sync", label: "Lip Sync Support" },
               { key: "api", label: "Developer API" },
             ].map((c) => (
-              <button
+              <motion.button
                 key={c.key}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setCapabilityFilter(c.key)}
                 className={`rounded-full px-3.5 py-1 text-xs transition ${
                   capabilityFilter === c.key
@@ -104,7 +109,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
                 }`}
               >
                 {c.label}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -124,7 +129,9 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
           <p className="text-xs text-secondary max-w-md mx-auto">
             No engines matched your current search query &quot;{searchQuery}&quot; or active capability filters.
           </p>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => {
               setSearchQuery("");
               setPricingFilter("all");
@@ -133,7 +140,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
             className="rounded-full bg-foreground px-5 py-2 text-xs font-medium text-background hover:opacity-90 transition"
           >
             Reset All Filters
-          </button>
+          </motion.button>
         </div>
       )}
 
@@ -249,8 +256,10 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
       {filteredEngines.length > 0 && (
         <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredEngines.map((engine) => (
-            <div
+            <motion.div
               key={engine.id}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.99 }}
               onClick={() => setSelectedEngine(engine)}
               className="surface surface-hover p-6 space-y-4 cursor-pointer"
               tabIndex={0}
@@ -299,7 +308,7 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
                 <span className="text-tertiary font-mono text-[11px]">Verified {engine.lastVerified}</span>
                 <span className="text-accent font-medium">Inspect Engine →</span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}
@@ -313,109 +322,125 @@ export function VideoEngineMatrix({ engines }: { engines: VideoEngine[] }) {
         </p>
       </div>
 
-      {/* Engine Modal / Detail Drawer */}
-      {selectedEngine && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="surface max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 border-border shadow-2xl bg-surface">
-            <div className="flex items-start justify-between border-b border-border-subtle pb-4">
-              <div>
-                <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-mono text-accent font-medium">
-                  {selectedEngine.pricingModel} • {selectedEngine.model}
-                </span>
-                <h3 className="mt-2 text-2xl font-semibold text-primary">{selectedEngine.name}</h3>
-                <p className="text-xs text-tertiary font-mono">{selectedEngine.company}</p>
-              </div>
-              <button
-                onClick={() => setSelectedEngine(null)}
-                className="rounded-full p-2 text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/10 transition"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Quick Specs Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-              <div className="rounded-xl border border-border-subtle bg-surface-elevated p-3">
-                <span className="text-tertiary font-mono text-[10px] uppercase">Max Resolution</span>
-                <p className="font-semibold text-accent mt-1">{selectedEngine.maxResolution}</p>
-              </div>
-              <div className="rounded-xl border border-border-subtle bg-surface-elevated p-3">
-                <span className="text-tertiary font-mono text-[10px] uppercase">Max Duration</span>
-                <p className="font-semibold text-primary mt-1">{selectedEngine.maxDuration}</p>
-              </div>
-              <div className="rounded-xl border border-border-subtle bg-surface-elevated p-3">
-                <span className="text-tertiary font-mono text-[10px] uppercase">Audio Support</span>
-                <p className="font-semibold text-primary mt-1">{selectedEngine.audio}</p>
-              </div>
-            </div>
-
-            {/* Strengths & Weaknesses */}
-            <div className="space-y-3">
-              <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs">
-                <div className="font-medium text-accent font-mono uppercase text-[11px] mb-2">
-                  Verified Strengths
-                </div>
-                <ul className="space-y-1.5 text-secondary">
-                  {selectedEngine.strengths.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="text-accent">✓</span>
-                      <span>{s}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs">
-                <div className="font-medium text-tertiary font-mono uppercase text-[11px] mb-2">
-                  Limitations &amp; Caveats
-                </div>
-                <ul className="space-y-1.5 text-secondary">
-                  {selectedEngine.weaknesses.map((w, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="text-tertiary">✗</span>
-                      <span>{w}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Best Use Cases */}
-            <div className="text-xs">
-              <span className="text-tertiary font-mono uppercase text-[10px] block mb-2">
-                Optimal Production Use Cases
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {selectedEngine.bestUseCases.map((u, i) => (
-                  <span
-                    key={i}
-                    className="rounded-lg border border-border-subtle bg-surface-elevated px-3 py-1.5 text-secondary"
-                  >
-                    {u}
+      {/* Engine Modal / Detail Drawer with Motion */}
+      <AnimatePresence>
+        {selectedEngine && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.96, opacity: 0, y: 8 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.96, opacity: 0, y: 8 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="surface max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 border-border shadow-2xl bg-surface"
+            >
+              <div className="flex items-start justify-between border-b border-border-subtle pb-4">
+                <div>
+                  <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-mono text-accent font-medium">
+                    {selectedEngine.pricingModel} • {selectedEngine.model}
                   </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Footer Links & Verification */}
-            <div className="pt-4 border-t border-border-subtle flex flex-wrap items-center justify-between gap-4 text-xs">
-              <span className="text-tertiary font-mono text-[11px]">
-                Verified on {selectedEngine.lastVerified} via official source
-              </span>
-              <div className="flex items-center gap-3">
-                <a
-                  href={selectedEngine.officialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-foreground px-5 py-2 text-xs font-medium text-background hover:opacity-90 transition shadow-sm"
+                  <h3 className="mt-2 text-2xl font-semibold text-primary">{selectedEngine.name}</h3>
+                  <p className="text-xs text-tertiary font-mono">{selectedEngine.company}</p>
+                </div>
+                <button
+                  onClick={() => setSelectedEngine(null)}
+                  className="rounded-full p-2 text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/10 transition"
                 >
-                  Official Engine Site ↗
-                </a>
+                  ✕
+                </button>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
+
+              {/* Quick Specs Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                <div className="rounded-xl border border-border-subtle bg-surface-elevated p-3">
+                  <span className="text-tertiary font-mono text-[10px] uppercase">Max Resolution</span>
+                  <p className="font-semibold text-accent mt-1">{selectedEngine.maxResolution}</p>
+                </div>
+                <div className="rounded-xl border border-border-subtle bg-surface-elevated p-3">
+                  <span className="text-tertiary font-mono text-[10px] uppercase">Max Duration</span>
+                  <p className="font-semibold text-primary mt-1">{selectedEngine.maxDuration}</p>
+                </div>
+                <div className="rounded-xl border border-border-subtle bg-surface-elevated p-3">
+                  <span className="text-tertiary font-mono text-[10px] uppercase">Audio Support</span>
+                  <p className="font-semibold text-primary mt-1">{selectedEngine.audio}</p>
+                </div>
+              </div>
+
+              {/* Strengths & Weaknesses */}
+              <div className="space-y-3">
+                <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs">
+                  <div className="font-medium text-accent font-mono uppercase text-[11px] mb-2">
+                    Verified Strengths
+                  </div>
+                  <ul className="space-y-1.5 text-secondary">
+                    {selectedEngine.strengths.map((s, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-accent">✓</span>
+                        <span>{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs">
+                  <div className="font-medium text-tertiary font-mono uppercase text-[11px] mb-2">
+                    Limitations &amp; Caveats
+                  </div>
+                  <ul className="space-y-1.5 text-secondary">
+                    {selectedEngine.weaknesses.map((w, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-tertiary">✗</span>
+                        <span>{w}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Best Use Cases */}
+              <div className="text-xs">
+                <span className="text-tertiary font-mono uppercase text-[10px] block mb-2">
+                  Optimal Production Use Cases
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {selectedEngine.bestUseCases.map((u, i) => (
+                    <span
+                      key={i}
+                      className="rounded-lg border border-border-subtle bg-surface-elevated px-3 py-1.5 text-secondary"
+                    >
+                      {u}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer Links & Verification */}
+              <div className="pt-4 border-t border-border-subtle flex flex-wrap items-center justify-between gap-4 text-xs">
+                <span className="text-tertiary font-mono text-[11px]">
+                  Verified on {selectedEngine.lastVerified} via official source
+                </span>
+                <div className="flex items-center gap-3">
+                  <motion.a
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    href={selectedEngine.officialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full bg-foreground px-5 py-2 text-xs font-medium text-background hover:opacity-90 transition shadow-sm"
+                  >
+                    Official Engine Site ↗
+                  </motion.a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 export function Hero() {
   const [query, setQuery] = useState("");
@@ -17,45 +18,74 @@ export function Hero() {
     }
   };
 
+  const ease = [0.16, 1, 0.3, 1] as const;
+
   return (
     <section className="relative overflow-hidden pt-24 pb-20 sm:pt-32 sm:pb-28 text-center transition-colors">
       <div className="shell relative z-10">
         <div className="mx-auto max-w-3xl">
           {/* Subtle Eyebrow */}
-          <p className="eyebrow mb-6 text-tertiary">
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1, ease }}
+            className="eyebrow mb-6 text-tertiary"
+          >
             Creator by Amusemac
-          </p>
+          </motion.p>
 
           {/* Huge Apple-inspired Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tighter text-primary leading-[1.08]">
+          <motion.h1
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2, ease }}
+            className="text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tighter text-primary leading-[1.08]"
+          >
             AI tools for people <br />
             <span className="text-tertiary">who make things.</span>
-          </h1>
+          </motion.h1>
 
           {/* Calm, Confident Subheadline */}
-          <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-secondary font-normal">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.3, ease }}
+            className="mx-auto mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-secondary font-normal"
+          >
             Production intelligence, verified camera models, prompt architecture, and director workflows for filmmakers and visual storytellers.
-          </p>
+          </motion.p>
 
           {/* Restrained CTAs */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/tools"
-              className="rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 shadow-sm"
-            >
-              Explore Creator
-            </Link>
-            <Link
-              href="/categories/video"
-              className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:opacity-80 transition-opacity"
-            >
-              <span>Explore Video AI Hub</span>
-              <span>→</span>
-            </Link>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.4, ease }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          >
+            <motion.div whileHover={{ scale: 1.015 }} whileTap={{ scale: 0.985 }}>
+              <Link
+                href="/tools"
+                className="rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 shadow-sm inline-block"
+              >
+                Explore Creator
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.985 }}>
+              <Link
+                href="/categories/video"
+                className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:opacity-80 transition-opacity"
+              >
+                <span>Explore Video AI Hub</span>
+                <span>→</span>
+              </Link>
+            </motion.div>
+          </motion.div>
 
           {/* Minimalist Search Bar */}
-          <form
+          <motion.form
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.5, ease }}
             onSubmit={handleSearch}
             className="mx-auto mt-12 flex w-full max-w-xl items-center rounded-full border border-border bg-surface px-4 py-2.5 shadow-subtle transition focus-within:border-accent/40 focus-within:shadow-card"
           >
@@ -85,10 +115,15 @@ export function Hero() {
             >
               Search
             </button>
-          </form>
+          </motion.form>
 
           {/* Quick Focus Links */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-secondary">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.6 }}
+            className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-secondary"
+          >
             <span className="text-tertiary">Quick links:</span>
             <Link href="/categories/video" className="hover:text-primary underline-offset-4 hover:underline">Video Hub</Link>
             <span className="text-border">•</span>
@@ -97,7 +132,7 @@ export function Hero() {
             <Link href="/compare/runway-vs-kling" className="hover:text-primary underline-offset-4 hover:underline">Runway vs Kling</Link>
             <span className="text-border">•</span>
             <Link href="/workflows" className="hover:text-primary underline-offset-4 hover:underline">Workflows</Link>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

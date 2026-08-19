@@ -3,6 +3,7 @@
 import { useState, useMemo, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { motion, AnimatePresence } from "motion/react";
 import {
   toolsData,
   promptsData,
@@ -179,8 +180,10 @@ export function SearchView() {
             { key: "workflows", label: `Workflows (${results.workflows.length})` },
             { key: "comparisons", label: `Comparisons (${results.comparisons.length})` },
           ].map((tab) => (
-            <button
+            <motion.button
               key={tab.key}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => setActiveTab(tab.key as any)}
               className={`rounded-full px-3.5 py-1.5 font-medium transition ${
                 activeTab === tab.key
@@ -189,7 +192,7 @@ export function SearchView() {
               }`}
             >
               {tab.label}
-            </button>
+            </motion.button>
           ))}
         </div>
 
@@ -222,211 +225,263 @@ export function SearchView() {
         </div>
       </div>
 
-      {/* Results Display */}
-      {results.totalCount === 0 ? (
-        <div className="surface p-12 text-center">
-          <p className="text-tertiary text-3xl font-mono">◌</p>
-          <h3 className="mt-4 text-lg font-semibold text-primary">No exact production matches found</h3>
-          <p className="mt-2 text-sm text-secondary">
-            Try searching for terms like &quot;video&quot;, &quot;Runway&quot;, &quot;commercial&quot;, &quot;Flux&quot;, or &quot;Midjourney&quot;.
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-12">
-          {/* Tools Result Section */}
-          {(activeTab === "all" || activeTab === "tools") && results.tools.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
-                  Matched AI Tools ({results.tools.length})
-                </h3>
-                <Link href="/tools" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
-                  All Tools →
-                </Link>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {results.tools.map((tool) => (
-                  <Link
-                    key={tool.id}
-                    href={`/tools/${tool.slug}`}
-                    className="surface surface-hover p-6 block group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">
-                        {tool.category}
-                      </span>
-                      <span className="rounded-full bg-surface-elevated px-2 py-0.5 font-mono text-[10px] text-tertiary border border-border">
-                        {tool.pricing.model}
-                      </span>
-                    </div>
-                    <h4 className="mt-2 text-lg font-semibold text-primary group-hover:text-accent transition-colors">{tool.name}</h4>
-                    <p className="mt-2 text-xs text-secondary line-clamp-2">{tool.description}</p>
-                    <p className="mt-4 text-[11px] text-tertiary font-mono">Best for: {tool.bestFor.split(",")[0]}</p>
+      {/* Results Display with AnimatePresence */}
+      <AnimatePresence mode="wait">
+        {results.totalCount === 0 ? (
+          <motion.div
+            key="empty"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2 }}
+            className="surface p-12 text-center"
+          >
+            <p className="text-tertiary text-3xl font-mono">◌</p>
+            <h3 className="mt-4 text-lg font-semibold text-primary">No exact production matches found</h3>
+            <p className="mt-2 text-sm text-secondary">
+              Try searching for terms like &quot;video&quot;, &quot;Runway&quot;, &quot;commercial&quot;, &quot;Flux&quot;, or &quot;Midjourney&quot;.
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            key={`results-${activeTab}-${query}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="space-y-12"
+          >
+            {/* Tools Result Section */}
+            {(activeTab === "all" || activeTab === "tools") && results.tools.length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
+                    Matched AI Tools ({results.tools.length})
+                  </h3>
+                  <Link href="/tools" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
+                    All Tools →
                   </Link>
-                ))}
-              </div>
-            </div>
-          )}
+                </div>
 
-          {/* Prompts Result Section */}
-          {(activeTab === "all" || activeTab === "prompts") && results.prompts.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
-                  Matched Prompt Recipes ({results.prompts.length})
-                </h3>
-                <Link href="/prompts" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
-                  All Prompts →
-                </Link>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                {results.prompts.map((p) => (
-                  <Link
-                    key={p.id}
-                    href={`/prompts/${p.slug}`}
-                    className="surface surface-hover p-6 block group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">{p.useCase}</span>
-                      <span className="font-mono text-[10px] text-tertiary uppercase">{p.category}</span>
-                    </div>
-                    <h4 className="mt-2 text-lg font-semibold text-primary group-hover:text-accent transition-colors">{p.title}</h4>
-                    <p className="mt-3 rounded-lg border border-border bg-surface-elevated p-3 font-mono text-xs text-secondary line-clamp-2">
-                      {p.promptText}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Blogs Result Section */}
-          {(activeTab === "all" || activeTab === "blogs") && results.blogs.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
-                  Matched Creator Journal Essays ({results.blogs.length})
-                </h3>
-                <Link href="/blog" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
-                  All Journal Articles →
-                </Link>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                {results.blogs.map((b) => (
-                  <Link
-                    key={b.id}
-                    href={`/blog/${b.slug}`}
-                    className="surface surface-hover p-6 block group"
-                  >
-                    <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">{b.category}</span>
-                    <h4 className="mt-2 text-lg font-semibold text-primary leading-snug group-hover:text-accent transition-colors">{b.title}</h4>
-                    <p className="mt-2 text-xs text-secondary line-clamp-2">{b.excerpt}</p>
-                    <p className="mt-4 text-[11px] text-tertiary font-mono">By {b.author.name} • {b.readingTime}</p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Videos Result Section */}
-          {(activeTab === "all" || activeTab === "videos") && results.videos.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
-                  Matched Masterclasses ({results.videos.length})
-                </h3>
-                <Link href="/videos" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
-                  All Masterclasses →
-                </Link>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                {results.videos.map((v) => (
-                  <Link
-                    key={v.id}
-                    href={`/videos/${v.slug}`}
-                    className="surface surface-hover p-6 block group"
-                  >
-                    <span className="text-[10px] font-medium uppercase tracking-wider text-accent">▶ {v.platform.toUpperCase()}</span>
-                    <h4 className="mt-2 text-lg font-semibold text-primary leading-snug group-hover:text-accent transition-colors">{v.title}</h4>
-                    <p className="mt-2 text-xs text-secondary line-clamp-2">{v.description}</p>
-                    <p className="mt-4 text-[11px] text-tertiary font-mono">By {v.creator.name} • {v.duration}</p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Workflows Result Section */}
-          {(activeTab === "all" || activeTab === "workflows") && results.workflows.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
-                  Matched Production Workflows ({results.workflows.length})
-                </h3>
-                <Link href="/workflows" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
-                  All Workflows →
-                </Link>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                {results.workflows.map((wf) => (
-                  <Link
-                    key={wf.id}
-                    href={`/workflows/${wf.slug}`}
-                    className="surface surface-hover p-6 block group"
-                  >
-                    <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">{wf.category} Pipeline</span>
-                    <h4 className="mt-2 text-lg font-semibold text-primary group-hover:text-accent transition-colors">{wf.title}</h4>
-                    <p className="mt-2 text-xs text-secondary line-clamp-2">{wf.summary}</p>
-                    <p className="mt-3 text-[11px] text-tertiary font-mono">Timeline: {wf.estimatedTime} • {wf.steps.length} Phases</p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Comparisons Result Section */}
-          {(activeTab === "all" || activeTab === "comparisons") && results.comparisons.length > 0 && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
-                  Matched Comparisons ({results.comparisons.length})
-                </h3>
-                <Link href="/compare" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
-                  All Comparisons →
-                </Link>
-              </div>
-
-              <div className="space-y-3">
-                {results.comparisons.map((c) => {
-                  const tA = getToolById(c.toolAId);
-                  const tB = getToolById(c.toolBId);
-                  return (
-                    <Link
-                      key={c.id}
-                      href={`/compare/${c.slug}`}
-                      className="surface surface-hover p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 block group"
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {results.tools.map((tool) => (
+                    <motion.div
+                      key={tool.id}
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
                     >
-                      <div>
-                        <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">{c.category}</span>
-                        <h4 className="mt-1 text-base font-semibold text-primary group-hover:text-accent transition-colors">
-                          {tA?.name || "Tool A"} vs {tB?.name || "Tool B"}
-                        </h4>
-                        <p className="mt-1 text-xs text-secondary">{c.summaryVerdict}</p>
-                      </div>
-                      <span className="text-xs font-medium text-accent shrink-0 font-mono">Read comparison →</span>
-                    </Link>
-                  );
-                })}
+                      <Link
+                        href={`/tools/${tool.slug}`}
+                        className="surface surface-hover p-6 block group h-full"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">
+                            {tool.category}
+                          </span>
+                          <span className="rounded-full bg-surface-elevated px-2 py-0.5 font-mono text-[10px] text-tertiary border border-border">
+                            {tool.pricing.model}
+                          </span>
+                        </div>
+                        <h4 className="mt-2 text-lg font-semibold text-primary group-hover:text-accent transition-colors">{tool.name}</h4>
+                        <p className="mt-2 text-xs text-secondary line-clamp-2">{tool.description}</p>
+                        <p className="mt-4 text-[11px] text-tertiary font-mono">Best for: {tool.bestFor.split(",")[0]}</p>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+
+            {/* Prompts Result Section */}
+            {(activeTab === "all" || activeTab === "prompts") && results.prompts.length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
+                    Matched Prompt Recipes ({results.prompts.length})
+                  </h3>
+                  <Link href="/prompts" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
+                    All Prompts →
+                  </Link>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {results.prompts.map((p) => (
+                    <motion.div
+                      key={p.id}
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
+                    >
+                      <Link
+                        href={`/prompts/${p.slug}`}
+                        className="surface surface-hover p-6 block group h-full"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">{p.useCase}</span>
+                          <span className="font-mono text-[10px] text-tertiary uppercase">{p.category}</span>
+                        </div>
+                        <h4 className="mt-2 text-lg font-semibold text-primary group-hover:text-accent transition-colors">{p.title}</h4>
+                        <p className="mt-3 rounded-lg border border-border bg-surface-elevated p-3 font-mono text-xs text-secondary line-clamp-2">
+                          {p.promptText}
+                        </p>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Blogs Result Section */}
+            {(activeTab === "all" || activeTab === "blogs") && results.blogs.length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
+                    Matched Creator Journal Essays ({results.blogs.length})
+                  </h3>
+                  <Link href="/blog" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
+                    All Journal Articles →
+                  </Link>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {results.blogs.map((b) => (
+                    <motion.div
+                      key={b.id}
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
+                    >
+                      <Link
+                        href={`/blog/${b.slug}`}
+                        className="surface surface-hover p-6 block group h-full"
+                      >
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">{b.category}</span>
+                        <h4 className="mt-2 text-lg font-semibold text-primary leading-snug group-hover:text-accent transition-colors">{b.title}</h4>
+                        <p className="mt-2 text-xs text-secondary line-clamp-2">{b.excerpt}</p>
+                        <p className="mt-4 text-[11px] text-tertiary font-mono">By {b.author.name} • {b.readingTime}</p>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Videos Result Section */}
+            {(activeTab === "all" || activeTab === "videos") && results.videos.length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
+                    Matched Masterclasses ({results.videos.length})
+                  </h3>
+                  <Link href="/videos" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
+                    All Masterclasses →
+                  </Link>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {results.videos.map((v) => (
+                    <motion.div
+                      key={v.id}
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
+                    >
+                      <Link
+                        href={`/videos/${v.slug}`}
+                        className="surface surface-hover p-6 block group h-full"
+                      >
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-accent">▶ {v.platform.toUpperCase()}</span>
+                        <h4 className="mt-2 text-lg font-semibold text-primary leading-snug group-hover:text-accent transition-colors">{v.title}</h4>
+                        <p className="mt-2 text-xs text-secondary line-clamp-2">{v.description}</p>
+                        <p className="mt-4 text-[11px] text-tertiary font-mono">By {v.creator.name} • {v.duration}</p>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Workflows Result Section */}
+            {(activeTab === "all" || activeTab === "workflows") && results.workflows.length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
+                    Matched Production Workflows ({results.workflows.length})
+                  </h3>
+                  <Link href="/workflows" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
+                    All Workflows →
+                  </Link>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  {results.workflows.map((wf) => (
+                    <motion.div
+                      key={wf.id}
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.99 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
+                    >
+                      <Link
+                        href={`/workflows/${wf.slug}`}
+                        className="surface surface-hover p-6 block group h-full"
+                      >
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">{wf.category} Pipeline</span>
+                        <h4 className="mt-2 text-lg font-semibold text-primary group-hover:text-accent transition-colors">{wf.title}</h4>
+                        <p className="mt-2 text-xs text-secondary line-clamp-2">{wf.summary}</p>
+                        <p className="mt-3 text-[11px] text-tertiary font-mono">Timeline: {wf.estimatedTime} • {wf.steps.length} Phases</p>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Comparisons Result Section */}
+            {(activeTab === "all" || activeTab === "comparisons") && results.comparisons.length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-secondary">
+                    Matched Comparisons ({results.comparisons.length})
+                  </h3>
+                  <Link href="/compare" className="text-xs text-secondary hover:text-primary transition-colors font-mono">
+                    All Comparisons →
+                  </Link>
+                </div>
+
+                <div className="space-y-3">
+                  {results.comparisons.map((c) => {
+                    const tA = getToolById(c.toolAId);
+                    const tB = getToolById(c.toolBId);
+                    return (
+                      <motion.div
+                        key={c.id}
+                        whileHover={{ y: -2 }}
+                        whileTap={{ scale: 0.99 }}
+                        transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
+                      >
+                        <Link
+                          href={`/compare/${c.slug}`}
+                          className="surface surface-hover p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 block group"
+                        >
+                          <div>
+                            <span className="text-[10px] font-medium uppercase tracking-wider text-secondary">{c.category}</span>
+                            <h4 className="mt-1 text-base font-semibold text-primary group-hover:text-accent transition-colors">
+                              {tA?.name || "Tool A"} vs {tB?.name || "Tool B"}
+                            </h4>
+                            <p className="mt-1 text-xs text-secondary">{c.summaryVerdict}</p>
+                          </div>
+                          <span className="text-xs font-medium text-accent shrink-0 font-mono">Read comparison →</span>
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

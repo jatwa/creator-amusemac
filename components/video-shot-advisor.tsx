@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface ShotPreset {
   id: string;
@@ -182,8 +183,10 @@ export function VideoShotAdvisor() {
         {SHOT_PRESETS.map((preset) => {
           const isSelected = selectedId === preset.id;
           return (
-            <button
+            <motion.button
               key={preset.id}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => setSelectedId(preset.id)}
               className={`rounded-full px-4 py-2 text-xs font-medium transition flex items-center gap-2 ${
                 isSelected
@@ -193,94 +196,105 @@ export function VideoShotAdvisor() {
             >
               <span>{preset.icon}</span>
               <span>{preset.title}</span>
-            </button>
+            </motion.button>
           );
         })}
       </div>
 
-      {/* Active Preset Recommendation Card */}
-      <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Challenge & Model Recommendations */}
-        <div className="lg:col-span-2 space-y-5">
-          <div className="rounded-xl border border-border-subtle bg-surface-elevated p-5 sm:p-6">
-            <div className="text-[11px] font-medium uppercase tracking-wider text-tertiary">Cinematic Challenge</div>
-            <p className="mt-2 text-sm sm:text-base text-primary leading-relaxed font-normal">
-              {activePreset.challenge}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Primary Model */}
-            <div className="rounded-xl border border-accent/30 bg-accent/5 p-5">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-medium uppercase tracking-wider text-accent">
-                  Primary Video Engine
-                </span>
-                <span className="text-[10px] text-tertiary font-mono">Recommended</span>
-              </div>
-              <h3 className="mt-2 text-base font-semibold text-primary">
-                {activePreset.recommendedStack.primary.name}
-              </h3>
-              <p className="mt-2 text-xs text-secondary leading-relaxed font-normal">
-                {activePreset.recommendedStack.primary.reason}
+      {/* Active Preset Recommendation Card with Motion Transition */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activePreset.id}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6"
+        >
+          {/* Challenge & Model Recommendations */}
+          <div className="lg:col-span-2 space-y-5">
+            <div className="rounded-xl border border-border-subtle bg-surface-elevated p-5 sm:p-6">
+              <div className="text-[11px] font-medium uppercase tracking-wider text-tertiary">Cinematic Challenge</div>
+              <p className="mt-2 text-sm sm:text-base text-primary leading-relaxed font-normal">
+                {activePreset.challenge}
               </p>
             </div>
 
-            {/* Secondary Model */}
-            <div className="rounded-xl border border-border-subtle bg-surface-elevated p-5">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-medium uppercase tracking-wider text-secondary">
-                  Secondary / Keyframe
-                </span>
-                <span className="text-[10px] text-tertiary font-mono">Chaining</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Primary Model */}
+              <div className="rounded-xl border border-accent/30 bg-accent/5 p-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-accent">
+                    Primary Video Engine
+                  </span>
+                  <span className="text-[10px] text-tertiary font-mono">Recommended</span>
+                </div>
+                <h3 className="mt-2 text-base font-semibold text-primary">
+                  {activePreset.recommendedStack.primary.name}
+                </h3>
+                <p className="mt-2 text-xs text-secondary leading-relaxed font-normal">
+                  {activePreset.recommendedStack.primary.reason}
+                </p>
               </div>
-              <h3 className="mt-2 text-base font-semibold text-primary">
-                {activePreset.recommendedStack.secondary.name}
-              </h3>
-              <p className="mt-2 text-xs text-secondary leading-relaxed font-normal">
-                {activePreset.recommendedStack.secondary.reason}
-              </p>
+
+              {/* Secondary Model */}
+              <div className="rounded-xl border border-border-subtle bg-surface-elevated p-5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-medium uppercase tracking-wider text-secondary">
+                    Secondary / Keyframe
+                  </span>
+                  <span className="text-[10px] text-tertiary font-mono">Chaining</span>
+                </div>
+                <h3 className="mt-2 text-base font-semibold text-primary">
+                  {activePreset.recommendedStack.secondary.name}
+                </h3>
+                <p className="mt-2 text-xs text-secondary leading-relaxed font-normal">
+                  {activePreset.recommendedStack.secondary.reason}
+                </p>
+              </div>
+            </div>
+
+            {/* Pro Director Tip */}
+            <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs text-secondary flex items-start gap-3">
+              <span className="text-accent font-semibold text-sm">💡</span>
+              <div>
+                <strong className="text-primary font-medium text-xs">Director&apos;s Pro Tip: </strong>
+                <span>{activePreset.recommendedStack.workflowTip}</span>
+              </div>
             </div>
           </div>
 
-          {/* Pro Director Tip */}
-          <div className="rounded-xl border border-border-subtle bg-surface-elevated p-4 text-xs text-secondary flex items-start gap-3">
-            <span className="text-accent font-semibold text-sm">💡</span>
+          {/* Verified Prompt Syntax Box */}
+          <div className="rounded-xl border border-border-subtle bg-surface-elevated p-6 flex flex-col justify-between">
             <div>
-              <strong className="text-primary font-medium text-xs">Director&apos;s Pro Tip: </strong>
-              <span>{activePreset.recommendedStack.workflowTip}</span>
+              <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+                <span className="text-xs font-medium text-primary">
+                  Camera &amp; Lens Syntax
+                </span>
+                <span className="text-[10px] text-tertiary font-mono">24fps Verified</span>
+              </div>
+              <div className="mt-4 rounded-lg border border-border bg-surface p-4 font-mono text-xs text-primary leading-relaxed select-all">
+                &quot;{activePreset.samplePromptSyntax}&quot;
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Verified Prompt Syntax Box */}
-        <div className="rounded-xl border border-border-subtle bg-surface-elevated p-6 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between border-b border-border-subtle pb-3">
-              <span className="text-xs font-medium text-primary">
-                Camera &amp; Lens Syntax
-              </span>
-              <span className="text-[10px] text-tertiary font-mono">24fps Verified</span>
-            </div>
-            <div className="mt-4 rounded-lg border border-border bg-surface p-4 font-mono text-xs text-primary leading-relaxed select-all">
-              &quot;{activePreset.samplePromptSyntax}&quot;
+            <div className="mt-6 pt-4 border-t border-border-subtle flex items-center justify-between gap-3">
+              <motion.button
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleCopyPrompt}
+                className={`w-full rounded-full px-4 py-2.5 text-xs font-medium transition flex items-center justify-center gap-2 shadow-sm ${
+                  copied
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-foreground text-background hover:opacity-90"
+                }`}
+              >
+                <span>{copied ? "✓ Copied Syntax to Clipboard!" : "Copy Shot Prompt Syntax"}</span>
+              </motion.button>
             </div>
           </div>
-
-          <div className="mt-6 pt-4 border-t border-border-subtle flex items-center justify-between gap-3">
-            <button
-              onClick={handleCopyPrompt}
-              className={`w-full rounded-full px-4 py-2.5 text-xs font-medium transition flex items-center justify-center gap-2 shadow-sm ${
-                copied
-                  ? "bg-accent text-accent-foreground"
-                  : "bg-foreground text-background hover:opacity-90"
-              }`}
-            >
-              <span>{copied ? "✓ Copied Syntax to Clipboard!" : "Copy Shot Prompt Syntax"}</span>
-            </button>
-          </div>
-        </div>
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </section>
   );
 }

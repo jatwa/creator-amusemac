@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import { Prompt } from "@/data/types";
 
 export function PromptCustomizer({ prompt }: { prompt: Prompt }) {
@@ -59,7 +60,9 @@ export function PromptCustomizer({ prompt }: { prompt: Prompt }) {
           </div>
 
           <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.015 }}
+              whileTap={{ scale: 0.985 }}
               onClick={handleCopy}
               className={`rounded-full px-6 py-2.5 text-xs sm:text-sm font-medium transition flex items-center gap-2 shadow-sm ${
                 copied
@@ -68,7 +71,7 @@ export function PromptCustomizer({ prompt }: { prompt: Prompt }) {
               }`}
             >
               <span>{copied ? "✓ Copied to Clipboard!" : "Copy Assembled Prompt"}</span>
-            </button>
+            </motion.button>
 
             <span className="text-xs text-tertiary font-mono">
               {finalPrompt.length} chars • {finalPrompt.split(/\s+/).length} words

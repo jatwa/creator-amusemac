@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "motion/react";
 import { ThemeToggle } from "./theme-toggle";
 
 export function Navigation() {
@@ -78,11 +79,18 @@ export function Navigation() {
                   href={link.href}
                   className={`relative px-3 py-1.5 text-xs font-normal transition-colors rounded-full ${
                     isActive
-                      ? "text-primary font-medium bg-black/5 dark:bg-white/10"
-                      : "text-secondary hover:text-primary hover:bg-black/[0.03] dark:hover:bg-white/[0.05]"
+                      ? "text-primary font-medium"
+                      : "text-secondary hover:text-primary"
                   }`}
                 >
-                  {link.name}
+                  {isActive && (
+                    <motion.span
+                      layoutId="active-pill"
+                      className="absolute inset-0 rounded-full bg-black/5 dark:bg-white/10 -z-10"
+                      transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                    />
+                  )}
+                  <span>{link.name}</span>
                   {link.badge && (
                     <span className="ml-1.5 rounded-full bg-accent/10 px-1.5 py-0.2 font-mono text-[9px] font-medium text-accent">
                       {link.badge}
@@ -125,12 +133,14 @@ export function Navigation() {
           <ThemeToggle />
 
           {/* Clean Primary Action */}
-          <Link
-            href="/tools"
-            className="hidden sm:inline-flex rounded-full bg-foreground px-3.5 py-1.5 text-xs font-medium text-background transition-opacity hover:opacity-90"
-          >
-            Explore
-          </Link>
+          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href="/tools"
+              className="hidden sm:inline-flex rounded-full bg-foreground px-3.5 py-1.5 text-xs font-medium text-background transition-opacity hover:opacity-90 shadow-sm"
+            >
+              Explore
+            </Link>
+          </motion.div>
 
           {/* Mobile Menu Hamburger */}
           <button
@@ -150,59 +160,67 @@ export function Navigation() {
         </div>
       </nav>
 
-      {/* Full-Screen Apple-Style Mobile Navigation Overlay */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-x-0 top-12 bottom-0 z-50 bg-background/98 dark:bg-black/95 backdrop-blur-2xl md:hidden overflow-y-auto px-6 py-8 flex flex-col justify-between animate-in fade-in duration-200">
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <p className="text-[11px] font-mono uppercase tracking-widest text-tertiary">
-                Navigation
-              </p>
-              <div className="flex flex-col space-y-3">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between text-2xl font-semibold tracking-tight text-primary hover:text-accent transition-colors"
-                  >
-                    <span>{link.name}</span>
-                    {link.badge && (
-                      <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-mono font-medium text-accent">
-                        {link.badge}
-                      </span>
-                    )}
-                  </Link>
-                ))}
+      {/* Full-Screen Apple-Style Mobile Navigation Overlay with Motion */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-0 top-12 bottom-0 z-50 bg-background/98 dark:bg-black/95 backdrop-blur-2xl md:hidden overflow-y-auto px-6 py-8 flex flex-col justify-between"
+          >
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <p className="text-[11px] font-mono uppercase tracking-widest text-tertiary">
+                  Navigation
+                </p>
+                <div className="flex flex-col space-y-3">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-between text-2xl font-semibold tracking-tight text-primary hover:text-accent transition-colors"
+                    >
+                      <span>{link.name}</span>
+                      {link.badge && (
+                        <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-mono font-medium text-accent">
+                          {link.badge}
+                        </span>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-border pt-6 space-y-3">
+                <p className="text-[11px] font-mono uppercase tracking-widest text-tertiary">
+                  Discovery &amp; Search
+                </p>
+                <Link
+                  href="/search"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-xl border border-border bg-surface p-3.5 text-sm text-secondary hover:text-primary transition-colors"
+                >
+                  <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <span>Search tools, prompts, recipes...</span>
+                </Link>
               </div>
             </div>
 
-            <div className="border-t border-border pt-6 space-y-3">
-              <p className="text-[11px] font-mono uppercase tracking-widest text-tertiary">
-                Discovery &amp; Search
-              </p>
-              <Link
-                href="/search"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-3 rounded-xl border border-border bg-surface p-3.5 text-sm text-secondary hover:text-primary transition-colors"
-              >
-                <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <span>Search tools, prompts, recipes...</span>
-              </Link>
+            <div className="pt-8 border-t border-border mt-8 flex items-center justify-between text-xs text-tertiary">
+              <span>© 2026 Creator by Amusemac</span>
+              <div className="flex items-center gap-2">
+                <span>Theme:</span>
+                <ThemeToggle />
+              </div>
             </div>
-          </div>
-
-          <div className="pt-8 border-t border-border mt-8 flex items-center justify-between text-xs text-tertiary">
-            <span>© 2026 Creator by Amusemac</span>
-            <div className="flex items-center gap-2">
-              <span>Theme:</span>
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
