@@ -254,3 +254,39 @@ export interface UpdateLog {
   verificationState: "verified" | "pending_editorial_review" | "rejected";
   timestamp: string;
 }
+
+export interface VideoEngine {
+  id: string;
+  name: string;
+  slug: string;
+  company: string;
+  model: string;
+  officialUrl: string;
+  pricingModel: "Free" | "Freemium" | "Paid" | "Open Source";
+  startingPrice: string;
+  freeTier: string;
+  maxResolution: string;
+  maxDuration: string;
+  t2v: boolean;
+  i2v: boolean;
+  v2v: boolean;
+  cameraControl: string; // e.g. "6-DOF Syntax + Motion Brush", "Basic Pan/Zoom", "Prompt-only"
+  motionControl: string; // e.g. "Fidelity Scale (1-10)", "Dynamic Motion"
+  characterConsistency: string; // e.g. "Reference Face Slot", "Seed Control", "Prompt Lock"
+  audio: string; // e.g. "Native Sound FX + Ambient", "Lip Sync", "Silent"
+  dialogue: boolean;
+  lipSync: boolean;
+  referenceImages: boolean;
+  seedControl: boolean;
+  aspectRatios: string[];
+  apiAvailability: boolean;
+  commercialUse: string; // e.g. "Full Commercial Rights (Paid Tiers)", "Non-commercial Free"
+  strengths: string[];
+  weaknesses: string[];
+  bestUseCases: string[];
+  lastVerified: string;
+  sourceUrl: string;
+  rating: number;
+  useCaseTags: ("commercial" | "narrative" | "previs" | "vfx" | "social" | "music-video" | "documentary")[];
+}
+
