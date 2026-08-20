@@ -4,12 +4,14 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 import { VideoCard } from "@/components/ui-cards";
+import { SyncedEditorialHub } from "@/components/synced-editorial-view";
 import { db } from "@/lib/db/repository";
+import { AdSlot } from "@/components/ad-slot";
 
 export const metadata: Metadata = {
-  title: "Masterclasses & Video Timeline Breakdowns — Creator by Amusemac",
+  title: "Masterclasses & Synchronized Video Intelligence — Creator by Amusemac",
   description:
-    "Curated video masterclasses, timeline breakdowns, camera control tutorials, and tool comparisons from top visual creators.",
+    "Curated video masterclasses, timeline breakdowns, and camera control tutorials directly synced with prompt recipes and tool dossiers.",
 };
 
 export default function VideosIndexPage() {
@@ -20,13 +22,13 @@ export default function VideosIndexPage() {
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
+      <div className="border-b border-border-subtle bg-surface/30 py-14 sm:py-18">
         <div className="shell">
           <SectionHeading
             as="h1"
-            label="Video Library"
+            label="Video Intelligence Library"
             title="Visual Production Masterclasses"
-            description="Curated video essays, camera syntax tutorials, prompt benchmarks, and full commercial timeline walkthroughs from verified creator channels."
+            description="Verified camera syntax tutorials, prompt benchmarks, and full commercial timeline walkthroughs tightly coupled with prompt recipes and tool dossiers."
           />
 
           {/* Category Filter Pills */}
@@ -59,13 +61,34 @@ export default function VideosIndexPage() {
         </div>
       </div>
 
-      {/* Video Grid */}
-      <div className="shell py-14">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {videos.map((video) => (
-            <VideoCard key={video.id} video={video} />
-          ))}
+      <div className="shell py-12 space-y-16">
+        {/* Synchronized Masterclass & Integrated Asset Hub */}
+        <SyncedEditorialHub />
+
+        {/* Video Catalog Grid */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-widest text-accent font-semibold">
+                Archival Masterclasses
+              </span>
+              <h2 className="text-xl font-semibold text-primary mt-0.5">
+                Director &amp; DP Production Walkthroughs
+              </h2>
+            </div>
+            <span className="text-xs text-tertiary font-mono">
+              {videos.length} Verified Masterclasses
+            </span>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {videos.map((video) => (
+              <VideoCard key={video.id} video={video} />
+            ))}
+          </div>
         </div>
+
+        <AdSlot slotId="videos-bottom" label="Video Production Intelligence Sponsor" />
       </div>
 
       <Footer />

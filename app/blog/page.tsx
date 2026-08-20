@@ -4,7 +4,9 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 import { EditorialCard } from "@/components/ui-cards";
+import { SyncedEditorialHub } from "@/components/synced-editorial-view";
 import { db } from "@/lib/db/repository";
+import { AdSlot } from "@/components/ad-slot";
 
 export const metadata: Metadata = {
   title: "Creator Journal — AI Filmmaking & Cinematography Intelligence",
@@ -22,22 +24,22 @@ export default function BlogIndexPage() {
       <Navigation />
 
       {/* Editorial Header */}
-      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
+      <div className="border-b border-border-subtle bg-surface/30 py-14 sm:py-18">
         <div className="shell">
           <SectionHeading
             as="h1"
-            label="Editorial & Essays"
+            label="Editorial &amp; Essays"
             title="Creator Journal"
             description="Rigorous studio benchmarks, cinematography analyses, prompt architecture critiques, and hybrid production breakdowns written by active directors and VFX supervisors."
           />
         </div>
       </div>
 
-      <div className="shell py-14 space-y-16">
+      <div className="shell py-12 space-y-16">
         {/* Featured Article Card */}
         {featured && (
           <section>
-            <div className="surface group overflow-hidden border-border p-6 sm:p-10 transition hover:border-border-bright bg-surface shadow-subtle">
+            <div className="surface group overflow-hidden border-border p-6 sm:p-10 transition hover:border-border-bright bg-surface shadow-subtle rounded-3xl">
               <div className="flex flex-wrap items-center gap-3 text-xs">
                 <span className="rounded-full bg-accent/10 px-3 py-1 font-medium text-accent font-mono text-[11px]">
                   Featured Investigation
@@ -80,6 +82,9 @@ export default function BlogIndexPage() {
           </section>
         )}
 
+        {/* Synchronized Masterclass & Integrated Asset Hub */}
+        <SyncedEditorialHub />
+
         {/* Latest Articles Grid */}
         <section className="space-y-6">
           <h2 className="text-xl font-semibold text-primary tracking-tight">Recent Production Essays</h2>
@@ -89,6 +94,8 @@ export default function BlogIndexPage() {
             ))}
           </div>
         </section>
+
+        <AdSlot slotId="blog-bottom" label="Editorial Journal Sponsor" />
       </div>
 
       <Footer />

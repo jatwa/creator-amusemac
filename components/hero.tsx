@@ -60,12 +60,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.4, ease }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-4"
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           >
             <motion.div whileHover={{ scale: 1.015 }} whileTap={{ scale: 0.985 }}>
               <Link
                 href="/tools"
-                className="rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 shadow-sm inline-block"
+                className="rounded-full bg-foreground px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium text-background transition-opacity hover:opacity-90 shadow-sm inline-block"
               >
                 Explore Creator
               </Link>
@@ -73,7 +73,7 @@ export function Hero() {
             <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.985 }}>
               <Link
                 href="/categories/video"
-                className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:opacity-80 transition-opacity"
+                className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-accent hover:opacity-80 transition-opacity"
               >
                 <span>Explore Video AI Hub</span>
                 <span>→</span>
