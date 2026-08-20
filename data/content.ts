@@ -22,8 +22,16 @@ import {
   VideoItem,
   UpdateLog,
   DetailedToolDossier,
+  CaseStudyStory,
+  AIFilmFestival,
+  ProductionKit,
+  CameraLexiconItem,
 } from "./types";
 import { toolDossiers } from "./tool-dossiers";
+import { storiesData } from "./production-stories";
+import { festivalsData } from "./festivals-data";
+import { productionKitsData } from "./kits-data";
+import { cameraLexiconData } from "./lexicon-data";
 
 // Backward-compatible exports for existing components
 export const categories = categoriesData.map((c) => ({
@@ -101,7 +109,7 @@ export function getToolDossier(slug: string): DetailedToolDossier | undefined {
     category: tool.category,
     tagline: tool.tagline,
     creatorVerdict: {
-      rating: tool.rating || 4.5,
+      rating: tool.rating || 4.7,
       bestFor: tool.bestFor,
       useWhen: `You need verified ${tool.category} production capabilities tailored for ${tool.bestFor.toLowerCase()}.`,
       avoidWhen: "You need fully offline or open-source self-hosted alternatives without recurring subscription overhead.",
@@ -113,7 +121,7 @@ export function getToolDossier(slug: string): DetailedToolDossier | undefined {
       editorialQuote: `${tool.name} provides solid, verified capabilities in the ${tool.category} discipline, tested for modern creative pipelines.`
     },
     quickFacts: {
-      developer: `${tool.name} Team`,
+      developer: tool.company || `${tool.name} Team`,
       releaseYear: "2024–2026",
       verifiedModel: tool.supportedModels?.[0] || "Latest Production Release",
       platforms: tool.platforms,
@@ -333,6 +341,55 @@ export function getAllUpdateLogs(): UpdateLog[] {
   return updateLogsData;
 }
 
+export function getAllStories(): CaseStudyStory[] {
+  return storiesData;
+}
+
+export function getStoryBySlug(slug: string): CaseStudyStory | undefined {
+  return storiesData.find((s) => s.slug === slug);
+}
+
+export function getAllFestivals(): AIFilmFestival[] {
+  return festivalsData;
+}
+
+export function getFestivalBySlug(slug: string): AIFilmFestival | undefined {
+  return festivalsData.find((f) => f.slug === slug);
+}
+
+export function getAllProductionKits(): ProductionKit[] {
+  return productionKitsData;
+}
+
+export function getProductionKitBySlug(slug: string): ProductionKit | undefined {
+  return productionKitsData.find((k) => k.slug === slug);
+}
+
+export function getAllCameraLexicon(): CameraLexiconItem[] {
+  return cameraLexiconData;
+}
+
+export function getCameraLexiconBySlug(slug: string): CameraLexiconItem | undefined {
+  return cameraLexiconData.find((l) => l.slug === slug);
+}
+
+// Universal Search with Synonyms Dictionary
+const SEARCH_SYNONYMS: Record<string, string[]> = {
+  video: ["runway", "kling", "veo", "luma", "minimax", "hailuo", "higgsfield", "pika", "wan", "ltx", "vidu", "pixverse"],
+  image: ["midjourney", "flux", "ideogram", "krea", "leonardo", "magnific"],
+  audio: ["elevenlabs", "suno", "udio", "voice", "sound", "foley", "music", "dubbing"],
+  voice: ["elevenlabs", "descript", "speech", "heygen", "audio"],
+  editing: ["descript", "davinci", "premiere", "capcut", "frameio", "timeline", "nle", "cut"],
+  color: ["davinci", "aces", "lut", "grade", "resolve"],
+  vfx: ["topaz", "upscale", "comfyui", "meshy", "wonderdynamics", "diffusion"],
+  previs: ["storyboard", "animatic", "workflow", "runway", "kling", "camera"],
+  camera: ["35mm", "anamorphic", "macro", "tracking", "russian arm", "lens", "optics", "dolly", "orbit", "drone", "fpv"],
+  free: ["wan", "ltx", "comfyui", "flux", "open source", "freemium"],
+  open: ["wan", "ltx", "flux", "comfyui", "open weights", "open source"],
+  avatar: ["heygen", "synthesia", "hedra", "actor", "lip sync", "performance"],
+  api: ["fal", "replicate", "infrastructure", "developer", "cloud", "serverless"],
+};
+
 export function searchAllEntities(query: string) {
   const q = query.toLowerCase().trim();
   if (!q) {
@@ -344,68 +401,119 @@ export function searchAllEntities(query: string) {
       comparisons: comparisonsData,
       blogs: blogsData.filter((b) => b.status === "published"),
       videos: videosData.filter((v) => v.status === "published"),
+      stories: storiesData,
+      festivals: festivalsData,
+      kits: productionKitsData,
+      lexicon: cameraLexiconData,
     };
   }
 
+  // Check synonym triggers
+  const relatedTerms: string[] = [q];
+  for (const [key, synonyms] of Object.entries(SEARCH_SYNONYMS)) {
+    if (q.includes(key) || synonyms.some((s) => s.includes(q))) {
+      relatedTerms.push(key, ...synonyms);
+    }
+  }
+
+  const matchesTerm = (text: string) => {
+    const lower = text.toLowerCase();
+    return relatedTerms.some((term) => lower.includes(term));
+  };
+
   const matchedTools = toolsData.filter(
     (t) =>
-      t.name.toLowerCase().includes(q) ||
-      t.description.toLowerCase().includes(q) ||
-      t.bestFor.toLowerCase().includes(q) ||
-      t.keyFeatures.some((f) => f.toLowerCase().includes(q)) ||
-      t.category.toLowerCase().includes(q)
+      matchesTerm(t.name) ||
+      matchesTerm(t.description) ||
+      matchesTerm(t.bestFor) ||
+      matchesTerm(t.category) ||
+      t.keyFeatures.some((f) => matchesTerm(f)) ||
+      (t.subcategories && t.subcategories.some((sub) => matchesTerm(sub)))
   );
 
   const matchedPrompts = promptsData.filter(
     (p) =>
-      p.title.toLowerCase().includes(q) ||
-      p.promptText.toLowerCase().includes(q) ||
-      p.useCase.toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q)
+      matchesTerm(p.title) ||
+      matchesTerm(p.promptText) ||
+      matchesTerm(p.useCase) ||
+      matchesTerm(p.category)
   );
 
   const matchedTutorials = tutorialsData.filter(
     (tut) =>
-      tut.title.toLowerCase().includes(q) ||
-      tut.goal.toLowerCase().includes(q) ||
-      tut.category.toLowerCase().includes(q)
+      matchesTerm(tut.title) ||
+      matchesTerm(tut.goal) ||
+      matchesTerm(tut.category)
   );
 
   const matchedWorkflows = workflowsData.filter(
     (w) =>
-      w.title.toLowerCase().includes(q) ||
-      w.summary.toLowerCase().includes(q) ||
-      w.steps.some((s) => s.phaseName.toLowerCase().includes(q) || s.goal.toLowerCase().includes(q))
+      matchesTerm(w.title) ||
+      matchesTerm(w.summary) ||
+      w.steps.some((s) => matchesTerm(s.phaseName) || matchesTerm(s.goal))
   );
 
   const matchedComparisons = comparisonsData.filter((c) => {
-    const tA = getToolById(c.toolAId)?.name.toLowerCase() || "";
-    const tB = getToolById(c.toolBId)?.name.toLowerCase() || "";
+    const tA = getToolById(c.toolAId)?.name || "";
+    const tB = getToolById(c.toolBId)?.name || "";
     return (
-      tA.includes(q) ||
-      tB.includes(q) ||
-      c.summaryVerdict.toLowerCase().includes(q) ||
-      c.category.toLowerCase().includes(q)
+      matchesTerm(tA) ||
+      matchesTerm(tB) ||
+      matchesTerm(c.summaryVerdict) ||
+      matchesTerm(c.category)
     );
   });
 
   const matchedBlogs = blogsData.filter(
     (b) =>
       b.status === "published" &&
-      (b.title.toLowerCase().includes(q) ||
-        b.excerpt.toLowerCase().includes(q) ||
-        b.category.toLowerCase().includes(q) ||
-        b.tags.some((tag: string) => tag.toLowerCase().includes(q)))
+      (matchesTerm(b.title) ||
+        matchesTerm(b.excerpt) ||
+        matchesTerm(b.category) ||
+        b.tags.some((tag: string) => matchesTerm(tag)))
   );
 
   const matchedVideos = videosData.filter(
     (v) =>
       v.status === "published" &&
-      (v.title.toLowerCase().includes(q) ||
-        v.description.toLowerCase().includes(q) ||
-        v.creator.name.toLowerCase().includes(q) ||
-        v.category.toLowerCase().includes(q) ||
-        v.tags.some((tag: string) => tag.toLowerCase().includes(q)))
+      (matchesTerm(v.title) ||
+        matchesTerm(v.description) ||
+        matchesTerm(v.creator.name) ||
+        matchesTerm(v.category) ||
+        v.tags.some((tag: string) => matchesTerm(tag)))
+  );
+
+  const matchedStories = storiesData.filter(
+    (s) =>
+      matchesTerm(s.title) ||
+      matchesTerm(s.subtitle) ||
+      matchesTerm(s.summary) ||
+      matchesTerm(s.genre) ||
+      s.toolsUsed.some((t) => matchesTerm(t))
+  );
+
+  const matchedFestivals = festivalsData.filter(
+    (f) =>
+      matchesTerm(f.name) ||
+      matchesTerm(f.hostCity) ||
+      matchesTerm(f.country) ||
+      matchesTerm(f.eligibility)
+  );
+
+  const matchedKits = productionKitsData.filter(
+    (k) =>
+      matchesTerm(k.title) ||
+      matchesTerm(k.description) ||
+      matchesTerm(k.category) ||
+      k.targetSoftware.some((s) => matchesTerm(s))
+  );
+
+  const matchedLexicon = cameraLexiconData.filter(
+    (l) =>
+      matchesTerm(l.name) ||
+      matchesTerm(l.cinematicEffect) ||
+      matchesTerm(l.promptSyntax) ||
+      matchesTerm(l.category)
   );
 
   return {
@@ -416,5 +524,9 @@ export function searchAllEntities(query: string) {
     comparisons: matchedComparisons,
     blogs: matchedBlogs,
     videos: matchedVideos,
+    stories: matchedStories,
+    festivals: matchedFestivals,
+    kits: matchedKits,
+    lexicon: matchedLexicon,
   };
 }

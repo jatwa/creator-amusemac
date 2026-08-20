@@ -4,11 +4,13 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 import { promptsData } from "@/data/platform-data";
+import { cameraLexiconData } from "@/data/lexicon-data";
 import { PromptCard } from "@/components/ui-cards";
+import { PromptFactory } from "@/components/prompt-factory";
 
 export const metadata: Metadata = {
-  title: "Production AI Prompts Library — Creator by Amusemac",
-  description: "Tested prompt templates for cinematic video direction, luxury product photography, 35mm film stills, and fast video editing.",
+  title: "Prompt Factory & Model Translator — Creator by Amusemac",
+  description: "Generate model-specific prompt syntax for Runway, Kling, Veo, Luma, Midjourney, and Flux. Explore the optical camera and lens lexicon.",
 };
 
 export default function PromptsPage() {
@@ -17,13 +19,13 @@ export default function PromptsPage() {
       <Navigation />
 
       {/* Hero Banner */}
-      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
+      <div className="border-b border-border-subtle bg-surface/30 py-14 sm:py-18">
         <div className="shell">
           <SectionHeading
             as="h1"
-            label="Prompt Architecture"
-            title="Production Prompt Library"
-            description="Modular prompt recipes designed to give you predictable, cinematic results across Midjourney, Flux.1, Runway, and Kling AI."
+            label="Cinematic Prompt Factory"
+            title="Director-Level Prompt Architecture"
+            description="Convert creative concepts into model-specific diffusion syntax for Runway, Kling, Veo, Luma, Midjourney, and Flux. Master the professional camera and lens lexicon."
           />
 
           {/* Category Filter Pills */}
@@ -62,12 +64,31 @@ export default function PromptsPage() {
         </div>
       </div>
 
-      {/* Prompts Grid */}
-      <div className="shell py-14">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {promptsData.map((item) => (
-            <PromptCard key={item.id} prompt={item} />
-          ))}
+      <div className="shell py-12 space-y-16">
+        {/* Interactive Model Translator & Camera Lexicon */}
+        <PromptFactory prompts={promptsData} lexicon={cameraLexiconData} />
+
+        {/* Tested Prompt Catalog Grid */}
+        <div>
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-widest text-accent font-semibold">
+                Tested Recipes
+              </span>
+              <h2 className="text-xl font-semibold text-primary mt-0.5">
+                Curated Production Prompt Library
+              </h2>
+            </div>
+            <span className="text-xs text-tertiary font-mono">
+              {promptsData.length} Verified Recipes
+            </span>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {promptsData.map((prompt) => (
+              <PromptCard key={prompt.id} prompt={prompt} />
+            ))}
+          </div>
         </div>
       </div>
 

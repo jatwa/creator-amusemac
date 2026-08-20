@@ -39,11 +39,12 @@ export function Navigation() {
   const navLinks = [
     { name: "Tools", href: "/tools" },
     { name: "Prompts", href: "/prompts" },
-    { name: "Compare", href: "/compare" },
     { name: "Video Hub", href: "/categories/video", badge: "Flagship" },
+    { name: "Stories", href: "/stories" },
+    { name: "Compare", href: "/compare" },
     { name: "Workflows", href: "/workflows" },
+    { name: "Festivals", href: "/festivals" },
     { name: "Journal", href: "/blog" },
-    { name: "Videos", href: "/videos" },
   ];
 
   return (

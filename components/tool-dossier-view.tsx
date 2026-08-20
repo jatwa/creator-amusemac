@@ -18,6 +18,7 @@ import { CreatorVerdictCard } from "./creator-verdict-card";
 import { RoleModeSelector, ROLE_CONFIGS } from "./role-mode-selector";
 import { PromptAnatomyCard } from "./prompt-anatomy-card";
 import { StickyToc } from "./sticky-toc";
+import { AdSlot } from "./ad-slot";
 
 interface ToolDossierViewProps {
   tool: Tool;
@@ -555,6 +556,9 @@ export function ToolDossierView({
               ))}
             </div>
           </section>
+
+          {/* AdSense Placement */}
+          <AdSlot slotId="dossier-bottom" label="Production Intelligence Sponsor" />
 
           {/* LEVEL 14: TRACEABLE SOURCE LEDGER */}
           <section id="source-ledger" className="surface p-6 sm:p-8 rounded-2xl border border-border bg-surface shadow-subtle space-y-4">

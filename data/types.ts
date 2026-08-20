@@ -1,4 +1,15 @@
-export type CategoryType = "video" | "image" | "audio" | "3d" | "editing" | "workflow" | "vfx" | "concept";
+export type CategoryType = "video" | "image" | "audio" | "3d" | "editing" | "workflow" | "vfx" | "concept" | "avatar" | "infrastructure";
+
+export type ToolType =
+  | "platform"
+  | "model"
+  | "foundation_model"
+  | "orchestrator"
+  | "api_infrastructure"
+  | "nle_post"
+  | "asset_stock"
+  | "three_d_vfx"
+  | "avatar_performance";
 
 export type PricingModel = "free" | "freemium" | "paid" | "open-source" | "usage-based";
 
@@ -10,6 +21,30 @@ export interface ToolPricing {
   freeTierDetails?: string;
   subscriptionInfo?: string;
   commercialUse: boolean | string;
+}
+
+export interface ToolCapabilityFlags {
+  textToVideo?: boolean;
+  imageToVideo?: boolean;
+  videoToVideo?: boolean;
+  textToImage?: boolean;
+  imageEditing?: boolean;
+  cameraControl?: boolean;
+  motionControl?: boolean;
+  characterConsistency?: boolean;
+  lipSync?: boolean;
+  dialogue?: boolean;
+  audioGeneration?: boolean;
+  soundEffects?: boolean;
+  musicGeneration?: boolean;
+  upscaling?: boolean;
+  frameInterpolation?: boolean;
+  inpainting?: boolean;
+  outpainting?: boolean;
+  threeDGeneration?: boolean;
+  avatarGeneration?: boolean;
+  editing?: boolean;
+  compositing?: boolean;
 }
 
 export interface CreatorVerdict {
@@ -167,19 +202,24 @@ export interface Tool {
   id: string;
   slug: string;
   name: string;
+  company?: string;
+  type?: ToolType;
   tagline: string;
   description: string;
   overview: string;
   category: CategoryType;
   subcategories: string[];
   bestFor: string;
+  workflowRole?: string;
   keyFeatures: string[];
   strengths: string[];
   weaknesses: string[];
+  capabilities?: ToolCapabilityFlags;
   pricing: ToolPricing;
   supportedModels?: string[];
-  platforms: ("Web" | "macOS" | "Windows" | "iOS" | "Android" | "API" | "Plugin" | "Discord")[];
+  platforms: ("Web" | "macOS" | "Windows" | "iOS" | "Android" | "API" | "Plugin" | "Discord" | "ComfyUI" | "Linux")[];
   officialUrl: string;
+  sourceUrl?: string;
   accentColor: string;
   logoUrl?: string;
   rating?: number; // 1.0 - 5.0
@@ -442,4 +482,83 @@ export interface VideoEngine {
   sourceUrl: string;
   rating: number;
   useCaseTags: ("commercial" | "narrative" | "previs" | "vfx" | "social" | "music-video" | "documentary")[];
+}
+
+// -------------------------------------------------------------
+// NEW LAUNCH ARCHITECTURE TYPES: STORIES, FESTIVALS, KITS, LEXICON
+// -------------------------------------------------------------
+
+export interface StoryShotStep {
+  shotNumber: number;
+  shotName: string;
+  conceptPrompt: string;
+  modelUsed: string;
+  technique: "T2I" | "I2V" | "V2V" | "Act-One" | "Compositing" | "Color Grade";
+  creativeChallenge: string;
+  solution: string;
+  outputArtifact: string;
+}
+
+export interface CaseStudyStory {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  genre: string;
+  director: string;
+  runtime: string;
+  status: "Case Study" | "Production In-Review" | "Festival Winner";
+  summary: string;
+  creativeBrief: string;
+  shotList: StoryShotStep[];
+  toolsUsed: string[];
+  keyPromptTakeaways: string[];
+  colorPalette: string[];
+  publishedAt: string;
+}
+
+export interface AIFilmFestival {
+  id: string;
+  slug: string;
+  name: string;
+  hostCity: string;
+  country: string;
+  seasonYear: string;
+  deadline: string;
+  prizes: string;
+  eligibility: string;
+  aiDisclosureRule: string;
+  submissionFormat: string;
+  officialUrl: string;
+  lastVerified: string;
+  readinessChecklist: {
+    item: string;
+    required: boolean;
+    notes: string;
+  }[];
+}
+
+export interface ProductionKit {
+  id: string;
+  slug: string;
+  title: string;
+  category: "Starter" | "Previs" | "Prompting" | "Camera" | "Festival" | "Finishing";
+  badge: "Free Download" | "Pro Studio" | "Open Template";
+  description: string;
+  includedAssets: string[];
+  fileFormat: string;
+  targetSoftware: string[];
+  downloadUrl: string;
+  lastUpdated: string;
+}
+
+export interface CameraLexiconItem {
+  slug: string;
+  name: string;
+  category: "Optics / Lenses" | "Camera Movement" | "Framing & Angle" | "Special Effects";
+  focalLengthOrVector: string;
+  cinematicEffect: string;
+  bestUseInAI: string;
+  promptSyntax: string;
+  commonMistake: string;
 }

@@ -9,9 +9,10 @@ import {
   blogsData,
   videosData,
 } from "@/data/platform-data";
+import { storiesData } from "@/data/production-stories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://creator.amusemac.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://creator-amusemac.vercel.app";
 
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -19,6 +20,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools",
     "/prompts",
     "/compare",
+    "/stories",
+    "/festivals",
+    "/kits",
     "/tutorials",
     "/workflows",
     "/categories",
@@ -26,6 +30,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/search",
     "/blog",
     "/videos",
+    "/about",
+    "/privacy",
+    "/terms",
+    "/contact",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
@@ -37,6 +45,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const toolRoutes: MetadataRoute.Sitemap = toolsData.map((tool) => ({
     url: `${baseUrl}/tools/${tool.slug}`,
     lastModified: new Date(tool.updatedAt).toISOString(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // Story case studies
+  const storyRoutes: MetadataRoute.Sitemap = storiesData.map((story) => ({
+    url: `${baseUrl}/stories/${story.slug}`,
+    lastModified: new Date().toISOString(),
     changeFrequency: "weekly",
     priority: 0.9,
   }));
@@ -104,6 +120,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticRoutes,
     ...toolRoutes,
+    ...storyRoutes,
     ...blogRoutes,
     ...videoRoutes,
     ...promptRoutes,
