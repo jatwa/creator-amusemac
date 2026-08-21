@@ -1,0 +1,30 @@
+[
+  {
+    "id": "prompt-luxury-perfume",
+    "slug": "luxury-perfume-cinematic-macro",
+    "title": "Luxury Perfume Cinematic Macro & Light Refraction",
+    "category": "video",
+    "useCase": "Commercial & High-End Product Advertising",
+    "description": "High-speed macro commercial shot capturing amber fragrance bottle on black polished marble with water droplets and golden prism refractions.",
+    "promptText": "Extreme macro 100mm lens shot of amber crystal perfume flacon resting on wet black marble, golden caustic light beams slicing through rising mist, 1000fps slow motion --ar 16:9 --motion 4",
+    "negativePrompt": "blurry, low resolution, plastic reflections, flickering, static",
+    "variables": [
+      {
+        "key": "bottle_color",
+        "label": "Bottle Hue",
+        "placeholder": "amber crystal",
+        "defaultValue": "amber crystal"
+      }
+    ],
+    "compatibleToolIds": ["tool-runway", "tool-kling"],
+    "recommendedSettings": {
+      "aspectRatio": "16:9",
+      "guidanceScale": "7.5",
+      "steps": 30
+    },
+    "relatedPromptIds": [],
+    "relatedTutorialIds": [],
+    "verifiedAt": "2026-08-21",
+    "status": "published"
+  }
+]

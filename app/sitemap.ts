@@ -43,24 +43,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Tool routes
-  const toolRoutes: MetadataRoute.Sitemap = toolsData.map((tool) => ({
-    url: `${baseUrl}/tools/${tool.slug}`,
-    lastModified: new Date(tool.updatedAt).toISOString(),
-    changeFrequency: "weekly",
-    priority: 0.9,
-  }));
+  const toolRoutes: MetadataRoute.Sitemap = toolsData
+    .filter((t: any) => !t.status || t.status === "published")
+    .map((tool) => ({
+      url: `${baseUrl}/tools/${tool.slug}`,
+      lastModified: new Date(tool.updatedAt).toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
 
   // Story case studies
-  const storyRoutes: MetadataRoute.Sitemap = storiesData.map((story) => ({
-    url: `${baseUrl}/stories/${story.slug}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: "weekly",
-    priority: 0.9,
-  }));
+  const storyRoutes: MetadataRoute.Sitemap = storiesData
+    .filter((s: any) => !s.status || s.status === "published" || s.status === "Case Study")
+    .map((story) => ({
+      url: `${baseUrl}/stories/${story.slug}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
 
   // Blog routes
   const blogRoutes: MetadataRoute.Sitemap = blogsData
-    .filter((b) => b.status === "published")
+    .filter((b) => !b.status || b.status === "published")
     .map((blog) => ({
       url: `${baseUrl}/blog/${blog.slug}`,
       lastModified: new Date(blog.updatedAt).toISOString(),
@@ -70,7 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Video routes
   const videoRoutes: MetadataRoute.Sitemap = videosData
-    .filter((v) => v.status === "published")
+    .filter((v) => !v.status || v.status === "published")
     .map((video) => ({
       url: `${baseUrl}/videos/${video.slug}`,
       lastModified: new Date(video.publishedAt).toISOString(),
@@ -79,12 +83,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
   // Prompt routes
-  const promptRoutes: MetadataRoute.Sitemap = promptsData.map((prompt) => ({
-    url: `${baseUrl}/prompts/${prompt.slug}`,
-    lastModified: new Date(prompt.verifiedAt).toISOString(),
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }));
+  const promptRoutes: MetadataRoute.Sitemap = promptsData
+    .filter((p: any) => !p.status || p.status === "published")
+    .map((prompt) => ({
+      url: `${baseUrl}/prompts/${prompt.slug}`,
+      lastModified: new Date(prompt.verifiedAt).toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    }));
 
   // Comparison routes
   const comparisonRoutes: MetadataRoute.Sitemap = comparisonsData.map((comp) => ({
@@ -95,20 +101,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Tutorial routes
-  const tutorialRoutes: MetadataRoute.Sitemap = tutorialsData.map((tut) => ({
-    url: `${baseUrl}/tutorials/${tut.slug}`,
-    lastModified: new Date(tut.updatedAt).toISOString(),
-    changeFrequency: "monthly",
-    priority: 0.85,
-  }));
+  const tutorialRoutes: MetadataRoute.Sitemap = tutorialsData
+    .filter((t: any) => !t.status || t.status === "published")
+    .map((tut) => ({
+      url: `${baseUrl}/tutorials/${tut.slug}`,
+      lastModified: new Date(tut.updatedAt).toISOString(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    }));
 
   // Workflow routes
-  const workflowRoutes: MetadataRoute.Sitemap = workflowsData.map((wf) => ({
-    url: `${baseUrl}/workflows/${wf.slug}`,
-    lastModified: new Date(wf.lastUpdated).toISOString(),
-    changeFrequency: "monthly",
-    priority: 0.9,
-  }));
+  const workflowRoutes: MetadataRoute.Sitemap = workflowsData
+    .filter((w: any) => !w.status || w.status === "published")
+    .map((wf) => ({
+      url: `${baseUrl}/workflows/${wf.slug}`,
+      lastModified: new Date(wf.lastUpdated).toISOString(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    }));
 
   // Category routes
   const categoryRoutes: MetadataRoute.Sitemap = categoriesData.map((cat) => ({

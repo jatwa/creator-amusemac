@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tool-seedance",
+    "slug": "bytedance-seedance",
+    "name": "ByteDance Seedance",
+    "company": "ByteDance Research",
+    "type": "model",
+    "tagline": "Next-generation video synthesis with character keyframe fidelity",
+    "description": "A high-fidelity multimodal video generation model focused on fluid character motion, accurate limb articulation, and complex scene dynamics.",
+    "overview": "ByteDance Seedance advances video generation with spatio-temporal attention architectures trained for complex human choreography and realistic physical interactions.",
+    "category": "video",
+    "subcategories": ["Text-to-Video", "Image-to-Video", "Character Animation"],
+    "bestFor": "Complex character action sequences and dance choreography",
+    "keyFeatures": [
+      "Advanced skeletal tracking and joint articulation",
+      "High temporal coherence across 10-second generations",
+      "Directional lighting and shadow fidelity"
+    ],
+    "strengths": [
+      "Zero limb warping during high-speed rotational movement",
+      "Photorealistic fabric and clothing dynamics"
+    ],
+    "weaknesses": [
+      "Limited direct web platform access outside enterprise API partners"
+    ],
+    "pricing": {
+      "model": "usage-based",
+      "startingPrice": "Enterprise API / Cloud Compute",
+      "commercialUse": true
+    },
+    "platforms": ["API", "Web"],
+    "officialUrl": "https://seedance.bytedance.com",
+    "accentColor": "#00F2FE",
+    "verifiedAt": "2026-08-21",
+    "updatedAt": "2026-08-21",
+    "competitorIds": ["tool-runway", "tool-kling"],
+    "recommendedPromptIds": [],
+    "tutorialIds": [],
+    "workflowIds": [],
+    "status": "review"
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "fest-sundance-new-frontier",
+    "slug": "sundance-new-frontier-ai",
+    "name": "Sundance Film Festival — New Frontier AI Showcase",
+    "hostCity": "Park City, Utah",
+    "country": "United States",
+    "seasonYear": "2027",
+    "deadline": "November 15, 2026",
+    "prizes": "$50,000 Catalyst Grants & Festival Premiere Screening",
+    "eligibility": "Open globally to narrative, documentary, and experimental filmmakers utilizing emerging AI tools.",
+    "aiDisclosureRule": "Requires complete production transparency statement detailing models, datasets, and human artistic direction.",
+    "submissionFormat": "ProRes 422 HQ / 4K DCP, 1 to 20 minutes runtime, 16:9 or 2.39:1 aspect ratio.",
+    "officialUrl": "https://www.sundance.org/festivals/submitting",
+    "lastVerified": "2026-08-21",
+    "status": "published",
+    "readinessChecklist": [
+      {
+        "item": "Full Model & Prompt Disclosure Log",
+        "required": true,
+        "notes": "Comprehensive list of generative platforms used for visual, vocal, and sound design."
+      },
+      {
+        "item": "DCP Master Screening File",
+        "required": true,
+        "notes": "4K DCI-compliant color graded projection master."
+      }
+    ]
+  }
+]
