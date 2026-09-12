@@ -370,6 +370,16 @@ export {
   getAllFestivalsWithCurrentEdition,
 } from "./festivals-canonical";
 
+export {
+  canonicalResearchSources,
+  canonicalResearchRecords,
+  getAllPublicResearch,
+  getResearchBySlug,
+  getResearchById,
+  getResearchByTopic,
+  getResearchByEntityType,
+} from "./research-canonical";
+import { canonicalResearchRecords } from "./research-canonical";
 
 export function getAllProductionKits(): ProductionKit[] {
   return productionKitsData;
@@ -405,6 +415,7 @@ const SEARCH_SYNONYMS: Record<string, string[]> = {
 };
 
 export function searchAllEntities(query: string) {
+  const publicResearch = canonicalResearchRecords.filter((r) => r.visibility === "PUBLIC");
   const q = query.toLowerCase().trim();
   if (!q) {
     return {
@@ -419,6 +430,7 @@ export function searchAllEntities(query: string) {
       festivals: festivalsData,
       kits: productionKitsData,
       lexicon: cameraLexiconData,
+      research: publicResearch,
     };
   }
 
@@ -530,6 +542,14 @@ export function searchAllEntities(query: string) {
       matchesTerm(l.category)
   );
 
+  const matchedResearch = publicResearch.filter(
+    (r) =>
+      matchesTerm(r.researchQuestion) ||
+      matchesTerm(r.topic) ||
+      matchesTerm(r.findingsSummary) ||
+      r.statements.some((s) => matchesTerm(s.statement))
+  );
+
   return {
     tools: matchedTools,
     prompts: matchedPrompts,
@@ -542,5 +562,6 @@ export function searchAllEntities(query: string) {
     festivals: matchedFestivals,
     kits: matchedKits,
     lexicon: matchedLexicon,
+    research: matchedResearch,
   };
 }

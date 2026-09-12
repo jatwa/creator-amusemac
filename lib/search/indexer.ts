@@ -1,9 +1,10 @@
 import { db } from "@/lib/db/repository";
 import { canonicalStandingFestivals, canonicalFestivalEditions } from "@/data/festivals-canonical";
+import { canonicalResearchRecords } from "@/data/research-canonical";
 
 export interface SearchIndexEntry {
   id: string;
-  entityType: "tool" | "prompt" | "tutorial" | "workflow" | "comparison" | "blog" | "video" | "festival" | "festival_edition";
+  entityType: "tool" | "prompt" | "tutorial" | "workflow" | "comparison" | "blog" | "video" | "festival" | "festival_edition" | "research";
   slug: string;
   title: string;
   category: string;
@@ -26,6 +27,7 @@ export function generateSearchIndex(): {
   const videos = db.getPublishedVideos();
   const festivals = canonicalStandingFestivals;
   const festivalEditions = canonicalFestivalEditions;
+  const publicResearch = canonicalResearchRecords.filter((r) => r.visibility === "PUBLIC");
 
   const entries: SearchIndexEntry[] = [];
 
@@ -207,6 +209,32 @@ export function generateSearchIndex(): {
     });
   });
 
+  // Index Public Research Records
+  publicResearch.forEach((rec) => {
+    const tokens = [
+      rec.researchQuestion,
+      rec.topic,
+      rec.findingsSummary,
+      rec.methodology,
+      ...rec.statements.map((s) => s.statement),
+      ...rec.sources.map((src) => `${src.sourceTitle} ${src.sourcePublisher}`),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    entries.push({
+      id: rec.id,
+      entityType: "research",
+      slug: `/research/${rec.slug}`,
+      title: rec.researchQuestion,
+      category: rec.topic,
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: rec.findingsSummary,
+      weight: 1.0,
+    });
+  });
+
   return {
     totalIndexed: entries.length,
     entriesByType: {
@@ -219,6 +247,7 @@ export function generateSearchIndex(): {
       videos: videos.length,
       festivals: festivals.length,
       festivalEditions: festivalEditions.length,
+      research: publicResearch.length,
     },
     generatedAt: new Date().toISOString(),
   };

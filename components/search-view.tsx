@@ -12,7 +12,7 @@ export function SearchView() {
 
   const [query, setQuery] = useState(initialQuery);
   const [activeTab, setActiveTab] = useState<
-    "all" | "tools" | "prompts" | "stories" | "festivals" | "kits" | "blogs" | "videos" | "workflows" | "tutorials" | "comparisons"
+    "all" | "tools" | "prompts" | "stories" | "festivals" | "kits" | "blogs" | "videos" | "workflows" | "tutorials" | "comparisons" | "research"
   >("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [, startTransition] = useTransition();
@@ -40,6 +40,7 @@ export function SearchView() {
       tutorials: rawResults.tutorials,
       workflows: rawResults.workflows,
       comparisons: rawResults.comparisons,
+      research: rawResults.research,
     };
   }, [query, selectedCategory]);
 
@@ -53,7 +54,8 @@ export function SearchView() {
     results.videos.length +
     results.tutorials.length +
     results.workflows.length +
-    results.comparisons.length;
+    results.comparisons.length +
+    results.research.length;
 
   const handleQueryChange = (val: string) => {
     startTransition(() => {
@@ -128,6 +130,7 @@ export function SearchView() {
             { id: "prompts", label: `Prompts (${results.prompts.length})` },
             { id: "stories", label: `Stories (${results.stories.length})` },
             { id: "festivals", label: `Festivals (${results.festivals.length})` },
+            { id: "research", label: `Research (${results.research.length})` },
             { id: "kits", label: `Kits (${results.kits.length})` },
             { id: "workflows", label: `Workflows (${results.workflows.length})` },
             { id: "comparisons", label: `Compare (${results.comparisons.length})` },
@@ -333,6 +336,45 @@ export function SearchView() {
                           {fest.name}
                         </h4>
                         <p className="text-xs text-secondary line-clamp-2">{fest.prizes}</p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Research Section */}
+              {(activeTab === "all" || activeTab === "research") && results.research.length > 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+                    <span className="text-xs font-semibold text-primary">
+                      Cinema Research Dossiers ({results.research.length})
+                    </span>
+                    <Link href="/research" className="text-[11px] text-accent font-mono hover:underline">
+                      View research desk →
+                    </Link>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {results.research.map((rec) => (
+                      <Link
+                        key={rec.id}
+                        href={`/research/${rec.slug}`}
+                        className="surface rounded-2xl border border-border bg-surface p-5 space-y-2 hover:border-accent/40 transition group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                            {rec.topic}
+                          </span>
+                          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                            {rec.verificationStatus}
+                          </span>
+                        </div>
+                        <h4 className="text-base font-semibold text-primary group-hover:text-accent transition leading-snug">
+                          {rec.researchQuestion}
+                        </h4>
+                        <p className="text-xs text-secondary line-clamp-2 leading-relaxed">
+                          {rec.findingsSummary}
+                        </p>
                       </Link>
                     ))}
                   </div>
