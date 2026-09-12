@@ -1,6 +1,14 @@
 {
   "crons": [
     {
+      "path": "/api/cron/check-pricing",
+      "schedule": "30 0 * * *"
+    },
+    {
+      "path": "/api/cron/daily-digest",
+      "schedule": "30 0 * * *"
+    },
+    {
       "path": "/api/cron/check-tools",
       "schedule": "0 6 * * *"
     },

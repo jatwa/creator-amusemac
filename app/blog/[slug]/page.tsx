@@ -5,9 +5,10 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { db } from "@/lib/db/repository";
 import { StructuredData } from "@/components/structured-data";
+import { getDbPublishedBlogs, getDbBlogBySlug } from "@/lib/db/neon";
 
 export async function generateStaticParams() {
-  const blogs = db.getPublishedBlogs();
+  const blogs = await getDbPublishedBlogs();
   return blogs.map((blog) => ({
     slug: blog.slug,
   }));
@@ -19,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const blog = db.getBlogBySlug(slug);
+  const blog = await getDbBlogBySlug(slug);
   if (!blog) return { title: "Article Not Found — Creator Intel" };
 
   return {
@@ -43,16 +44,24 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const blog = db.getBlogBySlug(slug);
+  const blog = await getDbBlogBySlug(slug);
 
   if (!blog) {
     notFound();
   }
 
-  const relatedTools = db.getRelatedToolsForBlog(blog);
-  const relatedPrompts = db.getRelatedPromptsForBlog(blog);
-  const relatedTutorials = db.getRelatedTutorialsForBlog(blog);
-  const relatedVideos = db.getRelatedVideosForBlog(blog);
+  const relatedTools = (blog.relatedToolIds || [])
+    .map((id) => db.getToolById(id))
+    .filter((t): t is NonNullable<typeof t> => Boolean(t));
+  const relatedPrompts = (blog.relatedPromptIds || [])
+    .map((id) => db.getAllPrompts().find((p) => p.id === id))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
+  const relatedTutorials = (blog.relatedTutorialIds || [])
+    .map((id) => db.getAllTutorials().find((t) => t.id === id))
+    .filter((t): t is NonNullable<typeof t> => Boolean(t));
+  const relatedVideos = (blog.relatedVideoIds || [])
+    .map((id) => db.getVideoById(id))
+    .filter((v): v is NonNullable<typeof v> => Boolean(v));
 
   const jsonLd = {
     "@context": "https://schema.org",

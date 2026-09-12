@@ -6,10 +6,12 @@ import { Footer } from "@/components/footer";
 import { StructuredData } from "@/components/structured-data";
 import { PromptCustomizer } from "@/components/prompt-customizer";
 import { promptsData, tutorialsData } from "@/data/platform-data";
-import { getPromptBySlug, getToolById } from "@/data/content";
+import { getToolById } from "@/data/content";
+import { getDbPublishedPrompts, getDbPromptBySlug } from "@/lib/db/neon";
 
 export async function generateStaticParams() {
-  return promptsData.map((p) => ({
+  const prompts = await getDbPublishedPrompts();
+  return prompts.map((p) => ({
     slug: p.slug,
   }));
 }
@@ -20,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const prompt = getPromptBySlug(slug);
+  const prompt = await getDbPromptBySlug(slug);
   if (!prompt) return { title: "Prompt Not Found" };
 
   return {
@@ -35,22 +37,22 @@ export default async function PromptDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const prompt = getPromptBySlug(slug);
+  const prompt = await getDbPromptBySlug(slug);
 
   if (!prompt) {
     notFound();
   }
 
-  const compatibleTools = prompt.compatibleToolIds
+  const compatibleTools = (prompt.compatibleToolIds || [])
     .map((id) => getToolById(id))
     .filter(Boolean);
 
   const relatedTutorials = tutorialsData.filter((tut) =>
-    prompt.relatedTutorialIds.includes(tut.id)
+    (prompt.relatedTutorialIds || []).includes(tut.id)
   );
 
   const relatedPrompts = promptsData.filter((p) =>
-    prompt.relatedPromptIds.includes(p.id)
+    (prompt.relatedPromptIds || []).includes(p.id)
   );
 
   const jsonLd = {

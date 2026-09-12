@@ -22,19 +22,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             <nav className="hidden lg:flex items-center gap-5 text-xs font-semibold">
               <Link href="/admin" className="text-zinc-300 hover:text-lime transition">
-                Overview &amp; Health
+                Overview
               </Link>
-              <Link href="/admin/updates" className="text-zinc-300 hover:text-lime transition">
-                Pending Updates
+              <Link href="/admin/review" className="text-zinc-300 hover:text-lime transition">
+                Price Review
               </Link>
-              <Link href="/admin/blog" className="text-zinc-300 hover:text-lime transition">
-                Blog CMS
+              <Link href="/admin/drafts" className="text-zinc-300 hover:text-lime transition">
+                Drafts Hub
               </Link>
-              <Link href="/admin/videos" className="text-zinc-300 hover:text-lime transition">
-                Videos CMS
+              <Link href="/admin/ingest" className="text-zinc-300 hover:text-lime transition">
+                Ingest
               </Link>
               <Link href="/admin/sources" className="text-zinc-300 hover:text-lime transition">
-                Source Ledger
+                Sources
               </Link>
             </nav>
           </div>

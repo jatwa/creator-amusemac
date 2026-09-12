@@ -4,7 +4,7 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 import { ToolCard } from "@/components/ui-cards";
-import { toolsData } from "@/data/platform-data";
+import { getDbTools } from "@/lib/db/neon";
 import { DirectoryAtAGlance } from "@/components/directory-at-a-glance";
 
 export const metadata: Metadata = {
@@ -12,7 +12,9 @@ export const metadata: Metadata = {
   description: "Browse verified AI tools for video generation, image direction, voice synthesis, editing, and VFX.",
 };
 
-export default function ToolsPage() {
+export default async function ToolsPage() {
+  const tools = await getDbTools();
+
   return (
     <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
@@ -33,7 +35,7 @@ export default function ToolsPage() {
               href="/tools"
               className="rounded-full bg-foreground px-4 py-1.5 text-xs font-medium text-background shadow-sm"
             >
-              All Tools ({toolsData.length})
+              All Tools ({tools.length})
             </Link>
             <Link
               href="/categories/video"
@@ -71,7 +73,7 @@ export default function ToolsPage() {
 
       <div className="shell py-12 space-y-12">
         {/* At A Glance Comparison Matrix */}
-        <DirectoryAtAGlance tools={toolsData} />
+        <DirectoryAtAGlance tools={tools} />
 
         {/* Detailed Tool Cards Section */}
         <div>
@@ -85,12 +87,12 @@ export default function ToolsPage() {
               </h2>
             </div>
             <span className="text-xs text-tertiary font-mono">
-              {toolsData.length} Audited Engines
+              {tools.length} Audited Engines
             </span>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {toolsData.map((tool, index) => (
+            {tools.map((tool, index) => (
               <ToolCard key={tool.id} tool={tool} index={index} />
             ))}
           </div>

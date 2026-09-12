@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
-import { promptsData } from "@/data/platform-data";
+import { getDbPublishedPrompts } from "@/lib/db/neon";
 import { cameraLexiconData } from "@/data/lexicon-data";
 import { PromptCard } from "@/components/ui-cards";
 import { PromptFactory } from "@/components/prompt-factory";
@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   description: "Generate model-specific prompt syntax for Runway, Kling, Veo, Luma, Midjourney, and Flux. Explore the optical camera and lens lexicon.",
 };
 
-export default function PromptsPage() {
+export default async function PromptsPage() {
+  const prompts = await getDbPublishedPrompts();
+
   return (
     <main className="min-h-screen bg-background text-primary transition-colors">
       <Navigation />
@@ -34,7 +36,7 @@ export default function PromptsPage() {
               href="/prompts"
               className="rounded-full bg-foreground px-4 py-1.5 text-xs font-medium text-background shadow-sm"
             >
-              All Prompts ({promptsData.length})
+              All Prompts ({prompts.length})
             </Link>
             <Link
               href="/search?q=video"
@@ -66,7 +68,7 @@ export default function PromptsPage() {
 
       <div className="shell py-12 space-y-16">
         {/* Interactive Model Translator & Camera Lexicon */}
-        <PromptFactory prompts={promptsData} lexicon={cameraLexiconData} />
+        <PromptFactory prompts={prompts} lexicon={cameraLexiconData} />
 
         {/* Tested Prompt Catalog Grid */}
         <div>
@@ -80,12 +82,12 @@ export default function PromptsPage() {
               </h2>
             </div>
             <span className="text-xs text-tertiary font-mono">
-              {promptsData.length} Verified Recipes
+              {prompts.length} Verified Recipes
             </span>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {promptsData.map((prompt) => (
+            {prompts.map((prompt) => (
               <PromptCard key={prompt.id} prompt={prompt} />
             ))}
           </div>

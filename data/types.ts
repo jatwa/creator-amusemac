@@ -220,9 +220,11 @@ export interface Tool {
   platforms: ("Web" | "macOS" | "Windows" | "iOS" | "Android" | "API" | "Plugin" | "Discord" | "ComfyUI" | "Linux")[];
   officialUrl: string;
   sourceUrl?: string;
+  affiliateUrl?: string;
   accentColor: string;
   logoUrl?: string;
   rating?: number; // 1.0 - 5.0
+  status?: "published" | "draft" | "archived";
   verifiedAt: string;
   updatedAt: string;
   competitorIds: string[];

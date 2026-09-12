@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 import { EditorialCard } from "@/components/ui-cards";
 import { SyncedEditorialHub } from "@/components/synced-editorial-view";
-import { db } from "@/lib/db/repository";
+import { getDbPublishedBlogs } from "@/lib/db/neon";
 import { AdSlot } from "@/components/ad-slot";
 
 export const metadata: Metadata = {
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     "In-depth analysis, cinematography benchmarks, diffusion vs flow-matching deep dives, and production pipeline essays for modern filmmakers and designers.",
 };
 
-export default function BlogIndexPage() {
-  const blogs = db.getPublishedBlogs();
+export default async function BlogIndexPage() {
+  const blogs = await getDbPublishedBlogs();
   const featured = blogs[0];
   const rest = blogs.slice(1);
 

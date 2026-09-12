@@ -12,11 +12,13 @@ import {
   workflowsData,
 } from "@/data/platform-data";
 import { getToolBySlug, getToolById, getToolDossier } from "@/data/content";
+import { getDbTools, getDbToolBySlug } from "@/lib/db/neon";
 import { db } from "@/lib/db/repository";
 import { ToolDossierView } from "@/components/tool-dossier-view";
 
 export async function generateStaticParams() {
-  return toolsData.map((tool) => ({
+  const tools = await getDbTools();
+  return tools.map((tool) => ({
     slug: tool.slug,
   }));
 }
@@ -27,7 +29,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const tool = getToolBySlug(slug);
+  const tool = (await getDbToolBySlug(slug)) || getToolBySlug(slug);
   if (!tool) return { title: "Tool Not Found" };
 
   return {
@@ -46,7 +48,7 @@ export default async function ToolDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const tool = getToolBySlug(slug);
+  const tool = (await getDbToolBySlug(slug)) || getToolBySlug(slug);
 
   if (!tool) {
     notFound();
