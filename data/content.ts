@@ -32,6 +32,8 @@ import { storiesData } from "./production-stories";
 import { festivalsData } from "./festivals-data";
 import { productionKitsData } from "./kits-data";
 import { cameraLexiconData } from "./lexicon-data";
+import { canonicalResearchRecords } from "./research-canonical";
+import { canonicalFilms, canonicalPeople } from "./films-canonical";
 
 // Backward-compatible exports for existing components
 export const categories = categoriesData.map((c) => ({
@@ -379,7 +381,21 @@ export {
   getResearchByTopic,
   getResearchByEntityType,
 } from "./research-canonical";
-import { canonicalResearchRecords } from "./research-canonical";
+export {
+  canonicalFilms,
+  canonicalPeople,
+  getAllPublicFilms,
+  getFilmBySlug,
+  getFilmById,
+  getFilmsByPersonId,
+  getFilmsByFestivalId,
+  getFilmsByFormat,
+  getFilmsByGenre,
+  getAllPublicPeople,
+  getPersonBySlug,
+  getPersonById,
+  getPeopleByRole,
+} from "./films-canonical";
 
 export function getAllProductionKits(): ProductionKit[] {
   return productionKitsData;
@@ -416,6 +432,8 @@ const SEARCH_SYNONYMS: Record<string, string[]> = {
 
 export function searchAllEntities(query: string) {
   const publicResearch = canonicalResearchRecords.filter((r) => r.visibility === "PUBLIC");
+  const publicFilms = canonicalFilms.filter((f) => f.visibility === "PUBLIC");
+  const publicPeople = canonicalPeople.filter((p) => p.visibility === "PUBLIC");
   const q = query.toLowerCase().trim();
   if (!q) {
     return {
@@ -431,6 +449,8 @@ export function searchAllEntities(query: string) {
       kits: productionKitsData,
       lexicon: cameraLexiconData,
       research: publicResearch,
+      films: publicFilms,
+      people: publicPeople,
     };
   }
 
@@ -550,6 +570,34 @@ export function searchAllEntities(query: string) {
       r.statements.some((s) => matchesTerm(s.statement))
   );
 
+  const matchedFilms = publicFilms.filter(
+    (f) =>
+      matchesTerm(f.title) ||
+      matchesTerm(f.originalTitle || "") ||
+      matchesTerm(f.logline) ||
+      matchesTerm(f.synopsis) ||
+      matchesTerm(f.format) ||
+      f.genres.some((g) => matchesTerm(g)) ||
+      f.countryOfOrigin.some((c) => matchesTerm(c)) ||
+      f.directors.some((d) => matchesTerm(d.displayName || "")) ||
+      f.cinematographers.some((c) => matchesTerm(c.displayName || "")) ||
+      (f.technicalSpecs.cameraSystems && f.technicalSpecs.cameraSystems.some((c) => matchesTerm(c))) ||
+      (f.technicalSpecs.lenses && f.technicalSpecs.lenses.some((l) => matchesTerm(l))) ||
+      (f.technicalSpecs.aiGenerativeModels && f.technicalSpecs.aiGenerativeModels.some((m) => matchesTerm(m)))
+  );
+
+  const matchedPeople = publicPeople.filter(
+    (p) =>
+      matchesTerm(p.name) ||
+      p.alternateNames.some((alt) => matchesTerm(alt)) ||
+      matchesTerm(p.primaryRole) ||
+      p.secondaryRoles.some((r) => matchesTerm(r)) ||
+      matchesTerm(p.biography) ||
+      matchesTerm(p.country) ||
+      p.filmography.some((film) => matchesTerm(film.title)) ||
+      p.festivalAccolades.some((a) => matchesTerm(a.awardTitle) || matchesTerm(a.festivalName))
+  );
+
   return {
     tools: matchedTools,
     prompts: matchedPrompts,
@@ -563,5 +611,7 @@ export function searchAllEntities(query: string) {
     kits: matchedKits,
     lexicon: matchedLexicon,
     research: matchedResearch,
+    films: matchedFilms,
+    people: matchedPeople,
   };
 }

@@ -1,10 +1,23 @@
 import { db } from "@/lib/db/repository";
 import { canonicalStandingFestivals, canonicalFestivalEditions } from "@/data/festivals-canonical";
 import { canonicalResearchRecords } from "@/data/research-canonical";
+import { canonicalFilms, canonicalPeople } from "@/data/films-canonical";
 
 export interface SearchIndexEntry {
   id: string;
-  entityType: "tool" | "prompt" | "tutorial" | "workflow" | "comparison" | "blog" | "video" | "festival" | "festival_edition" | "research";
+  entityType:
+    | "tool"
+    | "prompt"
+    | "tutorial"
+    | "workflow"
+    | "comparison"
+    | "blog"
+    | "video"
+    | "festival"
+    | "festival_edition"
+    | "research"
+    | "film"
+    | "person";
   slug: string;
   title: string;
   category: string;
@@ -28,6 +41,8 @@ export function generateSearchIndex(): {
   const festivals = canonicalStandingFestivals;
   const festivalEditions = canonicalFestivalEditions;
   const publicResearch = canonicalResearchRecords.filter((r) => r.visibility === "PUBLIC");
+  const publicFilms = canonicalFilms.filter((f) => f.visibility === "PUBLIC");
+  const publicPeople = canonicalPeople.filter((p) => p.visibility === "PUBLIC");
 
   const entries: SearchIndexEntry[] = [];
 
@@ -235,6 +250,67 @@ export function generateSearchIndex(): {
     });
   });
 
+  // Index Public Films
+  publicFilms.forEach((film) => {
+    const tokens = [
+      film.title,
+      film.originalTitle || "",
+      film.logline,
+      film.synopsis,
+      film.format,
+      ...film.genres,
+      ...film.countryOfOrigin,
+      ...film.language,
+      ...film.directors.map((d) => d.displayName || ""),
+      ...film.cinematographers.map((c) => c.displayName || ""),
+      ...(film.technicalSpecs.cameraSystems || []),
+      ...(film.technicalSpecs.lenses || []),
+      ...(film.technicalSpecs.aiGenerativeModels || []),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    entries.push({
+      id: film.id,
+      entityType: "film",
+      slug: `/films/${film.slug}`,
+      title: film.title,
+      category: film.format.replace(/_/g, " "),
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: `${film.releaseYear} • ${film.technicalSpecs.aspectRatio} • ${film.logline}`,
+      weight: 1.0,
+    });
+  });
+
+  // Index Public People
+  publicPeople.forEach((person) => {
+    const tokens = [
+      person.name,
+      ...person.alternateNames,
+      person.primaryRole,
+      ...person.secondaryRoles,
+      person.biography,
+      person.country,
+      ...person.filmography.map((f) => f.title),
+      ...person.festivalAccolades.map((a) => `${a.awardTitle} ${a.festivalName}`),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    entries.push({
+      id: person.id,
+      entityType: "person",
+      slug: `/people/${person.slug}`,
+      title: person.name,
+      category: person.primaryRole.replace(/_/g, " "),
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: `${person.primaryRole.replace(/_/g, " ")} (${person.country}) • ${person.biography.slice(0, 140)}...`,
+      weight: 0.95,
+    });
+  });
+
   return {
     totalIndexed: entries.length,
     entriesByType: {
@@ -248,6 +324,8 @@ export function generateSearchIndex(): {
       festivals: festivals.length,
       festivalEditions: festivalEditions.length,
       research: publicResearch.length,
+      films: publicFilms.length,
+      people: publicPeople.length,
     },
     generatedAt: new Date().toISOString(),
   };
