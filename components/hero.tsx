@@ -67,7 +67,7 @@ export function Hero() {
                 href="/tools"
                 className="rounded-full bg-foreground px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium text-background transition-opacity hover:opacity-90 shadow-sm inline-block"
               >
-                Explore Creator
+                Explore Creatorintel
               </Link>
             </motion.div>
             <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.985 }}>
