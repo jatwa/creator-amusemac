@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { StructuredData } from "@/components/structured-data";
-import { PromptCustomizer } from "@/components/prompt-customizer";
+import { GatedPromptView } from "@/components/gated-prompt-view";
 import { promptsData, tutorialsData } from "@/data/platform-data";
 import { getToolById } from "@/data/content";
 import { getDbPublishedPrompts, getDbPromptBySlug } from "@/lib/db/neon";
@@ -108,7 +108,7 @@ export default async function PromptDetailPage({
         <div className="grid gap-10 lg:grid-cols-3">
           {/* Left Column: Interactive Customizer */}
           <div className="lg:col-span-2 space-y-10">
-            <PromptCustomizer prompt={prompt} />
+            <GatedPromptView prompt={prompt} />
 
             {/* Prompt Variations */}
             {prompt.variations && prompt.variations.length > 0 && (

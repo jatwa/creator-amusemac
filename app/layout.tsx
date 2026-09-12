@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CurrencyProvider } from "@/context/currency-context";
+import { AuthProvider } from "@/components/auth-provider";
 import { MotionConfig } from "@/components/motion/motion-config";
 
 export const metadata: Metadata = {
@@ -65,9 +66,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <MotionConfig>
-          <ThemeProvider>
-            <CurrencyProvider>{children}</CurrencyProvider>
-          </ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider>
+              <CurrencyProvider>{children}</CurrencyProvider>
+            </ThemeProvider>
+          </AuthProvider>
         </MotionConfig>
       </body>
     </html>

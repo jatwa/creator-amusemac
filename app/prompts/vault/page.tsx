@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
-import { VaultCheckout } from "@/components/vault-checkout";
+import { PricingTable } from "@/components/pricing-table";
+import { AuthButton } from "@/components/auth-button";
 import { STRINGS } from "@/lib/i18n/strings";
 
 export const metadata: Metadata = {
@@ -39,6 +40,16 @@ export default function PromptsVaultPage() {
             description={STRINGS.vault.heroSubtitle}
           />
 
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <AuthButton />
+            <Link
+              href="#pricing"
+              className="rounded-2xl border border-border bg-surface px-5 py-2.5 text-xs font-semibold text-secondary hover:text-primary transition"
+            >
+              View Subscription Plans ↓
+            </Link>
+          </div>
+
           <div className="mt-8 flex flex-wrap items-center gap-3 text-xs font-mono">
             <span className="rounded-full bg-accent/10 px-3.5 py-1.5 font-medium text-accent">
               ⚡ 65+ Audited Prompt Recipes
@@ -47,7 +58,7 @@ export default function PromptsVaultPage() {
               🎬 Tested on Runway, Kling, Veo, Flux &amp; Midjourney
             </span>
             <span className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-secondary">
-              🌍 International Multi-Currency Checkout
+              🌍 International Multi-Currency Recurring Billing
             </span>
           </div>
         </div>
@@ -58,14 +69,14 @@ export default function PromptsVaultPage() {
         <section id="pricing" className="space-y-8">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-primary">
-              {STRINGS.vault.pricingHeading}
+              Choose Your Vault Access Plan
             </h2>
             <p className="mt-3 text-sm text-secondary leading-relaxed">
-              {STRINGS.vault.pricingSubheading}
+              Unlock prompt formulas, negative blueprints, and director lens tokens with flexible monthly unlocks or unlimited Studio Pro access.
             </p>
           </div>
 
-          <VaultCheckout />
+          <PricingTable />
         </section>
 
         {/* Vault Content Preview Grid */}
@@ -144,16 +155,16 @@ export default function PromptsVaultPage() {
                 How often is the Vault updated for new models?
               </h3>
               <p className="text-xs text-secondary leading-relaxed">
-                Whenever a major model version is released (such as Runway Gen-4, Kling 2.0, Veo 2, or Flux 2), our team audits and adds new tested recipes. Lifetime pass holders receive all updates automatically.
+                Whenever a major model version is released (such as Runway Gen-4, Kling 2.0, Veo 2, or Flux 2), our team audits and adds new tested recipes. Basic and Pro subscribers receive all updates automatically.
               </p>
             </div>
 
             <div className="surface p-6 rounded-3xl space-y-2">
               <h3 className="text-sm font-semibold text-primary">
-                What is the refund policy?
+                What is the cancellation and refund policy?
               </h3>
               <p className="text-xs text-secondary leading-relaxed">
-                We offer a 30-day no-questions-asked satisfaction guarantee. If the prompt recipes don't improve your production workflow, reach out for a full refund.
+                You can cancel your subscription at any time with one click from your Account dashboard without penalties. You retain access until the end of your billing cycle.
               </p>
             </div>
           </div>

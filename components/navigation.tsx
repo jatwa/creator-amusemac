@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { ThemeToggle } from "./theme-toggle";
 import { CurrencySwitcher } from "./currency-switcher";
+import { UserNav } from "./user-nav";
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -41,6 +42,7 @@ export function Navigation() {
     { name: "Tools", href: "/tools" },
     { name: "Prompts", href: "/prompts" },
     { name: "Vault", href: "/prompts/vault", badge: "Pro" },
+    { name: "Pricing", href: "/pricing" },
     { name: "Video Hub", href: "/categories/video", badge: "Flagship" },
     { name: "Stories", href: "/stories" },
     { name: "Compare", href: "/compare" },
@@ -138,11 +140,14 @@ export function Navigation() {
           {/* Apple-style Theme Switcher */}
           <ThemeToggle />
 
+          {/* User Profile / Google Sign In */}
+          <UserNav />
+
           {/* Clean Primary Action */}
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Link
               href="/tools"
-              className="hidden sm:inline-flex rounded-full bg-foreground px-3.5 py-1.5 text-xs font-medium text-background transition-opacity hover:opacity-90 shadow-sm"
+              className="hidden lg:inline-flex rounded-full bg-foreground px-3.5 py-1.5 text-xs font-medium text-background transition-opacity hover:opacity-90 shadow-sm"
             >
               Explore
             </Link>
@@ -218,6 +223,10 @@ export function Navigation() {
             </div>
 
             <div className="pt-8 border-t border-border mt-8 flex flex-col gap-4 text-xs text-tertiary">
+              <div className="flex items-center justify-between">
+                <span>Account:</span>
+                <UserNav />
+              </div>
               <div className="flex items-center justify-between">
                 <span>Display Currency:</span>
                 <CurrencySwitcher variant="pill" />
