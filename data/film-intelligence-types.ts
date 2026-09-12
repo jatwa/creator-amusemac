@@ -1269,3 +1269,63 @@ export const MASTER_FESTIVAL_DELIVERY_CHECKLIST: MasterFestivalDeliveryItem[] = 
     recommendationRationale: "Crucial for projectionists and festival print traffic managers to ensure flawless theater playback."
   }
 ];
+
+// ============================================================================
+// 11. CANONICAL WORKFLOW & PROMPT INTELLIGENCE MODEL (PHASE 3G)
+// ============================================================================
+
+export type CanonicalWorkflowCategory =
+  | "CONCEPT_DEVELOPMENT"
+  | "WRITING"
+  | "PRE_PRODUCTION"
+  | "PRODUCTION"
+  | "POST"
+  | "FESTIVAL_DISTRIBUTION"
+  | "AI_CINEMA";
+
+export type WorkflowDifficulty = "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "MASTER";
+
+export interface CanonicalWorkflowStep {
+  stepNumber: number;
+  name: string;
+  objective: string;
+  action: string;
+  input: string;
+  output: string;
+  recommendedTechniqueIds: string[];
+  recommendedToolIds: string[];
+  optionalPromptIds: string[];
+  commonFailure: string;
+  qualityCheck: string;
+  proTips?: string[];
+}
+
+export interface CanonicalWorkflow {
+  id: string;
+  slug: string;
+  title: string;
+  category: CanonicalWorkflowCategory;
+  summary: string;
+  purpose: string;
+  whenToUse: string[];
+  whenNotToUse: string[];
+  estimatedEffort: string;
+  difficulty: WorkflowDifficulty;
+  inputsRequired: string[];
+  outputsProduced: string[];
+  steps: CanonicalWorkflowStep[];
+
+  // Relational Canonical Graph IDs
+  relatedFilmIds: string[];
+  relatedTechniqueIds: string[];
+  relatedToolIds: string[];
+  relatedPromptIds: string[];
+  relatedResearchIds: string[];
+  relatedJournalSlugs: string[];
+
+  // Verification & Provenance
+  visibility: "PUBLIC";
+  verificationStatus: VerificationStatus;
+  verifiedAt: string;
+}
+

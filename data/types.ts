@@ -279,6 +279,9 @@ export interface Prompt {
   createdDate?: string;
   updatedDate?: string;
   compatibleToolIds: string[];
+  techniqueId?: string;
+  relatedFilmIds?: string[];
+  relatedWorkflowIds?: string[];
   recommendedSettings?: {
     aspectRatio?: string;
     guidanceScale?: string;

@@ -3,6 +3,7 @@ import { canonicalStandingFestivals, canonicalFestivalEditions } from "@/data/fe
 import { canonicalResearchRecords } from "@/data/research-canonical";
 import { canonicalFilms, canonicalPeople } from "@/data/films-canonical";
 import { canonicalTechniques } from "@/data/techniques-canonical";
+import { canonicalWorkflows } from "@/data/workflows-canonical";
 
 export interface SearchIndexEntry {
   id: string;
@@ -46,6 +47,7 @@ export function generateSearchIndex(): {
   const publicFilms = canonicalFilms.filter((f) => f.visibility === "PUBLIC");
   const publicPeople = canonicalPeople.filter((p) => p.visibility === "PUBLIC");
   const publicTechniques = canonicalTechniques.filter((t) => t.visibility === "PUBLIC");
+  const publicWorkflows = canonicalWorkflows.filter((w) => w.visibility === "PUBLIC");
 
   const entries: SearchIndexEntry[] = [];
 
@@ -77,7 +79,14 @@ export function generateSearchIndex(): {
 
   // Index Prompts
   prompts.forEach((prompt) => {
-    const tokens = [prompt.title, prompt.useCase, prompt.category, prompt.promptText]
+    const tokens = [
+      prompt.title,
+      prompt.useCase,
+      prompt.category,
+      prompt.promptText,
+      ...(prompt.tags || []),
+      ...(prompt.recommendedModels || []),
+    ]
       .join(" ")
       .toLowerCase()
       .split(/[^a-z0-9]+/);
@@ -94,7 +103,7 @@ export function generateSearchIndex(): {
     });
   });
 
-  // Index Workflows
+  // Index Workflows (Legacy + Canonical)
   workflows.forEach((wf) => {
     const tokens = [wf.title, wf.category, wf.summary, ...wf.steps.map((s) => s.phaseName)]
       .join(" ")
@@ -110,6 +119,32 @@ export function generateSearchIndex(): {
       searchTokens: Array.from(new Set(tokens)),
       snippet: wf.summary,
       weight: 0.9,
+    });
+  });
+
+  // Index Canonical Public Workflows
+  publicWorkflows.forEach((wf) => {
+    const tokens = [
+      wf.title,
+      wf.category,
+      wf.summary,
+      wf.purpose,
+      ...wf.whenToUse,
+      ...wf.steps.map((s) => `${s.name} ${s.objective} ${s.action}`),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    entries.push({
+      id: wf.id,
+      entityType: "workflow",
+      slug: `/workflows/${wf.slug}`,
+      title: wf.title,
+      category: wf.category.replace(/_/g, " "),
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: `${wf.category.replace(/_/g, " ")} (${wf.difficulty}) • ${wf.summary}`,
+      weight: 1.0,
     });
   });
 

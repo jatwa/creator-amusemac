@@ -35,6 +35,7 @@ import { cameraLexiconData } from "./lexicon-data";
 import { canonicalResearchRecords } from "./research-canonical";
 import { canonicalFilms, canonicalPeople } from "./films-canonical";
 import { canonicalTechniques } from "./techniques-canonical";
+import { canonicalWorkflows } from "./workflows-canonical";
 
 // Backward-compatible exports for existing components
 export const categories = categoriesData.map((c) => ({
@@ -405,6 +406,16 @@ export {
   getTechniquesByCategory,
   getTechniquesByStage,
 } from "./techniques-canonical";
+export {
+  canonicalWorkflows,
+  getAllPublicWorkflows,
+  getWorkflowBySlug as getCanonicalWorkflowBySlug,
+  getWorkflowById as getCanonicalWorkflowById,
+  getWorkflowsByCategory as getCanonicalWorkflowsByCategory,
+  getWorkflowsByTechniqueId,
+  getWorkflowsByToolId,
+  getWorkflowsByFilmId,
+} from "./workflows-canonical";
 
 export function getAllProductionKits(): ProductionKit[] {
   return productionKitsData;
@@ -444,6 +455,7 @@ export function searchAllEntities(query: string) {
   const publicFilms = canonicalFilms.filter((f) => f.visibility === "PUBLIC");
   const publicPeople = canonicalPeople.filter((p) => p.visibility === "PUBLIC");
   const publicTechniques = canonicalTechniques.filter((t) => t.visibility === "PUBLIC");
+  const publicWorkflows = canonicalWorkflows.filter((w) => w.visibility === "PUBLIC");
   const q = query.toLowerCase().trim();
   if (!q) {
     return {
@@ -451,6 +463,7 @@ export function searchAllEntities(query: string) {
       prompts: promptsData,
       tutorials: tutorialsData,
       workflows: workflowsData,
+      canonicalWorkflows: publicWorkflows,
       comparisons: comparisonsData,
       blogs: blogsData.filter((b) => b.status === "published"),
       videos: videosData.filter((v) => v.status === "published"),
@@ -623,11 +636,28 @@ export function searchAllEntities(query: string) {
       t.relatedTools.some((tool) => matchesTerm(tool))
   );
 
+  const matchedCanonicalWorkflows = publicWorkflows.filter(
+    (w) =>
+      matchesTerm(w.title) ||
+      matchesTerm(w.summary) ||
+      matchesTerm(w.purpose) ||
+      matchesTerm(w.category) ||
+      w.whenToUse.some((u) => matchesTerm(u)) ||
+      w.steps.some(
+        (s) =>
+          matchesTerm(s.name) ||
+          matchesTerm(s.objective) ||
+          matchesTerm(s.action) ||
+          matchesTerm(s.qualityCheck)
+      )
+  );
+
   return {
     tools: matchedTools,
     prompts: matchedPrompts,
     tutorials: matchedTutorials,
     workflows: matchedWorkflows,
+    canonicalWorkflows: matchedCanonicalWorkflows,
     comparisons: matchedComparisons,
     blogs: matchedBlogs,
     videos: matchedVideos,

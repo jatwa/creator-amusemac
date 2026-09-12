@@ -39,6 +39,7 @@ export function SearchView() {
       videos: rawResults.videos,
       tutorials: rawResults.tutorials,
       workflows: rawResults.workflows,
+      canonicalWorkflows: rawResults.canonicalWorkflows || [],
       comparisons: rawResults.comparisons,
       research: rawResults.research,
       films: rawResults.films || [],
@@ -57,6 +58,7 @@ export function SearchView() {
     results.videos.length +
     results.tutorials.length +
     results.workflows.length +
+    (results.canonicalWorkflows?.length || 0) +
     results.comparisons.length +
     results.research.length +
     results.films.length +
@@ -141,7 +143,7 @@ export function SearchView() {
             { id: "tools", label: `Tools (${results.tools.length})` },
             { id: "prompts", label: `Prompts (${results.prompts.length})` },
             { id: "stories", label: `Stories (${results.stories.length})` },
-            { id: "workflows", label: `Workflows (${results.workflows.length})` },
+            { id: "workflows", label: `Workflows (${(results.canonicalWorkflows?.length || 0) + results.workflows.length})` },
             { id: "blogs", label: `Journal (${results.blogs.length})` },
           ].map((tab) => (
             <button
@@ -502,6 +504,70 @@ export function SearchView() {
                         </h4>
                         <p className="text-xs text-secondary line-clamp-2 leading-relaxed">
                           {story.summary}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Workflows & Playbooks Section */}
+              {(activeTab === "all" || activeTab === "workflows") && ((results.canonicalWorkflows?.length || 0) > 0 || results.workflows.length > 0) && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+                    <span className="text-xs font-semibold text-primary">
+                      Production Workflows &amp; Playbooks ({((results.canonicalWorkflows?.length || 0) + results.workflows.length)})
+                    </span>
+                    <Link href="/workflows" className="text-[11px] text-accent font-mono hover:underline">
+                      View all workflows →
+                    </Link>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {results.canonicalWorkflows?.map((wf) => (
+                      <Link
+                        key={wf.id}
+                        href={`/workflows/${wf.slug}`}
+                        className="surface rounded-2xl border border-border bg-surface p-5 space-y-2 hover:border-accent/40 transition group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                            {wf.category.replace(/_/g, " ")} • {wf.difficulty}
+                          </span>
+                          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                            {wf.steps.length} Phases
+                          </span>
+                        </div>
+                        <h4 className="text-base font-semibold text-primary group-hover:text-accent transition leading-snug">
+                          {wf.title}
+                        </h4>
+                        <p className="text-xs text-secondary line-clamp-2 leading-relaxed">
+                          {wf.summary}
+                        </p>
+                        <div className="text-[11px] font-mono text-tertiary pt-1">
+                          Effort: {wf.estimatedEffort}
+                        </div>
+                      </Link>
+                    ))}
+                    {results.workflows.map((wf) => (
+                      <Link
+                        key={wf.id}
+                        href={`/workflows/${wf.slug}`}
+                        className="surface rounded-2xl border border-border bg-surface p-5 space-y-2 hover:border-accent/40 transition group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                            {wf.category} • {wf.difficulty}
+                          </span>
+                          <span className="text-[10px] font-mono text-tertiary">
+                            {wf.estimatedTime}
+                          </span>
+                        </div>
+                        <h4 className="text-base font-semibold text-primary group-hover:text-accent transition leading-snug">
+                          {wf.title}
+                        </h4>
+                        <p className="text-xs text-secondary line-clamp-2 leading-relaxed">
+                          {wf.summary}
                         </p>
                       </Link>
                     ))}

@@ -44,6 +44,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-luma"],
+    techniqueId: "tech-anamorphic-optics",
+    relatedFilmIds: ["film-blade-runner-2049","film-all-we-imagine-as-light"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook"],
   },
   {
     id: "prompt-02-rainy-night-street",
@@ -81,6 +84,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-flux"],
+    techniqueId: "tech-chiaroscuro-lighting",
+    relatedFilmIds: ["film-blade-runner-2049","film-all-we-imagine-as-light"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook","wf-ai-previs-animatic"],
   },
   {
     id: "prompt-03-lonely-apartment",
@@ -118,6 +124,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-kling", "tool-runway", "tool-midjourney"],
+    techniqueId: "tech-chiaroscuro-lighting",
+    relatedFilmIds: ["film-past-lives","film-all-we-imagine-as-light"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook"],
   },
   {
     id: "prompt-04-train-window",
@@ -155,6 +164,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-luma"],
+    techniqueId: "tech-anamorphic-optics",
+    relatedFilmIds: ["film-past-lives"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook"],
   },
   {
     id: "prompt-05-the-reveal",
@@ -192,6 +204,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-luma"],
+    techniqueId: "tech-volumetric-haze",
+    relatedFilmIds: ["film-blade-runner-2049","film-oppenheimer"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook","wf-ai-previs-animatic"],
   },
 
   // =========================================================================
@@ -233,6 +248,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-flux"],
+    techniqueId: "tech-russian-arm",
+    relatedFilmIds: ["film-blade-runner-2049"],
+    relatedWorkflowIds: ["wf-high-speed-automotive-commercial"],
   },
   {
     id: "prompt-07-luxury-watch",
@@ -270,6 +288,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-midjourney", "tool-flux", "tool-runway"],
+    techniqueId: "tech-chiaroscuro-lighting",
+    relatedFilmIds: ["film-oppenheimer"],
+    relatedWorkflowIds: ["wf-high-speed-automotive-commercial"],
   },
   {
     id: "prompt-08-perfume",
@@ -726,6 +747,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-luma"],
+    techniqueId: "tech-chiaroscuro-lighting",
+    relatedFilmIds: ["film-all-we-imagine-as-light"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook"],
   },
   {
     id: "prompt-20-himalayan-journey",
@@ -763,6 +787,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-flux"],
+    techniqueId: "tech-volumetric-haze",
+    relatedFilmIds: ["film-oppenheimer"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook"],
   },
   {
     id: "prompt-21-hidden-village",
@@ -915,6 +942,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-flux"],
+    techniqueId: "tech-volumetric-haze",
+    relatedFilmIds: ["film-blade-runner-2049"],
+    relatedWorkflowIds: ["wf-ai-previs-animatic"],
   },
 
   // =========================================================================
@@ -1145,6 +1175,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-flux"],
+    techniqueId: "tech-russian-arm",
+    relatedFilmIds: ["film-blade-runner-2049"],
+    relatedWorkflowIds: ["wf-high-speed-automotive-commercial"],
   },
 
   // =========================================================================
@@ -1186,6 +1219,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-flux"],
+    techniqueId: "tech-chiaroscuro-lighting",
+    relatedFilmIds: ["film-anatomy-of-a-fall"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook","wf-ai-previs-animatic"],
   },
   {
     id: "prompt-32-horror",
@@ -1260,6 +1296,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-kling", "tool-runway", "tool-midjourney"],
+    techniqueId: "tech-anamorphic-optics",
+    relatedFilmIds: ["film-past-lives"],
+    relatedWorkflowIds: ["wf-cinematic-lookbook"],
   },
 
   // =========================================================================
@@ -1338,6 +1377,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-luma"],
+    techniqueId: "tech-russian-arm",
+    relatedFilmIds: ["film-oppenheimer","film-all-we-imagine-as-light"],
+    relatedWorkflowIds: ["wf-ai-previs-animatic","wf-high-speed-automotive-commercial"],
   },
   {
     id: "prompt-36-crane-reveal",
@@ -1375,6 +1417,9 @@ export const CINEMATIC_42_PROMPTS: Prompt[] = [
     createdDate: "2026-09-12",
     updatedDate: "2026-09-12",
     compatibleToolIds: ["tool-runway", "tool-kling", "tool-luma"],
+    techniqueId: "tech-volumetric-haze",
+    relatedFilmIds: ["film-blade-runner-2049"],
+    relatedWorkflowIds: ["wf-ai-previs-animatic","wf-cinematic-lookbook"],
   },
   {
     id: "prompt-37-rack-focus",
