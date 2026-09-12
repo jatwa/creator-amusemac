@@ -1,4 +1,5 @@
-﻿import {
+import {
+  DataVisibility,
   SourceTier,
   VerificationStatus,
   FestivalPrestigeTier,
@@ -9,7 +10,12 @@
   ProjectWorkflowStage
 } from "@/data/types";
 
-export type UniversalEntityType =
+/**
+ * Public Searchable Entity Types.
+ * Private user artifacts (e.g. scripts, private research, submissions, budgets)
+ * are NEVER indexed into the public search catalog.
+ */
+export type PublicSearchableEntityType =
   | "tool"
   | "prompt"
   | "tutorial"
@@ -18,16 +24,16 @@ export type UniversalEntityType =
   | "blog"
   | "video"
   | "journal_article"
-  | "research_record"
+  | "public_research"
   | "festival"
   | "festival_edition"
   | "film"
-  | "person"
-  | "film_project";
+  | "person";
 
 export interface UniversalSearchIndexEntry {
   id: string;
-  entityType: UniversalEntityType;
+  entityType: PublicSearchableEntityType;
+  visibility: "PUBLIC"; // Enforced: strictly public only
   slug: string;
   title: string;
   subtitle?: string;
@@ -45,16 +51,15 @@ export interface UniversalSearchIndexEntry {
   premiereType?: PremiereType;
   personRole?: PersonRole;
   filmFormat?: FilmFormat;
-  workflowStage?: ProjectWorkflowStage;
   
-  // Relational connections
+  // Relational references
   relatedEntityIds?: string[];
   lastVerifiedAt?: string;
 }
 
 export interface UniversalSearchQuery {
   query: string;
-  entityTypes?: UniversalEntityType[];
+  entityTypes?: PublicSearchableEntityType[];
   categories?: string[];
   regions?: FestivalRegion[];
   prestigeTiers?: FestivalPrestigeTier[];

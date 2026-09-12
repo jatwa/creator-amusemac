@@ -1,7 +1,7 @@
-﻿-- Creator Intel — Cinematic Intelligence Database Schema (Phase 2)
+-- Creator Intel — Cinematic Intelligence Database Schema (Phase 2.1 Hardened)
 -- Compatible with Neon PostgreSQL, Supabase, and Standard PostgreSQL
 
--- 1. STANDING FILM FESTIVALS (Identity & Prestige Tier)
+-- 1. STANDING FILM FESTIVALS (Identity & Prestige Tier - Persistent Metadata Only)
 CREATE TABLE IF NOT EXISTS festivals (
     id VARCHAR(64) PRIMARY KEY,
     slug VARCHAR(128) UNIQUE NOT NULL,
@@ -21,12 +21,13 @@ CREATE TABLE IF NOT EXISTS festivals (
     description TEXT NOT NULL,
     editorial_notes TEXT,
     status VARCHAR(32) DEFAULT 'ACTIVE',
+    visibility VARCHAR(32) DEFAULT 'PUBLIC',
     verified_at VARCHAR(64) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. FESTIVAL EDITIONS (Year-specific deadlines, fees, rules, screening dates)
+-- 2. FESTIVAL EDITIONS (Time-Sensitive: Year-specific Deadlines, Fees, Premiere Rules & Delivery Specs)
 CREATE TABLE IF NOT EXISTS festival_editions (
     id VARCHAR(64) PRIMARY KEY,
     festival_id VARCHAR(64) NOT NULL REFERENCES festivals(id) ON DELETE CASCADE,
@@ -39,21 +40,23 @@ CREATE TABLE IF NOT EXISTS festival_editions (
     fees JSONB NOT NULL DEFAULT '[]'::jsonb,
     premiere_rules JSONB NOT NULL DEFAULT '[]'::jsonb,
     accepted_formats JSONB NOT NULL DEFAULT '[]'::jsonb,
+    delivery_requirements JSONB NOT NULL DEFAULT '[]'::jsonb,
     ai_disclosure_policy JSONB NOT NULL DEFAULT '{}'::jsonb,
     verified_sources JSONB NOT NULL DEFAULT '[]'::jsonb,
     status VARCHAR(32) DEFAULT 'UPCOMING',
+    verification_status VARCHAR(32) DEFAULT 'ACTIVE', -- ACTIVE, OUTDATED, NEEDS_REVIEW, UNVERIFIED
     last_verified_at VARCHAR(64) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT unq_festival_year UNIQUE(festival_id, year)
 );
 
--- 3. PEOPLE & FILMMAKER REGISTRY
+-- 3. CANONICAL PEOPLE & FILMMAKER REGISTRY (Deduplicated with Alias Mapping)
 CREATE TABLE IF NOT EXISTS people (
     id VARCHAR(64) PRIMARY KEY,
     slug VARCHAR(128) UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
-    alternate_names JSONB DEFAULT '[]'::jsonb,
+    alternate_names JSONB DEFAULT '[]'::jsonb, -- Aliases to avoid duplicate person entries
     primary_role VARCHAR(64) NOT NULL,
     secondary_roles JSONB DEFAULT '[]'::jsonb,
     biography TEXT NOT NULL,
@@ -62,12 +65,13 @@ CREATE TABLE IF NOT EXISTS people (
     filmography JSONB DEFAULT '[]'::jsonb,
     festival_accolades JSONB DEFAULT '[]'::jsonb,
     social_links JSONB DEFAULT '{}'::jsonb,
+    visibility VARCHAR(32) DEFAULT 'PUBLIC',
     verified_at VARCHAR(64) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- 4. FILM REGISTRY & CIRCUIT HISTORY
+-- 4. CANONICAL FILM REGISTRY (Relational Person Credits & Festival History)
 CREATE TABLE IF NOT EXISTS films (
     id VARCHAR(64) PRIMARY KEY,
     slug VARCHAR(128) UNIQUE NOT NULL,
@@ -83,7 +87,7 @@ CREATE TABLE IF NOT EXISTS films (
     synopsis TEXT NOT NULL,
     poster_url VARCHAR(512),
     trailer_url VARCHAR(512),
-    directors JSONB DEFAULT '[]'::jsonb,
+    directors JSONB DEFAULT '[]'::jsonb, -- Array of { personId, displayName }
     cinematographers JSONB DEFAULT '[]'::jsonb,
     writers JSONB DEFAULT '[]'::jsonb,
     producers JSONB DEFAULT '[]'::jsonb,
@@ -95,25 +99,28 @@ CREATE TABLE IF NOT EXISTS films (
     festival_history JSONB DEFAULT '[]'::jsonb,
     technical_specs JSONB DEFAULT '{}'::jsonb,
     streaming_links JSONB DEFAULT '[]'::jsonb,
+    visibility VARCHAR(32) DEFAULT 'PUBLIC',
     verified_at VARCHAR(64) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- 5. RESEARCH RECORDS & FACT-CHECK LEDGER
+-- 5. RESEARCH RECORDS & MULTI-SOURCE VERIFICATION LEDGER
 CREATE TABLE IF NOT EXISTS research_records (
     id VARCHAR(64) PRIMARY KEY,
     slug VARCHAR(128) UNIQUE NOT NULL,
     topic VARCHAR(255) NOT NULL,
+    visibility VARCHAR(32) DEFAULT 'PUBLIC',
     entity_type VARCHAR(64) NOT NULL,
     entity_id VARCHAR(64),
     research_question TEXT NOT NULL,
     findings_summary TEXT NOT NULL,
     methodology TEXT NOT NULL,
-    statements JSONB DEFAULT '[]'::jsonb,
+    statements JSONB DEFAULT '[]'::jsonb, -- Array of statements with supportingSourceIds & conflictingSourceIds
     sources JSONB DEFAULT '[]'::jsonb,
     confidence_level VARCHAR(32) NOT NULL,
     verification_status VARCHAR(32) NOT NULL,
+    provenance VARCHAR(64) DEFAULT 'HUMAN_AUTHORED',
     verified_by VARCHAR(128) NOT NULL,
     verified_date VARCHAR(64) NOT NULL,
     next_review_date VARCHAR(64) NOT NULL,
@@ -122,7 +129,7 @@ CREATE TABLE IF NOT EXISTS research_records (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- 6. JOURNAL ARTICLES & CINEMA DISPATCHES
+-- 6. JOURNAL ARTICLES & CINEMA DISPATCHES (Editorial CMS with Source Trail)
 CREATE TABLE IF NOT EXISTS journal_articles (
     id VARCHAR(64) PRIMARY KEY,
     slug VARCHAR(128) UNIQUE NOT NULL,
@@ -139,6 +146,8 @@ CREATE TABLE IF NOT EXISTS journal_articles (
     updated_date VARCHAR(64) NOT NULL,
     status VARCHAR(32) DEFAULT 'PUBLISHED',
     featured BOOLEAN DEFAULT FALSE,
+    visibility VARCHAR(32) DEFAULT 'PUBLIC',
+    provenance VARCHAR(64) DEFAULT 'HUMAN_AUTHORED',
     source_ledger JSONB DEFAULT '[]'::jsonb,
     primary_research_record_id VARCHAR(64) REFERENCES research_records(id) ON DELETE SET NULL,
     related_film_ids JSONB DEFAULT '[]'::jsonb,
@@ -154,11 +163,12 @@ CREATE TABLE IF NOT EXISTS journal_articles (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- 7. FILM PROJECTS (User Production Workflow & Breakdown)
+-- 7. USER FILM PROJECTS (STRICTLY PRIVATE - USER OWNERSHIP MANDATORY)
 CREATE TABLE IF NOT EXISTS film_projects (
     id VARCHAR(64) PRIMARY KEY,
     slug VARCHAR(128) UNIQUE NOT NULL,
     user_id VARCHAR(128) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    visibility VARCHAR(32) NOT NULL DEFAULT 'PRIVATE',
     title VARCHAR(255) NOT NULL,
     logline TEXT NOT NULL,
     synopsis TEXT NOT NULL,
@@ -176,10 +186,11 @@ CREATE TABLE IF NOT EXISTS film_projects (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- 8. PROJECT FESTIVAL SUBMISSIONS TRACKING
+-- 8. USER PROJECT FESTIVAL SUBMISSIONS TRACKING (STRICTLY PRIVATE)
 CREATE TABLE IF NOT EXISTS project_submissions (
     id VARCHAR(64) PRIMARY KEY,
     project_id VARCHAR(64) NOT NULL REFERENCES film_projects(id) ON DELETE CASCADE,
+    user_id VARCHAR(128) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     festival_id VARCHAR(64) NOT NULL REFERENCES festivals(id) ON DELETE CASCADE,
     edition_id VARCHAR(64) NOT NULL REFERENCES festival_editions(id) ON DELETE CASCADE,
     film_title VARCHAR(255) NOT NULL,
@@ -198,12 +209,13 @@ CREATE TABLE IF NOT EXISTS project_submissions (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- PERFORMANCE & RELATIONAL INDEXES
+-- PERFORMANCE, USER SCOPE & RELATIONAL INDEXES
 CREATE INDEX IF NOT EXISTS idx_festivals_slug ON festivals(slug);
 CREATE INDEX IF NOT EXISTS idx_festivals_tier ON festivals(prestige_tier);
 CREATE INDEX IF NOT EXISTS idx_festivals_region ON festivals(region);
 CREATE INDEX IF NOT EXISTS idx_festival_editions_festival_id ON festival_editions(festival_id);
 CREATE INDEX IF NOT EXISTS idx_festival_editions_year ON festival_editions(year);
+CREATE INDEX IF NOT EXISTS idx_festival_editions_vstatus ON festival_editions(verification_status);
 CREATE INDEX IF NOT EXISTS idx_people_slug ON people(slug);
 CREATE INDEX IF NOT EXISTS idx_people_role ON people(primary_role);
 CREATE INDEX IF NOT EXISTS idx_films_slug ON films(slug);
@@ -216,4 +228,5 @@ CREATE INDEX IF NOT EXISTS idx_journal_articles_category ON journal_articles(cat
 CREATE INDEX IF NOT EXISTS idx_journal_articles_status ON journal_articles(status);
 CREATE INDEX IF NOT EXISTS idx_film_projects_user_id ON film_projects(user_id);
 CREATE INDEX IF NOT EXISTS idx_project_submissions_project_id ON project_submissions(project_id);
+CREATE INDEX IF NOT EXISTS idx_project_submissions_user_id ON project_submissions(user_id);
 CREATE INDEX IF NOT EXISTS idx_project_submissions_festival_id ON project_submissions(festival_id);

@@ -1,15 +1,15 @@
-﻿import { queryNeon } from "./neon";
+import { queryNeon } from "./neon";
 
 /**
- * Initialize all tables required for Creator Intel Phase 2:
- * - festivals (Standing identity & prestige tier)
- * - festival_editions (Year-specific deadlines, fees, rules)
- * - people (Filmmakers, DPs, AI Artists)
- * - films (Film Registry & Festival Circuit history)
- * - research_records (Methodology, sources, verification ledger)
- * - journal_articles (Editorial CMS & cinema dispatches)
- * - film_projects (User production workflow & scene breakdowns)
- * - project_submissions (Festival application tracking & premiere sequence)
+ * Initialize all tables required for Creator Intel Phase 2.1:
+ * - festivals (Standing identity & prestige tier - Persistent)
+ * - festival_editions (Year-specific deadlines, fees, rules, delivery requirements)
+ * - people (Canonical filmmakers, DPs, AI Artists with deduplication)
+ * - films (Film Registry & Festival Circuit history with relational person IDs)
+ * - research_records (Multi-source methodology, conflict ledger, verification)
+ * - journal_articles (Editorial CMS with provenance & fact-check source ledger)
+ * - film_projects (User production workflow - strictly private)
+ * - project_submissions (Festival application tracking - strictly user private)
  */
 export async function initFilmIntelligenceTables(): Promise<boolean> {
   const schemaSql = `
@@ -33,6 +33,7 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         description TEXT NOT NULL,
         editorial_notes TEXT,
         status VARCHAR(32) DEFAULT 'ACTIVE',
+        visibility VARCHAR(32) DEFAULT 'PUBLIC',
         verified_at VARCHAR(64) NOT NULL,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -51,16 +52,18 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         fees JSONB NOT NULL DEFAULT '[]'::jsonb,
         premiere_rules JSONB NOT NULL DEFAULT '[]'::jsonb,
         accepted_formats JSONB NOT NULL DEFAULT '[]'::jsonb,
+        delivery_requirements JSONB NOT NULL DEFAULT '[]'::jsonb,
         ai_disclosure_policy JSONB NOT NULL DEFAULT '{}'::jsonb,
         verified_sources JSONB NOT NULL DEFAULT '[]'::jsonb,
         status VARCHAR(32) DEFAULT 'UPCOMING',
+        verification_status VARCHAR(32) DEFAULT 'ACTIVE',
         last_verified_at VARCHAR(64) NOT NULL,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT unq_festival_year UNIQUE(festival_id, year)
     );
 
-    -- 3. PEOPLE & FILMMAKER REGISTRY
+    -- 3. CANONICAL PEOPLE & FILMMAKER REGISTRY
     CREATE TABLE IF NOT EXISTS people (
         id VARCHAR(64) PRIMARY KEY,
         slug VARCHAR(128) UNIQUE NOT NULL,
@@ -74,12 +77,13 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         filmography JSONB DEFAULT '[]'::jsonb,
         festival_accolades JSONB DEFAULT '[]'::jsonb,
         social_links JSONB DEFAULT '{}'::jsonb,
+        visibility VARCHAR(32) DEFAULT 'PUBLIC',
         verified_at VARCHAR(64) NOT NULL,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
-    -- 4. FILM REGISTRY
+    -- 4. CANONICAL FILM REGISTRY
     CREATE TABLE IF NOT EXISTS films (
         id VARCHAR(64) PRIMARY KEY,
         slug VARCHAR(128) UNIQUE NOT NULL,
@@ -107,6 +111,7 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         festival_history JSONB DEFAULT '[]'::jsonb,
         technical_specs JSONB DEFAULT '{}'::jsonb,
         streaming_links JSONB DEFAULT '[]'::jsonb,
+        visibility VARCHAR(32) DEFAULT 'PUBLIC',
         verified_at VARCHAR(64) NOT NULL,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
@@ -117,6 +122,7 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         id VARCHAR(64) PRIMARY KEY,
         slug VARCHAR(128) UNIQUE NOT NULL,
         topic VARCHAR(255) NOT NULL,
+        visibility VARCHAR(32) DEFAULT 'PUBLIC',
         entity_type VARCHAR(64) NOT NULL,
         entity_id VARCHAR(64),
         research_question TEXT NOT NULL,
@@ -126,6 +132,7 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         sources JSONB DEFAULT '[]'::jsonb,
         confidence_level VARCHAR(32) NOT NULL,
         verification_status VARCHAR(32) NOT NULL,
+        provenance VARCHAR(64) DEFAULT 'HUMAN_AUTHORED',
         verified_by VARCHAR(128) NOT NULL,
         verified_date VARCHAR(64) NOT NULL,
         next_review_date VARCHAR(64) NOT NULL,
@@ -151,6 +158,8 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         updated_date VARCHAR(64) NOT NULL,
         status VARCHAR(32) DEFAULT 'PUBLISHED',
         featured BOOLEAN DEFAULT FALSE,
+        visibility VARCHAR(32) DEFAULT 'PUBLIC',
+        provenance VARCHAR(64) DEFAULT 'HUMAN_AUTHORED',
         source_ledger JSONB DEFAULT '[]'::jsonb,
         primary_research_record_id VARCHAR(64) REFERENCES research_records(id) ON DELETE SET NULL,
         related_film_ids JSONB DEFAULT '[]'::jsonb,
@@ -166,11 +175,12 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
-    -- 7. FILM PROJECTS
+    -- 7. USER FILM PROJECTS (STRICTLY PRIVATE)
     CREATE TABLE IF NOT EXISTS film_projects (
         id VARCHAR(64) PRIMARY KEY,
         slug VARCHAR(128) UNIQUE NOT NULL,
         user_id VARCHAR(128) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        visibility VARCHAR(32) NOT NULL DEFAULT 'PRIVATE',
         title VARCHAR(255) NOT NULL,
         logline TEXT NOT NULL,
         synopsis TEXT NOT NULL,
@@ -188,10 +198,11 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
-    -- 8. PROJECT FESTIVAL SUBMISSIONS
+    -- 8. PROJECT FESTIVAL SUBMISSIONS (STRICTLY PRIVATE)
     CREATE TABLE IF NOT EXISTS project_submissions (
         id VARCHAR(64) PRIMARY KEY,
         project_id VARCHAR(64) NOT NULL REFERENCES film_projects(id) ON DELETE CASCADE,
+        user_id VARCHAR(128) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         festival_id VARCHAR(64) NOT NULL REFERENCES festivals(id) ON DELETE CASCADE,
         edition_id VARCHAR(64) NOT NULL REFERENCES festival_editions(id) ON DELETE CASCADE,
         film_title VARCHAR(255) NOT NULL,
@@ -210,12 +221,13 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
-    -- INDEXES
+    -- PERFORMANCE, USER SCOPE & RELATIONAL INDEXES
     CREATE INDEX IF NOT EXISTS idx_festivals_slug ON festivals(slug);
     CREATE INDEX IF NOT EXISTS idx_festivals_tier ON festivals(prestige_tier);
     CREATE INDEX IF NOT EXISTS idx_festivals_region ON festivals(region);
     CREATE INDEX IF NOT EXISTS idx_festival_editions_festival_id ON festival_editions(festival_id);
     CREATE INDEX IF NOT EXISTS idx_festival_editions_year ON festival_editions(year);
+    CREATE INDEX IF NOT EXISTS idx_festival_editions_vstatus ON festival_editions(verification_status);
     CREATE INDEX IF NOT EXISTS idx_people_slug ON people(slug);
     CREATE INDEX IF NOT EXISTS idx_people_role ON people(primary_role);
     CREATE INDEX IF NOT EXISTS idx_films_slug ON films(slug);
@@ -228,6 +240,7 @@ export async function initFilmIntelligenceTables(): Promise<boolean> {
     CREATE INDEX IF NOT EXISTS idx_journal_articles_status ON journal_articles(status);
     CREATE INDEX IF NOT EXISTS idx_film_projects_user_id ON film_projects(user_id);
     CREATE INDEX IF NOT EXISTS idx_project_submissions_project_id ON project_submissions(project_id);
+    CREATE INDEX IF NOT EXISTS idx_project_submissions_user_id ON project_submissions(user_id);
     CREATE INDEX IF NOT EXISTS idx_project_submissions_festival_id ON project_submissions(festival_id);
   `;
 
