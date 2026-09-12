@@ -307,18 +307,19 @@ export function SearchView() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between border-b border-border-subtle pb-2">
                     <span className="text-xs font-semibold text-primary">
-                      AI Film Festivals ({results.festivals.length})
+                      Festival Intelligence ({results.festivals.length})
                     </span>
                     <Link href="/festivals" className="text-[11px] text-accent font-mono hover:underline">
-                      View festival directory →
+                      View festival circuits →
                     </Link>
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">
                     {results.festivals.map((fest) => (
-                      <div
+                      <Link
                         key={fest.id}
-                        className="surface rounded-2xl border border-border bg-surface p-5 space-y-2"
+                        href={`/festivals/${fest.slug}`}
+                        className="surface rounded-2xl border border-border bg-surface p-5 space-y-2 hover:border-accent/40 transition group"
                       >
                         <div className="flex items-center justify-between">
                           <span className="text-[10px] font-mono uppercase text-accent font-semibold">
@@ -328,9 +329,11 @@ export function SearchView() {
                             Due: {fest.deadline}
                           </span>
                         </div>
-                        <h4 className="text-base font-semibold text-primary">{fest.name}</h4>
-                        <p className="text-xs text-secondary">{fest.prizes}</p>
-                      </div>
+                        <h4 className="text-base font-semibold text-primary group-hover:text-accent transition">
+                          {fest.name}
+                        </h4>
+                        <p className="text-xs text-secondary line-clamp-2">{fest.prizes}</p>
+                      </Link>
                     ))}
                   </div>
                 </div>

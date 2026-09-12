@@ -1,8 +1,9 @@
 import { db } from "@/lib/db/repository";
+import { canonicalStandingFestivals, canonicalFestivalEditions } from "@/data/festivals-canonical";
 
 export interface SearchIndexEntry {
   id: string;
-  entityType: "tool" | "prompt" | "tutorial" | "workflow" | "comparison" | "blog" | "video";
+  entityType: "tool" | "prompt" | "tutorial" | "workflow" | "comparison" | "blog" | "video" | "festival" | "festival_edition";
   slug: string;
   title: string;
   category: string;
@@ -23,6 +24,8 @@ export function generateSearchIndex(): {
   const comparisons = db.getAllComparisons();
   const blogs = db.getPublishedBlogs();
   const videos = db.getPublishedVideos();
+  const festivals = canonicalStandingFestivals;
+  const festivalEditions = canonicalFestivalEditions;
 
   const entries: SearchIndexEntry[] = [];
 
@@ -109,7 +112,7 @@ export function generateSearchIndex(): {
     });
   });
 
-  // Index Blogs
+  // Index Blogs / Journal
   blogs.forEach((blog) => {
     const tokens = [blog.title, blog.category, ...blog.tags, blog.excerpt]
       .join(" ")
@@ -147,6 +150,63 @@ export function generateSearchIndex(): {
     });
   });
 
+  // Index Standing Festivals
+  festivals.forEach((fest) => {
+    const tokens = [
+      fest.name,
+      fest.acronym || "",
+      fest.hostCity,
+      fest.hostCountry,
+      fest.region,
+      fest.prestigeTier,
+      ...fest.focusCategories,
+      fest.description,
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    entries.push({
+      id: fest.id,
+      entityType: "festival",
+      slug: `/festivals/${fest.slug}`,
+      title: fest.name,
+      category: fest.prestigeTier.replace(/_/g, " "),
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: `${fest.hostCity}, ${fest.hostCountry} • ${fest.description.slice(0, 140)}...`,
+      weight: 0.95,
+    });
+  });
+
+  // Index Festival Editions
+  festivalEditions.forEach((ed) => {
+    const fest = festivals.find((f) => f.id === ed.festivalId);
+    if (!fest) return;
+
+    const tokens = [
+      fest.name,
+      ed.year.toString(),
+      ed.season,
+      ed.status,
+      ...ed.acceptedFormats,
+      ...ed.premiereRules.map((r) => `${r.category} ${r.requiredPremiere}`),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    entries.push({
+      id: ed.id,
+      entityType: "festival_edition",
+      slug: `/festivals/${fest.slug}/${ed.year}`,
+      title: `${fest.name} (${ed.year} Edition)`,
+      category: "Festival Edition",
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: `Dates: ${ed.eventStartDate} - ${ed.eventEndDate} • ${ed.status.replace(/_/g, " ")} • Regular Due: ${ed.deadlines.regularDeadline || "TBA"}`,
+      weight: 0.9,
+    });
+  });
+
   return {
     totalIndexed: entries.length,
     entriesByType: {
@@ -157,6 +217,8 @@ export function generateSearchIndex(): {
       comparisons: comparisons.length,
       blogs: blogs.length,
       videos: videos.length,
+      festivals: festivals.length,
+      festivalEditions: festivalEditions.length,
     },
     generatedAt: new Date().toISOString(),
   };

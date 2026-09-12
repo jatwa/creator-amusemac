@@ -357,6 +357,20 @@ export function getFestivalBySlug(slug: string): AIFilmFestival | undefined {
   return festivalsData.find((f) => f.slug === slug);
 }
 
+export {
+  canonicalStandingFestivals,
+  canonicalFestivalEditions,
+  masterDeliveryChecklist,
+  getAllStandingFestivals,
+  getStandingFestivalBySlug,
+  getStandingFestivalById,
+  getFestivalEditions,
+  getFestivalEditionByYear,
+  getLatestEdition,
+  getAllFestivalsWithCurrentEdition,
+} from "./festivals-canonical";
+
+
 export function getAllProductionKits(): ProductionKit[] {
   return productionKitsData;
 }
