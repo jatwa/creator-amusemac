@@ -44,7 +44,7 @@ export function Navigation() {
     { name: "Prompts", href: "/prompts" },
     { name: "Workflows", href: "/workflows" },
     { name: "Festivals", href: "/festivals" },
-    { name: "Journal", href: "/blog" },
+    { name: "Journal", href: "/journal" },
     { name: "Vault", href: "/prompts/vault" },
   ];
 
@@ -73,7 +73,9 @@ export function Navigation() {
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
-                  : pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`)) || (link.href === "/blog" && pathname.startsWith("/journal"));
+                  : pathname === link.href ||
+                    (link.href !== "/" && pathname.startsWith(`${link.href}/`)) ||
+                    (link.href === "/journal" && pathname.startsWith("/blog"));
 
               return (
                 <Link

@@ -119,7 +119,7 @@ export function generateSearchIndex(): {
     entries.push({
       id: blog.id,
       entityType: "blog",
-      slug: `/blog/${blog.slug}`,
+      slug: `/journal/${blog.slug}`,
       title: blog.title,
       category: blog.category,
       searchTokens: Array.from(new Set(tokens)),
