@@ -254,11 +254,30 @@ export interface Prompt {
   slug: string;
   title: string;
   category: CategoryType;
+  subcategory?: string;
+  categoryGroup?: string;
+  difficulty?: "Beginner" | "Intermediate" | "Advanced" | "Director Grade";
+  whatItCreates?: string;
   useCase: string;
   description: string;
   promptText: string;
   negativePrompt?: string;
   variables: PromptVariable[];
+  camera?: string;
+  cameraMovement?: string;
+  lens?: string;
+  lighting?: string;
+  composition?: string;
+  environment?: string;
+  mood?: string;
+  visualStyle?: string;
+  aspectRatio?: string;
+  recommendedDuration?: string;
+  recommendedModels?: string[];
+  tags?: string[];
+  source?: string;
+  createdDate?: string;
+  updatedDate?: string;
   compatibleToolIds: string[];
   recommendedSettings?: {
     aspectRatio?: string;
@@ -273,6 +292,7 @@ export interface Prompt {
   relatedBlogIds?: string[];
   relatedVideoIds?: string[];
   verifiedAt: string;
+  status?: "published" | "draft" | "archived";
 }
 
 export interface ComparisonScenario {

@@ -11,6 +11,7 @@ import {
   UpdateLog,
   VideoEngine,
 } from "./types";
+import { CINEMATIC_42_PROMPTS } from "./cinematic-prompts";
 
 export const categoriesData: CategoryInfo[] = [
   {
@@ -1325,6 +1326,7 @@ export const toolsData: Tool[] = [
 ];
 
 export const promptsData: Prompt[] = [
+  ...CINEMATIC_42_PROMPTS,
   {
     id: "prompt-cinematic-bike",
     slug: "cinematic-bike-commercial",

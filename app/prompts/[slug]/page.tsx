@@ -149,6 +149,108 @@ export default async function PromptDetailPage({
 
           {/* Right Column: Settings & Compatible Tools */}
           <div className="space-y-6">
+            {/* Director's Technical Recipe Specifications */}
+            {(prompt.camera || prompt.lens || prompt.lighting || prompt.composition || prompt.mood) && (
+              <div className="surface p-6 space-y-4 text-xs">
+                <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-accent font-mono">
+                    Director Recipe Specs
+                  </h3>
+                  {prompt.difficulty && (
+                    <span className="rounded-full bg-accent/10 border border-accent/20 px-2 py-0.5 font-mono text-[10px] text-accent">
+                      {prompt.difficulty}
+                    </span>
+                  )}
+                </div>
+
+                {prompt.camera && (
+                  <div>
+                    <p className="text-tertiary font-mono">Camera Body &amp; Sensor:</p>
+                    <p className="mt-0.5 font-medium text-primary">{prompt.camera}</p>
+                  </div>
+                )}
+
+                {prompt.cameraMovement && (
+                  <div>
+                    <p className="text-tertiary font-mono">Camera Movement:</p>
+                    <p className="mt-0.5 font-medium text-primary">{prompt.cameraMovement}</p>
+                  </div>
+                )}
+
+                {prompt.lens && (
+                  <div>
+                    <p className="text-tertiary font-mono">Optics / Focal Length:</p>
+                    <p className="mt-0.5 font-medium text-primary">{prompt.lens}</p>
+                  </div>
+                )}
+
+                {prompt.lighting && (
+                  <div>
+                    <p className="text-tertiary font-mono">Master Lighting Formula:</p>
+                    <p className="mt-0.5 text-secondary leading-relaxed">{prompt.lighting}</p>
+                  </div>
+                )}
+
+                {prompt.composition && (
+                  <div>
+                    <p className="text-tertiary font-mono">Framing &amp; Composition:</p>
+                    <p className="mt-0.5 text-secondary leading-relaxed">{prompt.composition}</p>
+                  </div>
+                )}
+
+                {prompt.environment && (
+                  <div>
+                    <p className="text-tertiary font-mono">Environment &amp; Atmosphere:</p>
+                    <p className="mt-0.5 text-secondary leading-relaxed">{prompt.environment}</p>
+                  </div>
+                )}
+
+                {prompt.mood && (
+                  <div>
+                    <p className="text-tertiary font-mono">Emotional Mood &amp; Tone:</p>
+                    <p className="mt-0.5 font-medium text-primary">{prompt.mood}</p>
+                  </div>
+                )}
+
+                {prompt.visualStyle && (
+                  <div>
+                    <p className="text-tertiary font-mono">Visual Aesthetic / Color Science:</p>
+                    <p className="mt-0.5 text-secondary leading-relaxed">{prompt.visualStyle}</p>
+                  </div>
+                )}
+
+                {(prompt.aspectRatio || prompt.recommendedDuration) && (
+                  <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border-subtle font-mono text-[11px]">
+                    {prompt.aspectRatio && (
+                      <div>
+                        <span className="text-tertiary block">Format:</span>
+                        <span className="text-primary font-semibold">{prompt.aspectRatio}</span>
+                      </div>
+                    )}
+                    {prompt.recommendedDuration && (
+                      <div>
+                        <span className="text-tertiary block">Duration:</span>
+                        <span className="text-primary font-semibold">{prompt.recommendedDuration}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {prompt.recommendedModels && prompt.recommendedModels.length > 0 && (
+                  <div className="pt-2 border-t border-border-subtle">
+                    <p className="text-tertiary font-mono mb-1.5">Recommended AI Engines:</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {prompt.recommendedModels.map((m, i) => (
+                        <span key={i} className="rounded-md border border-border bg-surface-elevated px-2 py-0.5 font-mono text-[10px] text-accent">
+                          {m}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Recommended Model Settings */}
             {prompt.recommendedSettings && (
               <div className="surface p-6 space-y-4 text-xs">

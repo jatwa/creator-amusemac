@@ -118,12 +118,18 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
       >
         <div>
           <div className="flex items-center justify-between gap-2">
-            <span className="text-[11px] font-medium tracking-wider uppercase text-secondary">
-              {prompt.useCase}
+            <span className="text-[11px] font-medium tracking-wider uppercase text-accent font-mono">
+              {prompt.subcategory || prompt.categoryGroup || prompt.useCase}
             </span>
-            <span className="text-[11px] text-tertiary font-mono">
-              {prompt.category}
-            </span>
+            {prompt.difficulty ? (
+              <span className="rounded-full bg-accent/10 border border-accent/20 px-2 py-0.5 text-[10px] text-accent font-mono font-medium">
+                {prompt.difficulty}
+              </span>
+            ) : (
+              <span className="text-[11px] text-tertiary font-mono">
+                {prompt.category}
+              </span>
+            )}
           </div>
 
           <h3 className="mt-3.5 text-base font-semibold text-primary group-hover:text-accent transition-colors leading-snug">
@@ -131,11 +137,32 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
           </h3>
 
           <p className="mt-1.5 text-xs text-secondary line-clamp-2">
-            {prompt.description}
+            {prompt.whatItCreates || prompt.description}
           </p>
 
+          {/* Director Quick Specs */}
+          {(prompt.lens || prompt.camera || prompt.aspectRatio) && (
+            <div className="mt-3 flex flex-wrap items-center gap-2 text-[10px] font-mono text-secondary">
+              {prompt.lens && (
+                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5">
+                  🔍 {prompt.lens.split(" ")[0]} {prompt.lens.split(" ")[1] || ""}
+                </span>
+              )}
+              {prompt.aspectRatio && (
+                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5">
+                  📐 {prompt.aspectRatio.split(" ")[0]}
+                </span>
+              )}
+              {prompt.recommendedDuration && (
+                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5">
+                  ⏱ {prompt.recommendedDuration}
+                </span>
+              )}
+            </div>
+          )}
+
           {/* Syntax Window */}
-          <div className="mt-4 rounded-xl border border-border-subtle bg-surface-elevated p-3 font-mono text-xs text-secondary line-clamp-3 leading-relaxed">
+          <div className="mt-3.5 rounded-xl border border-border-subtle bg-surface-elevated p-3 font-mono text-xs text-secondary line-clamp-3 leading-relaxed">
             {prompt.promptText}
           </div>
 
@@ -143,7 +170,7 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
           {prompt.variables && prompt.variables.length > 0 && (
             <div className="mt-3.5 flex flex-wrap items-center gap-1.5">
               <span className="text-[10px] text-tertiary font-mono">Params:</span>
-              {prompt.variables.map((v, i) => (
+              {prompt.variables.slice(0, 4).map((v, i) => (
                 <span
                   key={i}
                   className="rounded bg-accent/10 px-1.5 py-0.5 text-[10px] font-mono text-accent"
@@ -151,16 +178,21 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                   [{v.key || v.label}]
                 </span>
               ))}
+              {prompt.variables.length > 4 && (
+                <span className="text-[10px] text-tertiary font-mono">
+                  +{prompt.variables.length - 4} more
+                </span>
+              )}
             </div>
           )}
         </div>
 
         <div className="mt-6 border-t border-border-subtle pt-3.5 flex items-center justify-between text-xs">
-          <span className="text-tertiary text-[11px]">
+          <span className="text-tertiary text-[11px] font-mono">
             {prompt.variables.length} parameters
           </span>
           <span className="font-medium text-accent group-hover:translate-x-0.5 transition-transform duration-150 inline-flex items-center gap-1">
-            Customize Recipe →
+            Director Recipe →
           </span>
         </div>
       </Link>
