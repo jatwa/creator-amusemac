@@ -14,6 +14,7 @@ import {
   VideoItem,
   RoleMode,
 } from "@/data/types";
+import { Technique, Film, ResearchRecord } from "@/data/film-intelligence-types";
 import { CreatorVerdictCard } from "./creator-verdict-card";
 import { RoleModeSelector, ROLE_CONFIGS } from "./role-mode-selector";
 import { PromptAnatomyCard } from "./prompt-anatomy-card";
@@ -30,6 +31,9 @@ interface ToolDossierViewProps {
   linkedWorkflows: Workflow[];
   relatedBlogs: BlogPost[];
   relatedVideos: VideoItem[];
+  supportedTechniques?: Technique[];
+  relatedFilms?: Film[];
+  relatedResearch?: ResearchRecord[];
 }
 
 export function ToolDossierView({
@@ -42,6 +46,9 @@ export function ToolDossierView({
   linkedWorkflows,
   relatedBlogs,
   relatedVideos,
+  supportedTechniques = [],
+  relatedFilms = [],
+  relatedResearch = [],
 }: ToolDossierViewProps) {
   const [activeRole, setActiveRole] = useState<RoleMode>("director");
   const [usageLevel, setUsageLevel] = useState<"beginner" | "intermediate" | "advanced">("beginner");
@@ -61,6 +68,7 @@ export function ToolDossierView({
     { id: "scorecard", label: "Creator Scorecard" },
     { id: "pricing", label: "Pricing & Rights" },
     { id: "alternatives", label: "Alternatives & Matrix" },
+    { id: "cinema-intelligence", label: "Cinema Intelligence" },
     { id: "source-ledger", label: "Source Ledger" },
   ];
 
@@ -559,6 +567,95 @@ export function ToolDossierView({
 
           {/* AdSense Placement */}
           <AdSlot slotId="dossier-bottom" label="Production Intelligence Sponsor" />
+
+          {/* LEVEL 13.5: CANONICAL CINEMA INTELLIGENCE & TECHNIQUES */}
+          {(supportedTechniques.length > 0 || relatedFilms.length > 0 || relatedResearch.length > 0) && (
+            <section id="cinema-intelligence" className="surface p-6 sm:p-8 rounded-2xl border border-border bg-surface shadow-subtle space-y-6">
+              <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-accent font-semibold">
+                  Canonical Cinema Intelligence & Techniques
+                </span>
+                <span className="text-[11px] font-mono text-tertiary">
+                  Knowledge Graph
+                </span>
+              </div>
+
+              {/* Supported Techniques */}
+              {supportedTechniques.length > 0 && (
+                <div className="space-y-3">
+                  <div className="text-xs font-mono uppercase tracking-wider text-tertiary">Supported Cinema Techniques</div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {supportedTechniques.map((tech) => (
+                      <Link
+                        key={tech.id}
+                        href={`/techniques/${tech.slug}`}
+                        className="rounded-xl border border-border-subtle bg-surface-elevated p-4 hover:border-accent/40 transition group space-y-1 block"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                            {tech.category.replace(/_/g, " ")}
+                          </span>
+                          <span className="text-[10px] font-mono text-tertiary">
+                            {tech.difficulty}
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-bold text-primary group-hover:text-accent transition">
+                          {tech.name}
+                        </h4>
+                        <p className="text-xs text-secondary line-clamp-2">
+                          {tech.creativePurpose}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Related Demonstration Films */}
+              {relatedFilms.length > 0 && (
+                <div className="space-y-3 pt-3 border-t border-border-subtle">
+                  <div className="text-xs font-mono uppercase tracking-wider text-tertiary">Demonstrated in Canonical Works</div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {relatedFilms.map((film) => (
+                      <Link
+                        key={film.id}
+                        href={`/films/${film.slug}`}
+                        className="rounded-xl border border-border-subtle bg-surface-elevated p-3 hover:border-accent/40 transition group block"
+                      >
+                        <div className="text-xs font-bold text-primary group-hover:text-accent transition">
+                          {film.title} ({film.releaseYear})
+                        </div>
+                        <div className="text-[11px] text-secondary mt-0.5 line-clamp-1">
+                          {film.format.replace(/_/g, " ")} • {film.technicalSpecs.aspectRatio}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Related Research Ledgers */}
+              {relatedResearch.length > 0 && (
+                <div className="space-y-3 pt-3 border-t border-border-subtle">
+                  <div className="text-xs font-mono uppercase tracking-wider text-tertiary">Connected Research Ledgers</div>
+                  <div className="space-y-2">
+                    {relatedResearch.map((res) => (
+                      <Link
+                        key={res.id}
+                        href={`/research/${res.slug}`}
+                        className="block rounded-lg border border-border-subtle bg-surface-elevated p-3 hover:border-accent/40 transition group"
+                      >
+                        <div className="text-[10px] font-mono text-accent font-medium">{res.topic}</div>
+                        <div className="text-xs font-semibold text-primary group-hover:text-accent transition mt-0.5">
+                          {res.researchQuestion}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
 
           {/* LEVEL 14: TRACEABLE SOURCE LEDGER */}
           <section id="source-ledger" className="surface p-6 sm:p-8 rounded-2xl border border-border bg-surface shadow-subtle space-y-4">

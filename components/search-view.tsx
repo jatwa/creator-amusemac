@@ -12,7 +12,7 @@ export function SearchView() {
 
   const [query, setQuery] = useState(initialQuery);
   const [activeTab, setActiveTab] = useState<
-    "all" | "films" | "people" | "tools" | "prompts" | "stories" | "festivals" | "research" | "kits" | "blogs" | "videos" | "workflows" | "tutorials" | "comparisons"
+    "all" | "techniques" | "films" | "people" | "tools" | "prompts" | "stories" | "festivals" | "research" | "kits" | "blogs" | "videos" | "workflows" | "tutorials" | "comparisons"
   >("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [, startTransition] = useTransition();
@@ -43,6 +43,7 @@ export function SearchView() {
       research: rawResults.research,
       films: rawResults.films || [],
       people: rawResults.people || [],
+      techniques: rawResults.techniques || [],
     };
   }, [query, selectedCategory]);
 
@@ -59,7 +60,8 @@ export function SearchView() {
     results.comparisons.length +
     results.research.length +
     results.films.length +
-    results.people.length;
+    results.people.length +
+    results.techniques.length;
 
   const handleQueryChange = (val: string) => {
     startTransition(() => {
@@ -68,11 +70,11 @@ export function SearchView() {
   };
 
   const quickPillSearches = [
+    { label: "Cinema Techniques", q: "anamorphic" },
     { label: "Films & Cinema", q: "film" },
     { label: "Filmmakers", q: "director" },
     { label: "AI Video", q: "video" },
     { label: "Camera Coordinates", q: "camera" },
-    { label: "35mm Stills", q: "film" },
     { label: "Open Weights", q: "open" },
     { label: "DaVinci Grading", q: "color" },
     { label: "Film Festivals", q: "festival" },
@@ -88,7 +90,7 @@ export function SearchView() {
             type="text"
             value={query}
             onChange={(e) => handleQueryChange(e.target.value)}
-            placeholder="Search films, filmmakers, verified tools, prompts, camera optics, case studies, or festivals..."
+            placeholder="Search cinema techniques, films, filmmakers, verified tools, prompts, camera optics, or research..."
             className="w-full rounded-2xl border border-border bg-surface-elevated px-5 py-4 pl-12 text-sm sm:text-base text-primary placeholder:text-tertiary focus:border-accent/50 focus:ring-1 focus:ring-accent/50 outline-none transition shadow-subtle font-normal"
           />
           <svg
@@ -131,6 +133,7 @@ export function SearchView() {
         <div className="flex flex-wrap gap-1.5">
           {[
             { id: "all", label: `All (${totalCount})` },
+            { id: "techniques", label: `Techniques (${results.techniques.length})` },
             { id: "films", label: `Films (${results.films.length})` },
             { id: "people", label: `People (${results.people.length})` },
             { id: "festivals", label: `Festivals (${results.festivals.length})` },
@@ -201,6 +204,48 @@ export function SearchView() {
             </div>
           ) : (
             <>
+              {/* Techniques Section */}
+              {(activeTab === "all" || activeTab === "techniques") && results.techniques.length > 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+                    <span className="text-xs font-semibold text-primary">
+                      Cinema Techniques ({results.techniques.length})
+                    </span>
+                    <Link href="/techniques" className="text-[11px] text-accent font-mono hover:underline">
+                      View all techniques →
+                    </Link>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {results.techniques.map((tech) => (
+                      <Link
+                        key={tech.id}
+                        href={`/techniques/${tech.slug}`}
+                        className="surface rounded-2xl border border-border bg-surface p-5 space-y-2 hover:border-accent/40 transition group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                            {tech.category.replace(/_/g, " ")} • {tech.difficulty}
+                          </span>
+                          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                            {tech.verificationStatus}
+                          </span>
+                        </div>
+                        <h4 className="text-base font-semibold text-primary group-hover:text-accent transition leading-snug">
+                          {tech.name}
+                        </h4>
+                        <p className="text-xs text-secondary line-clamp-2 leading-relaxed">
+                          {tech.creativePurpose}
+                        </p>
+                        <div className="text-[11px] font-mono text-tertiary pt-1">
+                          Stage: {tech.productionStage.replace(/_/g, " ")}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Films Section */}
               {(activeTab === "all" || activeTab === "films") && results.films.length > 0 && (
                 <div className="space-y-4">

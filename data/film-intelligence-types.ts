@@ -607,6 +607,73 @@ export interface Film {
 }
 
 // ============================================================================
+// 7.1. CANONICAL CINEMA TECHNIQUE MODEL
+// ============================================================================
+
+export type TechniqueCategory =
+  | "CAMERA"
+  | "LENS_OPTICS"
+  | "LIGHTING"
+  | "COMPOSITION"
+  | "EDITING"
+  | "SOUND"
+  | "COLOR"
+  | "VFX_AI";
+
+export type TechniqueDifficulty = "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "MASTER";
+
+export type ToolProductionStage =
+  | "PRE_PRODUCTION"
+  | "PRODUCTION"
+  | "EDITORIAL"
+  | "COLOR"
+  | "SOUND"
+  | "VFX"
+  | "AI"
+  | "DELIVERY";
+
+export interface TechniqueCommonMistake {
+  mistake: string;
+  consequence: string;
+  correction: string;
+}
+
+export interface Technique {
+  id: string;
+  slug: string;
+  name: string;
+  alternateNames: string[];
+  category: TechniqueCategory;
+  subcategory?: string;
+  description: string;
+  creativePurpose: string;
+  visualCharacteristics: string;
+  whenToUse: string[];
+  whenNotToUse: string[];
+  productionStage: ToolProductionStage;
+  difficulty: TechniqueDifficulty;
+  technicalConsiderations: string[];
+  commonMistakes: TechniqueCommonMistake[];
+  
+  // Relational Canonical Graph IDs
+  relatedTechniques: string[];
+  relatedTools: string[];
+  relatedPrompts: string[];
+  relatedFilms: string[];
+  relatedPeople: string[];
+  relatedResearch: string[];
+  relatedJournalArticles: string[];
+
+  // Verification & Provenance
+  verificationStatus: VerificationStatus;
+  sourceIds: string[];
+  confidence: "HIGH" | "MEDIUM" | "ESTIMATE";
+  editorialNotes?: string;
+  visibility: "PUBLIC";
+  verifiedAt: string;
+}
+
+// ============================================================================
 // 8. USER FILM PROJECT WORKFLOW (PRIVATE DATA ISOLATION)
 // ============================================================================
 

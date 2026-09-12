@@ -12,6 +12,9 @@ import {
   workflowsData,
 } from "@/data/platform-data";
 import { getToolBySlug, getToolById, getToolDossier } from "@/data/content";
+import { canonicalTechniques } from "@/data/techniques-canonical";
+import { canonicalFilms } from "@/data/films-canonical";
+import { canonicalResearchRecords } from "@/data/research-canonical";
 import { getDbTools, getDbToolBySlug } from "@/lib/db/neon";
 import { db } from "@/lib/db/repository";
 import { ToolDossierView } from "@/components/tool-dossier-view";
@@ -87,6 +90,27 @@ export default async function ToolDetailPage({
 
   const relatedBlogs = db.getRelatedBlogsForTool(tool.id);
   const relatedVideos = db.getRelatedVideosForTool(tool.id);
+
+  // Canonical Relational Knowledge Graph Connections
+  const supportedTechniques = canonicalTechniques.filter(
+    (t) =>
+      t.relatedTools.includes(tool.id) ||
+      t.relatedTools.includes(tool.slug) ||
+      t.relatedTools.some((rt) => tool.name.toLowerCase().includes(rt.toLowerCase()))
+  );
+
+  const relatedFilms = canonicalFilms.filter(
+    (f) =>
+      f.technicalSpecs.aiGenerativeModels?.some((m) => m.toLowerCase().includes(tool.name.toLowerCase())) ||
+      f.aiAndVfxCredits?.some((a) => a.toolsUsed?.some((tu) => tu.toLowerCase().includes(tool.name.toLowerCase())))
+  );
+
+  const relatedResearch = canonicalResearchRecords.filter(
+    (r) =>
+      r.statements.some((s) => s.statement.toLowerCase().includes(tool.name.toLowerCase())) ||
+      r.findingsSummary.toLowerCase().includes(tool.name.toLowerCase()) ||
+      r.sources.some((src) => src.sourceTitle.toLowerCase().includes(tool.name.toLowerCase()) || src.sourcePublisher.toLowerCase().includes(tool.name.toLowerCase()))
+  );
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -180,6 +204,9 @@ export default async function ToolDetailPage({
         linkedWorkflows={linkedWorkflows}
         relatedBlogs={relatedBlogs}
         relatedVideos={relatedVideos}
+        supportedTechniques={supportedTechniques}
+        relatedFilms={relatedFilms}
+        relatedResearch={relatedResearch}
       />
 
       <Footer />

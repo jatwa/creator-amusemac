@@ -2,6 +2,7 @@ import { db } from "@/lib/db/repository";
 import { canonicalStandingFestivals, canonicalFestivalEditions } from "@/data/festivals-canonical";
 import { canonicalResearchRecords } from "@/data/research-canonical";
 import { canonicalFilms, canonicalPeople } from "@/data/films-canonical";
+import { canonicalTechniques } from "@/data/techniques-canonical";
 
 export interface SearchIndexEntry {
   id: string;
@@ -17,7 +18,8 @@ export interface SearchIndexEntry {
     | "festival_edition"
     | "research"
     | "film"
-    | "person";
+    | "person"
+    | "technique";
   slug: string;
   title: string;
   category: string;
@@ -43,6 +45,7 @@ export function generateSearchIndex(): {
   const publicResearch = canonicalResearchRecords.filter((r) => r.visibility === "PUBLIC");
   const publicFilms = canonicalFilms.filter((f) => f.visibility === "PUBLIC");
   const publicPeople = canonicalPeople.filter((p) => p.visibility === "PUBLIC");
+  const publicTechniques = canonicalTechniques.filter((t) => t.visibility === "PUBLIC");
 
   const entries: SearchIndexEntry[] = [];
 
@@ -311,6 +314,36 @@ export function generateSearchIndex(): {
     });
   });
 
+  // Index Public Techniques
+  publicTechniques.forEach((tech) => {
+    const tokens = [
+      tech.name,
+      ...tech.alternateNames,
+      tech.category,
+      tech.subcategory || "",
+      tech.description,
+      tech.creativePurpose,
+      tech.visualCharacteristics,
+      ...tech.whenToUse,
+      ...tech.technicalConsiderations,
+      ...tech.relatedTools,
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    entries.push({
+      id: tech.id,
+      entityType: "technique",
+      slug: `/techniques/${tech.slug}`,
+      title: tech.name,
+      category: tech.category.replace(/_/g, " "),
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: `${tech.category.replace(/_/g, " ")} (${tech.difficulty}) • ${tech.creativePurpose}`,
+      weight: 1.0,
+    });
+  });
+
   return {
     totalIndexed: entries.length,
     entriesByType: {
@@ -326,6 +359,7 @@ export function generateSearchIndex(): {
       research: publicResearch.length,
       films: publicFilms.length,
       people: publicPeople.length,
+      techniques: publicTechniques.length,
     },
     generatedAt: new Date().toISOString(),
   };

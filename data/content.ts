@@ -34,6 +34,7 @@ import { productionKitsData } from "./kits-data";
 import { cameraLexiconData } from "./lexicon-data";
 import { canonicalResearchRecords } from "./research-canonical";
 import { canonicalFilms, canonicalPeople } from "./films-canonical";
+import { canonicalTechniques } from "./techniques-canonical";
 
 // Backward-compatible exports for existing components
 export const categories = categoriesData.map((c) => ({
@@ -396,6 +397,14 @@ export {
   getPersonById,
   getPeopleByRole,
 } from "./films-canonical";
+export {
+  canonicalTechniques,
+  getAllPublicTechniques,
+  getTechniqueBySlug,
+  getTechniqueById,
+  getTechniquesByCategory,
+  getTechniquesByStage,
+} from "./techniques-canonical";
 
 export function getAllProductionKits(): ProductionKit[] {
   return productionKitsData;
@@ -434,6 +443,7 @@ export function searchAllEntities(query: string) {
   const publicResearch = canonicalResearchRecords.filter((r) => r.visibility === "PUBLIC");
   const publicFilms = canonicalFilms.filter((f) => f.visibility === "PUBLIC");
   const publicPeople = canonicalPeople.filter((p) => p.visibility === "PUBLIC");
+  const publicTechniques = canonicalTechniques.filter((t) => t.visibility === "PUBLIC");
   const q = query.toLowerCase().trim();
   if (!q) {
     return {
@@ -451,6 +461,7 @@ export function searchAllEntities(query: string) {
       research: publicResearch,
       films: publicFilms,
       people: publicPeople,
+      techniques: publicTechniques,
     };
   }
 
@@ -598,6 +609,20 @@ export function searchAllEntities(query: string) {
       p.festivalAccolades.some((a) => matchesTerm(a.awardTitle) || matchesTerm(a.festivalName))
   );
 
+  const matchedTechniques = publicTechniques.filter(
+    (t) =>
+      matchesTerm(t.name) ||
+      t.alternateNames.some((alt) => matchesTerm(alt)) ||
+      matchesTerm(t.category) ||
+      (t.subcategory && matchesTerm(t.subcategory)) ||
+      matchesTerm(t.description) ||
+      matchesTerm(t.creativePurpose) ||
+      matchesTerm(t.visualCharacteristics) ||
+      t.whenToUse.some((u) => matchesTerm(u)) ||
+      t.technicalConsiderations.some((c) => matchesTerm(c)) ||
+      t.relatedTools.some((tool) => matchesTerm(tool))
+  );
+
   return {
     tools: matchedTools,
     prompts: matchedPrompts,
@@ -613,5 +638,6 @@ export function searchAllEntities(query: string) {
     research: matchedResearch,
     films: matchedFilms,
     people: matchedPeople,
+    techniques: matchedTechniques,
   };
 }
