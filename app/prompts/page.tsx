@@ -39,6 +39,13 @@ export default async function PromptsPage() {
               All Prompts ({prompts.length})
             </Link>
             <Link
+              href="/prompts/vault"
+              className="rounded-full bg-accent/10 border border-accent/30 px-4 py-1.5 text-xs font-medium text-accent hover:bg-accent/20 transition flex items-center gap-1.5"
+            >
+              <span>🔒</span>
+              <span>Pro Prompts Vault (65+)</span>
+            </Link>
+            <Link
               href="/search?q=video"
               className="rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-medium text-secondary hover:text-primary hover:border-border-bright transition"
             >

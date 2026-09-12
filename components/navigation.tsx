@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { ThemeToggle } from "./theme-toggle";
+import { CurrencySwitcher } from "./currency-switcher";
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,6 +40,7 @@ export function Navigation() {
   const navLinks = [
     { name: "Tools", href: "/tools" },
     { name: "Prompts", href: "/prompts" },
+    { name: "Vault", href: "/prompts/vault", badge: "Pro" },
     { name: "Video Hub", href: "/categories/video", badge: "Flagship" },
     { name: "Stories", href: "/stories" },
     { name: "Compare", href: "/compare" },
@@ -130,6 +132,9 @@ export function Navigation() {
             </kbd>
           </Link>
 
+          {/* Currency Switcher Pill */}
+          <CurrencySwitcher variant="pill" className="hidden sm:inline-block" />
+
           {/* Apple-style Theme Switcher */}
           <ThemeToggle />
 
@@ -212,11 +217,17 @@ export function Navigation() {
               </div>
             </div>
 
-            <div className="pt-8 border-t border-border mt-8 flex items-center justify-between text-xs text-tertiary">
-              <span>© 2026 Amusemac Studio</span>
-              <div className="flex items-center gap-2">
-                <span>Theme:</span>
-                <ThemeToggle />
+            <div className="pt-8 border-t border-border mt-8 flex flex-col gap-4 text-xs text-tertiary">
+              <div className="flex items-center justify-between">
+                <span>Display Currency:</span>
+                <CurrencySwitcher variant="pill" />
+              </div>
+              <div className="flex items-center justify-between pt-2 border-t border-border-subtle">
+                <span>© 2026 Amusemac Studio</span>
+                <div className="flex items-center gap-2">
+                  <span>Theme:</span>
+                  <ThemeToggle />
+                </div>
               </div>
             </div>
           </motion.div>

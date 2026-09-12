@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools",
     "/prompts",
     "/prompts/factory",
+    "/prompts/vault",
     "/compare",
     "/stories",
     "/festivals",
