@@ -1,24 +1,15 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+  const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "ca-pub-1556731799149585";
+  const pubId = adsenseClient.replace("ca-pub-", "pub-");
   
-  if (adsenseClient) {
-    const pubId = adsenseClient.replace("ca-pub-", "pub-");
-    const content = `google.com, ${pubId}, DIRECT, f08c47fec0942fa0\n`;
-    return new NextResponse(content, {
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    });
-  }
+  const content = `google.com, ${pubId}, DIRECT, f08c47fec0942fa0\n`;
 
-  const defaultContent = `# Google AdSense ads.txt architecture for Creator Intel
-# Automatically dynamically populated when NEXT_PUBLIC_ADSENSE_CLIENT is configured.
-`;
-  return new NextResponse(defaultContent, {
+  return new NextResponse(content, {
     headers: {
-      "Content-Type": "text/plain",
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=86400, s-maxage=86400",
     },
   });
 }
