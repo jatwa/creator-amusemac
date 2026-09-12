@@ -821,8 +821,130 @@ export interface FestivalSubmission {
   notes?: string;
 }
 
+export type ToolkitStage =
+  | "01_CONCEPT"
+  | "02_RESEARCH"
+  | "03_STORY"
+  | "04_VISUAL_LANGUAGE"
+  | "05_PRE_PRODUCTION"
+  | "06_PRODUCTION"
+  | "07_POST"
+  | "08_FESTIVAL"
+  | "09_ARCHIVE";
+
+export type ProjectProjectType =
+  | "FEATURE"
+  | "SHORT"
+  | "SERIES"
+  | "COMMERCIAL"
+  | "MUSIC_VIDEO"
+  | "DOCUMENTARY"
+  | "EXPERIMENTAL"
+  | "feature"
+  | "short"
+  | "series"
+  | "commercial"
+  | "music_video"
+  | "documentary"
+  | "experimental"
+  | "proof_of_concept"
+  | "series_pilot";
+
+export interface ProjectShotItem {
+  id: string;
+  shotNumber: number | string;
+  shotType?: string;
+  framing: string;
+  cameraMovement: string;
+  lens?: string;
+  focalLength?: string;
+  composition?: string;
+  lighting?: string;
+  lightingNote?: string;
+  action?: string;
+  description?: string;
+  soundDialogueNote?: string;
+  estimatedDurationSec?: number;
+  status?: "PLANNED" | "SHOT" | "DROPPED" | "IN_POST";
+  techniqueId?: string;
+  toolId?: string;
+  promptId?: string;
+  filmReferenceId?: string;
+}
+
+export interface ProjectSceneItem {
+  id: string;
+  sceneNumber: number;
+  title?: string;
+  slugline: string;
+  timeOfDay?: TimeOfDay | string;
+  locationType?: LocationType;
+  locationName?: string;
+  location?: string;
+  synopsis?: string;
+  dramaticBeat?: string;
+  estDurationSeconds?: number;
+  characters?: string[];
+  storyPurpose?: string;
+  techniqueIds?: string[];
+  toolIds?: string[];
+  promptIds?: string[];
+  filmReferenceIds?: string[];
+  shots: ProjectShotItem[];
+}
+
+export interface ColorSwatchItem {
+  hex: string;
+  label: string;
+  role: string;
+}
+
+export interface ProjectVisualLanguage {
+  visualIntent?: string;
+  compositionPrinciples?: string[];
+  cameraLanguage?: string;
+  lensLanguage?: string;
+  lightingLanguage?: string;
+  lightingRatio?: string;
+  colorPalette?: (string | ColorSwatchItem)[];
+  aspectRatio: string;
+  movementGrammar?: string;
+  cameraMovementPhilosophy?: string;
+  opticsDescription?: string;
+  textureEnvironmentNotes?: string;
+  grainTexture?: string;
+}
+
+export interface ProjectPostPipelineItem {
+  stage?: PostProductionPipelineStage;
+  step?: string;
+  title?: string;
+  status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETE";
+  notes?: string;
+  toolIds?: string[];
+  techniqueIds?: string[];
+  workflowIds?: string[];
+  researchIds?: string[];
+  completedAt?: string;
+}
+
+export interface ProjectWorkflowStateItem {
+  workflowId: string;
+  stepStates?: Record<number, "NOT_STARTED" | "IN_PROGRESS" | "COMPLETE" | "SKIPPED">;
+  completedStepNumbers?: number[];
+}
+
+export interface ProjectFestivalTarget {
+  festivalId: string;
+  editionId?: string;
+  targetDeadlineTier?: "EARLY_BIRD" | "REGULAR" | "LATE" | "EXTENDED";
+  claimedPremiere?: PremiereType;
+  notes?: string;
+  status?: SubmissionStatus;
+}
+
 /**
- * User-Owned Film Project Entity (STRICTLY PRIVATE)
+ * User-Owned Film Project Entity (STRICTLY PRIVATE - DIRECTOR'S TOOLKIT)
  */
 export interface FilmProject {
   id: string;
@@ -832,21 +954,51 @@ export interface FilmProject {
   title: string;
   logline: string;
   synopsis: string;
-  format: FilmFormat;
-  genres: string[];
-  currentStage: ProjectWorkflowStage;
-  directorName: string;
+  format?: FilmFormat;
+  genres?: string[];
+  genre?: string[];
+  currentStage?: ToolkitStage | ProjectWorkflowStage;
+  toolkitStage?: ToolkitStage;
+  completedStages?: ToolkitStage[];
+  directorName?: string;
+  runtimeMinutes?: number;
+  estimatedRuntimeMinutes?: number;
+  targetReleaseYear?: number;
+  language?: string[];
+  countryOfOrigin?: string[] | string;
+  projectType?: ProjectProjectType;
   targetPremiereWindow?: string;
   targetPremiereType?: PremiereType;
-  sceneBreakdowns: SceneBreakdownItem[];
-  postProductionStages: {
+  creativeIntent?: string;
+  notes?: string;
+
+  // Canonical Intelligence Graph Relationships
+  researchIds?: string[];
+  filmReferenceIds?: string[];
+  peopleReferenceIds?: string[];
+  festivalIds?: string[];
+  techniqueIds?: string[];
+  toolIds?: string[];
+  promptIds?: string[];
+  workflowIds?: string[];
+
+  // Structured Creative Boards & Workspaces
+  visualLanguage?: ProjectVisualLanguage;
+  scenes?: ProjectSceneItem[];
+  postPipeline?: ProjectPostPipelineItem[];
+  workflowStates?: ProjectWorkflowStateItem[];
+  targetFestivals?: ProjectFestivalTarget[];
+
+  // Legacy compatibility fields
+  sceneBreakdowns?: SceneBreakdownItem[];
+  postProductionStages?: {
     stage: PostProductionPipelineStage;
     status: "PENDING" | "IN_PROGRESS" | "COMPLETED";
     notes?: string;
     completedAt?: string;
   }[];
-  festivalChecklist: ProjectDeliveryChecklistItem[];
-  attachedResearchIds: string[];
+  festivalChecklist?: ProjectDeliveryChecklistItem[];
+  attachedResearchIds?: string[];
   createdAt: string;
   updatedAt: string;
 }

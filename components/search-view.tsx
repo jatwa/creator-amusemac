@@ -524,7 +524,7 @@ export function SearchView() {
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">
-                    {results.canonicalWorkflows?.map((wf) => (
+                    {results.canonicalWorkflows?.map((wf: any) => (
                       <Link
                         key={wf.id}
                         href={`/workflows/${wf.slug}`}

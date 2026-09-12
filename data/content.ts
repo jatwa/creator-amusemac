@@ -36,6 +36,17 @@ import { canonicalResearchRecords } from "./research-canonical";
 import { canonicalFilms, canonicalPeople } from "./films-canonical";
 import { canonicalTechniques } from "./techniques-canonical";
 import { canonicalWorkflows } from "./workflows-canonical";
+import { canonicalStandingFestivals } from "./festivals-canonical";
+
+// Canonical intelligence graph exports
+export const allFilms = canonicalFilms;
+export const allPeople = canonicalPeople;
+export const allTechniques = canonicalTechniques;
+export const allCanonicalWorkflows = canonicalWorkflows;
+export const allResearchEntries = canonicalResearchRecords;
+export const allStandingFestivals = canonicalStandingFestivals;
+export const allTools = toolsData;
+export const allPrompts = promptsData;
 
 // Backward-compatible exports for existing components
 export const categories = categoriesData.map((c) => ({

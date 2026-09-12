@@ -142,6 +142,15 @@ export function UserNav({ className = "" }: { className?: string }) {
             </Link>
 
             <Link
+              href="/toolkit"
+              onClick={() => setDropdownOpen(false)}
+              className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-secondary hover:bg-surface-elevated hover:text-primary transition"
+            >
+              <span>🎬</span>
+              <span>Director&apos;s Toolkit</span>
+            </Link>
+
+            <Link
               href="/prompts/vault"
               onClick={() => setDropdownOpen(false)}
               className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-secondary hover:bg-surface-elevated hover:text-primary transition"
