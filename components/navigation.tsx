@@ -38,45 +38,42 @@ export function Navigation() {
     };
   }, [mobileMenuOpen]);
 
-  const navLinks = [
+  // Core Product Navigation Links
+  const primaryNavLinks = [
     { name: "Tools", href: "/tools" },
     { name: "Prompts", href: "/prompts" },
-    { name: "Vault", href: "/prompts/vault", badge: "Pro" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Video Hub", href: "/categories/video", badge: "Flagship" },
-    { name: "Stories", href: "/stories" },
-    { name: "Compare", href: "/compare" },
     { name: "Workflows", href: "/workflows" },
     { name: "Festivals", href: "/festivals" },
     { name: "Journal", href: "/blog" },
+    { name: "Vault", href: "/prompts/vault" },
   ];
 
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-border bg-background/80 dark:bg-black/80 backdrop-blur-xl shadow-subtle"
+          ? "border-b border-border bg-background/85 dark:bg-black/85 backdrop-blur-xl shadow-subtle"
           : "border-b border-border/40 bg-background/60 dark:bg-black/60 backdrop-blur-lg"
       }`}
     >
       <nav className="shell flex h-12 sm:h-14 items-center justify-between">
         {/* Brand Logo */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 lg:gap-8">
           <Link
             href="/"
-            className="flex items-center gap-1.5 font-medium tracking-tight text-primary text-base transition-opacity hover:opacity-80"
+            className="flex items-center gap-1 font-medium tracking-tight text-primary text-base transition-opacity hover:opacity-80"
           >
             <span className="font-semibold text-lg">creatorintel</span>
             <span className="text-accent font-bold">.</span>
           </Link>
 
           {/* Desktop Nav Items */}
-          <div className="hidden items-center gap-1 md:flex">
-            {navLinks.map((link) => {
+          <div className="hidden items-center gap-0.5 md:flex">
+            {primaryNavLinks.map((link) => {
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
-                  : pathname.startsWith(link.href);
+                  : pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`)) || (link.href === "/blog" && pathname.startsWith("/journal"));
 
               return (
                 <Link
@@ -96,24 +93,23 @@ export function Navigation() {
                     />
                   )}
                   <span>{link.name}</span>
-                  {link.badge && (
-                    <span className="ml-1.5 rounded-full bg-accent/10 px-1.5 py-0.2 font-mono text-[9px] font-medium text-accent">
-                      {link.badge}
-                    </span>
-                  )}
                 </Link>
               );
             })}
           </div>
         </div>
 
-        {/* Global Right Actions: Search + Theme Toggle + CTA */}
+        {/* Global Right Actions: Search + Pro Upgrade + Currency + Theme + Account */}
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Quick Search */}
           <Link
             href="/search"
             aria-label="Search Platform"
-            className="flex h-8 items-center gap-2 rounded-full px-2.5 sm:px-3 text-xs text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+            className={`flex h-8 items-center gap-2 rounded-full px-2.5 sm:px-3 text-xs transition-colors ${
+              pathname === "/search"
+                ? "text-primary bg-black/5 dark:bg-white/10 font-medium"
+                : "text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/10"
+            }`}
           >
             <svg
               className="h-3.5 w-3.5"
@@ -134,24 +130,27 @@ export function Navigation() {
             </kbd>
           </Link>
 
+          {/* Pro Pass Link */}
+          <Link
+            href="/pricing"
+            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-mono font-medium transition ${
+              pathname === "/pricing"
+                ? "border-accent/40 bg-accent/15 text-accent"
+                : "border-border bg-surface text-secondary hover:text-accent hover:border-accent/30"
+            }`}
+          >
+            <span className="text-accent">⚡</span>
+            <span>Pro</span>
+          </Link>
+
           {/* Currency Switcher Pill */}
           <CurrencySwitcher variant="pill" className="hidden sm:inline-block" />
 
-          {/* Apple-style Theme Switcher */}
+          {/* Theme Toggle */}
           <ThemeToggle />
 
           {/* User Profile / Google Sign In */}
           <UserNav />
-
-          {/* Clean Primary Action */}
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Link
-              href="/tools"
-              className="hidden lg:inline-flex rounded-full bg-foreground px-3.5 py-1.5 text-xs font-medium text-background transition-opacity hover:opacity-90 shadow-sm"
-            >
-              Explore
-            </Link>
-          </motion.div>
 
           {/* Mobile Menu Hamburger */}
           <button
@@ -171,7 +170,7 @@ export function Navigation() {
         </div>
       </nav>
 
-      {/* Full-Screen Apple-Style Mobile Navigation Overlay with Motion */}
+      {/* Full-Screen Minimal Mobile Navigation Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -184,10 +183,10 @@ export function Navigation() {
             <div className="space-y-6">
               <div className="space-y-3">
                 <p className="text-[11px] font-mono uppercase tracking-widest text-tertiary">
-                  Navigation
+                  Cinematic Intelligence
                 </p>
                 <div className="flex flex-col space-y-3">
-                  {navLinks.map((link) => (
+                  {primaryNavLinks.map((link) => (
                     <Link
                       key={link.name}
                       href={link.href}
@@ -195,19 +194,30 @@ export function Navigation() {
                       className="flex items-center justify-between text-2xl font-semibold tracking-tight text-primary hover:text-accent transition-colors"
                     >
                       <span>{link.name}</span>
-                      {link.badge && (
-                        <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-mono font-medium text-accent">
-                          {link.badge}
-                        </span>
-                      )}
                     </Link>
                   ))}
+                  
+                  {/* Pro Mobile Link */}
+                  <Link
+                    href="/pricing"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between text-2xl font-semibold tracking-tight text-accent hover:opacity-80 transition-opacity pt-2 border-t border-border-subtle"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>⚡</span>
+                      <span>Pro Intelligence</span>
+                    </span>
+                    <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-mono font-medium text-accent">
+                      Upgrade
+                    </span>
+                  </Link>
                 </div>
               </div>
 
+              {/* Universal Search in Mobile Menu */}
               <div className="border-t border-border pt-6 space-y-3">
                 <p className="text-[11px] font-mono uppercase tracking-widest text-tertiary">
-                  Discovery &amp; Search
+                  Universal Search
                 </p>
                 <Link
                   href="/search"
@@ -217,22 +227,23 @@ export function Navigation() {
                   <svg className="h-4 w-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                  <span>Search tools, prompts, recipes...</span>
+                  <span>Search tools, prompts, festivals...</span>
                 </Link>
               </div>
             </div>
 
+            {/* Bottom Controls */}
             <div className="pt-8 border-t border-border mt-8 flex flex-col gap-4 text-xs text-tertiary">
               <div className="flex items-center justify-between">
                 <span>Account:</span>
                 <UserNav />
               </div>
               <div className="flex items-center justify-between">
-                <span>Display Currency:</span>
+                <span>Currency:</span>
                 <CurrencySwitcher variant="pill" />
               </div>
               <div className="flex items-center justify-between pt-2 border-t border-border-subtle">
-                <span>© 2026 Amusemac Studio</span>
+                <span>© {new Date().getFullYear()} Amusemac Studio</span>
                 <div className="flex items-center gap-2">
                   <span>Theme:</span>
                   <ThemeToggle />
