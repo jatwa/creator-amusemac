@@ -7,7 +7,7 @@ import { getAllFestivals } from "@/data/content";
 import { AdSlot } from "@/components/ad-slot";
 
 export const metadata: Metadata = {
-  title: "AI Film Festival Directory & Submission Hub 2026 — Creator by Amusemac",
+  title: "AI Film Festival Directory & Submission Hub 2026 — Creator Intel",
   description: "Verified submission deadlines, eligibility rules, and ethical AI disclosure guidelines for international AI film festivals.",
 };
 

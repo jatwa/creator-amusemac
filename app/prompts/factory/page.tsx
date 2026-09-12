@@ -8,7 +8,7 @@ import { cameraLexiconData } from "@/data/lexicon-data";
 import { PromptFactory } from "@/components/prompt-factory";
 
 export const metadata: Metadata = {
-  title: "AI Prompt Factory & Model Syntax Translator — Creator by Amusemac",
+  title: "AI Prompt Factory & Model Syntax Translator — Creator Intel",
   description: "Interactive director prompt translation studio. Convert plain creative concepts into 8-model diffusion syntax with the optical camera lexicon.",
 };
 

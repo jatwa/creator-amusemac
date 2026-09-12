@@ -1,0 +1,38 @@
+{
+  "inventoryReport": {
+    "reported": {
+      "blogs": 200,
+      "stories": 100,
+      "videos": 100,
+      "guides": 200,
+      "free_prompts": 300,
+      "pro_prompts": 200,
+      "prompt_packs": 15,
+      "festivals": 100,
+      "kits": 50,
+      "lexicon": 100,
+      "tools": 150
+    },
+    "actual": {
+      "blogs": 2,
+      "stories": 2,
+      "videos": 3,
+      "guides": 4,
+      "prompts": 7,
+      "free_prompts": 7,
+      "pro_prompts": 0,
+      "prompt_packs": 0,
+      "festivals": 3,
+      "kits": 4,
+      "lexicon": 8,
+      "tools": 24,
+      "video_engines": 6,
+      "workflows": 3,
+      "comparisons": 3,
+      "categories": 6,
+      "resources": 4,
+      "synced_articles": 4
+    }
+  },
+  "issues": []
+}

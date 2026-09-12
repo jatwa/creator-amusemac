@@ -31,7 +31,7 @@ export async function generateMetadata({
   if (!tool) return { title: "Tool Not Found" };
 
   return {
-    title: `${tool.name} Dossier — Creator by Amusemac`,
+    title: `${tool.name} Dossier — Creator Intel`,
     description: tool.overview.slice(0, 160),
     openGraph: {
       title: `${tool.name} — AI Production Intelligence & Filmmaker Dossier`,

@@ -7,7 +7,7 @@ import { getAllProductionKits } from "@/data/content";
 import { AdSlot } from "@/components/ad-slot";
 
 export const metadata: Metadata = {
-  title: "Production Kits & Starter Downloads — Creator by Amusemac",
+  title: "Production Kits & Starter Downloads — Creator Intel",
   description: "Downloadable shot list templates, 35mm LUTs, prompt formula worksheets, and pitch deck templates for filmmakers.",
 };
 

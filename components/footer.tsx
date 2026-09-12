@@ -7,7 +7,7 @@ export function Footer() {
         {/* Brand Column */}
         <div className="lg:col-span-2 space-y-4">
           <Link href="/" className="text-base font-semibold tracking-tight text-primary inline-flex items-center gap-1">
-            <span>creator</span>
+            <span>creatorintel</span>
             <span className="text-accent">.</span>
           </Link>
           <p className="text-xs leading-relaxed text-secondary max-w-sm font-normal">
@@ -61,7 +61,7 @@ export function Footer() {
       </div>
 
       <div className="shell flex flex-col sm:flex-row items-center justify-between border-t border-border-subtle py-6 text-xs text-tertiary">
-        <div>© {new Date().getFullYear()} Creator by Amusemac. All rights reserved.</div>
+        <div>© {new Date().getFullYear()} Creator Intel. All rights reserved.</div>
         <div className="mt-2 sm:mt-0 flex flex-wrap gap-4">
           <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
           <span>•</span>

@@ -5,8 +5,8 @@ import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 
 export const metadata: Metadata = {
-  title: "About & Editorial Philosophy — Creator by Amusemac",
-  description: "Creator by Amusemac is an independent creative intelligence platform for filmmakers, directors, visual effects artists, and storytellers navigating generative media.",
+  title: "About & Editorial Philosophy — Creator Intel",
+  description: "Creator Intel is an independent creative intelligence platform for filmmakers, directors, visual effects artists, and storytellers navigating generative media.",
 };
 
 export default function AboutPage() {
@@ -20,7 +20,7 @@ export default function AboutPage() {
             as="h1"
             label="Editorial Philosophy"
             title="The Creative Intelligence Standard"
-            description="Creator by Amusemac is dedicated to demystifying generative AI for working filmmakers, commercial directors, visual effects supervisors, and independent creators."
+            description="Creator Intel is dedicated to demystifying generative AI for working filmmakers, commercial directors, visual effects supervisors, and independent creators."
           />
         </div>
       </div>
@@ -37,7 +37,7 @@ export default function AboutPage() {
             Generative media is transforming visual storytelling faster than any tool since the advent of non-linear digital editing. However, most information online is shallow marketing copy or hyper-technical academic papers.
           </p>
           <p className="text-xs sm:text-sm text-secondary leading-relaxed font-normal">
-            Creator by Amusemac bridges this gap with rigorous, hands-on production testing. We evaluate every model—from Runway Gen-3 and Kling AI to open-weights architectures like Wan 2.1 and Flux.1—through the lens of real film production constraints: temporal coherence, camera language, optical realism, ACES color workflows, and commercial copyright safety.
+            Creator Intel bridges this gap with rigorous, hands-on production testing. We evaluate every model—from Runway Gen-3 and Kling AI to open-weights architectures like Wan 2.1 and Flux.1—through the lens of real film production constraints: temporal coherence, camera language, optical realism, ACES color workflows, and commercial copyright safety.
           </p>
         </section>
 

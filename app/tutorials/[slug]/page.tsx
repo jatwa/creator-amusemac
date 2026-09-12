@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!tut) return { title: "Tutorial Not Found" };
 
   return {
-    title: `${tut.title} — Creator by Amusemac`,
+    title: `${tut.title} — Creator Intel`,
     description: tut.goal,
   };
 }

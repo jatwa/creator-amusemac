@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!wf) return { title: "Workflow Not Found" };
 
   return {
-    title: `${wf.title} — Production Pipeline Blueprint — Creator by Amusemac`,
+    title: `${wf.title} — Production Pipeline Blueprint — Creator Intel`,
     description: wf.summary,
   };
 }

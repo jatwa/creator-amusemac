@@ -7,7 +7,7 @@ import { tutorialsData } from "@/data/platform-data";
 import { getToolById } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Workflow Tutorials for Visual Storytellers — Creator by Amusemac",
+  title: "Workflow Tutorials for Visual Storytellers — Creator Intel",
   description: "Step-by-step production guides on AI pre-production, commercial filmmaking, dialogue editing, and look development.",
 };
 

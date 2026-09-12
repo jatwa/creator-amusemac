@@ -20,10 +20,10 @@ export async function generateMetadata({
 }: StoryDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const story = getStoryBySlug(slug);
-  if (!story) return { title: "Story Not Found — Creator by Amusemac" };
+  if (!story) return { title: "Story Not Found — Creator Intel" };
 
   return {
-    title: `${story.title} — Case Study Breakdown | Creator by Amusemac`,
+    title: `${story.title} — Case Study Breakdown | Creator Intel`,
     description: story.summary,
   };
 }

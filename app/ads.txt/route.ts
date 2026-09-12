@@ -13,7 +13,7 @@ export async function GET() {
     });
   }
 
-  const defaultContent = `# Google AdSense ads.txt architecture for Creator by Amusemac
+  const defaultContent = `# Google AdSense ads.txt architecture for Creator Intel
 # Automatically dynamically populated when NEXT_PUBLIC_ADSENSE_CLIENT is configured.
 `;
   return new NextResponse(defaultContent, {

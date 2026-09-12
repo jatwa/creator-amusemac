@@ -9,7 +9,7 @@ import { PromptCard } from "@/components/ui-cards";
 import { PromptFactory } from "@/components/prompt-factory";
 
 export const metadata: Metadata = {
-  title: "Prompt Factory & Model Translator — Creator by Amusemac",
+  title: "Prompt Factory & Model Translator — Creator Intel",
   description: "Generate model-specific prompt syntax for Runway, Kling, Veo, Luma, Midjourney, and Flux. Explore the optical camera and lens lexicon.",
 };
 

@@ -32,7 +32,7 @@ export async function generateMetadata({
   const nameB = toolB?.name || "Tool B";
 
   return {
-    title: `${nameA} vs ${nameB} — Creator Comparison — Creator by Amusemac`,
+    title: `${nameA} vs ${nameB} — Creator Comparison — Creator Intel`,
     description: comp.summaryVerdict,
   };
 }
@@ -71,7 +71,7 @@ export default async function ComparisonDetailPage({
     dateModified: comp.updatedAt,
     author: {
       "@type": "Organization",
-      name: "Creator by Amusemac",
+      name: "Creator Intel",
     },
   };
 

@@ -4,8 +4,8 @@ import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Creator by Amusemac",
-  description: "Terms and conditions governing the use of the Creator by Amusemac creative intelligence platform.",
+  title: "Terms of Service — Creator Intel",
+  description: "Terms and conditions governing the use of the Creator Intel creative intelligence platform.",
 };
 
 export default function TermsPage() {
@@ -28,14 +28,14 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-primary">1. Acceptance of Terms</h2>
           <p>
-            By accessing and using Creator by Amusemac (&quot;the Platform&quot;), you agree to comply with and be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our services.
+            By accessing and using Creator Intel (&quot;the Platform&quot;), you agree to comply with and be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our services.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-primary">2. Intellectual Property &amp; Open Resources</h2>
           <p>
-            All original editorial commentary, scorecards, prompt formulas, and architectural analysis on this website are the intellectual property of Creator by Amusemac. Free downloadable kits and open prompt templates are provided under open creative evaluation licenses for personal and commercial production use.
+            All original editorial commentary, scorecards, prompt formulas, and architectural analysis on this website are the intellectual property of Creator Intel. Free downloadable kits and open prompt templates are provided under open creative evaluation licenses for personal and commercial production use.
           </p>
           <p>
             Product names, logos, and trademarks referenced on the platform (such as Runway, Kling, Midjourney, Google Veo, Blackmagic Design, etc.) belong to their respective trademark holders. Reference to third-party tools does not imply endorsement or affiliation.
@@ -45,7 +45,7 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-primary">3. Disclaimer of Warranties</h2>
           <p>
-            The content on Creator by Amusemac is provided for informational and educational purposes &quot;as is&quot;. While we strive for absolute accuracy and continuously verify pricing, resolution limits, and API terms, AI models and SaaS tiers change rapidly. Always verify specific commercial terms directly with the tool providers.
+            The content on Creator Intel is provided for informational and educational purposes &quot;as is&quot;. While we strive for absolute accuracy and continuously verify pricing, resolution limits, and API terms, AI models and SaaS tiers change rapidly. Always verify specific commercial terms directly with the tool providers.
           </p>
         </section>
 

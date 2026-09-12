@@ -37,11 +37,11 @@ export async function generateMetadata({
 
   if (slug === "video") {
     return {
-      title: "AI Video Generation Intelligence Hub — Creator by Amusemac",
+      title: "AI Video Generation Intelligence Hub — Creator Intel",
       description:
         "Director-level comparison of AI video engines: Runway Gen-3 Alpha, Kling AI, Google Veo, Luma Dream Machine, MiniMax, Wan 2.1, and Flux animation pipelines.",
       openGraph: {
-        title: "AI Video Generation Intelligence Hub — Creator by Amusemac",
+        title: "AI Video Generation Intelligence Hub — Creator Intel",
         description:
           "Cinematic shot direction, diffusion models, transformer engines, camera syntax, and physics adherence for visual storytellers.",
       },
@@ -49,7 +49,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${cat.name} AI Tools & Workflows — Creator by Amusemac`,
+    title: `${cat.name} AI Tools & Workflows — Creator Intel`,
     description: cat.description,
   };
 }

@@ -7,7 +7,7 @@ import { workflowsData } from "@/data/platform-data";
 import { getToolById } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Production Workflows — Creator by Amusemac",
+  title: "Production Workflows — Creator Intel",
   description: "Production-ready pipeline blueprints for commercial filmmaking, sci-fi worldbuilding pre-pro, and music videos.",
 };
 

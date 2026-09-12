@@ -4,7 +4,7 @@ import React from "react";
 import { MotionConfig as MotionConfigProvider } from "motion/react";
 
 /**
- * Global Motion Configuration for Creator by Amusemac
+ * Global Motion Configuration for Creator Intel
  * - Enforces standard Apple-inspired timing curves (cubic-bezier(0.16, 1, 0.3, 1))
  * - Automatically respects user prefers-reduced-motion
  */

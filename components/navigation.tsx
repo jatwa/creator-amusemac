@@ -62,7 +62,7 @@ export function Navigation() {
             href="/"
             className="flex items-center gap-1.5 font-medium tracking-tight text-primary text-base transition-opacity hover:opacity-80"
           >
-            <span className="font-semibold text-lg">creator</span>
+            <span className="font-semibold text-lg">creatorintel</span>
             <span className="text-accent font-bold">.</span>
           </Link>
 
@@ -213,7 +213,7 @@ export function Navigation() {
             </div>
 
             <div className="pt-8 border-t border-border mt-8 flex items-center justify-between text-xs text-tertiary">
-              <span>© 2026 Creator by Amusemac</span>
+              <span>© 2026 Creator Intel</span>
               <div className="flex items-center gap-2">
                 <span>Theme:</span>
                 <ThemeToggle />

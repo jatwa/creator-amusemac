@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { resourcesData } from "@/data/platform-data";
 
 export const metadata: Metadata = {
-  title: "Creator Resources, Templates & LUTs — Creator by Amusemac",
+  title: "Creator Resources, Templates & LUTs — Creator Intel",
   description: "Free storyboard kits, cinematic camera cheat sheets, commercial treatment decks, and LUT packs.",
 };
 
@@ -73,11 +73,11 @@ export default function ResourcesPage() {
             Have a production kit or prompt recipe to share?
           </h3>
           <p className="mt-2 text-xs sm:text-sm text-secondary max-w-xl mx-auto leading-relaxed font-normal">
-            Creator by Amusemac is continuously audited by working filmmakers and designers. Submit your tested workflows for inclusion in our knowledge base.
+            Creator Intel is continuously audited by working filmmakers and designers. Submit your tested workflows for inclusion in our knowledge base.
           </p>
           <div className="mt-6">
             <a
-              href="mailto:hello@amusemac.com?subject=Creator Resource Submission"
+              href="mailto:hello@creatorintels.com?subject=Creator Resource Submission"
               className="inline-block rounded-full bg-foreground px-6 py-2.5 text-xs sm:text-sm font-medium text-background hover:opacity-90 transition shadow-sm"
             >
               Submit a Workflow or Resource

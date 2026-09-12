@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Admin & Review Control Center | Creator by Amusemac",
+  title: "Admin & Review Control Center | Creator Intel",
   robots: { index: false, follow: false },
 };
 
@@ -14,7 +14,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
           <div className="flex items-center gap-6">
             <Link href="/" className="font-bold tracking-tight text-white">
-              creator<span className="text-lime">.</span>
+              creatorintel<span className="text-lime">.</span>
             </Link>
             <span className="rounded-md border border-lime/30 bg-lime/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-lime">
               CONTROL CENTER

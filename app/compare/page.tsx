@@ -7,7 +7,7 @@ import { comparisonsData } from "@/data/platform-data";
 import { ComparisonCard } from "@/components/ui-cards";
 
 export const metadata: Metadata = {
-  title: "AI Model & Tool Comparisons — Creator by Amusemac",
+  title: "AI Model & Tool Comparisons — Creator Intel",
   description: "Direct head-to-head assessments between Runway vs Kling, Midjourney vs Ideogram, and leading generative production engines.",
 };
 

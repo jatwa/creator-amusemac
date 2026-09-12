@@ -2,7 +2,7 @@ import path from "path";
 import { contentImporter } from "../lib/ingestion/importer";
 
 console.log("====================================================");
-console.log("CREATOR BY AMUSEMAC — CONTENT INGESTION PIPELINE");
+console.log("CREATOR INTEL — CONTENT INGESTION PIPELINE");
 console.log("====================================================\n");
 
 const importDir = path.join(__dirname, "../data/import");

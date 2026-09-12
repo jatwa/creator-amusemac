@@ -31,7 +31,7 @@ export function Hero() {
             transition={{ duration: 0.4, delay: 0.1, ease }}
             className="eyebrow mb-6 text-tertiary"
           >
-            Creator by Amusemac
+            Creator Intel
           </motion.p>
 
           {/* Huge Apple-inspired Headline */}

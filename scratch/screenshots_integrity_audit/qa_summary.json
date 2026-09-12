@@ -1,0 +1,170 @@
+[
+  {
+    "test": "Home @ mobile_390",
+    "status": "PASS",
+    "size": 28267,
+    "file": "home_mobile_390.png"
+  },
+  {
+    "test": "Home @ mobile_430",
+    "status": "PASS",
+    "size": 41946,
+    "file": "home_mobile_430.png"
+  },
+  {
+    "test": "Home @ tablet_768",
+    "status": "PASS",
+    "size": 57362,
+    "file": "home_tablet_768.png"
+  },
+  {
+    "test": "Home @ laptop_1024",
+    "status": "PASS",
+    "size": 51291,
+    "file": "home_laptop_1024.png"
+  },
+  {
+    "test": "Home @ desktop_1440",
+    "status": "PASS",
+    "size": 53403,
+    "file": "home_desktop_1440.png"
+  },
+  {
+    "test": "Home @ ultrawide_1920",
+    "status": "PASS",
+    "size": 74521,
+    "file": "home_ultrawide_1920.png"
+  },
+  {
+    "test": "Route /",
+    "status": "PASS",
+    "size": 53526,
+    "file": "route_home_1440.png"
+  },
+  {
+    "test": "Route /categories/video",
+    "status": "PASS",
+    "size": 27994,
+    "file": "route_categories_video_1440.png"
+  },
+  {
+    "test": "Route /tools",
+    "status": "PASS",
+    "size": 92416,
+    "file": "route_tools_index_1440.png"
+  },
+  {
+    "test": "Route /tools/runway",
+    "status": "PASS",
+    "size": 73322,
+    "file": "route_tool_runway_1440.png"
+  },
+  {
+    "test": "Route /tools/kling",
+    "status": "PASS",
+    "size": 64945,
+    "file": "route_tool_kling_1440.png"
+  },
+  {
+    "test": "Route /prompts",
+    "status": "PASS",
+    "size": 79732,
+    "file": "route_prompts_index_1440.png"
+  },
+  {
+    "test": "Route /prompts/factory",
+    "status": "PASS",
+    "size": 8296,
+    "file": "route_prompts_factory_1440.png"
+  },
+  {
+    "test": "Route /compare",
+    "status": "PASS",
+    "size": 81414,
+    "file": "route_compare_index_1440.png"
+  },
+  {
+    "test": "Route /compare/runway-vs-kling",
+    "status": "PASS",
+    "size": 63709,
+    "file": "route_compare_runway_kling_1440.png"
+  },
+  {
+    "test": "Route /stories",
+    "status": "PASS",
+    "size": 88653,
+    "file": "route_stories_index_1440.png"
+  },
+  {
+    "test": "Route /stories/the-lucid-ride",
+    "status": "PASS",
+    "size": 63781,
+    "file": "route_story_lucid_ride_1440.png"
+  },
+  {
+    "test": "Route /festivals",
+    "status": "PASS",
+    "size": 82101,
+    "file": "route_festivals_index_1440.png"
+  },
+  {
+    "test": "Route /kits",
+    "status": "PASS",
+    "size": 82656,
+    "file": "route_kits_index_1440.png"
+  },
+  {
+    "test": "Route /workflows",
+    "status": "PASS",
+    "size": 79966,
+    "file": "route_workflows_index_1440.png"
+  },
+  {
+    "test": "Route /blog",
+    "status": "PASS",
+    "size": 69184,
+    "file": "route_blog_index_1440.png"
+  },
+  {
+    "test": "Route /videos",
+    "status": "PASS",
+    "size": 93942,
+    "file": "route_videos_index_1440.png"
+  },
+  {
+    "test": "Route /search?q=video",
+    "status": "PASS",
+    "size": 82418,
+    "file": "route_search_query_1440.png"
+  },
+  {
+    "test": "Route /about",
+    "status": "PASS",
+    "size": 63026,
+    "file": "route_about_1440.png"
+  },
+  {
+    "test": "Route /privacy",
+    "status": "PASS",
+    "size": 78954,
+    "file": "route_privacy_1440.png"
+  },
+  {
+    "test": "Route /terms",
+    "status": "PASS",
+    "size": 75406,
+    "file": "route_terms_1440.png"
+  },
+  {
+    "test": "Route /contact",
+    "status": "PASS",
+    "size": 46689,
+    "file": "route_contact_1440.png"
+  },
+  {
+    "test": "Route /non-existent-test-route",
+    "status": "PASS",
+    "size": 8296,
+    "file": "route_not_found_404_1440.png"
+  }
+]

@@ -4,10 +4,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { MotionConfig } from "@/components/motion/motion-config";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://creator.amusemac.com"),
+  metadataBase: new URL("https://creatorintels.com"),
   title: {
-    default: "Creator by Amusemac — Intelligence for People Who Make Things",
-    template: "%s — Creator by Amusemac",
+    default: "Creator Intel — Intelligence for People Who Make Things",
+    template: "%s — Creator Intel",
   },
   description:
     "Editorial AI production intelligence, verified camera models, prompt architecture, and director workflows for filmmakers and visual storytellers.",
@@ -21,11 +21,15 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    siteName: "Creator by Amusemac",
-    title: "Creator by Amusemac",
+    siteName: "Creator Intel",
+    title: "Creator Intel",
     description: "AI tools and workflows for visual storytellers.",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: {
+    card: "summary_large_image",
+    title: "Creator Intel",
+    description: "AI tools and workflows for visual storytellers.",
+  },
   robots: { index: true, follow: true },
 };
 

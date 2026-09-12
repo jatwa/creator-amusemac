@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { getAllStories } from "@/data/content";
 
 export const metadata: Metadata = {
-  title: "Production Stories & Case Studies — Creator by Amusemac",
+  title: "Production Stories & Case Studies — Creator Intel",
   description: "In-depth case studies and multi-model breakdowns of real AI-assisted films, commercials, and narrative projects.",
 };
 

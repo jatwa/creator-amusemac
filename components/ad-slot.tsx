@@ -58,7 +58,7 @@ export function AdSlot({
           {label}
         </span>
         <p className="text-xs text-secondary font-medium">
-          Creator by Amusemac Editorial Intelligence — Google AdSense Ready
+          Creator Intel — Editorial Intelligence — Google AdSense Ready
         </p>
       </div>
     </div>

@@ -9,7 +9,7 @@ import { db } from "@/lib/db/repository";
 import { AdSlot } from "@/components/ad-slot";
 
 export const metadata: Metadata = {
-  title: "Masterclasses & Synchronized Video Intelligence — Creator by Amusemac",
+  title: "Masterclasses & Synchronized Video Intelligence — Creator Intel",
   description:
     "Curated video masterclasses, timeline breakdowns, and camera control tutorials directly synced with prompt recipes and tool dossiers.",
 };

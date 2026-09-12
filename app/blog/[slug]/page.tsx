@@ -20,7 +20,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const blog = db.getBlogBySlug(slug);
-  if (!blog) return { title: "Article Not Found — Creator by Amusemac" };
+  if (!blog) return { title: "Article Not Found — Creator Intel" };
 
   return {
     title: `${blog.title} — Creator Journal`,
@@ -68,8 +68,8 @@ export default async function BlogPostPage({
     },
     publisher: {
       "@type": "Organization",
-      name: "Creator by Amusemac",
-      url: "https://creator.amusemac.com",
+      name: "Creator Intel",
+      url: "https://creatorintels.com",
     },
   };
 

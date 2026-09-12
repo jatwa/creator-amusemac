@@ -20,7 +20,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const video = db.getVideoBySlug(slug);
-  if (!video) return { title: "Video Not Found — Creator by Amusemac" };
+  if (!video) return { title: "Video Not Found — Creator Intel" };
 
   return {
     title: `${video.title} — Creator Masterclass`,
@@ -172,7 +172,7 @@ export default async function VideoDetailPage({
                 Attribution &amp; Fair Use Policy:
               </p>
               <p className="font-normal leading-relaxed">
-                This video is embedded directly from the creator&apos;s verified channel on {video.platform}. Creator by Amusemac does not mirror or rehost third-party video media. All watch time and engagements directly credit {video.creator.name}.
+                This video is embedded directly from the creator&apos;s verified channel on {video.platform}. Creator Intel does not mirror or rehost third-party video media. All watch time and engagements directly credit {video.creator.name}.
               </p>
             </div>
           </div>

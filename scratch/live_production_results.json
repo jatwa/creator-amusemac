@@ -1,0 +1,226 @@
+[
+  {
+    "route": "/",
+    "status": 200,
+    "ok": true,
+    "contentLength": 149819,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/tools",
+    "status": 200,
+    "ok": true,
+    "contentLength": 168988,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/categories/video",
+    "status": 200,
+    "ok": true,
+    "contentLength": 148336,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/prompts",
+    "status": 200,
+    "ok": true,
+    "contentLength": 74445,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/prompts/factory",
+    "status": 200,
+    "ok": true,
+    "contentLength": 56720,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/compare",
+    "status": 200,
+    "ok": true,
+    "contentLength": 39646,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/workflows",
+    "status": 200,
+    "ok": true,
+    "contentLength": 50140,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/tutorials",
+    "status": 200,
+    "ok": true,
+    "contentLength": 42065,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/blog",
+    "status": 200,
+    "ok": true,
+    "contentLength": 41090,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/videos",
+    "status": 200,
+    "ok": true,
+    "contentLength": 44765,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/stories",
+    "status": 200,
+    "ok": true,
+    "contentLength": 35079,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/festivals",
+    "status": 200,
+    "ok": true,
+    "contentLength": 49472,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/kits",
+    "status": 200,
+    "ok": true,
+    "contentLength": 44234,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/about",
+    "status": 200,
+    "ok": true,
+    "contentLength": 30775,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/privacy",
+    "status": 200,
+    "ok": true,
+    "contentLength": 28490,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/terms",
+    "status": 200,
+    "ok": true,
+    "contentLength": 27713,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/contact",
+    "status": 200,
+    "ok": true,
+    "contentLength": 29957,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/search",
+    "status": 200,
+    "ok": true,
+    "contentLength": 24422,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/resources",
+    "status": 200,
+    "ok": true,
+    "contentLength": 35948,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/robots.txt",
+    "status": 200,
+    "ok": true,
+    "contentLength": 115,
+    "hasTitle": false,
+    "hasBody": true
+  },
+  {
+    "route": "/sitemap.xml",
+    "status": 200,
+    "ok": true,
+    "contentLength": 13384,
+    "hasTitle": false,
+    "hasBody": true
+  },
+  {
+    "route": "/tools/runway",
+    "status": 200,
+    "ok": true,
+    "contentLength": 133083,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/tools/kling",
+    "status": 200,
+    "ok": true,
+    "contentLength": 111134,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/prompts/cinematic-bike-commercial",
+    "status": 200,
+    "ok": true,
+    "contentLength": 46357,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/blog/state-of-generative-video-2026",
+    "status": 200,
+    "ok": true,
+    "contentLength": 51381,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/videos/runway-gen-3-camera-control-masterclass",
+    "status": 200,
+    "ok": true,
+    "contentLength": 43044,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/stories/the-lucid-ride",
+    "status": 200,
+    "ok": true,
+    "contentLength": 50970,
+    "hasTitle": true,
+    "hasBody": true
+  },
+  {
+    "route": "/compare/runway-vs-kling",
+    "status": 200,
+    "ok": true,
+    "contentLength": 61808,
+    "hasTitle": true,
+    "hasBody": true
+  }
+]

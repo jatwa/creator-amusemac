@@ -4,8 +4,8 @@ import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
 
 export const metadata: Metadata = {
-  title: "Contact & Editorial Corrections — Creator by Amusemac",
-  description: "Contact the Creator by Amusemac editorial team to submit model benchmark data, report outdated pricing, or propose a production case study.",
+  title: "Contact & Editorial Corrections — Creator Intel",
+  description: "Contact the Creator Intel editorial team to submit model benchmark data, report outdated pricing, or propose a production case study.",
 };
 
 export default function ContactPage() {

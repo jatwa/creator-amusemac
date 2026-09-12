@@ -84,8 +84,8 @@ export function ArticleJsonLd({
     },
     publisher: {
       "@type": "Organization",
-      name: "Creator by Amusemac",
-      url: "https://creator-amusemac.vercel.app",
+      name: "Creator Intel",
+      url: "https://creatorintels.com",
     },
     image: imageUrl ? [imageUrl] : undefined,
   };

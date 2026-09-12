@@ -8,7 +8,7 @@ import { toolsData } from "@/data/platform-data";
 import { DirectoryAtAGlance } from "@/components/directory-at-a-glance";
 
 export const metadata: Metadata = {
-  title: "AI Tools Directory — Creator by Amusemac",
+  title: "AI Tools Directory — Creator Intel",
   description: "Browse verified AI tools for video generation, image direction, voice synthesis, editing, and VFX.",
 };
 

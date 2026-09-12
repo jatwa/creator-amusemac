@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { categoriesData } from "@/data/platform-data";
 
 export const metadata: Metadata = {
-  title: "Creative Disciplines — Creator by Amusemac",
+  title: "Creative Disciplines — Creator Intel",
   description: "Browse AI creative tools and workflows organized by production domains: Video, Image, Audio, Editing, VFX, and Systems.",
 };
 

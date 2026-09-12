@@ -24,7 +24,7 @@ export async function generateMetadata({
   if (!prompt) return { title: "Prompt Not Found" };
 
   return {
-    title: `${prompt.title} — AI Prompt Recipe — Creator by Amusemac`,
+    title: `${prompt.title} — AI Prompt Recipe — Creator Intel`,
     description: prompt.description,
   };
 }

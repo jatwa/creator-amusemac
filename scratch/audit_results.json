@@ -1,0 +1,443 @@
+{
+  "baseline": {
+    "tools": [
+      {
+        "id": "tool-runway",
+        "slug": "runway"
+      },
+      {
+        "id": "tool-kling",
+        "slug": "kling"
+      },
+      {
+        "id": "tool-midjourney",
+        "slug": "midjourney"
+      },
+      {
+        "id": "tool-ideogram",
+        "slug": "ideogram"
+      },
+      {
+        "id": "tool-descript",
+        "slug": "descript"
+      },
+      {
+        "id": "tool-elevenlabs",
+        "slug": "elevenlabs"
+      },
+      {
+        "id": "tool-topaz",
+        "slug": "topaz-video-ai"
+      },
+      {
+        "id": "tool-flux",
+        "slug": "flux"
+      }
+    ],
+    "videoEngines": [
+      {
+        "id": "engine-runway-gen3",
+        "slug": "runway-gen-3-alpha"
+      },
+      {
+        "id": "engine-kling",
+        "slug": "kling-ai"
+      },
+      {
+        "id": "engine-veo",
+        "slug": "google-veo"
+      },
+      {
+        "id": "engine-luma",
+        "slug": "luma-dream-machine"
+      },
+      {
+        "id": "engine-minimax",
+        "slug": "minimax-hailuo-ai"
+      },
+      {
+        "id": "engine-wan",
+        "slug": "wan-2-1"
+      }
+    ],
+    "prompts": [
+      {
+        "id": "prompt-cinematic-bike",
+        "slug": "cinematic-bike-commercial"
+      },
+      {
+        "id": "prompt-product-still",
+        "slug": "product-advertisement"
+      },
+      {
+        "id": "prompt-film-still",
+        "slug": "realistic-film-still"
+      },
+      {
+        "id": "prompt-brand-treatment",
+        "slug": "brand-film-treatment"
+      },
+      {
+        "id": "prompt-fastcut-social",
+        "slug": "fastcut-social-sequence"
+      },
+      {
+        "id": "prompt-fashion-lookbook",
+        "slug": "stylized-fashion-lookbook"
+      },
+      {
+        "id": "prompt-vfx-plate",
+        "slug": "vfx-lighting-plate"
+      }
+    ],
+    "comparisons": [
+      {
+        "id": "comp-runway-vs-kling",
+        "slug": "runway-vs-kling"
+      },
+      {
+        "id": "comp-midjourney-vs-ideogram",
+        "slug": "midjourney-vs-ideogram"
+      },
+      {
+        "id": "comp-descript-vs-capcut",
+        "slug": "descript-vs-capcut"
+      }
+    ],
+    "tutorials": [
+      {
+        "id": "tut-prepro-workflow",
+        "slug": "ai-preproduction-workflow"
+      },
+      {
+        "id": "tut-commercial-prod",
+        "slug": "ai-commercial-production"
+      },
+      {
+        "id": "tut-longform-to-social",
+        "slug": "from-longform-interview-to-social-edits"
+      },
+      {
+        "id": "tut-visual-identity",
+        "slug": "direct-ai-images-without-losing-visual-identity"
+      }
+    ],
+    "workflows": [
+      {
+        "id": "wf-commercial-30s",
+        "slug": "30-second-cinematic-commercial"
+      },
+      {
+        "id": "wf-indie-film",
+        "slug": "indie-film-previsualization"
+      },
+      {
+        "id": "wf-music-video",
+        "slug": "music-video-concept-to-screen"
+      }
+    ],
+    "blogs": [
+      {
+        "id": "blog-state-of-gen-video-2026",
+        "slug": "state-of-generative-video-2026"
+      },
+      {
+        "id": "blog-flux-vs-midjourney",
+        "slug": "flux-flow-matching-vs-midjourney-diffusion"
+      }
+    ],
+    "videos": [
+      {
+        "id": "vid-runway-camera-masterclass",
+        "slug": "runway-gen-3-camera-control-masterclass"
+      },
+      {
+        "id": "vid-commercial-breakdown",
+        "slug": "30s-automotive-commercial-ai-breakdown"
+      },
+      {
+        "id": "vid-flux-midjourney-comparison",
+        "slug": "flux-vs-midjourney-cinematography-test"
+      }
+    ],
+    "categories": [
+      "video",
+      "image",
+      "editing",
+      "audio",
+      "vfx",
+      "workflow"
+    ],
+    "resources": [
+      {
+        "id": "res-storyboard-kit",
+        "slug": "storyboard-kit"
+      },
+      {
+        "id": "res-camera-cheatsheet",
+        "slug": "camera-prompt-cheatsheet"
+      },
+      {
+        "id": "res-commercial-treatment",
+        "slug": "commercial-treatment-template"
+      },
+      {
+        "id": "res-lut-pack",
+        "slug": "creator-film-lut-pack"
+      }
+    ]
+  },
+  "current": {
+    "tools": [
+      {
+        "id": "tool-runway",
+        "slug": "runway"
+      },
+      {
+        "id": "tool-kling",
+        "slug": "kling"
+      },
+      {
+        "id": "tool-midjourney",
+        "slug": "midjourney"
+      },
+      {
+        "id": "tool-ideogram",
+        "slug": "ideogram"
+      },
+      {
+        "id": "tool-descript",
+        "slug": "descript"
+      },
+      {
+        "id": "tool-elevenlabs",
+        "slug": "elevenlabs"
+      },
+      {
+        "id": "tool-topaz",
+        "slug": "topaz-video-ai"
+      },
+      {
+        "id": "tool-flux",
+        "slug": "flux"
+      },
+      {
+        "id": "tool-veo",
+        "slug": "veo"
+      },
+      {
+        "id": "tool-luma",
+        "slug": "luma-dream-machine"
+      },
+      {
+        "id": "tool-minimax",
+        "slug": "minimax-hailuo-ai"
+      },
+      {
+        "id": "tool-higgsfield",
+        "slug": "higgsfield"
+      },
+      {
+        "id": "tool-pika",
+        "slug": "pika"
+      },
+      {
+        "id": "tool-wan",
+        "slug": "wan"
+      },
+      {
+        "id": "tool-ltx",
+        "slug": "ltx-video"
+      },
+      {
+        "id": "tool-davinci",
+        "slug": "davinci-resolve"
+      },
+      {
+        "id": "tool-premiere",
+        "slug": "adobe-premiere-pro"
+      },
+      {
+        "id": "tool-comfyui",
+        "slug": "comfyui"
+      },
+      {
+        "id": "tool-suno",
+        "slug": "suno"
+      },
+      {
+        "id": "tool-udio",
+        "slug": "udio"
+      },
+      {
+        "id": "tool-meshy",
+        "slug": "meshy"
+      },
+      {
+        "id": "tool-heygen",
+        "slug": "heygen"
+      },
+      {
+        "id": "tool-fal",
+        "slug": "fal-ai"
+      },
+      {
+        "id": "tool-replicate",
+        "slug": "replicate"
+      }
+    ],
+    "videoEngines": [
+      {
+        "id": "engine-runway-gen3",
+        "slug": "runway-gen-3-alpha"
+      },
+      {
+        "id": "engine-kling",
+        "slug": "kling-ai"
+      },
+      {
+        "id": "engine-veo",
+        "slug": "google-veo"
+      },
+      {
+        "id": "engine-luma",
+        "slug": "luma-dream-machine"
+      },
+      {
+        "id": "engine-minimax",
+        "slug": "minimax-hailuo-ai"
+      },
+      {
+        "id": "engine-wan",
+        "slug": "wan-2-1"
+      }
+    ],
+    "prompts": [
+      {
+        "id": "prompt-cinematic-bike",
+        "slug": "cinematic-bike-commercial"
+      },
+      {
+        "id": "prompt-product-still",
+        "slug": "product-advertisement"
+      },
+      {
+        "id": "prompt-film-still",
+        "slug": "realistic-film-still"
+      },
+      {
+        "id": "prompt-brand-treatment",
+        "slug": "brand-film-treatment"
+      },
+      {
+        "id": "prompt-fastcut-social",
+        "slug": "fastcut-social-sequence"
+      },
+      {
+        "id": "prompt-fashion-lookbook",
+        "slug": "stylized-fashion-lookbook"
+      },
+      {
+        "id": "prompt-vfx-plate",
+        "slug": "vfx-lighting-plate"
+      }
+    ],
+    "comparisons": [
+      {
+        "id": "comp-runway-vs-kling",
+        "slug": "runway-vs-kling"
+      },
+      {
+        "id": "comp-midjourney-vs-ideogram",
+        "slug": "midjourney-vs-ideogram"
+      },
+      {
+        "id": "comp-descript-vs-capcut",
+        "slug": "descript-vs-capcut"
+      }
+    ],
+    "tutorials": [
+      {
+        "id": "tut-prepro-workflow",
+        "slug": "ai-preproduction-workflow"
+      },
+      {
+        "id": "tut-commercial-prod",
+        "slug": "ai-commercial-production"
+      },
+      {
+        "id": "tut-longform-to-social",
+        "slug": "from-longform-interview-to-social-edits"
+      },
+      {
+        "id": "tut-visual-identity",
+        "slug": "direct-ai-images-without-losing-visual-identity"
+      }
+    ],
+    "workflows": [
+      {
+        "id": "wf-commercial-30s",
+        "slug": "30-second-cinematic-commercial"
+      },
+      {
+        "id": "wf-indie-film",
+        "slug": "indie-film-previsualization"
+      },
+      {
+        "id": "wf-music-video",
+        "slug": "music-video-concept-to-screen"
+      }
+    ],
+    "blogs": [
+      {
+        "id": "blog-state-of-gen-video-2026",
+        "slug": "state-of-generative-video-2026"
+      },
+      {
+        "id": "blog-flux-vs-midjourney",
+        "slug": "flux-flow-matching-vs-midjourney-diffusion"
+      }
+    ],
+    "videos": [
+      {
+        "id": "vid-runway-camera-masterclass",
+        "slug": "runway-gen-3-camera-control-masterclass"
+      },
+      {
+        "id": "vid-commercial-breakdown",
+        "slug": "30s-automotive-commercial-ai-breakdown"
+      },
+      {
+        "id": "vid-flux-midjourney-comparison",
+        "slug": "flux-vs-midjourney-cinematography-test"
+      }
+    ],
+    "categories": [
+      "video",
+      "image",
+      "editing",
+      "audio",
+      "vfx",
+      "workflow"
+    ],
+    "resources": [
+      {
+        "id": "res-storyboard-kit",
+        "slug": "storyboard-kit"
+      },
+      {
+        "id": "res-camera-cheatsheet",
+        "slug": "camera-prompt-cheatsheet"
+      },
+      {
+        "id": "res-commercial-treatment",
+        "slug": "commercial-treatment-template"
+      },
+      {
+        "id": "res-lut-pack",
+        "slug": "creator-film-lut-pack"
+      }
+    ]
+  },
+  "missingSlugs": []
+}

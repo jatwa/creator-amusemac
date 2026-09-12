@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { SearchView } from "@/components/search-view";
 
 export const metadata: Metadata = {
-  title: "Universal Search — Creator by Amusemac",
+  title: "Universal Search — Creator Intel",
   description: "Search across creator AI tools, prompt recipes, production workflows, tutorials, and head-to-head comparisons.",
 };
 

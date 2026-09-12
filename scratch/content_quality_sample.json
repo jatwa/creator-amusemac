@@ -1,0 +1,562 @@
+{
+  "timestamp": "2026-08-21T08:53:56.897Z",
+  "samples": {
+    "blogs": [
+      {
+        "slug": "state-of-generative-video-2026",
+        "title": "The 2026 State of Generative Video for Commercial Directors",
+        "readingTime": "6 min read",
+        "hasContent": true,
+        "contentLength": 1867,
+        "author": "Marcus Vance",
+        "hasRelatedTools": true,
+        "isSpecific": false
+      },
+      {
+        "slug": "flux-flow-matching-vs-midjourney-diffusion",
+        "title": "Flux.1 Flow Matching vs Midjourney v6.1: Which Belongs in Your Look-Dev Stack?",
+        "readingTime": "5 min read",
+        "hasContent": true,
+        "contentLength": 1897,
+        "author": "Elena Rostova",
+        "hasRelatedTools": true,
+        "isSpecific": false
+      }
+    ],
+    "stories": [
+      {
+        "slug": "the-lucid-ride",
+        "title": "The Lucid Ride: 60-Second Automotive Spec Commercial",
+        "director": "Marcus Vance (AI Production Director)",
+        "runtime": "0:60",
+        "shotCount": 4,
+        "hasTechnicalPrompts": true,
+        "toolsUsed": [
+          "Midjourney v6.1",
+          "Flux.1 Pro",
+          "Runway Gen-3 Alpha",
+          "Kling AI 1.5",
+          "Topaz Video AI 5",
+          "DaVinci Resolve Studio"
+        ]
+      },
+      {
+        "slug": "cyberpunk-extraction",
+        "title": "The Extraction: Narrative Short Film Previs",
+        "director": "Elena Rostova (VFX Supervisor)",
+        "runtime": "3:15",
+        "shotCount": 1,
+        "hasTechnicalPrompts": true,
+        "toolsUsed": [
+          "Flux.1 Dev",
+          "Wan 2.1 (Open Weights)",
+          "ComfyUI",
+          "DaVinci Resolve Studio",
+          "ElevenLabs"
+        ]
+      }
+    ],
+    "videos": [
+      {
+        "slug": "runway-gen-3-camera-control-masterclass",
+        "title": "Runway Gen-3 Alpha Camera Movement Masterclass",
+        "duration": "14:20",
+        "platform": "youtube",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
+        "hasDescription": true,
+        "creator": "Curated Creator Lab"
+      },
+      {
+        "slug": "30s-automotive-commercial-ai-breakdown",
+        "title": "Behind the Scenes: 30s Automotive Commercial Made 100% with AI",
+        "duration": "18:45",
+        "platform": "youtube",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
+        "hasDescription": true,
+        "creator": "Visual Storytellers Collective"
+      },
+      {
+        "slug": "flux-vs-midjourney-cinematography-test",
+        "title": "Flux.1 vs Midjourney v6.1: 50 Real Cinematography Prompts Tested",
+        "duration": "22:10",
+        "platform": "youtube",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
+        "hasDescription": true,
+        "creator": "AI Film School"
+      }
+    ],
+    "tutorials": [
+      {
+        "slug": "ai-preproduction-workflow",
+        "title": "Create a Repeatable AI Pre-Production Workflow",
+        "sectionsCount": 3,
+        "hasCommonMistakes": true,
+        "requiredTools": [
+          "tool-midjourney",
+          "tool-runway"
+        ]
+      },
+      {
+        "slug": "ai-commercial-production",
+        "title": "Full 30-Second Commercial Production from Stills to 4K Master",
+        "sectionsCount": 4,
+        "hasCommonMistakes": true,
+        "requiredTools": [
+          "tool-midjourney",
+          "tool-runway",
+          "tool-elevenlabs",
+          "tool-topaz"
+        ]
+      },
+      {
+        "slug": "from-longform-interview-to-social-edits",
+        "title": "From One Long-Form Interview to Five High-Retention Social Edits",
+        "sectionsCount": 3,
+        "hasCommonMistakes": true,
+        "requiredTools": [
+          "tool-descript"
+        ]
+      },
+      {
+        "slug": "direct-ai-images-without-losing-visual-identity",
+        "title": "Direct AI Images Without Losing Your Visual Identity",
+        "sectionsCount": 3,
+        "hasCommonMistakes": true,
+        "requiredTools": [
+          "tool-midjourney",
+          "tool-flux",
+          "tool-ideogram"
+        ]
+      }
+    ],
+    "prompts": [
+      {
+        "slug": "cinematic-bike-commercial",
+        "title": "Cinematic High-Speed Vehicle Commercial",
+        "useCase": "Commercial / Automotive Shot Direction",
+        "promptLength": 303,
+        "hasVariables": true,
+        "hasOpticalSyntax": true,
+        "compatibleTools": [
+          "tool-runway",
+          "tool-kling"
+        ]
+      },
+      {
+        "slug": "product-advertisement",
+        "title": "Sculptural Luxury Product Launch Still",
+        "useCase": "Key visual / Luxury Brand Campaign",
+        "promptLength": 259,
+        "hasVariables": true,
+        "hasOpticalSyntax": true,
+        "compatibleTools": [
+          "tool-midjourney",
+          "tool-flux",
+          "tool-ideogram"
+        ]
+      },
+      {
+        "slug": "realistic-film-still",
+        "title": "Atmospheric Narrative 35mm Film Still",
+        "useCase": "Look Development / Previsualization Still",
+        "promptLength": 246,
+        "hasVariables": true,
+        "hasOpticalSyntax": true,
+        "compatibleTools": [
+          "tool-midjourney",
+          "tool-flux"
+        ]
+      },
+      {
+        "slug": "brand-film-treatment",
+        "title": "15-Second Commercial Treatment Script",
+        "useCase": "Commercial Pitch & Director Treatment",
+        "promptLength": 332,
+        "hasVariables": true,
+        "hasOpticalSyntax": true,
+        "compatibleTools": [
+          "tool-descript",
+          "tool-elevenlabs"
+        ]
+      },
+      {
+        "slug": "fastcut-social-sequence",
+        "title": "High-Retention Vertical Social Cut",
+        "useCase": "Social Short / TikTok / Reel Pacing",
+        "promptLength": 395,
+        "hasVariables": true,
+        "hasOpticalSyntax": true,
+        "compatibleTools": [
+          "tool-descript"
+        ]
+      },
+      {
+        "slug": "stylized-fashion-lookbook",
+        "title": "Avant-Garde Fashion Editorial Lookbook",
+        "useCase": "Lookbook / Costume Design",
+        "promptLength": 212,
+        "hasVariables": true,
+        "hasOpticalSyntax": false,
+        "compatibleTools": [
+          "tool-midjourney",
+          "tool-flux"
+        ]
+      },
+      {
+        "slug": "vfx-lighting-plate",
+        "title": "VFX Clean Lighting & Texture Plate",
+        "useCase": "Compositing / Environmental Background Plate",
+        "promptLength": 222,
+        "hasVariables": true,
+        "hasOpticalSyntax": true,
+        "compatibleTools": [
+          "tool-midjourney",
+          "tool-flux",
+          "tool-topaz"
+        ]
+      }
+    ],
+    "festivals": [
+      {
+        "id": "fest-runway-aiff",
+        "name": "Runway AI Film Festival (AIFF)",
+        "hostCity": "New York & Los Angeles",
+        "deadline": "October 15, 2026",
+        "prizes": "$60,000 in cash grants + studio artist residencies",
+        "officialUrl": "https://aiff.runwayml.com",
+        "hasChecklist": true
+      },
+      {
+        "id": "fest-tribeca-ai",
+        "name": "Tribeca Film Festival — AI Cinema Pavilion",
+        "hostCity": "New York",
+        "deadline": "December 01, 2026",
+        "prizes": "Official Tribeca Screening + Industry Distribution Networking",
+        "officialUrl": "https://tribecafilm.com",
+        "hasChecklist": true
+      },
+      {
+        "id": "fest-cannes-future-cinema",
+        "name": "Cannes Marché du Film — AI Future Cinema Showcase",
+        "hostCity": "Cannes",
+        "deadline": "February 15, 2027",
+        "prizes": "European Co-Production Grants & Studio Previs Awards",
+        "officialUrl": "https://www.marchedufilm.com",
+        "hasChecklist": true
+      }
+    ],
+    "kits": [
+      {
+        "slug": "ai-film-starter-kit",
+        "title": "AI Film Production Starter Kit",
+        "category": "Starter",
+        "assetCount": 4,
+        "targetSoftware": [
+          "DaVinci Resolve",
+          "Premiere Pro",
+          "Notion",
+          "Midjourney",
+          "Runway"
+        ]
+      },
+      {
+        "slug": "commercial-previs-kit",
+        "title": "Commercial Previsualization Kit",
+        "category": "Previs",
+        "assetCount": 4,
+        "targetSoftware": [
+          "Figma",
+          "Keynote",
+          "Runway Gen-3",
+          "Kling AI",
+          "Flux.1"
+        ]
+      },
+      {
+        "slug": "directors-camera-kit",
+        "title": "Director's Camera & Optics Kit",
+        "category": "Camera",
+        "assetCount": 4,
+        "targetSoftware": [
+          "Runway Gen-3 Alpha",
+          "Kling AI",
+          "Luma Dream Machine",
+          "Midjourney v6.1"
+        ]
+      },
+      {
+        "slug": "prompt-engineering-blueprint",
+        "title": "Cinematic Prompt Architecture Blueprint",
+        "category": "Prompting",
+        "assetCount": 4,
+        "targetSoftware": [
+          "Midjourney v6.1",
+          "Flux.1",
+          "Runway Gen-3",
+          "Kling AI",
+          "Stable Diffusion"
+        ]
+      }
+    ],
+    "lexicon": [
+      {
+        "slug": "35mm-prime",
+        "name": "35mm Prime Lens",
+        "category": "Optics / Lenses",
+        "hasPromptSyntax": true,
+        "hasCommonMistake": true
+      },
+      {
+        "slug": "85mm-portrait",
+        "name": "85mm Portrait Prime",
+        "category": "Optics / Lenses",
+        "hasPromptSyntax": true,
+        "hasCommonMistake": true
+      },
+      {
+        "slug": "cooke-anamorphic",
+        "name": "Cooke Anamorphic 2.39:1",
+        "category": "Optics / Lenses",
+        "hasPromptSyntax": true,
+        "hasCommonMistake": true
+      },
+      {
+        "slug": "100mm-macro",
+        "name": "100mm Macro Lens",
+        "category": "Optics / Lenses",
+        "hasPromptSyntax": true,
+        "hasCommonMistake": true
+      },
+      {
+        "slug": "russian-arm",
+        "name": "Russian Arm / Pursuit Vehicle Tracking",
+        "category": "Camera Movement",
+        "hasPromptSyntax": true,
+        "hasCommonMistake": true
+      },
+      {
+        "slug": "vertigo-dolly-zoom",
+        "name": "Vertigo / Dolly Zoom (Zolly)",
+        "category": "Camera Movement",
+        "hasPromptSyntax": true,
+        "hasCommonMistake": true
+      },
+      {
+        "slug": "fpv-drone-dive",
+        "name": "FPV Acrobatic Drone Dive",
+        "category": "Camera Movement",
+        "hasPromptSyntax": true,
+        "hasCommonMistake": true
+      },
+      {
+        "slug": "steadicam-tracking",
+        "name": "Steadicam Single-Take Tracking",
+        "category": "Camera Movement",
+        "hasPromptSyntax": true,
+        "hasCommonMistake": true
+      }
+    ],
+    "tools": [
+      {
+        "slug": "runway",
+        "name": "Runway",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 4,
+        "weaknessesCount": 3,
+        "verifiedAt": "2026-08-01"
+      },
+      {
+        "slug": "kling",
+        "name": "Kling AI",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 4,
+        "weaknessesCount": 3,
+        "verifiedAt": "2026-08-03"
+      },
+      {
+        "slug": "midjourney",
+        "name": "Midjourney",
+        "category": "image",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 4,
+        "weaknessesCount": 3,
+        "verifiedAt": "2026-08-01"
+      },
+      {
+        "slug": "ideogram",
+        "name": "Ideogram",
+        "category": "image",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 4,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-04"
+      },
+      {
+        "slug": "descript",
+        "name": "Descript",
+        "category": "editing",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 4,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-02"
+      },
+      {
+        "slug": "elevenlabs",
+        "name": "ElevenLabs",
+        "category": "audio",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 4,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-05"
+      },
+      {
+        "slug": "topaz-video-ai",
+        "name": "Topaz Video AI",
+        "category": "vfx",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 4,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-03"
+      },
+      {
+        "slug": "flux",
+        "name": "Flux.1",
+        "category": "image",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "veo",
+        "name": "Google Veo 2",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "luma-dream-machine",
+        "name": "Luma Dream Machine",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "minimax-hailuo-ai",
+        "name": "MiniMax / Hailuo AI",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "higgsfield",
+        "name": "Higgsfield AI",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "pika",
+        "name": "Pika 2.0",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "wan",
+        "name": "Wan 2.1",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "ltx-video",
+        "name": "LTX-Video",
+        "category": "video",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 1,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "davinci-resolve",
+        "name": "DaVinci Resolve Studio 19",
+        "category": "editing",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "adobe-premiere-pro",
+        "name": "Adobe Premiere Pro",
+        "category": "editing",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 1,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "comfyui",
+        "name": "ComfyUI",
+        "category": "infrastructure",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "suno",
+        "name": "Suno v4",
+        "category": "audio",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 2,
+        "verifiedAt": "2026-08-19"
+      },
+      {
+        "slug": "udio",
+        "name": "Udio v1.5",
+        "category": "audio",
+        "hasPricing": true,
+        "hasDossier": false,
+        "strengthsCount": 3,
+        "weaknessesCount": 1,
+        "verifiedAt": "2026-08-19"
+      }
+    ]
+  }
+}
