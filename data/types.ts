@@ -584,3 +584,9 @@ export interface CameraLexiconItem {
   promptSyntax: string;
   commonMistake: string;
 }
+
+// -------------------------------------------------------------
+// RE-EXPORT PHASE 2 FILM INTELLIGENCE TYPE SYSTEM
+// -------------------------------------------------------------
+export * from "./film-intelligence-types";
+
