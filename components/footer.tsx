@@ -61,7 +61,7 @@ export function Footer() {
       </div>
 
       <div className="shell flex flex-col sm:flex-row items-center justify-between border-t border-border-subtle py-6 text-xs text-tertiary">
-        <div>© {new Date().getFullYear()} Creator Intel. All rights reserved.</div>
+        <div>© {new Date().getFullYear()} Amusemac Studio. All rights reserved.</div>
         <div className="mt-2 sm:mt-0 flex flex-wrap gap-4">
           <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
           <span>•</span>

@@ -213,7 +213,7 @@ export function Navigation() {
             </div>
 
             <div className="pt-8 border-t border-border mt-8 flex items-center justify-between text-xs text-tertiary">
-              <span>© 2026 Creator Intel</span>
+              <span>© 2026 Amusemac Studio</span>
               <div className="flex items-center gap-2">
                 <span>Theme:</span>
                 <ThemeToggle />
