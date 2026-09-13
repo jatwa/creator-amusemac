@@ -1550,6 +1550,10 @@ export interface AIEntityModelProduct {
   licenseType?: string;
   commercialStatus: "FREE" | "FREEMIUM" | "PAID" | "RESEARCH_PREVIEW" | "WAITLIST" | "OPEN_SOURCE" | "API_ONLY";
   officialDocsUrl?: string;
+  lastVerifiedAt?: string;
+  sourceId?: string;
+  verificationStatus?: VerificationStatus;
+  lifecycleStatus?: "ACTIVE" | "CURRENT" | "HISTORICAL" | "DEPRECATED" | "PREVIEW";
 }
 
 export interface AIEntitySocialLinks {

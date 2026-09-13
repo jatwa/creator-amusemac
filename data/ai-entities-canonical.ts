@@ -53,7 +53,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "5s - 10s per generation",
         resolutionOrOutput: "1080p / 4K Upscale",
         commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://docs.higgsfield.ai"
+        officialDocsUrl: "https://docs.higgsfield.ai",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-hf-02",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       },
       {
         id: "prod-higgsfield-character-studio",
@@ -65,7 +69,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Multi-prompt sequence memory",
         resolutionOrOutput: "1080p High-Bitrate ProRes/H.264",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://docs.higgsfield.ai"
+        officialDocsUrl: "https://docs.higgsfield.ai",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-hf-02",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       },
       {
         id: "prod-higgsfield-academy",
@@ -77,7 +85,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Interactive video courses",
         resolutionOrOutput: "Tutorial library & certified masterclasses",
         commercialStatus: "FREE",
-        officialDocsUrl: "https://higgsfield.ai/academy"
+        officialDocsUrl: "https://higgsfield.ai/academy",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-hf-03",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "ACTIVE"
       }
     ],
     relatedToolIds: ["tool-runway", "tool-kling", "tool-midjourney"],
@@ -109,7 +121,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2025-06-10",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official landing portal and product specifications."
       },
       {
@@ -121,7 +133,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2025-08-15",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified API parameters and camera movement syntax."
       },
       {
@@ -133,7 +145,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2025-09-15",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official cinema tutorials and educational portal."
       }
     ],
@@ -141,7 +153,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -187,7 +199,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "5s - 10s",
         resolutionOrOutput: "1080p / 4K Upscale",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://docs.runwayml.com/gen3-alpha"
+        officialDocsUrl: "https://docs.runwayml.com/gen3-alpha",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-runway-02",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       },
       {
         id: "prod-act-one",
@@ -199,7 +215,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Performance video mapping",
         resolutionOrOutput: "1080p 24fps",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://docs.runwayml.com/act-one"
+        officialDocsUrl: "https://docs.runwayml.com/act-one",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-runway-02",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-runway",
@@ -229,7 +249,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-01-01",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official homepage and product pricing tiers."
       },
       {
@@ -241,7 +261,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-01-01",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified camera control coordinates and Gen-3 prompting guidelines."
       }
     ],
@@ -249,7 +269,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -274,13 +294,13 @@ export const canonicalAIEntities: AIEntity[] = [
       "High Dynamic Range 1080p Rendering"
     ],
     productionStages: ["PRODUCTION", "VFX", "AI"],
-    officialWebsite: "https://klingai.com",
-    officialDocumentation: "https://klingai.com/help",
+    officialWebsite: "https://kling.ai",
+    officialDocumentation: "https://kling.ai/help",
     officialBlog: "https://klingai.com/blog",
     officialSocialLinks: {
       twitter: "https://x.com/Kling_ai",
       discord: "https://discord.gg/klingai",
-      webApp: "https://klingai.com"
+      webApp: "https://kling.ai"
     },
     modelsAndProducts: [
       {
@@ -293,7 +313,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "5s - 10s per shot / up to 2m extend",
         resolutionOrOutput: "1080p HD 30fps",
         commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://klingai.com/help"
+        officialDocsUrl: "https://kling.ai/help",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-kling-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-kling",
@@ -306,22 +330,22 @@ export const canonicalAIEntities: AIEntity[] = [
     sources: [
       {
         id: "src-kling-01",
-        url: "https://klingai.com",
+        url: "https://kling.ai",
         sourceType: "OFFICIAL_WEBSITE",
         publisher: "Kuaishou Technology",
         title: "Kling AI — Next-Generation AI Video Creation",
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-06-05",
-        lastVerifiedAt: "2026-09-10",
-        notes: "Verified official global web application portal (klingai.com / kling.ai)."
+        lastVerifiedAt: "2026-09-13",
+        notes: "Verified official global web application portal (kling.ai)."
       }
     ],
     sourceIds: ["src-kling-01"],
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -333,15 +357,15 @@ export const canonicalAIEntities: AIEntity[] = [
     name: "Luma AI",
     entityType: "COMPANY",
     vendor: "Luma AI, Inc.",
-    tagline: "Dream Machine video synthesis, high-speed neural radiance fields (NeRF), and interactive 3D camera pathing.",
+    tagline: "Ray foundation video synthesis, high-speed neural radiance fields (NeRF), and interactive 3D camera pathing.",
     description:
-      "Luma AI is a visual intelligence research company building generative foundation models, bridging neural 3D scene reconstruction (NeRFs and Gaussian Splats) and high-temporal-coherence video generation through Dream Machine and the Ray 2 foundation architecture.",
+      "Luma AI is a visual intelligence research company building generative foundation models, bridging neural 3D scene reconstruction (NeRFs and Gaussian Splats) and high-temporal-coherence video generation through Ray 2 and the Dream Machine platform architecture.",
     category: "VIDEO",
     secondaryCategories: ["VFX", "PREVIS"],
     capabilities: [
-      "Dream Machine Fast Video Generation",
-      "Camera Motion Keyframing & Pathing",
-      "NeRF & 3D Gaussian Splatting Scene Capture",
+      "Ray 2 & Dream Machine Fast Video Generation",
+      "Camera Motion Keyframing & Directorial Pathing",
+      "NeRF & 3D Gaussian Splatting Scene Capture (UNI)",
       "High Temporal Coherence Transitions"
     ],
     productionStages: ["PRE_PRODUCTION", "PRODUCTION", "VFX", "AI"],
@@ -356,16 +380,52 @@ export const canonicalAIEntities: AIEntity[] = [
     },
     modelsAndProducts: [
       {
+        id: "prod-luma-ray-2",
+        name: "Ray 2",
+        version: "2.0",
+        category: "VIDEO",
+        description: "Next-generation video foundation model with ultra-realistic physics, camera control, and high temporal coherence.",
+        releaseDate: "2024-12-18",
+        contextWindowOrDuration: "5s - 9s iterations",
+        resolutionOrOutput: "1080p / 4K Upscale",
+        commercialStatus: "FREEMIUM",
+        officialDocsUrl: "https://lumalabs.ai/ray",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-luma-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
+      },
+      {
         id: "prod-dream-machine",
         name: "Dream Machine",
         version: "1.5",
         category: "VIDEO",
-        description: "Flagship video foundation model developed by Luma AI, designed for creative world building and dynamic camera motion.",
+        description: "Initial public generative video foundation model milestone developed by Luma AI.",
         releaseDate: "2024-06-12",
         contextWindowOrDuration: "5s iterations",
         resolutionOrOutput: "1080p",
         commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://lumalabs.ai/dream-machine"
+        officialDocsUrl: "https://lumalabs.ai/dream-machine",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-luma-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "HISTORICAL"
+      },
+      {
+        id: "prod-luma-uni",
+        name: "UNI (3D Scene Capture)",
+        version: "1.1",
+        category: "PREVIS",
+        description: "Neural 3D Gaussian splatting and volumetric reconstruction system for interactive virtual camera sets.",
+        releaseDate: "2024-01-15",
+        contextWindowOrDuration: "Volumetric neural radiance capture",
+        resolutionOrOutput: "Real-time 3D Gaussian Splats",
+        commercialStatus: "FREEMIUM",
+        officialDocsUrl: "https://lumalabs.ai/interactive-scenes",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-luma-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "ACTIVE"
       }
     ],
     toolId: "tool-luma",
@@ -380,11 +440,11 @@ export const canonicalAIEntities: AIEntity[] = [
         url: "https://lumalabs.ai",
         sourceType: "OFFICIAL_WEBSITE",
         publisher: "Luma AI, Inc.",
-        title: "Luma AI — Dream Machine & 3D Intelligence",
+        title: "Luma AI — Visual Intelligence & 3D Generative Models",
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-06-12",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official web portal (Luma AI, Inc.)."
       }
     ],
@@ -392,7 +452,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -431,7 +491,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Up to 60s clips",
         resolutionOrOutput: "1080p / 4K Ready",
         commercialStatus: "RESEARCH_PREVIEW",
-        officialDocsUrl: "https://deepmind.google/technologies/veo/veo-2"
+        officialDocsUrl: "https://deepmind.google/technologies/veo/veo-2",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-veo-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "PREVIEW"
       }
     ],
     relatedToolIds: ["tool-runway", "tool-sora"],
@@ -447,7 +511,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-05-14",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official Google DeepMind research release."
       }
     ],
@@ -455,7 +519,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -497,7 +561,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Up to 20s per prompt",
         resolutionOrOutput: "1080p Widescreen & Vertical",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://openai.com/sora"
+        officialDocsUrl: "https://openai.com/sora",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-sora-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     relatedToolIds: ["tool-runway", "tool-kling"],
@@ -513,7 +581,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-02-15",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official OpenAI research paper and portal."
       }
     ],
@@ -521,7 +589,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -564,7 +632,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Instant text-to-image",
         resolutionOrOutput: "Up to 4K Upscale (2048x2048 native grid)",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://docs.midjourney.com/docs/models"
+        officialDocsUrl: "https://docs.midjourney.com/docs/models",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-mj-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-midjourney",
@@ -591,7 +663,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2023-01-15",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official parameter syntax and guidelines."
       }
     ],
@@ -599,7 +671,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -641,7 +713,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "API Generation",
         resolutionOrOutput: "Up to 2.0 MegaPixels",
         commercialStatus: "API_ONLY",
-        officialDocsUrl: "https://docs.bfl.ml"
+        officialDocsUrl: "https://docs.bfl.ml",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-bfl-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       },
       {
         id: "prod-flux-dev",
@@ -653,7 +729,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Local PyTorch inference",
         resolutionOrOutput: "Flexible resolution",
         commercialStatus: "OPEN_SOURCE",
-        officialDocsUrl: "https://github.com/black-forest-labs/flux"
+        officialDocsUrl: "https://github.com/black-forest-labs/flux",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-bfl-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "ACTIVE"
       }
     ],
     relatedToolIds: ["tool-midjourney", "tool-comfyui"],
@@ -674,7 +754,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-08-01",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official company announcement and model benchmarks."
       }
     ],
@@ -682,7 +762,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -725,7 +805,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Up to 22s audio clips",
         resolutionOrOutput: "44.1kHz WAV / MP3",
         commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://elevenlabs.io/docs/sound-effects"
+        officialDocsUrl: "https://elevenlabs.io/docs/sound-effects",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-el-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-elevenlabs",
@@ -742,7 +826,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2023-05-10",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official homepage."
       }
     ],
@@ -750,7 +834,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -791,7 +875,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Up to 4m full songs",
         resolutionOrOutput: "High-Bitrate Stereo Audio",
         commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://suno.com/docs"
+        officialDocsUrl: "https://suno.com/docs",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-suno-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-suno",
@@ -807,7 +895,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2023-12-01",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official music portal."
       }
     ],
@@ -815,7 +903,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -854,7 +942,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Up to 5s extend",
         resolutionOrOutput: "1080p 24/30fps",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://helpx.adobe.com/premiere-pro/using/generative-extend.html"
+        officialDocsUrl: "https://helpx.adobe.com/premiere-pro/using/generative-extend.html",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-firefly-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-firefly",
@@ -871,7 +963,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2023-03-21",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official Adobe Firefly portal."
       }
     ],
@@ -879,7 +971,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -920,7 +1012,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "3s - 5s iterations",
         resolutionOrOutput: "1080p 24fps",
         commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://pika.art"
+        officialDocsUrl: "https://pika.art",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-pika-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-pika",
@@ -937,7 +1033,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2023-11-28",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official web application."
       }
     ],
@@ -945,7 +1041,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -987,10 +1083,15 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Hardware dependent",
         resolutionOrOutput: "Arbitrary resolution / uncompressed",
         commercialStatus: "OPEN_SOURCE",
-        officialDocsUrl: "https://docs.comfy.org"
+        officialDocsUrl: "https://docs.comfy.org",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-comfy-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "ACTIVE"
       }
     ],
-    relatedToolIds: ["tool-flux", "tool-midjourney", "tool-blender"],
+    toolId: "tool-flux",
+    relatedToolIds: ["tool-midjourney", "tool-blender"],
     relatedTechniqueIds: ["tech-optical-lens-distortion", "tech-virtual-production-previs"],
     relatedWorkflowIds: ["wf-ai-previs-animatic", "wf-cinematic-lookbook"],
     sources: [
@@ -1003,7 +1104,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2023-03-01",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official organization portal and GitHub repository."
       }
     ],
@@ -1011,7 +1112,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -1050,7 +1151,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Full-length feature timeline export",
         resolutionOrOutput: "Up to 8K DCI ProRes 4444 / DNxHR",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://docs.topazlabs.com/video-ai"
+        officialDocsUrl: "https://docs.topazlabs.com/video-ai",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-topaz-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-topaz",
@@ -1068,7 +1173,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2022-01-10",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official product page."
       }
     ],
@@ -1076,7 +1181,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   },
 
   // =========================================================================
@@ -1116,7 +1221,11 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Infinite timeline support",
         resolutionOrOutput: "Up to 32K DCI / ACES Color Managed",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://www.blackmagicdesign.com/products/davinciresolve"
+        officialDocsUrl: "https://www.blackmagicdesign.com/products/davinciresolve",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-resolve-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
       }
     ],
     toolId: "tool-davinci-resolve",
@@ -1138,7 +1247,7 @@ export const canonicalAIEntities: AIEntity[] = [
         tier: 1,
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-04-12",
-        lastVerifiedAt: "2026-09-10",
+        lastVerifiedAt: "2026-09-13",
         notes: "Verified official product specifications."
       }
     ],
@@ -1146,7 +1255,7 @@ export const canonicalAIEntities: AIEntity[] = [
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
-    lastVerifiedAt: "2026-09-10"
+    lastVerifiedAt: "2026-09-13"
   }
 ];
 

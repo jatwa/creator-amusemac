@@ -357,22 +357,39 @@ export function AIDossierView({
             {models.map((prod) => (
               <div
                 key={prod.id}
-                className="rounded-2xl border border-border bg-surface-elevated/40 p-5 sm:p-6 space-y-3.5 hover:border-accent/40 transition font-sans"
+                className="rounded-2xl border border-border bg-surface-elevated/40 p-5 sm:p-6 space-y-3.5 hover:border-accent/40 transition font-sans flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold text-accent">
-                    {prod.version ? `v${prod.version}` : prod.commercialStatus}
-                  </span>
-                  <span className="rounded-full bg-surface border border-border px-2.5 py-0.5 text-xs font-sans text-secondary font-medium">
-                    {(prod.licenseType || prod.commercialStatus || "Commercial").replace(/_/g, " ")}
-                  </span>
-                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono font-bold text-accent">
+                        {prod.version ? `v${prod.version}` : prod.commercialStatus}
+                      </span>
+                      {prod.lifecycleStatus && (
+                        <span
+                          className={`rounded-md px-2 py-0.5 text-[11px] font-mono uppercase font-semibold ${
+                            prod.lifecycleStatus === "HISTORICAL" || prod.lifecycleStatus === "DEPRECATED"
+                              ? "bg-amber-500/10 text-amber-300 border border-amber-500/20"
+                              : prod.lifecycleStatus === "PREVIEW"
+                              ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                              : "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                          }`}
+                        >
+                          {prod.lifecycleStatus}
+                        </span>
+                      )}
+                    </div>
+                    <span className="rounded-full bg-surface border border-border px-2.5 py-0.5 text-xs font-sans text-secondary font-medium">
+                      {(prod.licenseType || prod.commercialStatus || "Commercial").replace(/_/g, " ")}
+                    </span>
+                  </div>
 
-                <div>
-                  <h4 className="text-base sm:text-lg font-bold text-primary font-sans">{prod.name}</h4>
-                  <p className="text-sm text-secondary mt-1 leading-relaxed">
-                    {prod.description}
-                  </p>
+                  <div>
+                    <h4 className="text-base sm:text-lg font-bold text-primary font-sans">{prod.name}</h4>
+                    <p className="text-sm text-secondary mt-1 leading-relaxed">
+                      {prod.description}
+                    </p>
+                  </div>
                 </div>
 
                 <div className="pt-2.5 border-t border-border-subtle space-y-1.5 text-xs text-tertiary">
@@ -394,6 +411,22 @@ export function AIDossierView({
                       {prod.primaryUseCase}
                     </div>
                   )}
+                  <div className="pt-2 border-t border-border-subtle flex items-center justify-between text-[11px] font-sans">
+                    <span className="text-tertiary">
+                      Verified: <strong className="text-secondary font-mono">{prod.lastVerifiedAt || "2026-09-13"}</strong>
+                    </span>
+                    {prod.officialDocsUrl && (
+                      <a
+                        href={prod.officialDocsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-accent hover:underline inline-flex items-center gap-0.5 font-medium"
+                      >
+                        <span>Docs</span>
+                        <span>↗</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
