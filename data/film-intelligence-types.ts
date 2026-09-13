@@ -630,7 +630,8 @@ export type ToolProductionStage =
   | "SOUND"
   | "VFX"
   | "AI"
-  | "DELIVERY";
+  | "DELIVERY"
+  | "RESEARCH";
 
 export interface TechniqueCommonMistake {
   mistake: string;
@@ -1473,11 +1474,219 @@ export interface CanonicalWorkflow {
   relatedToolIds: string[];
   relatedPromptIds: string[];
   relatedResearchIds: string[];
-  relatedJournalSlugs: string[];
-
+  relatedJournalSlugs?: string[];
   // Verification & Provenance
   visibility: "PUBLIC";
   verificationStatus: VerificationStatus;
   verifiedAt: string;
 }
+
+// ============================================================================
+// 12. AI CINEMA INTELLIGENCE & SOURCE REGISTRY (PHASE 3I)
+// ============================================================================
+
+export type AIEntityType = "COMPANY" | "PLATFORM" | "TOOL" | "MODEL" | "SERVICE";
+
+export type AIEntityCategory =
+  | "VIDEO"
+  | "IMAGE"
+  | "AUDIO"
+  | "VFX"
+  | "EDITING"
+  | "PREVIS"
+  | "PRODUCTION"
+  | "RESEARCH"
+  | "MULTI_MODAL"
+  | "POST"
+  | "COLOR"
+  | "FOUNDATION_VIDEO"
+  | "IMAGE_GENERATION"
+  | "AUDIO_VOICE_MUSIC"
+  | "MULTIMODAL_SUITE"
+  | "OPEN_WEIGHTS_ECOSYSTEM"
+  | "POST_PRODUCTION_FINISHING";
+
+export type AISourceType =
+  | "OFFICIAL_WEBSITE"
+  | "OFFICIAL_DOCUMENTATION"
+  | "OFFICIAL_BLOG"
+  | "OFFICIAL_YOUTUBE"
+  | "OFFICIAL_SOCIAL"
+  | "OFFICIAL_RELEASE"
+  | "OFFICIAL_TUTORIAL"
+  | "OFFICIAL_CASE_STUDY"
+  | "EDITORIAL_SOURCE"
+  | "INDUSTRY_PUBLICATION"
+  | "FILMMAKER_SOURCE"
+  | "CREATOR_SOURCE"
+  | "RESEARCH_SOURCE"
+  | "COMMUNITY_SOURCE";
+
+export interface AISourceItem {
+  id: string;
+  url: string;
+  sourceType: AISourceType;
+  publisher: string;
+  title?: string;
+  tier: SourceTier;
+  verificationStatus: VerificationStatus;
+  dateDiscovered: string;
+  lastVerifiedAt: string;
+  publicationDate?: string;
+  notes?: string;
+}
+
+export interface AIEntityModelProduct {
+  id: string;
+  name: string;
+  version?: string;
+  category: AIEntityCategory;
+  description: string;
+  releaseDate?: string;
+  contextWindowOrDuration?: string;
+  resolutionOrOutput?: string;
+  maxResolution?: string;
+  primaryUseCase?: string;
+  licenseType?: string;
+  commercialStatus: "FREE" | "FREEMIUM" | "PAID" | "RESEARCH_PREVIEW" | "WAITLIST" | "OPEN_SOURCE" | "API_ONLY";
+  officialDocsUrl?: string;
+}
+
+export interface AIEntitySocialLinks {
+  twitter?: string;
+  youtube?: string;
+  github?: string;
+  discord?: string;
+  linkedin?: string;
+  instagram?: string;
+  website?: string;
+  documentation?: string;
+  webApp?: string;
+  apiPortal?: string;
+  modelWeights?: string;
+  communityDiscord?: string;
+}
+
+export interface AIEntity {
+  id: string;
+  slug: string;
+  name: string;
+  entityType: AIEntityType;
+  vendor?: string;
+  developerOrganization?: string;
+  description?: string;
+  overview?: string;
+  tagline: string;
+  logoUrl?: string;
+  category: AIEntityCategory;
+  secondaryCategories?: AIEntityCategory[];
+  capabilities?: string[];
+  keyCapabilities?: string[];
+  cinemaStrengths?: string[];
+  knownLimitations?: string[];
+  cameraAndCinematographyFeatures?: string[];
+  licensingModel?: string;
+  foundedOrIntroducedYear?: number | string;
+  headquarters?: string;
+  architectureOverview?: string;
+  productionStages?: ToolProductionStage[];
+  
+  // Official Sourced Access URLs
+  officialWebsite?: string;
+  officialDocumentation?: string;
+  officialBlog?: string;
+  officialYouTube?: string;
+  officialSocialLinks?: AIEntitySocialLinks;
+  officialLinks?: AIEntitySocialLinks;
+  
+  // Products / Models under this entity
+  modelsAndProducts?: AIEntityModelProduct[];
+
+  // Relational IDs & Slugs linking to existing Canonical Graph
+  toolId?: string;
+  relatedToolIds?: string[];
+  relatedToolSlugs?: string[];
+  relatedTechniqueIds?: string[];
+  relatedTechniqueSlugs?: string[];
+  relatedWorkflowIds?: string[];
+  relatedWorkflowSlugs?: string[];
+  relatedPromptIds?: string[];
+  relatedPromptSlugs?: string[];
+  relatedFilmIds?: string[];
+  relatedFilmSlugs?: string[];
+  relatedPersonIds?: string[];
+  relatedPeopleSlugs?: string[];
+  relatedResearchIds?: string[];
+  relatedResearchSlugs?: string[];
+  relatedJournalArticleIds?: string[];
+  relatedJournalSlugs?: string[];
+
+  // Verified Sources
+  sources: AISourceItem[];
+  sourceIds: string[];
+
+  // Quality & Verification
+  verificationStatus: VerificationStatus;
+  confidence?: "HIGH" | "MEDIUM" | "ESTIMATE";
+  visibility: "PUBLIC";
+  lastVerifiedAt: string;
+}
+
+export type AIContentType =
+  | "YOUTUBE_VIDEO"
+  | "TUTORIAL"
+  | "ARTICLE"
+  | "CASE_STUDY"
+  | "VIDEO"
+  | "IMAGE"
+  | "ANNOUNCEMENT"
+  | "RESEARCH"
+  | "FILM"
+  | "INTERVIEW"
+  | "DEMO"
+  | "REVIEW";
+
+export interface AIContentItem {
+  id: string;
+  slug: string;
+  title: string;
+  description?: string;
+  summary?: string;
+  contentType: AIContentType;
+  sourceUrl: string;
+  embedUrl?: string;
+  thumbnailUrl?: string;
+  publisher?: string;
+  sourcePublisher?: string;
+  author?: string;
+  sourceAuthor?: string;
+  publishedAt?: string;
+  publishedDate?: string;
+  discoveredAt?: string;
+  
+  // Relational Graph Links
+  aiEntityId?: string;
+  aiEntityIds: string[];
+  toolIds?: string[];
+  techniqueIds?: string[];
+  workflowIds?: string[];
+  promptIds?: string[];
+  filmIds?: string[];
+  personIds?: string[];
+  researchIds?: string[];
+  journalIds?: string[];
+  
+  tags?: string[];
+  cinemaTags?: string[];
+  technicalDisciplines?: string[];
+  editorialTakeaways?: string;
+  sourcePlatform?: string;
+  sourceType: AISourceType;
+  sourceTier: SourceTier;
+  verificationStatus: VerificationStatus;
+  sourceId?: string;
+  visibility: "PUBLIC";
+  lastVerifiedAt: string;
+}
+
 

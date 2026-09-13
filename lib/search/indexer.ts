@@ -4,6 +4,8 @@ import { canonicalResearchRecords } from "@/data/research-canonical";
 import { canonicalFilms, canonicalPeople } from "@/data/films-canonical";
 import { canonicalTechniques } from "@/data/techniques-canonical";
 import { canonicalWorkflows } from "@/data/workflows-canonical";
+import { canonicalAIEntities } from "@/data/ai-entities-canonical";
+import { canonicalAIContentItems } from "@/data/ai-content-canonical";
 
 export interface SearchIndexEntry {
   id: string;
@@ -20,7 +22,9 @@ export interface SearchIndexEntry {
     | "research"
     | "film"
     | "person"
-    | "technique";
+    | "technique"
+    | "ai_entity"
+    | "ai_content";
   slug: string;
   title: string;
   category: string;
@@ -379,6 +383,78 @@ export function generateSearchIndex(): {
     });
   });
 
+  const publicAIEntities = canonicalAIEntities.filter((e) => e.visibility === "PUBLIC");
+  const publicAIContent = canonicalAIContentItems.filter((c) => c.visibility === "PUBLIC");
+
+  // Index Public AI Entities
+  publicAIEntities.forEach((ai) => {
+    const devOrg = ai.developerOrganization || ai.vendor || "";
+    const overviewText = ai.overview || ai.description || "";
+    const tokens = [
+      ai.name,
+      ai.slug,
+      ai.category,
+      ai.entityType,
+      devOrg,
+      ai.tagline,
+      overviewText,
+      ai.architectureOverview || "",
+      ...(ai.keyCapabilities || ai.capabilities || []),
+      ...(ai.cinemaStrengths || []),
+      ...(ai.knownLimitations || []),
+      ...(ai.modelsAndProducts || []).map((m) => `${m.name} ${m.version || ""} ${m.description}`),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    entries.push({
+      id: ai.id,
+      entityType: "ai_entity",
+      slug: `/ai/${ai.slug}`,
+      title: ai.name,
+      category: ai.category.replace(/_/g, " "),
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: `${devOrg} • ${ai.tagline}`,
+      weight: 1.0,
+    });
+  });
+
+  // Index Public AI Content Items
+  publicAIContent.forEach((item) => {
+    const pub = item.sourcePublisher || item.publisher || "";
+    const summaryText = item.summary || item.description || "";
+    const tokens = [
+      item.title,
+      item.contentType,
+      summaryText,
+      item.editorialTakeaways || "",
+      pub,
+      ...(item.sourceAuthor ? [item.sourceAuthor] : item.author ? [item.author] : []),
+      ...(item.cinemaTags || item.tags || []),
+      ...(item.technicalDisciplines || []),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/);
+
+    const parentSlug =
+      canonicalAIEntities.find(
+        (e) => e.id === item.aiEntityId || (item.aiEntityIds && item.aiEntityIds.includes(e.id))
+      )?.slug || "hub";
+
+    entries.push({
+      id: item.id,
+      entityType: "ai_content",
+      slug: `/ai/${parentSlug}#content-${item.id}`,
+      title: item.title,
+      category: item.contentType.replace(/_/g, " "),
+      searchTokens: Array.from(new Set(tokens)),
+      snippet: `${pub} (${item.contentType}) • ${summaryText.slice(0, 140)}...`,
+      weight: 0.9,
+    });
+  });
+
   return {
     totalIndexed: entries.length,
     entriesByType: {
@@ -395,6 +471,8 @@ export function generateSearchIndex(): {
       films: publicFilms.length,
       people: publicPeople.length,
       techniques: publicTechniques.length,
+      aiEntities: publicAIEntities.length,
+      aiContent: publicAIContent.length,
     },
     generatedAt: new Date().toISOString(),
   };

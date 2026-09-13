@@ -46,6 +46,7 @@ export function Navigation() {
     { name: "Festivals", href: "/festivals" },
     { name: "Journal", href: "/journal" },
     { name: "Vault", href: "/prompts/vault" },
+    { name: "AI", href: "/ai" },
   ];
 
   return (

@@ -90,7 +90,7 @@ export default async function WorkflowDetailPage({
       .map((id) => getResearchById(id))
       .filter(Boolean);
 
-    const relatedJournal = canonicalWf.relatedJournalSlugs
+    const relatedJournal = (canonicalWf.relatedJournalSlugs || [])
       .map((jSlug) => getBlogBySlug(jSlug))
       .filter(Boolean);
 

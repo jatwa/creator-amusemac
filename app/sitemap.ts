@@ -10,6 +10,10 @@ import {
   videosData,
 } from "@/data/platform-data";
 import { storiesData } from "@/data/production-stories";
+import { canonicalAIEntities } from "@/data/ai-entities-canonical";
+import { canonicalFilms, canonicalPeople } from "@/data/films-canonical";
+import { canonicalTechniques } from "@/data/techniques-canonical";
+import { canonicalResearchRecords } from "@/data/research-canonical";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://creatorintels.com";
@@ -17,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
+    "/ai",
     "/tools",
     "/prompts",
     "/prompts/factory",
@@ -24,6 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/compare",
     "/stories",
     "/festivals",
+    "/journal",
+    "/research",
+    "/films",
+    "/people",
+    "/techniques",
     "/kits",
     "/tutorials",
     "/workflows",
@@ -40,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
     changeFrequency: "weekly",
-    priority: route === "" ? 1.0 : 0.8,
+    priority: route === "" || route === "/ai" ? 1.0 : 0.8,
   }));
 
   // Tool routes
@@ -121,6 +131,56 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     }));
 
+  // AI Entity routes
+  const aiEntityRoutes: MetadataRoute.Sitemap = canonicalAIEntities
+    .filter((e) => e.visibility === "PUBLIC")
+    .map((e) => ({
+      url: `${baseUrl}/ai/${e.slug}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
+
+  // Technique routes
+  const techniqueRoutes: MetadataRoute.Sitemap = canonicalTechniques
+    .filter((t) => t.visibility === "PUBLIC")
+    .map((t) => ({
+      url: `${baseUrl}/techniques/${t.slug}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
+
+  // Film routes
+  const filmRoutes: MetadataRoute.Sitemap = canonicalFilms
+    .filter((f) => f.visibility === "PUBLIC")
+    .map((f) => ({
+      url: `${baseUrl}/films/${f.slug}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
+
+  // People routes
+  const peopleRoutes: MetadataRoute.Sitemap = canonicalPeople
+    .filter((p) => p.visibility === "PUBLIC")
+    .map((p) => ({
+      url: `${baseUrl}/people/${p.slug}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    }));
+
+  // Research routes
+  const researchRoutes: MetadataRoute.Sitemap = canonicalResearchRecords
+    .filter((r) => r.visibility === "PUBLIC")
+    .map((r) => ({
+      url: `${baseUrl}/research/${r.slug}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    }));
+
   // Category routes
   const categoryRoutes: MetadataRoute.Sitemap = categoriesData.map((cat) => ({
     url: `${baseUrl}/categories/${cat.slug}`,
@@ -131,6 +191,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes,
+    ...aiEntityRoutes,
+    ...techniqueRoutes,
+    ...filmRoutes,
+    ...peopleRoutes,
+    ...researchRoutes,
     ...toolRoutes,
     ...storyRoutes,
     ...blogRoutes,

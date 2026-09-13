@@ -12,7 +12,22 @@ export function SearchView() {
 
   const [query, setQuery] = useState(initialQuery);
   const [activeTab, setActiveTab] = useState<
-    "all" | "techniques" | "films" | "people" | "tools" | "prompts" | "stories" | "festivals" | "research" | "kits" | "blogs" | "videos" | "workflows" | "tutorials" | "comparisons"
+    | "all"
+    | "ai"
+    | "techniques"
+    | "films"
+    | "people"
+    | "tools"
+    | "prompts"
+    | "stories"
+    | "festivals"
+    | "research"
+    | "kits"
+    | "blogs"
+    | "videos"
+    | "workflows"
+    | "tutorials"
+    | "comparisons"
   >("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [, startTransition] = useTransition();
@@ -45,6 +60,8 @@ export function SearchView() {
       films: rawResults.films || [],
       people: rawResults.people || [],
       techniques: rawResults.techniques || [],
+      aiEntities: rawResults.aiEntities || [],
+      aiContent: rawResults.aiContent || [],
     };
   }, [query, selectedCategory]);
 
@@ -63,7 +80,9 @@ export function SearchView() {
     results.research.length +
     results.films.length +
     results.people.length +
-    results.techniques.length;
+    results.techniques.length +
+    results.aiEntities.length +
+    results.aiContent.length;
 
   const handleQueryChange = (val: string) => {
     startTransition(() => {
@@ -72,13 +91,12 @@ export function SearchView() {
   };
 
   const quickPillSearches = [
+    { label: "AI Cinema Hub", q: "higgsfield" },
     { label: "Cinema Techniques", q: "anamorphic" },
     { label: "Films & Cinema", q: "film" },
     { label: "Filmmakers", q: "director" },
-    { label: "AI Video", q: "video" },
-    { label: "Camera Coordinates", q: "camera" },
-    { label: "Open Weights", q: "open" },
-    { label: "DaVinci Grading", q: "color" },
+    { label: "AI Video", q: "runway" },
+    { label: "Diffusion Models", q: "flux" },
     { label: "Film Festivals", q: "festival" },
     { label: "Cinema Research", q: "dcp" },
   ];
@@ -135,6 +153,7 @@ export function SearchView() {
         <div className="flex flex-wrap gap-1.5">
           {[
             { id: "all", label: `All (${totalCount})` },
+            { id: "ai", label: `AI Hub (${results.aiEntities.length + results.aiContent.length})` },
             { id: "techniques", label: `Techniques (${results.techniques.length})` },
             { id: "films", label: `Films (${results.films.length})` },
             { id: "people", label: `People (${results.people.length})` },
@@ -206,6 +225,103 @@ export function SearchView() {
             </div>
           ) : (
             <>
+              {/* AI Cinema Hub Entities Section */}
+              {(activeTab === "all" || activeTab === "ai") && results.aiEntities.length > 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+                    <span className="text-xs font-semibold text-primary">
+                      AI Cinema Intelligence ({results.aiEntities.length})
+                    </span>
+                    <Link href="/ai" className="text-[11px] text-accent font-mono hover:underline">
+                      Explore AI Hub →
+                    </Link>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {results.aiEntities.map((ai) => (
+                      <Link
+                        key={ai.id}
+                        href={`/ai/${ai.slug}`}
+                        className="surface rounded-2xl border border-border bg-surface p-5 space-y-2 hover:border-accent/40 transition group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                            {ai.developerOrganization || ai.vendor || "AI Engine"} • {ai.category.replace(/_/g, " ")}
+                          </span>
+                          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                            {ai.verificationStatus}
+                          </span>
+                        </div>
+                        <h4 className="text-base font-semibold text-primary group-hover:text-accent transition leading-snug">
+                          {ai.name}
+                        </h4>
+                        <p className="text-xs text-secondary line-clamp-2 leading-relaxed">
+                          {ai.tagline}
+                        </p>
+                        <div className="text-[11px] font-mono text-tertiary pt-1 flex items-center gap-3">
+                          <span>{ai.modelsAndProducts?.length || 0} Models/Products</span>
+                          <span>•</span>
+                          <span>{ai.sources?.length || 0} Sources</span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* AI Source Content Section */}
+              {(activeTab === "all" || activeTab === "ai") && results.aiContent.length > 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+                    <span className="text-xs font-semibold text-primary">
+                      AI Content & Sources ({results.aiContent.length})
+                    </span>
+                    <Link href="/ai" className="text-[11px] text-accent font-mono hover:underline">
+                      View all in Hub →
+                    </Link>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {results.aiContent.map((item) => (
+                      <div
+                        key={item.id}
+                        className="surface rounded-2xl border border-border bg-surface p-5 space-y-2 hover:border-accent/40 transition group"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                            {item.sourcePublisher || item.publisher || "Source"} • {item.contentType.replace(/_/g, " ")}
+                          </span>
+                          <span className="text-[10px] font-mono text-tertiary">
+                            {item.publishedDate || item.publishedAt || "Recently Verified"}
+                          </span>
+                        </div>
+                        <h4 className="text-base font-semibold text-primary leading-snug">
+                          {item.title}
+                        </h4>
+                        <p className="text-xs text-secondary line-clamp-2 leading-relaxed">
+                          {item.summary || item.description || ""}
+                        </p>
+                        <div className="pt-2 flex items-center justify-between">
+                          <span className="text-[11px] font-mono text-tertiary">
+                            {item.sourcePlatform || "Web"}
+                          </span>
+                          <a
+                            href={item.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[11px] font-mono text-accent hover:underline"
+                          >
+                            {item.contentType === "YOUTUBE_VIDEO" || item.contentType === "VIDEO"
+                              ? "Watch Original ↗"
+                              : "Read Original ↗"}
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Techniques Section */}
               {(activeTab === "all" || activeTab === "techniques") && results.techniques.length > 0 && (
                 <div className="space-y-4">

@@ -37,6 +37,18 @@ import { canonicalFilms, canonicalPeople } from "./films-canonical";
 import { canonicalTechniques } from "./techniques-canonical";
 import { canonicalWorkflows } from "./workflows-canonical";
 import { canonicalStandingFestivals } from "./festivals-canonical";
+import {
+  canonicalAIEntities,
+  getAllAIEntities,
+  getAIEntityBySlug,
+  getAIEntityById,
+} from "./ai-entities-canonical";
+import {
+  canonicalAIContentItems,
+  getAllAIContent,
+  getAIContentBySlug,
+  getAIContentByEntityId,
+} from "./ai-content-canonical";
 
 // Canonical intelligence graph exports
 export const allFilms = canonicalFilms;
@@ -45,8 +57,19 @@ export const allTechniques = canonicalTechniques;
 export const allCanonicalWorkflows = canonicalWorkflows;
 export const allResearchEntries = canonicalResearchRecords;
 export const allStandingFestivals = canonicalStandingFestivals;
+export const allAIEntities = canonicalAIEntities;
+export const allAIContent = canonicalAIContentItems;
 export const allTools = toolsData;
 export const allPrompts = promptsData;
+
+export {
+  getAllAIEntities,
+  getAIEntityBySlug,
+  getAIEntityById,
+  getAllAIContent,
+  getAIContentBySlug,
+  getAIContentByEntityId,
+};
 
 // Backward-compatible exports for existing components
 export const categories = categoriesData.map((c) => ({
@@ -663,12 +686,38 @@ export function searchAllEntities(query: string) {
       )
   );
 
+  const matchedAIEntities = canonicalAIEntities.filter(
+    (a) =>
+      matchesTerm(a.name) ||
+      matchesTerm(a.vendor || a.developerOrganization || "") ||
+      matchesTerm(a.tagline || "") ||
+      matchesTerm(a.description || a.overview || "") ||
+      matchesTerm(a.category || "") ||
+      (a.capabilities || a.keyCapabilities || []).some((c) => matchesTerm(c)) ||
+      (a.modelsAndProducts &&
+        a.modelsAndProducts.some(
+          (m) => matchesTerm(m.name) || matchesTerm(m.description || "")
+        ))
+  );
+
+  const matchedAIContent = canonicalAIContentItems.filter(
+    (c) =>
+      matchesTerm(c.title) ||
+      matchesTerm(c.description || c.summary || "") ||
+      matchesTerm(c.publisher || c.sourcePublisher || "") ||
+      (c.author && matchesTerm(c.author)) ||
+      (c.sourceAuthor && matchesTerm(c.sourceAuthor)) ||
+      (c.tags || c.cinemaTags || []).some((tag) => matchesTerm(tag))
+  );
+
   return {
     tools: matchedTools,
     prompts: matchedPrompts,
     tutorials: matchedTutorials,
     workflows: matchedWorkflows,
     canonicalWorkflows: matchedCanonicalWorkflows,
+    aiEntities: matchedAIEntities,
+    aiContent: matchedAIContent,
     comparisons: matchedComparisons,
     blogs: matchedBlogs,
     videos: matchedVideos,
