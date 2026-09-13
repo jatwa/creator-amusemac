@@ -357,16 +357,16 @@ export const canonicalAIEntities: AIEntity[] = [
     name: "Luma AI",
     entityType: "COMPANY",
     vendor: "Luma AI, Inc.",
-    tagline: "Ray foundation video synthesis, high-speed neural radiance fields (NeRF), and interactive 3D camera pathing.",
+    tagline: "Ray foundation video synthesis (Ray 3.2), UNI multimodal intelligence, and neural radiance 3D camera pathing.",
     description:
-      "Luma AI is a visual intelligence research company building generative foundation models, bridging neural 3D scene reconstruction (NeRFs and Gaussian Splats) and high-temporal-coherence video generation through Ray 2 and the Dream Machine platform architecture.",
+      "Luma AI is a visual intelligence research company building generative foundation models, bridging neural 3D scene reconstruction and high-temporal-coherence video generation through Ray 3.2 and the UNI multimodal architecture.",
     category: "VIDEO",
-    secondaryCategories: ["VFX", "PREVIS"],
+    secondaryCategories: ["VFX", "PREVIS", "IMAGE"],
     capabilities: [
-      "Ray 2 & Dream Machine Fast Video Generation",
+      "Ray 3.2 High-Fidelity Generative Video Synthesis",
+      "UNI-1.1 Multimodal Visual Intelligence & Image Generation",
       "Camera Motion Keyframing & Directorial Pathing",
-      "NeRF & 3D Gaussian Splatting Scene Capture (UNI)",
-      "High Temporal Coherence Transitions"
+      "NeRF & 3D Gaussian Splatting Volumetric Reconstruction"
     ],
     productionStages: ["PRE_PRODUCTION", "PRODUCTION", "VFX", "AI"],
     officialWebsite: "https://lumalabs.ai",
@@ -380,12 +380,12 @@ export const canonicalAIEntities: AIEntity[] = [
     },
     modelsAndProducts: [
       {
-        id: "prod-luma-ray-2",
-        name: "Ray 2",
-        version: "2.0",
+        id: "prod-luma-ray-3-2",
+        name: "Ray 3.2",
+        version: "3.2",
         category: "VIDEO",
-        description: "Next-generation video foundation model with ultra-realistic physics, camera control, and high temporal coherence.",
-        releaseDate: "2024-12-18",
+        description: "Current flagship video foundation model with enhanced physical realism, camera kinematics, and high temporal coherence.",
+        releaseDate: "2025-05-10",
         contextWindowOrDuration: "5s - 9s iterations",
         resolutionOrOutput: "1080p / 4K Upscale",
         commercialStatus: "FREEMIUM",
@@ -394,6 +394,38 @@ export const canonicalAIEntities: AIEntity[] = [
         sourceId: "src-luma-01",
         verificationStatus: "VERIFIED",
         lifecycleStatus: "CURRENT"
+      },
+      {
+        id: "prod-luma-uni-1-1",
+        name: "UNI-1.1",
+        version: "1.1",
+        category: "IMAGE",
+        description: "Current multimodal foundation model supporting high-fidelity image synthesis and neural 3D scene representation.",
+        releaseDate: "2025-02-15",
+        contextWindowOrDuration: "Multimodal visual synthesis",
+        resolutionOrOutput: "High-Resolution Image / 3D Gaussian Splats",
+        commercialStatus: "FREEMIUM",
+        officialDocsUrl: "https://lumalabs.ai/interactive-scenes",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-luma-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "CURRENT"
+      },
+      {
+        id: "prod-luma-ray-2",
+        name: "Ray 2",
+        version: "2.0",
+        category: "VIDEO",
+        description: "Prior generation video foundation model developed by Luma AI.",
+        releaseDate: "2024-12-18",
+        contextWindowOrDuration: "5s - 9s iterations",
+        resolutionOrOutput: "1080p",
+        commercialStatus: "FREEMIUM",
+        officialDocsUrl: "https://lumalabs.ai/ray",
+        lastVerifiedAt: "2026-09-13",
+        sourceId: "src-luma-01",
+        verificationStatus: "VERIFIED",
+        lifecycleStatus: "HISTORICAL"
       },
       {
         id: "prod-dream-machine",
@@ -410,22 +442,6 @@ export const canonicalAIEntities: AIEntity[] = [
         sourceId: "src-luma-01",
         verificationStatus: "VERIFIED",
         lifecycleStatus: "HISTORICAL"
-      },
-      {
-        id: "prod-luma-uni",
-        name: "UNI (3D Scene Capture)",
-        version: "1.1",
-        category: "PREVIS",
-        description: "Neural 3D Gaussian splatting and volumetric reconstruction system for interactive virtual camera sets.",
-        releaseDate: "2024-01-15",
-        contextWindowOrDuration: "Volumetric neural radiance capture",
-        resolutionOrOutput: "Real-time 3D Gaussian Splats",
-        commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://lumalabs.ai/interactive-scenes",
-        lastVerifiedAt: "2026-09-13",
-        sourceId: "src-luma-01",
-        verificationStatus: "VERIFIED",
-        lifecycleStatus: "ACTIVE"
       }
     ],
     toolId: "tool-luma",
