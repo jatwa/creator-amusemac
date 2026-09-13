@@ -69,7 +69,7 @@ export function Navigation() {
           </Link>
 
           {/* Desktop Nav Items */}
-          <div className="hidden items-center gap-0.5 md:flex">
+          <div className="hidden items-center gap-1 md:flex">
             {primaryNavLinks.map((link) => {
               const isActive =
                 link.href === "/"
@@ -82,9 +82,9 @@ export function Navigation() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`relative px-3 py-1.5 text-xs font-normal transition-colors rounded-full ${
+                  className={`relative px-3.5 py-1.5 text-sm font-medium transition-colors rounded-full ${
                     isActive
-                      ? "text-primary font-medium"
+                      ? "text-primary font-semibold"
                       : "text-secondary hover:text-primary"
                   }`}
                 >
@@ -108,14 +108,14 @@ export function Navigation() {
           <Link
             href="/search"
             aria-label="Search Platform"
-            className={`flex h-8 items-center gap-2 rounded-full px-2.5 sm:px-3 text-xs transition-colors ${
+            className={`flex h-8 items-center gap-2 rounded-full px-3 text-xs sm:text-sm transition-colors ${
               pathname === "/search"
                 ? "text-primary bg-black/5 dark:bg-white/10 font-medium"
                 : "text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/10"
             }`}
           >
             <svg
-              className="h-3.5 w-3.5"
+              className="h-3.5 w-3.5 sm:h-4 sm:w-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -128,7 +128,7 @@ export function Navigation() {
               />
             </svg>
             <span className="hidden sm:inline font-normal">Search</span>
-            <kbd className="hidden font-mono text-[10px] text-tertiary sm:inline bg-black/5 dark:bg-white/10 px-1 rounded">
+            <kbd className="hidden font-mono text-xs text-tertiary sm:inline bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded">
               /
             </kbd>
           </Link>
@@ -136,7 +136,7 @@ export function Navigation() {
           {/* Pro Pass Link */}
           <Link
             href="/pricing"
-            className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-mono font-medium transition ${
+            className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold transition ${
               pathname === "/pricing"
                 ? "border-accent/40 bg-accent/15 text-accent"
                 : "border-border bg-surface text-secondary hover:text-accent hover:border-accent/30"

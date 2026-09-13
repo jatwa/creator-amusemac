@@ -49,6 +49,9 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+    font-size: 1rem; /* 16px default */
+    line-height: 1.65; /* 1.55–1.7 readable line height */
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -86,13 +89,40 @@
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.16em] text-secondary;
+    @apply text-xs font-medium uppercase tracking-[0.14em] text-secondary font-sans;
+  }
+  .editorial-hero {
+    @apply text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-primary leading-[1.1];
+  }
+  .editorial-title {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-primary leading-tight;
+  }
+  .editorial-heading {
+    @apply text-2xl sm:text-3xl font-serif font-bold tracking-tight text-primary leading-snug;
   }
   .section-title {
-    @apply mt-3 text-3xl font-semibold tracking-[-0.03em] text-primary sm:text-4xl lg:text-5xl;
+    @apply mt-3 text-2xl sm:text-3xl lg:text-4xl font-serif font-bold tracking-tight text-primary;
   }
   .section-sub {
-    @apply mt-4 text-base sm:text-lg text-secondary leading-relaxed max-w-2xl font-normal;
+    @apply mt-3 text-base sm:text-lg text-secondary leading-relaxed max-w-2xl font-normal font-sans;
+  }
+  .card-title {
+    @apply text-lg font-semibold text-primary group-hover:text-accent transition-colors font-sans leading-snug;
+  }
+  .body-readable {
+    @apply text-base text-secondary leading-relaxed font-sans;
+  }
+  .body-small {
+    @apply text-sm text-secondary leading-normal font-sans;
+  }
+  .meta-label {
+    @apply text-xs uppercase font-medium tracking-wider text-tertiary font-sans;
+  }
+  .tech-chip {
+    @apply text-xs font-mono px-2 py-0.5 rounded bg-surface-elevated border border-border-subtle text-secondary;
+  }
+  .sans-chip {
+    @apply text-xs font-sans px-2.5 py-0.5 rounded-md bg-surface-elevated border border-border-subtle text-secondary font-medium;
   }
   .surface {
     @apply rounded-2xl border border-border bg-surface transition-all duration-200;
@@ -102,6 +132,41 @@
   }
   .editorial-divider {
     @apply border-t border-border-subtle my-16 sm:my-24;
+  }
+
+  /* Cinema Long-form Reading Prose */
+  .prose-cinema {
+    @apply text-base text-secondary leading-relaxed font-sans;
+  }
+  .prose-cinema p {
+    @apply mb-5 leading-relaxed text-secondary text-base sm:text-[17px];
+  }
+  .prose-cinema h1 {
+    @apply text-3xl sm:text-4xl font-serif font-bold text-primary mt-12 mb-6 tracking-tight;
+  }
+  .prose-cinema h2 {
+    @apply text-2xl sm:text-3xl font-serif font-bold text-primary mt-10 mb-4 tracking-tight;
+  }
+  .prose-cinema h3 {
+    @apply text-xl sm:text-2xl font-serif font-semibold text-primary mt-8 mb-3 tracking-tight;
+  }
+  .prose-cinema ul {
+    @apply list-disc pl-5 space-y-2 mb-6 text-secondary text-base;
+  }
+  .prose-cinema ol {
+    @apply list-decimal pl-5 space-y-2 mb-6 text-secondary text-base;
+  }
+  .prose-cinema li {
+    @apply leading-relaxed;
+  }
+  .prose-cinema blockquote {
+    @apply border-l-2 border-accent pl-4 my-6 italic text-primary text-base sm:text-lg;
+  }
+  .prose-cinema code {
+    @apply font-mono text-xs px-1.5 py-0.5 rounded bg-surface-elevated border border-border-subtle text-primary;
+  }
+  .prose-cinema pre code {
+    @apply text-xs bg-transparent border-0 p-0 text-secondary;
   }
 }
 

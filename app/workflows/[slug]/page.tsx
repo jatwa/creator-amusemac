@@ -127,11 +127,11 @@ export default async function WorkflowDetailPage({
               </span>
             </div>
 
-            <h1 className="mt-4 text-3xl sm:text-5xl font-semibold tracking-tight text-primary leading-tight">
+            <h1 className="mt-4 text-3xl sm:text-5xl font-bold tracking-tight text-primary leading-tight font-serif">
               {canonicalWf.title}
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed font-normal">
+            <p className="mt-4 text-base sm:text-xl text-secondary leading-relaxed font-sans">
               {canonicalWf.summary}
             </p>
 
@@ -145,11 +145,11 @@ export default async function WorkflowDetailPage({
 
         <div className="shell max-w-4xl py-14 space-y-16">
           {/* Executive Purpose & Context */}
-          <section className="surface p-6 sm:p-8 space-y-4 rounded-2xl border border-border">
+          <section className="surface p-6 sm:p-8 space-y-4 rounded-3xl border border-border bg-surface">
             <h2 className="text-xs font-semibold uppercase tracking-wider text-accent font-mono">
               Strategic Value &amp; Purpose
             </h2>
-            <p className="text-sm sm:text-base text-primary leading-relaxed">
+            <p className="text-base sm:text-lg text-primary leading-relaxed font-sans">
               {canonicalWf.purpose}
             </p>
           </section>

@@ -119,11 +119,11 @@ export default async function FestivalProfilePage({ params }: FestivalProfilePro
                 )}
               </div>
 
-              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-primary">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary font-serif">
                 {festival.name}
               </h1>
 
-              <p className="text-sm sm:text-base text-secondary leading-relaxed">
+              <p className="text-base sm:text-xl text-secondary leading-relaxed font-sans">
                 {festival.description}
               </p>
             </div>

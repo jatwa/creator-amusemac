@@ -1565,6 +1565,7 @@ export interface AIEntitySocialLinks {
   apiPortal?: string;
   modelWeights?: string;
   communityDiscord?: string;
+  academy?: string;
 }
 
 export interface AIEntity {

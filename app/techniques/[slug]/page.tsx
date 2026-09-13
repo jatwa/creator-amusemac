@@ -123,7 +123,7 @@ export default async function TechniqueDetailPage({ params }: TechniqueSlugPageP
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-primary">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary font-serif">
                 {technique.name}
               </h1>
 
@@ -134,21 +134,21 @@ export default async function TechniqueDetailPage({ params }: TechniqueSlugPageP
                 </div>
               )}
 
-              <p className="text-base sm:text-lg text-secondary leading-relaxed font-normal pt-2">
+              <p className="text-base sm:text-xl text-secondary leading-relaxed font-sans pt-2">
                 {technique.creativePurpose}
               </p>
             </div>
 
             {/* Quick Action / Technical Card */}
-            <div className="rounded-2xl border border-border bg-surface p-5 space-y-3 shrink-0 md:w-80">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-tertiary">Director Decision Grade</div>
-              <div className="text-sm font-bold text-accent font-mono">
+            <div className="rounded-3xl border border-border bg-surface p-6 space-y-3 shrink-0 md:w-80 shadow-subtle">
+              <div className="text-xs font-mono uppercase tracking-wider text-tertiary">Director Decision Grade</div>
+              <div className="text-base font-bold text-accent font-mono">
                 {technique.difficulty} MASTERY
               </div>
-              <div className="text-xs text-secondary">
+              <div className="text-sm text-secondary">
                 Production Stage: <span className="font-semibold text-primary">{technique.productionStage.replace(/_/g, " ")}</span>
               </div>
-              <div className="pt-2 border-t border-border-subtle text-[11px] text-tertiary font-mono">
+              <div className="pt-2 border-t border-border-subtle text-xs text-tertiary font-mono">
                 Confidence: {technique.confidence} • Verified: {technique.verifiedAt}
               </div>
             </div>
@@ -164,21 +164,21 @@ export default async function TechniqueDetailPage({ params }: TechniqueSlugPageP
           {/* Left / Main Column: Anatomy, Decision Framework, Execution, Common Mistakes */}
           <div className="lg:col-span-2 space-y-10">
             {/* Anatomy & Description */}
-            <section className="surface rounded-2xl border border-border bg-surface p-6 sm:p-8 space-y-4">
+            <section className="surface rounded-3xl border border-border bg-surface p-6 sm:p-8 space-y-4">
               <div className="flex items-center gap-2 border-b border-border-subtle pb-3">
                 <span className="text-xs font-mono uppercase tracking-wider text-accent font-bold">01. What Is It? (Anatomy & Optics)</span>
               </div>
-              <p className="text-sm sm:text-base text-secondary leading-relaxed">
+              <p className="text-base sm:text-lg text-secondary leading-relaxed font-sans">
                 {technique.description}
               </p>
             </section>
 
             {/* Visual Characteristics & Sensory Impact */}
-            <section className="surface rounded-2xl border border-border bg-surface p-6 sm:p-8 space-y-4">
+            <section className="surface rounded-3xl border border-border bg-surface p-6 sm:p-8 space-y-4">
               <div className="flex items-center gap-2 border-b border-border-subtle pb-3">
                 <span className="text-xs font-mono uppercase tracking-wider text-accent font-bold">02. Visual Signature & Image Impact</span>
               </div>
-              <p className="text-sm sm:text-base text-secondary leading-relaxed">
+              <p className="text-base sm:text-lg text-secondary leading-relaxed font-sans">
                 {technique.visualCharacteristics}
               </p>
             </section>

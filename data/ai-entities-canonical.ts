@@ -18,17 +18,17 @@ export const canonicalAIEntities: AIEntity[] = [
     name: "Higgsfield AI",
     entityType: "COMPANY",
     vendor: "Higgsfield Inc.",
-    tagline: "Foundational AI video models and cinema camera control motion platforms for visual storytellers.",
+    tagline: "Foundational AI video models, Cinema Studio camera controls, and character consistency for filmmakers.",
     description:
-      "Higgsfield is a specialized AI video research and product company developing proprietary video generation models with fine-grained Director of Photography (DoP) camera motion control, dynamic lighting simulation, and character consistency engines tailored for commercial and cinematic previs workflows.",
+      "Higgsfield is a specialized AI video research and product company developing foundational video generation systems with fine-grained Director of Photography (DoP) camera motion control, dynamic lighting simulation, Character Studio consistency, and the Higgsfield Academy educational ecosystem.",
     category: "VIDEO",
     secondaryCategories: ["PREVIS", "PRODUCTION", "VFX"],
     capabilities: [
-      "DoP Camera Motion Controls (Dolly, Pan, Orbit, Crane)",
-      "High-Fidelity Human Character Consistency",
+      "Cinema Studio DoP Camera Controls (Dolly, Pan, Orbit, Crane)",
+      "High-Fidelity Human Character Studio Consistency",
       "Motion-to-Video & Image-to-Video Synthesis",
       "Inpainting, Outpainting & Spatial Scene Extension",
-      "Real-time Previsualization Generation"
+      "Higgsfield Academy Filmmaking Curriculum & Previs Pipelines"
     ],
     productionStages: ["PRE_PRODUCTION", "PRODUCTION", "VFX", "AI"],
     officialWebsite: "https://higgsfield.ai",
@@ -38,24 +38,26 @@ export const canonicalAIEntities: AIEntity[] = [
     officialSocialLinks: {
       twitter: "https://x.com/higgsfield_ai",
       linkedin: "https://www.linkedin.com/company/higgsfield-ai",
-      discord: "https://discord.gg/higgsfield"
+      discord: "https://discord.gg/higgsfield",
+      webApp: "https://cloud.higgsfield.ai",
+      academy: "https://higgsfield.ai/academy"
     },
     modelsAndProducts: [
       {
-        id: "prod-higgsfield-dop",
-        name: "Higgsfield DoP",
+        id: "prod-higgsfield-cinema-studio",
+        name: "Higgsfield Cinema Studio (DoP 2.0)",
         version: "2.0",
         category: "VIDEO",
-        description: "Specialized cinematic camera motion model supporting physical lens focal lengths and kinetic camera trajectories.",
+        description: "Specialized cinematic camera motion platform supporting physical lens focal lengths, kinetic camera trajectories, and DoP camera controls.",
         releaseDate: "2026-02-14",
         contextWindowOrDuration: "5s - 10s per generation",
         resolutionOrOutput: "1080p / 4K Upscale",
         commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://docs.higgsfield.ai/dop-camera-controls"
+        officialDocsUrl: "https://docs.higgsfield.ai"
       },
       {
-        id: "prod-higgsfield-diffuse",
-        name: "Higgsfield Diffuse Character Engine",
+        id: "prod-higgsfield-character-studio",
+        name: "Higgsfield Character Studio",
         version: "1.4",
         category: "PREVIS",
         description: "Consistent facial identity and wardrobe preservation across multi-shot narrative sequence generations.",
@@ -63,7 +65,19 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "Multi-prompt sequence memory",
         resolutionOrOutput: "1080p High-Bitrate ProRes/H.264",
         commercialStatus: "PAID",
-        officialDocsUrl: "https://docs.higgsfield.ai/character-consistency"
+        officialDocsUrl: "https://docs.higgsfield.ai"
+      },
+      {
+        id: "prod-higgsfield-academy",
+        name: "Higgsfield Academy",
+        version: "2026",
+        category: "PREVIS",
+        description: "Official educational curriculum, cinema masterclasses, and director workflow training for AI filmmakers.",
+        releaseDate: "2025-09-01",
+        contextWindowOrDuration: "Interactive video courses",
+        resolutionOrOutput: "Tutorial library & certified masterclasses",
+        commercialStatus: "FREE",
+        officialDocsUrl: "https://higgsfield.ai/academy"
       }
     ],
     relatedToolIds: ["tool-runway", "tool-kling", "tool-midjourney"],
@@ -80,7 +94,6 @@ export const canonicalAIEntities: AIEntity[] = [
       "prompt-01-golden-hour",
       "prompt-04-neo-tokyo"
     ],
-    relatedFilmIds: ["film-the-lucid-ride"],
     relatedResearchIds: [
       "res-rectified-flow-matching-motion",
       "res-anamorphic-vs-spherical-optics"
@@ -110,9 +123,21 @@ export const canonicalAIEntities: AIEntity[] = [
         dateDiscovered: "2025-08-15",
         lastVerifiedAt: "2026-09-10",
         notes: "Verified API parameters and camera movement syntax."
+      },
+      {
+        id: "src-hf-03",
+        url: "https://higgsfield.ai/academy",
+        sourceType: "OFFICIAL_TUTORIAL",
+        publisher: "Higgsfield Academy",
+        title: "Higgsfield Academy — Cinematic AI Filmmaking Masterclasses",
+        tier: 1,
+        verificationStatus: "VERIFIED",
+        dateDiscovered: "2025-09-15",
+        lastVerifiedAt: "2026-09-10",
+        notes: "Verified official cinema tutorials and educational portal."
       }
     ],
-    sourceIds: ["src-hf-01", "src-hf-02"],
+    sourceIds: ["src-hf-01", "src-hf-02", "src-hf-03"],
     verificationStatus: "VERIFIED",
     confidence: "HIGH",
     visibility: "PUBLIC",
@@ -141,14 +166,15 @@ export const canonicalAIEntities: AIEntity[] = [
       "Gen-3 Alpha Turbo Real-time Rendering"
     ],
     productionStages: ["PRE_PRODUCTION", "PRODUCTION", "EDITORIAL", "VFX", "AI"],
-    officialWebsite: "https://runwayml.com",
+    officialWebsite: "https://runway.com",
     officialDocumentation: "https://docs.runwayml.com",
-    officialBlog: "https://runwayml.com/blog",
+    officialBlog: "https://runway.com/blog",
     officialYouTube: "https://www.youtube.com/@RunwayML",
     officialSocialLinks: {
       twitter: "https://x.com/runwayml",
       discord: "https://discord.gg/runwayml",
-      linkedin: "https://www.linkedin.com/company/runwayml"
+      linkedin: "https://www.linkedin.com/company/runwayml",
+      webApp: "https://app.runwayml.com"
     },
     modelsAndProducts: [
       {
@@ -188,7 +214,6 @@ export const canonicalAIEntities: AIEntity[] = [
       "wf-cinematic-lookbook"
     ],
     relatedPromptIds: ["prompt-01-golden-hour", "prompt-02-rainy-night", "prompt-04-neo-tokyo"],
-    relatedFilmIds: ["film-the-lucid-ride", "film-the-extraction"],
     relatedResearchIds: [
       "res-rectified-flow-matching-motion",
       "res-anamorphic-vs-spherical-optics"
@@ -197,7 +222,7 @@ export const canonicalAIEntities: AIEntity[] = [
     sources: [
       {
         id: "src-runway-01",
-        url: "https://runwayml.com",
+        url: "https://runway.com",
         sourceType: "OFFICIAL_WEBSITE",
         publisher: "Runway AI, Inc.",
         title: "Runway — Advancing Creativity with Artificial Intelligence",
@@ -254,7 +279,8 @@ export const canonicalAIEntities: AIEntity[] = [
     officialBlog: "https://klingai.com/blog",
     officialSocialLinks: {
       twitter: "https://x.com/Kling_ai",
-      discord: "https://discord.gg/klingai"
+      discord: "https://discord.gg/klingai",
+      webApp: "https://klingai.com"
     },
     modelsAndProducts: [
       {
@@ -267,7 +293,7 @@ export const canonicalAIEntities: AIEntity[] = [
         contextWindowOrDuration: "5s - 10s per shot / up to 2m extend",
         resolutionOrOutput: "1080p HD 30fps",
         commercialStatus: "FREEMIUM",
-        officialDocsUrl: "https://klingai.com/docs"
+        officialDocsUrl: "https://klingai.com/help"
       }
     ],
     toolId: "tool-kling",
@@ -275,7 +301,6 @@ export const canonicalAIEntities: AIEntity[] = [
     relatedTechniqueIds: ["tech-camera-motion-prompting", "tech-volumetric-haze"],
     relatedWorkflowIds: ["wf-ai-previs-animatic"],
     relatedPromptIds: ["prompt-01-golden-hour", "prompt-02-rainy-night"],
-    relatedFilmIds: ["film-the-lucid-ride"],
     relatedResearchIds: ["res-rectified-flow-matching-motion"],
     relatedJournalArticleIds: ["state-of-generative-video-2026"],
     sources: [
@@ -289,7 +314,7 @@ export const canonicalAIEntities: AIEntity[] = [
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-06-05",
         lastVerifiedAt: "2026-09-10",
-        notes: "Verified official global web application portal."
+        notes: "Verified official global web application portal (klingai.com / kling.ai)."
       }
     ],
     sourceIds: ["src-kling-01"],
@@ -310,7 +335,7 @@ export const canonicalAIEntities: AIEntity[] = [
     vendor: "Luma AI, Inc.",
     tagline: "Dream Machine video synthesis, high-speed neural radiance fields (NeRF), and interactive 3D camera pathing.",
     description:
-      "Luma AI builds generative visual intelligence tools, bridging neural 3D scene reconstruction and real-time diffusion video generation through Dream Machine and the Ray 2 foundation model.",
+      "Luma AI is a visual intelligence research company building generative foundation models, bridging neural 3D scene reconstruction (NeRFs and Gaussian Splats) and high-temporal-coherence video generation through Dream Machine and the Ray 2 foundation architecture.",
     category: "VIDEO",
     secondaryCategories: ["VFX", "PREVIS"],
     capabilities: [
@@ -326,7 +351,8 @@ export const canonicalAIEntities: AIEntity[] = [
     officialYouTube: "https://www.youtube.com/@LumaAI",
     officialSocialLinks: {
       twitter: "https://x.com/LumaLabsAI",
-      discord: "https://discord.gg/lumalabs"
+      discord: "https://discord.gg/lumalabs",
+      webApp: "https://lumalabs.ai/dream-machine"
     },
     modelsAndProducts: [
       {
@@ -334,7 +360,7 @@ export const canonicalAIEntities: AIEntity[] = [
         name: "Dream Machine",
         version: "1.5",
         category: "VIDEO",
-        description: "High-speed video transformer model designed for creative world building and camera motion.",
+        description: "Flagship video foundation model developed by Luma AI, designed for creative world building and dynamic camera motion.",
         releaseDate: "2024-06-12",
         contextWindowOrDuration: "5s iterations",
         resolutionOrOutput: "1080p",
@@ -359,7 +385,7 @@ export const canonicalAIEntities: AIEntity[] = [
         verificationStatus: "VERIFIED",
         dateDiscovered: "2024-06-12",
         lastVerifiedAt: "2026-09-10",
-        notes: "Verified official web portal."
+        notes: "Verified official web portal (Luma AI, Inc.)."
       }
     ],
     sourceIds: ["src-luma-01"],

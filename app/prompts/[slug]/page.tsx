@@ -120,11 +120,11 @@ export default async function PromptDetailPage({
               </span>
             </div>
 
-            <h1 className="text-3xl font-semibold tracking-tight text-primary sm:text-5xl">
+            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-primary leading-tight font-serif">
               {prompt.title}
             </h1>
 
-            <p className="text-base sm:text-lg text-secondary leading-relaxed font-normal">
+            <p className="text-base sm:text-xl text-secondary leading-relaxed font-sans">
               {prompt.description}
             </p>
           </div>

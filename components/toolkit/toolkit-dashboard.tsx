@@ -80,29 +80,29 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
         {/* Header Desk */}
         <div className="surface rounded-2xl border border-border p-8 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-accent font-bold">DIRECTOR'S DESK</span>
+                <span className="font-sans text-xs text-accent font-bold uppercase tracking-wider">DIRECTOR'S DESK</span>
                 <span className="text-tertiary text-xs">•</span>
-                <span className="text-xs font-mono text-secondary uppercase tracking-wider">
+                <span className="text-xs font-sans text-secondary uppercase tracking-wider font-medium">
                   Private Workspace
                 </span>
               </div>
-              <h1 className="text-3xl font-serif font-bold text-primary">Director's Toolkit</h1>
-              <p className="text-sm text-secondary max-w-2xl">
+              <h1 className="text-3xl sm:text-4xl font-serif font-bold text-primary">Director's Toolkit</h1>
+              <p className="text-base text-secondary max-w-2xl leading-relaxed font-sans">
                 A structured filmmaking workspace connected directly to Creator Intel's cinema knowledge graph: verified research, optics techniques, tool packages, prompt formulas, and festival delivery intelligence.
               </p>
             </div>
 
             <button
               onClick={() => setModalOpen(true)}
-              className="self-start sm:self-center rounded-xl bg-accent px-5 py-3 text-xs font-mono font-semibold text-accent-contrast shadow-sm hover:opacity-90 cursor-pointer flex items-center gap-2"
+              className="self-start sm:self-center rounded-xl bg-accent px-5 py-3 text-xs sm:text-sm font-sans font-semibold text-accent-contrast shadow-sm hover:opacity-90 cursor-pointer flex items-center gap-2"
             >
               <span>+ Start a Film Project</span>
             </button>
           </div>
 
-          <div className="pt-2 border-t border-border-subtle flex flex-wrap gap-4 text-xs font-mono text-tertiary">
+          <div className="pt-3 border-t border-border-subtle flex flex-wrap gap-4 text-xs sm:text-sm font-sans text-tertiary font-medium">
             <span>⚡ 9-Stage Pipeline (Concept → Archive)</span>
             <span>⚡ Zero AI Screenplay Autogen</span>
             <span>⚡ Strictly Private Workspace</span>
@@ -112,7 +112,7 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
         {/* Project Grid */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-mono uppercase tracking-wider font-bold text-primary">
+            <h2 className="text-sm sm:text-base font-sans uppercase tracking-wider font-bold text-primary">
               Your Film Projects ({projects.length})
             </h2>
           </div>
@@ -120,14 +120,14 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
           {projects.length === 0 ? (
             <div className="surface rounded-2xl border border-dashed border-border p-12 text-center space-y-4">
               <div className="space-y-1">
-                <h3 className="font-serif text-lg font-bold text-primary">No Projects in Workspace</h3>
-                <p className="text-xs text-secondary max-w-md mx-auto">
+                <h3 className="font-serif text-xl font-bold text-primary">No Projects in Workspace</h3>
+                <p className="text-sm text-secondary max-w-md mx-auto font-sans leading-relaxed">
                   Create your first project to architect scene coverage, optical bibles, and festival delivery roadmaps.
                 </p>
               </div>
               <button
                 onClick={() => setModalOpen(true)}
-                className="rounded-xl bg-accent px-4 py-2 text-xs font-mono font-semibold text-accent-contrast cursor-pointer"
+                className="rounded-xl bg-accent px-5 py-2.5 text-xs sm:text-sm font-sans font-semibold text-accent-contrast cursor-pointer"
               >
                 Create First Film Project
               </button>
@@ -153,16 +153,16 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
                   <Link
                     key={targetId}
                     href={`/toolkit/${targetId}`}
-                    className="surface group rounded-2xl border border-border p-6 flex flex-col justify-between space-y-5 hover:border-accent/40 transition shadow-xs"
+                    className="surface group rounded-2xl border border-border p-6 sm:p-7 flex flex-col justify-between space-y-5 hover:border-accent/40 transition shadow-xs"
                   >
                     <div className="space-y-3">
                       <div className="flex items-start justify-between gap-2">
-                        <span className="rounded bg-surface-elevated border border-border px-2 py-0.5 text-[10px] font-mono text-secondary uppercase">
+                        <span className="rounded-md bg-surface-elevated border border-border px-2.5 py-0.5 text-xs font-sans text-secondary uppercase font-semibold">
                           {project.projectType || "film"}
                         </span>
                         <button
                           onClick={(e) => handleDeleteProject(project.id || targetId, e)}
-                          className="text-tertiary hover:text-red-400 font-mono text-xs opacity-0 group-hover:opacity-100 transition cursor-pointer"
+                          className="text-tertiary hover:text-red-400 font-sans text-xs opacity-0 group-hover:opacity-100 transition cursor-pointer p-1"
                           title="Delete Project"
                         >
                           ✕
@@ -170,25 +170,25 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
                       </div>
 
                       <div>
-                        <h3 className="font-serif text-lg font-bold text-primary group-hover:text-accent transition">
+                        <h3 className="font-serif text-xl font-bold text-primary group-hover:text-accent transition">
                           {project.title}
                         </h3>
                         {project.logline && (
-                          <p className="text-xs text-secondary line-clamp-2 mt-1 leading-relaxed">
+                          <p className="text-sm text-secondary line-clamp-2 mt-1.5 leading-relaxed font-sans">
                             {project.logline}
                           </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="space-y-3 pt-3 border-t border-border-subtle">
+                    <div className="space-y-3 pt-3 border-t border-border-subtle font-sans">
                       {/* Stage Progress */}
-                      <div className="space-y-1">
-                        <div className="flex items-center justify-between text-[11px] font-mono">
-                          <span className="text-tertiary">{currentStageName}</span>
-                          <span className="text-accent font-semibold">{progress}%</span>
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-tertiary font-medium">{currentStageName}</span>
+                          <span className="text-accent font-bold font-mono">{progress}%</span>
                         </div>
-                        <div className="w-full bg-surface-elevated rounded-full h-1.5 overflow-hidden border border-border-subtle">
+                        <div className="w-full bg-surface-elevated rounded-full h-2 overflow-hidden border border-border-subtle">
                           <div
                             className="bg-accent h-full transition-all duration-300"
                             style={{ width: `${progress}%` }}
@@ -197,7 +197,7 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
                       </div>
 
                       {/* Metadata row */}
-                      <div className="flex items-center justify-between text-[11px] font-mono text-tertiary">
+                      <div className="flex items-center justify-between text-xs text-tertiary font-medium">
                         <span>{project.scenes?.length || 0} Scenes</span>
                         <span>⚡ {connectedCount} Linked Entities</span>
                       </div>

@@ -118,7 +118,7 @@ export default async function FilmDetailPage({ params }: FilmSlugPageProps) {
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-primary">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary font-serif">
                 {film.title}
               </h1>
 
@@ -128,26 +128,26 @@ export default async function FilmDetailPage({ params }: FilmSlugPageProps) {
                 </div>
               )}
 
-              <p className="text-base sm:text-lg text-secondary leading-relaxed font-normal pt-2">
+              <p className="text-base sm:text-xl text-secondary leading-relaxed font-sans pt-2">
                 {film.logline}
               </p>
             </div>
 
             {/* Quick Action / Premiere Box */}
-            <div className="rounded-2xl border border-border bg-surface p-5 space-y-3 shrink-0 md:w-80">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-tertiary">Premiere Accreditation</div>
-              <div className="text-sm font-bold text-accent font-mono">
+            <div className="rounded-3xl border border-border bg-surface p-6 space-y-3 shrink-0 md:w-80 shadow-subtle">
+              <div className="text-xs font-mono uppercase tracking-wider text-tertiary">Premiere Accreditation</div>
+              <div className="text-base font-bold text-accent font-mono">
                 {film.premiereStatus.replace(/_/g, " ")}
               </div>
               {premiereFestival && (
-                <div className="text-xs text-secondary">
+                <div className="text-sm text-secondary">
                   Premiered at{" "}
                   <Link href={`/festivals/${premiereFestival.slug}`} className="text-primary font-semibold hover:underline">
                     {premiereFestival.name}
                   </Link>
                 </div>
               )}
-              <div className="pt-2 border-t border-border-subtle text-[11px] text-tertiary font-mono">
+              <div className="pt-2 border-t border-border-subtle text-xs text-tertiary font-mono">
                 Verified at: {film.verifiedAt}
               </div>
             </div>

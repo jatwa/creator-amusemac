@@ -108,43 +108,43 @@ export default async function JournalArticlePage({
           </nav>
 
           {/* Metadata Badges */}
-          <div className="flex flex-wrap items-center gap-3 text-xs">
-            <span className="rounded-full bg-accent/10 px-3 py-1 font-mono text-[11px] font-medium text-accent">
+          <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm font-sans">
+            <span className="rounded-full bg-accent/10 px-3.5 py-1 font-semibold text-accent uppercase">
               {blog.category}
             </span>
-            <span className="font-mono text-secondary">{blog.readingTime}</span>
+            <span className="text-secondary font-medium">{blog.readingTime}</span>
             <span className="text-tertiary">•</span>
-            <span className="font-mono text-secondary">Published {blog.publishedAt}</span>
+            <span className="text-secondary">Published {blog.publishedAt}</span>
             <span className="text-tertiary">•</span>
-            <span className="font-mono text-tertiary">Verified &amp; Updated {blog.updatedAt}</span>
+            <span className="text-tertiary">Verified {blog.updatedAt}</span>
           </div>
 
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-primary sm:text-4xl lg:text-5xl leading-tight max-w-4xl">
+          <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-primary leading-tight max-w-4xl">
             {blog.title}
           </h1>
 
-          <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed max-w-3xl font-normal">
+          <p className="mt-4 text-base sm:text-lg text-secondary leading-relaxed max-w-3xl font-normal font-sans">
             {blog.excerpt}
           </p>
 
           {/* Author Card */}
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-6">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-6 font-sans">
             <div className="flex items-center gap-3.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-sm font-semibold text-accent font-mono">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent/15 text-sm font-bold text-accent font-mono">
                 {blog.author.name[0]}
               </div>
               <div>
-                <p className="text-sm font-semibold text-primary">{blog.author.name}</p>
-                <p className="text-xs text-tertiary font-mono">{blog.author.role}</p>
+                <p className="text-base font-bold text-primary">{blog.author.name}</p>
+                <p className="text-xs text-tertiary">{blog.author.role}</p>
               </div>
             </div>
 
             {/* Editorial Status & Provenance */}
-            <div className="flex items-center gap-2">
-              <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-[11px] font-mono text-emerald-400 font-medium">
+            <div className="flex items-center gap-2 text-xs">
+              <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-emerald-400 font-semibold">
                 ✓ Fact Checked &amp; Benchmarked
               </span>
-              <span className="hidden sm:inline-block rounded-full border border-border bg-surface px-2.5 py-1 text-[11px] font-mono text-tertiary">
+              <span className="hidden sm:inline-block rounded-full border border-border bg-surface px-3 py-1 text-tertiary font-medium">
                 Human Authored
               </span>
             </div>
@@ -169,18 +169,18 @@ export default async function JournalArticlePage({
             )}
 
             {/* Article Markdown Content Body */}
-            <div className="prose dark:prose-invert max-w-none text-secondary leading-relaxed text-sm sm:text-base space-y-6">
+            <div className="prose-cinema max-w-none space-y-6">
               {blog.contentMarkdown.split("\n\n").map((paragraph, index) => {
                 if (paragraph.startsWith("## ")) {
                   return (
-                    <h2 key={index} className="text-2xl font-semibold text-primary tracking-tight mt-8 mb-4 border-b border-border-subtle pb-2">
+                    <h2 key={index} className="text-2xl sm:text-3xl font-serif font-bold text-primary tracking-tight mt-10 mb-4 border-b border-border-subtle pb-2">
                       {paragraph.replace("## ", "")}
                     </h2>
                   );
                 }
                 if (paragraph.startsWith("### ")) {
                   return (
-                    <h3 key={index} className="text-xl font-semibold text-primary tracking-tight mt-6 mb-3">
+                    <h3 key={index} className="text-xl sm:text-2xl font-serif font-semibold text-primary tracking-tight mt-8 mb-3">
                       {paragraph.replace("### ", "")}
                     </h3>
                   );

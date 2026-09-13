@@ -98,12 +98,12 @@ export default async function PersonDetailPage({ params }: PersonSlugPageProps) 
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-primary">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary font-serif">
                 {person.name}
               </h1>
 
               {person.alternateNames.length > 0 && (
-                <div className="text-xs font-mono text-tertiary">
+                <div className="text-sm font-mono text-tertiary">
                   Aliases & Canonical Mappings:{" "}
                   <span className="text-secondary">{person.alternateNames.join(", ")}</span>
                 </div>
@@ -114,7 +114,7 @@ export default async function PersonDetailPage({ params }: PersonSlugPageProps) 
                   {person.secondaryRoles.map((role) => (
                     <span
                       key={role}
-                      className="rounded-full bg-surface-elevated border border-border-subtle px-2.5 py-0.5 text-[10px] font-mono text-tertiary"
+                      className="rounded-full bg-surface-elevated border border-border-subtle px-3 py-1 text-xs font-mono text-tertiary"
                     >
                       {role.replace(/_/g, " ")}
                     </span>
@@ -124,9 +124,9 @@ export default async function PersonDetailPage({ params }: PersonSlugPageProps) 
             </div>
 
             {/* Quick Summary Card */}
-            <div className="rounded-2xl border border-border bg-surface p-5 space-y-3 shrink-0 md:w-80">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-tertiary">Registry Details</div>
-              <div className="text-xs space-y-1 text-secondary">
+            <div className="rounded-3xl border border-border bg-surface p-6 space-y-3 shrink-0 md:w-80 shadow-subtle">
+              <div className="text-xs font-mono uppercase tracking-wider text-tertiary">Registry Details</div>
+              <div className="text-sm space-y-1.5 text-secondary">
                 <div>
                   <span className="text-tertiary">Canonical ID: </span>
                   <span className="font-mono text-primary">{person.id}</span>
@@ -143,14 +143,14 @@ export default async function PersonDetailPage({ params }: PersonSlugPageProps) 
 
               {/* Social / Industry Links */}
               <div className="pt-3 border-t border-border-subtle space-y-1.5">
-                <div className="text-[10px] font-mono uppercase tracking-wider text-tertiary">Profiles & Portfolios</div>
+                <div className="text-xs font-mono uppercase tracking-wider text-tertiary">Profiles & Portfolios</div>
                 <div className="flex flex-wrap gap-2 text-xs">
                   {person.socialLinks.website && (
                     <a
                       href={person.socialLinks.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-accent hover:underline font-mono text-[11px]"
+                      className="text-accent hover:underline font-mono text-xs"
                     >
                       Website ↗
                     </a>

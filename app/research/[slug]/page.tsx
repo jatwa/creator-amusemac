@@ -127,7 +127,7 @@ export default async function ResearchRecordPage({ params }: ResearchRecordProps
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-primary leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-primary leading-tight font-serif">
               {record.researchQuestion}
             </h1>
 
@@ -148,13 +148,13 @@ export default async function ResearchRecordPage({ params }: ResearchRecordProps
         {/* SECTION 01: FINDINGS SUMMARY */}
         <section className="surface rounded-3xl border border-border bg-surface p-6 sm:p-8 space-y-4">
           <div className="flex items-center justify-between border-b border-border-subtle pb-3">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
+            <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold">
               Section 01 • Empirical Summary
             </span>
             <span className="text-xs font-mono text-tertiary">Verified Synthesis</span>
           </div>
-          <h2 className="text-lg sm:text-xl font-bold text-primary">Key Research Findings</h2>
-          <p className="text-sm sm:text-base text-secondary leading-relaxed font-sans">
+          <h2 className="text-xl sm:text-2xl font-bold font-serif text-primary">Key Research Findings</h2>
+          <p className="text-base sm:text-lg text-secondary leading-relaxed font-sans">
             {record.findingsSummary}
           </p>
         </section>
@@ -162,13 +162,13 @@ export default async function ResearchRecordPage({ params }: ResearchRecordProps
         {/* SECTION 02: STATEMENT-LEVEL TRUST LEDGER */}
         <section className="space-y-6">
           <div className="border-b border-border-subtle pb-4">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
+            <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold">
               Section 02 • Statement-Level Trust Ledger
             </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-primary mt-0.5">
+            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-primary mt-1">
               Claims &amp; Evidentiary Classification
             </h2>
-            <p className="text-xs text-secondary mt-1">
+            <p className="text-sm text-secondary mt-1.5 leading-relaxed">
               Every statement in this dossier is audited and assigned a specific trust layer — distinguishing primary facts from analytical interpretations and forward-looking inferences.
             </p>
           </div>
@@ -188,31 +188,31 @@ export default async function ResearchRecordPage({ params }: ResearchRecordProps
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border-subtle pb-3">
                     <div className="flex items-center gap-2">
                       <span
-                        className={`rounded-md border px-2.5 py-0.5 text-[10px] font-mono uppercase font-bold ${badge.className}`}
+                        className={`rounded-md border px-2.5 py-0.5 text-xs font-mono uppercase font-bold ${badge.className}`}
                       >
                         {badge.label}
                       </span>
-                      <span className="text-[11px] font-mono text-tertiary">
+                      <span className="text-xs font-sans text-tertiary">
                         {badge.desc}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-mono text-tertiary">
+                      <span className="text-xs font-mono text-tertiary">
                         {stmt.directness.replace(/_/g, " ")}
                       </span>
-                      <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                      <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
                         {stmt.verificationStatus}
                       </span>
                     </div>
                   </div>
 
-                  <p className="text-sm sm:text-base font-medium text-primary leading-relaxed">
+                  <p className="text-base sm:text-lg font-medium text-primary leading-relaxed font-sans">
                     &ldquo;{stmt.statement}&rdquo;
                   </p>
 
                   {stmt.notes && (
-                    <p className="text-xs text-tertiary italic">
+                    <p className="text-sm text-tertiary italic font-sans">
                       Note: {stmt.notes}
                     </p>
                   )}
@@ -220,7 +220,7 @@ export default async function ResearchRecordPage({ params }: ResearchRecordProps
                   {/* Supporting Sources Pills */}
                   {supportingSources.length > 0 && (
                     <div className="pt-2 flex flex-wrap items-center gap-2 text-xs">
-                      <span className="text-[10px] font-mono uppercase text-tertiary">
+                      <span className="text-xs font-mono uppercase text-tertiary">
                         Anchored To:
                       </span>
                       {supportingSources.map((src) => (
@@ -229,7 +229,7 @@ export default async function ResearchRecordPage({ params }: ResearchRecordProps
                           href={src.sourceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="rounded-full bg-surface-elevated border border-border px-3 py-0.5 text-[11px] font-mono text-accent hover:border-accent transition inline-flex items-center gap-1"
+                          className="rounded-full bg-surface-elevated border border-border px-3 py-1 text-xs font-sans text-accent hover:border-accent transition inline-flex items-center gap-1"
                         >
                           <span>{src.sourceTitle.slice(0, 45)}...</span>
                           <span>↗</span>
@@ -246,14 +246,14 @@ export default async function ResearchRecordPage({ params }: ResearchRecordProps
         {/* SECTION 03: EVIDENCE & METHODOLOGY */}
         <section className="surface rounded-3xl border border-border bg-surface p-6 sm:p-8 space-y-4">
           <div className="border-b border-border-subtle pb-3">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
+            <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold">
               Section 03 • Investigation Rigor
             </span>
-            <h2 className="text-lg sm:text-xl font-bold text-primary mt-0.5">
+            <h2 className="text-xl sm:text-2xl font-bold font-serif text-primary mt-1">
               Research Methodology &amp; Datasets
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-secondary leading-relaxed font-mono">
+          <p className="text-sm sm:text-base text-secondary leading-relaxed font-sans">
             {record.methodology}
           </p>
         </section>
@@ -262,15 +262,15 @@ export default async function ResearchRecordPage({ params }: ResearchRecordProps
         <section className="space-y-6">
           <div className="flex items-center justify-between border-b border-border-subtle pb-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
+              <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold">
                 Section 04 • 8-Tier Authority Ledger
               </span>
-              <h2 className="text-xl sm:text-2xl font-bold text-primary mt-0.5">
+              <h2 className="text-2xl sm:text-3xl font-bold font-serif text-primary mt-1">
                 Verified Research Sources ({record.sources.length})
               </h2>
             </div>
             <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full">
-              ✓ 100% Traceable
+              ✓ Primary Source Traceable
             </span>
           </div>
 

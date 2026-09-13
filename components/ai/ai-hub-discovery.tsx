@@ -299,16 +299,16 @@ export function AIHubDiscovery({
                   return (
                     <div
                       key={entity.id}
-                      className="group flex flex-col justify-between rounded-2xl border border-border bg-surface p-6 shadow-subtle hover:border-accent/40 hover:bg-surface-elevated transition duration-200"
+                      className="group flex flex-col justify-between rounded-2xl border border-border bg-surface p-6 sm:p-7 shadow-subtle hover:border-accent/40 hover:bg-surface-elevated transition duration-200"
                     >
                       <div className="space-y-4">
                         {/* Top Badges */}
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
+                          <span className="text-xs font-sans uppercase tracking-wider text-accent font-semibold">
                             {devOrg}
                           </span>
                           <div className="flex items-center gap-1.5">
-                            <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 text-[10px] font-mono text-emerald-400">
+                            <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 text-xs font-mono text-emerald-400">
                               {entity.verificationStatus}
                             </span>
                           </div>
@@ -317,40 +317,40 @@ export function AIHubDiscovery({
                         {/* Title & Tagline */}
                         <div>
                           <Link href={`/ai/${entity.slug}`}>
-                            <h3 className="text-lg font-bold text-primary group-hover:text-accent transition flex items-center gap-2">
+                            <h3 className="text-lg font-bold text-primary group-hover:text-accent transition flex items-center gap-2 font-sans">
                               <span>{entity.name}</span>
                               <span className="text-xs font-normal text-tertiary opacity-0 group-hover:opacity-100 transition">
                                 →
                               </span>
                             </h3>
                           </Link>
-                          <p className="text-xs font-medium text-secondary mt-1">
+                          <p className="text-sm font-medium text-secondary mt-1 font-sans">
                             {entity.tagline}
                           </p>
                         </div>
 
                         {/* Brief Overview */}
-                        <p className="text-xs text-tertiary line-clamp-3 leading-relaxed">
+                        <p className="text-sm leading-relaxed text-secondary line-clamp-3 font-normal font-sans">
                           {overviewText}
                         </p>
 
                         {/* Models and Strengths Chips */}
-                        <div className="space-y-2 pt-2 border-t border-border-subtle">
-                          <div className="flex items-center justify-between text-[10px] font-mono text-tertiary">
+                        <div className="space-y-2.5 pt-3 border-t border-border-subtle">
+                          <div className="flex items-center justify-between text-xs font-sans text-tertiary">
                             <span>Verified Models ({models.length}):</span>
                             <span>{(entity.licensingModel || "Commercial").replace(/_/g, " ")}</span>
                           </div>
-                          <div className="flex flex-wrap gap-1">
+                          <div className="flex flex-wrap gap-1.5">
                             {models.slice(0, 3).map((m) => (
                               <span
                                 key={m.id}
-                                className="rounded-md border border-border-subtle bg-surface px-2 py-0.5 text-[10px] font-mono text-secondary"
+                                className="rounded-md border border-border-subtle bg-surface px-2.5 py-0.5 text-xs font-sans text-secondary font-medium"
                               >
                                 {m.name}
                               </span>
                             ))}
                             {models.length > 3 && (
-                              <span className="rounded-md border border-border-subtle bg-surface px-1.5 py-0.5 text-[10px] font-mono text-tertiary">
+                              <span className="rounded-md border border-border-subtle bg-surface px-2 py-0.5 text-xs font-sans text-tertiary">
                                 +{models.length - 3}
                               </span>
                             )}
@@ -359,14 +359,14 @@ export function AIHubDiscovery({
                           {/* Cinema Strengths highlight */}
                           {strengths.length > 0 && (
                             <div className="pt-2">
-                              <div className="text-[10px] font-mono text-tertiary uppercase mb-1">
+                              <div className="text-xs font-sans text-tertiary uppercase tracking-wider mb-1 font-semibold">
                                 Cinema Strengths:
                               </div>
-                              <div className="flex flex-wrap gap-1">
+                              <div className="flex flex-wrap gap-1.5">
                                 {strengths.slice(0, 2).map((st: string, i: number) => (
                                   <span
                                     key={i}
-                                    className="rounded bg-accent/10 text-accent px-2 py-0.5 text-[10px] font-medium"
+                                    className="rounded-md bg-accent/10 text-accent px-2.5 py-0.5 text-xs font-sans font-medium"
                                   >
                                     {st}
                                   </span>
@@ -378,15 +378,15 @@ export function AIHubDiscovery({
                       </div>
 
                       {/* Footer Actions */}
-                      <div className="pt-5 mt-4 border-t border-border-subtle flex items-center justify-between">
+                      <div className="pt-5 mt-4 border-t border-border-subtle flex items-center justify-between text-xs sm:text-sm font-sans">
                         <Link
                           href={`/ai/${entity.slug}`}
-                          className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline"
+                          className="inline-flex items-center gap-1 font-semibold text-accent hover:underline"
                         >
                           Open Dossier <span>→</span>
                         </Link>
 
-                        <div className="flex items-center gap-3 text-xs font-mono text-tertiary">
+                        <div className="flex items-center gap-3 text-xs text-tertiary font-medium">
                           {officialSite && (
                             <a
                               href={officialSite}
@@ -428,10 +428,10 @@ export function AIHubDiscovery({
           >
             {filteredContent.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-border p-12 text-center space-y-3">
-                <p className="text-sm font-semibold text-primary">
+                <p className="text-base font-semibold text-primary font-sans">
                   No verified content items match your filter
                 </p>
-                <p className="text-xs text-secondary max-w-sm mx-auto">
+                <p className="text-sm text-secondary max-w-sm mx-auto font-sans">
                   Try selecting &ldquo;All Content&rdquo; or a different AI entity.
                 </p>
                 <button
@@ -440,7 +440,7 @@ export function AIHubDiscovery({
                     setSelectedContentType("ALL");
                     setSelectedEntityFilter("ALL");
                   }}
-                  className="text-xs font-mono text-accent hover:underline"
+                  className="text-xs sm:text-sm font-sans font-semibold text-accent hover:underline"
                 >
                   Reset filters
                 </button>
@@ -460,21 +460,21 @@ export function AIHubDiscovery({
                   return (
                     <div
                       key={item.id}
-                      className="group flex flex-col justify-between rounded-2xl border border-border bg-surface p-6 shadow-subtle hover:border-accent/40 transition duration-200 space-y-4"
+                      className="group flex flex-col justify-between rounded-2xl border border-border bg-surface p-6 sm:p-7 shadow-subtle hover:border-accent/40 transition duration-200 space-y-4"
                     >
                       <div className="space-y-3">
                         {/* Header Badges */}
                         <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
+                          <span className="text-xs font-sans uppercase tracking-wider text-accent font-semibold">
                             {pub}
                           </span>
-                          <span className="rounded-full bg-surface-elevated border border-border px-2 py-0.5 text-[10px] font-mono text-secondary">
+                          <span className="rounded-full bg-surface-elevated border border-border px-2.5 py-0.5 text-xs font-sans text-secondary font-medium">
                             {item.contentType.replace(/_/g, " ")}
                           </span>
                         </div>
 
                         {/* Title */}
-                        <h4 className="text-base font-bold text-primary leading-snug">
+                        <h4 className="text-base sm:text-lg font-bold text-primary leading-snug font-sans">
                           {item.title}
                         </h4>
 
@@ -492,14 +492,14 @@ export function AIHubDiscovery({
                         )}
 
                         {/* Summary */}
-                        <p className="text-xs text-secondary line-clamp-3 leading-relaxed">
+                        <p className="text-sm text-secondary line-clamp-3 leading-relaxed font-sans">
                           {summaryText}
                         </p>
 
                         {/* Editorial Takeaways */}
                         {item.editorialTakeaways && (
-                          <div className="rounded-xl border border-border-subtle bg-surface-elevated/70 p-3 text-[11px] text-tertiary">
-                            <span className="font-semibold text-primary block mb-0.5">
+                          <div className="rounded-xl border border-border-subtle bg-surface-elevated/70 p-3.5 text-xs sm:text-sm text-secondary font-sans leading-relaxed">
+                            <span className="font-semibold text-primary block mb-1">
                               Intelligence Takeaway:
                             </span>
                             {item.editorialTakeaways}
@@ -507,11 +507,11 @@ export function AIHubDiscovery({
                         )}
 
                         {/* Tags */}
-                        <div className="flex flex-wrap gap-1 pt-1">
+                        <div className="flex flex-wrap gap-1.5 pt-1">
                           {tags.slice(0, 3).map((tag: string, i: number) => (
                             <span
                               key={i}
-                              className="rounded-md border border-border-subtle bg-surface px-2 py-0.5 text-[10px] font-mono text-tertiary"
+                              className="rounded-md border border-border-subtle bg-surface px-2.5 py-0.5 text-xs font-sans text-tertiary font-medium"
                             >
                               #{tag}
                             </span>
@@ -520,16 +520,16 @@ export function AIHubDiscovery({
                       </div>
 
                       {/* Footer & Source Attribution */}
-                      <div className="pt-4 border-t border-border-subtle flex items-center justify-between">
+                      <div className="pt-4 border-t border-border-subtle flex items-center justify-between text-xs sm:text-sm font-sans">
                         {parentEntity ? (
                           <Link
                             href={`/ai/${parentEntity.slug}`}
-                            className="text-[11px] font-mono text-tertiary hover:text-accent transition"
+                            className="text-xs font-sans text-tertiary hover:text-accent transition font-medium"
                           >
                             Entity: {parentEntity.name} →
                           </Link>
                         ) : (
-                          <span className="text-[10px] font-mono text-tertiary">
+                          <span className="text-xs font-sans text-tertiary">
                             {item.sourcePlatform || "Web"}
                           </span>
                         )}
@@ -538,7 +538,7 @@ export function AIHubDiscovery({
                           href={item.sourceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline"
+                          className="inline-flex items-center gap-1 font-semibold text-accent hover:underline"
                         >
                           {isVideo ? "Watch Original ↗" : "Read Original ↗"}
                         </a>

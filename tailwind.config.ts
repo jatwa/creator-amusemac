@@ -66,6 +66,14 @@ const config: Config = {
           "Arial",
           "sans-serif",
         ],
+        serif: [
+          '"Playfair Display"',
+          "Georgia",
+          "Cambria",
+          '"Times New Roman"',
+          "Times",
+          "serif",
+        ],
         mono: [
           '"SF Mono"',
           "ui-monospace",
