@@ -41,10 +41,14 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
       });
 
       if (res.ok) {
-        const newProject = await res.json();
-        setProjects([newProject, ...projects]);
-        setModalOpen(false);
-        router.push(`/toolkit/${newProject.id}`);
+        const data = await res.json();
+        const newProject: FilmProject = data.project || data;
+        if (newProject && (newProject.id || newProject.slug)) {
+          const targetId = newProject.id || newProject.slug;
+          setProjects((prev) => [newProject, ...prev.filter((p) => p.id !== newProject.id)]);
+          setModalOpen(false);
+          router.push(`/toolkit/${targetId}`);
+        }
       }
     } catch (err) {
       console.error("Failed to create project:", err);
@@ -143,10 +147,12 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
                   (project.workflowIds?.length || 0) +
                   (project.festivalIds?.length || 0);
 
+                const targetId = project.id || project.slug;
+
                 return (
                   <Link
-                    key={project.id}
-                    href={`/toolkit/${project.id}`}
+                    key={targetId}
+                    href={`/toolkit/${targetId}`}
                     className="surface group rounded-2xl border border-border p-6 flex flex-col justify-between space-y-5 hover:border-accent/40 transition shadow-xs"
                   >
                     <div className="space-y-3">
@@ -155,7 +161,7 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
                           {project.projectType || "film"}
                         </span>
                         <button
-                          onClick={(e) => handleDeleteProject(project.id, e)}
+                          onClick={(e) => handleDeleteProject(project.id || targetId, e)}
                           className="text-tertiary hover:text-red-400 font-mono text-xs opacity-0 group-hover:opacity-100 transition cursor-pointer"
                           title="Delete Project"
                         >

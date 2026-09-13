@@ -268,12 +268,12 @@ export async function getProjectById(
   projectId: string,
   userId: string
 ): Promise<FilmProject | null> {
-  if (!projectId || !userId) return null;
+  if (!projectId || !userId || projectId === "undefined" || projectId === "null") return null;
 
   // 1. Try Neon
   try {
     const res = await queryNeon<any>(
-      `SELECT * FROM film_projects WHERE id = $1 AND user_id = $2 LIMIT 1`,
+      `SELECT * FROM film_projects WHERE (id = $1 OR slug = $1) AND user_id = $2 LIMIT 1`,
       [projectId, userId]
     );
     if (res && res.rows.length > 0) {
@@ -285,7 +285,11 @@ export async function getProjectById(
 
   // 2. Fallback to local store
   const userProjects = await getUserProjects(userId);
-  return userProjects.find((p) => p.id === projectId && p.userId === userId) || null;
+  return (
+    userProjects.find(
+      (p) => (p.id === projectId || p.slug === projectId) && p.userId === userId
+    ) || null
+  );
 }
 
 /**
