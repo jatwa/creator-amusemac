@@ -6,6 +6,20 @@ import { SectionHeading } from "@/components/section-heading";
 export const metadata: Metadata = {
   title: "Contact & Editorial Corrections — Creator Intel",
   description: "Contact the Creator Intel editorial team to submit model benchmark data, report outdated pricing, or propose a production case study.",
+  alternates: {
+    canonical: "https://creatorintels.com/contact",
+  },
+  openGraph: {
+    title: "Contact & Editorial Corrections — Creator Intel",
+    description: "Contact the Creator Intel editorial team to submit model benchmark data, report outdated pricing, or propose a production case study.",
+    url: "https://creatorintels.com/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Creator Intel",
+    description: "Submit model benchmark data, report outdated pricing, or propose a case study.",
+  },
 };
 
 export default function ContactPage() {

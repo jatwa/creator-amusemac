@@ -9,6 +9,20 @@ import { ComparisonCard } from "@/components/ui-cards";
 export const metadata: Metadata = {
   title: "AI Model & Tool Comparisons — Creator Intel",
   description: "Direct head-to-head assessments between Runway vs Kling, Midjourney vs Ideogram, and leading generative production engines.",
+  alternates: {
+    canonical: "https://creatorintels.com/compare",
+  },
+  openGraph: {
+    title: "AI Model & Tool Comparisons — Creator Intel",
+    description: "Direct head-to-head assessments between Runway vs Kling, Midjourney vs Ideogram, and leading generative production engines.",
+    url: "https://creatorintels.com/compare",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Model & Tool Comparisons",
+    description: "Direct head-to-head assessments between leading generative cinema engines.",
+  },
 };
 
 export default function ComparePage() {

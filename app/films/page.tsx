@@ -10,6 +10,21 @@ export const metadata: Metadata = {
   title: "Film Intelligence Registry — Verified Cinematic Works & Technical Dossiers | Creator Intel",
   description:
     "The canonical cinema database for filmmakers. Explore verified cinematic works, camera systems, optical specs, ACES color pipelines, generative AI models, and festival premiere histories.",
+  alternates: {
+    canonical: "https://creatorintels.com/films",
+  },
+  openGraph: {
+    title: "Film Intelligence Registry — Creator Intel",
+    description:
+      "The canonical cinema database for filmmakers. Explore verified cinematic works, camera systems, optical specs, ACES color pipelines, generative AI models, and festival premiere histories.",
+    url: "https://creatorintels.com/films",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Film Intelligence Registry",
+    description: "The canonical cinema database for filmmakers and virtual production creators.",
+  },
 };
 
 export default function FilmsPage() {

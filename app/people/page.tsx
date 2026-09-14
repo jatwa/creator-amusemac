@@ -10,6 +10,21 @@ export const metadata: Metadata = {
   title: "Filmmaker Registry — Cinema Directors, Cinematographers & AI Artists | Creator Intel",
   description:
     "The canonical creative registry for cinema and virtual production. Discover auteur directors, AFC cinematographers, VFX supervisors, and prompt architects behind groundbreaking festival works.",
+  alternates: {
+    canonical: "https://creatorintels.com/people",
+  },
+  openGraph: {
+    title: "Filmmaker Registry — Creator Intel",
+    description:
+      "The canonical creative registry for cinema and virtual production. Discover auteur directors, AFC cinematographers, VFX supervisors, and prompt architects behind groundbreaking festival works.",
+    url: "https://creatorintels.com/people",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Filmmaker & Artist Registry",
+    description: "The canonical creative registry for cinema directors and AI artists.",
+  },
 };
 
 export default function PeoplePage() {

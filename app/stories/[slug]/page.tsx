@@ -22,9 +22,26 @@ export async function generateMetadata({
   const story = getStoryBySlug(slug);
   if (!story) return { title: "Story Not Found — Creator Intel" };
 
+  const pageTitle = `${story.title} — Case Study Breakdown | Creator Intel`;
+  const pageUrl = `https://creatorintels.com/stories/${story.slug}`;
+
   return {
-    title: `${story.title} — Case Study Breakdown | Creator Intel`,
+    title: pageTitle,
     description: story.summary,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${story.title} — AI Production Case Study`,
+      description: story.summary,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${story.title} — Production Breakdown`,
+      description: story.summary,
+    },
   };
 }
 

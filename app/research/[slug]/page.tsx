@@ -30,9 +30,26 @@ export async function generateMetadata({ params }: ResearchRecordProps): Promise
     };
   }
 
+  const pageTitle = `${record.researchQuestion} — Cinema Research Desk | Creator Intel`;
+  const pageUrl = `https://creatorintels.com/research/${record.slug}`;
+
   return {
-    title: `${record.researchQuestion} — Cinema Research Desk | Creator Intel`,
+    title: pageTitle,
     description: record.findingsSummary,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${record.researchQuestion} — Cinema Research Desk`,
+      description: record.findingsSummary,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${record.researchQuestion}`,
+      description: record.findingsSummary,
+    },
   };
 }
 

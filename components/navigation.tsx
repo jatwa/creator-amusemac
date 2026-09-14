@@ -41,12 +41,12 @@ export function Navigation() {
   // Core Product Navigation Links
   const primaryNavLinks = [
     { name: "Tools", href: "/tools" },
+    { name: "Director's Studio", href: "/prompts/factory" },
+    { name: "The Vault", href: "/vault" },
     { name: "Prompts", href: "/prompts" },
+    { name: "Compare", href: "/compare" },
     { name: "Workflows", href: "/workflows" },
-    { name: "Festivals", href: "/festivals" },
     { name: "Journal", href: "/journal" },
-    { name: "Vault", href: "/prompts/vault" },
-    { name: "AI", href: "/ai" },
   ];
 
   return (
@@ -74,6 +74,11 @@ export function Navigation() {
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
+                  : link.href === "/prompts"
+                  ? pathname === "/prompts" ||
+                    (pathname.startsWith("/prompts/") &&
+                      !pathname.startsWith("/prompts/factory") &&
+                      !pathname.startsWith("/prompts/vault"))
                   : pathname === link.href ||
                     (link.href !== "/" && pathname.startsWith(`${link.href}/`)) ||
                     (link.href === "/journal" && pathname.startsWith("/blog"));

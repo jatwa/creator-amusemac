@@ -6,6 +6,20 @@ import { SectionHeading } from "@/components/section-heading";
 export const metadata: Metadata = {
   title: "Terms of Service — Creator Intel",
   description: "Terms and conditions governing the use of the Creator Intel creative intelligence platform.",
+  alternates: {
+    canonical: "https://creatorintels.com/terms",
+  },
+  openGraph: {
+    title: "Terms of Service — Creator Intel",
+    description: "Terms and conditions governing the use of the Creator Intel creative intelligence platform.",
+    url: "https://creatorintels.com/terms",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service — Creator Intel",
+    description: "Terms and conditions governing the use of the Creator Intel platform.",
+  },
 };
 
 export default function TermsPage() {

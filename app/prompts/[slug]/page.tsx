@@ -6,13 +6,11 @@ import { Footer } from "@/components/footer";
 import { StructuredData } from "@/components/structured-data";
 import { GatedPromptView } from "@/components/gated-prompt-view";
 import { promptsData, tutorialsData } from "@/data/platform-data";
-import {
-  getToolById,
-  getTechniqueById,
-  getFilmById,
-  getCanonicalWorkflowById,
-} from "@/data/content";
+import { getToolById, getTechniqueById, getFilmById, getCanonicalWorkflowById } from "@/data/content";
 import { getDbPublishedPrompts, getDbPromptBySlug } from "@/lib/db/neon";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth/auth-options";
+import { getUserSubscription } from "@/lib/db/subscription-repo";
 
 export async function generateStaticParams() {
   const prompts = await getDbPublishedPrompts();
@@ -30,9 +28,25 @@ export async function generateMetadata({
   const prompt = await getDbPromptBySlug(slug);
   if (!prompt) return { title: "Prompt Not Found" };
 
+  const pageUrl = `https://creatorintels.com/prompts/${prompt.slug}`;
+
   return {
     title: `${prompt.title} — AI Prompt Recipe — Creator Intel`,
     description: prompt.description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${prompt.title} — AI Cinematic Prompt Recipe`,
+      description: prompt.description,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${prompt.title} — AI Prompt Recipe`,
+      description: prompt.description,
+    },
   };
 }
 
@@ -47,6 +61,33 @@ export default async function PromptDetailPage({
   if (!prompt) {
     notFound();
   }
+
+  const session = await getServerSession(authOptions);
+  let isAuthorized = false;
+
+  if (session?.user) {
+    if (session.user.tier === "pro") {
+      isAuthorized = true;
+    } else if (session.user.id) {
+      const sub = await getUserSubscription(session.user.id);
+      if (
+        sub.tier === "pro" ||
+        sub.unlockedPromptIds?.includes(prompt.id) ||
+        sub.unlockedPromptIds?.includes(prompt.slug)
+      ) {
+        isAuthorized = true;
+      }
+    }
+  }
+
+  // Sanitize prompt for unauthenticated / unauthorized requests
+  const promptPayload = isAuthorized
+    ? prompt
+    : {
+        ...prompt,
+        promptText: prompt.promptText.split("\n")[0].slice(0, 90) + "...",
+        variations: [],
+      };
 
   const compatibleTools = (prompt.compatibleToolIds || [])
     .map((id) => getToolById(id))
@@ -78,7 +119,7 @@ export default async function PromptDetailPage({
     name: prompt.title,
     description: prompt.description,
     genre: prompt.category,
-    text: prompt.promptText,
+    text: isAuthorized ? prompt.promptText : prompt.description,
   };
 
   return (
@@ -135,10 +176,10 @@ export default async function PromptDetailPage({
         <div className="grid gap-10 lg:grid-cols-3">
           {/* Left Column: Interactive Customizer */}
           <div className="lg:col-span-2 space-y-10">
-            <GatedPromptView prompt={prompt} />
+            <GatedPromptView prompt={promptPayload} initialUnlocked={isAuthorized} />
 
-            {/* Prompt Variations */}
-            {prompt.variations && prompt.variations.length > 0 && (
+            {/* Prompt Variations (Available only when unlocked) */}
+            {isAuthorized && prompt.variations && prompt.variations.length > 0 && (
               <section className="surface p-8 rounded-2xl border border-border">
                 <h2 className="text-xl font-semibold text-primary">Recipe Variations</h2>
                 <div className="mt-6 space-y-4">

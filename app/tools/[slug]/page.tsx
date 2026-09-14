@@ -18,6 +18,8 @@ import { canonicalResearchRecords } from "@/data/research-canonical";
 import { getDbTools, getDbToolBySlug } from "@/lib/db/neon";
 import { db } from "@/lib/db/repository";
 import { ToolDossierView } from "@/components/tool-dossier-view";
+import { getUnifiedToolIntelligence } from "@/lib/adapters/tool-intelligence-adapter";
+import { UnifiedToolDossier } from "@/components/tools/unified-tool-dossier";
 
 export async function generateStaticParams() {
   const tools = await getDbTools();
@@ -35,11 +37,25 @@ export async function generateMetadata({
   const tool = (await getDbToolBySlug(slug)) || getToolBySlug(slug);
   if (!tool) return { title: "Tool Not Found" };
 
+  const pageTitle = `${tool.name} Dossier — Creator Intel`;
+  const pageDesc = tool.overview?.slice(0, 160) || tool.description;
+  const pageUrl = `https://creatorintels.com/tools/${tool.slug}`;
+
   return {
-    title: `${tool.name} Dossier — Creator Intel`,
-    description: tool.overview.slice(0, 160),
+    title: pageTitle,
+    description: pageDesc,
+    alternates: {
+      canonical: pageUrl,
+    },
     openGraph: {
       title: `${tool.name} — AI Production Intelligence & Filmmaker Dossier`,
+      description: tool.description,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${tool.name} — Creator Intel Dossier`,
       description: tool.description,
     },
   };
@@ -133,81 +149,19 @@ export default async function ToolDetailPage({
     },
   };
 
+  const unifiedTool = getUnifiedToolIntelligence(slug);
+  if (!unifiedTool) {
+    notFound();
+  }
+
   return (
     <main className="min-h-screen bg-background text-primary transition-colors">
       <StructuredData data={jsonLd} />
       <Navigation />
 
-      {/* Editorial Dossier Header */}
-      <div className="border-b border-border-subtle bg-surface/30 py-12 sm:py-16">
-        <div className="shell">
-          <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-tertiary mb-6">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/tools" className="hover:text-primary transition-colors">Tools</Link>
-            <span>/</span>
-            <span className="text-secondary">{tool.name}</span>
-          </div>
-
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8">
-            <div className="max-w-3xl">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-accent/10 px-3 py-1 font-mono text-xs font-medium text-accent">
-                  {tool.category.toUpperCase()}
-                </span>
-                <span className="rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-secondary">
-                  {tool.pricing.model.toUpperCase()}
-                </span>
-                <span className="font-mono text-xs text-tertiary">
-                  Audited: {tool.verifiedAt}
-                </span>
-              </div>
-
-              <h1 className="mt-4 text-3xl sm:text-5xl font-semibold tracking-tight text-primary leading-tight">
-                {tool.name}
-              </h1>
-
-              <p className="mt-3 text-base sm:text-lg text-secondary leading-relaxed font-normal">
-                {tool.tagline}
-              </p>
-            </div>
-
-            <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3">
-              <a
-                href={tool.officialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full bg-foreground px-6 py-3 text-xs sm:text-sm font-medium text-background transition-opacity hover:opacity-90 text-center flex items-center justify-center gap-2 shadow-sm"
-              >
-                <span>Launch {tool.name}</span>
-                <span>↗</span>
-              </a>
-              <Link
-                href="/compare"
-                className="rounded-full border border-border bg-surface px-6 py-3 text-xs sm:text-sm font-medium text-secondary hover:text-primary hover:border-border-bright transition text-center"
-              >
-                Compare Alternatives
-              </Link>
-            </div>
-          </div>
-        </div>
+      <div className="pt-8 sm:pt-12">
+        <UnifiedToolDossier tool={unifiedTool} />
       </div>
-
-      {/* Full 14-Level Deep Editorial Dossier */}
-      <ToolDossierView
-        tool={tool}
-        dossier={dossier}
-        competitors={competitors}
-        comparisons={comparisons}
-        recommendedPrompts={recommendedPrompts}
-        linkedTutorials={linkedTutorials}
-        linkedWorkflows={linkedWorkflows}
-        relatedBlogs={relatedBlogs}
-        relatedVideos={relatedVideos}
-        supportedTechniques={supportedTechniques}
-        relatedFilms={relatedFilms}
-        relatedResearch={relatedResearch}
-      />
 
       <Footer />
     </main>

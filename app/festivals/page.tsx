@@ -9,6 +9,20 @@ import { FestivalDiscoveryDesk } from "@/components/festival-discovery-desk";
 export const metadata: Metadata = {
   title: "Festival Intelligence — Find Where Your Film Belongs | Creator Intel",
   description: "Verified festival intelligence for filmmakers. Evaluate A-list, industry, and AI film festivals by premiere rules, submission deadlines, fees, and technical delivery requirements.",
+  alternates: {
+    canonical: "https://creatorintels.com/festivals",
+  },
+  openGraph: {
+    title: "Festival Intelligence — Creator Intel",
+    description: "Verified festival intelligence for filmmakers. Evaluate A-list, industry, and AI film festivals by premiere rules, submission deadlines, fees, and technical delivery requirements.",
+    url: "https://creatorintels.com/festivals",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Festival Intelligence — Creator Intel",
+    description: "Verified film festival circuits, premiere rules, and technical delivery guidelines.",
+  },
 };
 
 export default function FestivalsPage() {

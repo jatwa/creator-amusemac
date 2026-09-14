@@ -37,9 +37,27 @@ export async function generateMetadata({ params }: FilmSlugPageProps): Promise<M
     };
   }
 
+  const pageTitle = `${film.title} (${film.releaseYear}) — Film Intelligence Dossier | Creator Intel`;
+  const pageDesc = `${film.logline} Technical specs: ${film.technicalSpecs.aspectRatio}, ${film.technicalSpecs.cameraSystems?.join(", ") || "Digital"}, mastered in ${film.technicalSpecs.colorSpace}.`;
+  const pageUrl = `https://creatorintels.com/films/${film.slug}`;
+
   return {
-    title: `${film.title} (${film.releaseYear}) — Film Intelligence Dossier | Creator Intel`,
-    description: `${film.logline} Technical specs: ${film.technicalSpecs.aspectRatio}, ${film.technicalSpecs.cameraSystems?.join(", ") || "Digital"}, mastered in ${film.technicalSpecs.colorSpace}.`,
+    title: pageTitle,
+    description: pageDesc,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${film.title} — Canonical Film Dossier`,
+      description: film.logline,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${film.title} (${film.releaseYear})`,
+      description: film.logline,
+    },
   };
 }
 

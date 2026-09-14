@@ -22,14 +22,25 @@ export async function generateMetadata({
   const video = db.getVideoBySlug(slug);
   if (!video) return { title: "Video Not Found — Creator Intel" };
 
+  const pageUrl = `https://creatorintels.com/videos/${video.slug}`;
+
   return {
     title: `${video.title} — Creator Masterclass`,
     description: video.description,
+    alternates: {
+      canonical: pageUrl,
+    },
     openGraph: {
       title: video.title,
       description: video.description,
       type: "video.other",
+      url: pageUrl,
       videos: [{ url: video.videoUrl }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: video.title,
+      description: video.description,
     },
   };
 }

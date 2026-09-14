@@ -9,6 +9,20 @@ import { getToolById } from "@/data/content";
 export const metadata: Metadata = {
   title: "Workflow Tutorials for Visual Storytellers — Creator Intel",
   description: "Step-by-step production guides on AI pre-production, commercial filmmaking, dialogue editing, and look development.",
+  alternates: {
+    canonical: "https://creatorintels.com/tutorials",
+  },
+  openGraph: {
+    title: "Workflow Tutorials for Visual Storytellers — Creator Intel",
+    description: "Step-by-step production guides on AI pre-production, commercial filmmaking, dialogue editing, and look development.",
+    url: "https://creatorintels.com/tutorials",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Workflow Tutorials — Creator Intel",
+    description: "Production guides on AI pre-production, commercial filmmaking, and look development.",
+  },
 };
 
 export default function TutorialsPage() {

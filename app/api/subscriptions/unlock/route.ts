@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth/auth-options";
 import { claimPromptUnlock, getUserSubscription } from "@/lib/db/subscription-repo";
+import { getDbPromptBySlug } from "@/lib/db/neon";
 
 export async function POST(req: Request) {
   try {
@@ -31,6 +32,7 @@ export async function POST(req: Request) {
     }
 
     const updatedSub = await getUserSubscription(session.user.id);
+    const fullPrompt = await getDbPromptBySlug(promptSlug);
 
     return NextResponse.json({
       success: true,
@@ -38,6 +40,9 @@ export async function POST(req: Request) {
       monthlyUnlocksUsed: updatedSub.monthlyUnlocksUsed,
       remainingUnlocks: result.remainingUnlocks,
       unlockedPromptIds: updatedSub.unlockedPromptIds,
+      promptText: fullPrompt?.promptText,
+      negativePrompt: fullPrompt?.negativePrompt,
+      variations: fullPrompt?.variations,
     });
   } catch (err: any) {
     console.error("[Unlock Prompt API Error]:", err);

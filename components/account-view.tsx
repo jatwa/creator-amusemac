@@ -21,6 +21,7 @@ export function AccountView() {
   const [subData, setSubData] = useState<any>(null);
   const [loadingSub, setLoadingSub] = useState(true);
   const [cancelling, setCancelling] = useState(false);
+  const [openingPortal, setOpeningPortal] = useState(false);
   const [cancelNotice, setCancelNotice] = useState<string | null>(null);
   const [unlockedPromptsList, setUnlockedPromptsList] = useState<UnlockedPromptItem[]>([]);
 
@@ -63,6 +64,27 @@ export function AccountView() {
 
     loadAccountData();
   }, [isAuthenticated]);
+
+  const handleOpenPaddlePortal = async () => {
+    setOpeningPortal(true);
+    setCancelNotice(null);
+
+    try {
+      const res = await fetch("/api/subscriptions/portal", {
+        method: "POST",
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Failed to open Paddle customer portal");
+      }
+
+      window.location.href = data.url;
+    } catch (err: any) {
+      setCancelNotice(`Portal Error: ${err.message}`);
+      setOpeningPortal(false);
+    }
+  };
 
   const handleCancelSubscription = async () => {
     if (!confirm("Are you sure you want to cancel your subscription? Your access will remain active until the end of your current billing period.")) {
@@ -155,6 +177,7 @@ export function AccountView() {
   const isBasic = tier === "basic";
   const isPro = tier === "pro";
   const isFree = tier === "free";
+  const isPaddle = !!subData?.paddleCustomerId || subData?.provider === "paddle";
   const periodEnd = subData?.currentPeriodEnd ? new Date(subData.currentPeriodEnd).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "Monthly renewal";
 
   const basicUsagePercentage = Math.min(100, Math.round((unlocksUsed / BASIC_TIER_MONTHLY_LIMIT) * 100));
@@ -179,73 +202,65 @@ export function AccountView() {
               </div>
             )}
             <div>
-              <h2 className="text-xl font-bold text-primary flex items-center gap-2.5">
-                {session?.user?.name || "Director"}
-                <span
-                  className={`text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full font-bold border ${
-                    isPro
-                      ? "bg-accent/20 text-accent border-accent/40"
-                      : isBasic
-                      ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/40"
-                      : "bg-surface-elevated text-secondary border-border"
-                  }`}
-                >
-                  {isPro ? "Studio Pro" : isBasic ? "Director Basic" : "Starter Free"}
-                </span>
-              </h2>
+              <h2 className="text-xl font-bold tracking-tight text-primary">{session?.user?.name || "Cinema Director"}</h2>
               <p className="text-xs text-secondary font-mono mt-0.5">{session?.user?.email}</p>
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => signOut({ callbackUrl: "/" })}
-            className="rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-tertiary hover:text-red-400 hover:border-red-500/30 transition"
-          >
-            Sign Out
-          </button>
+          <div className="flex items-center gap-3">
+            <span
+              className={`rounded-full px-3.5 py-1 text-xs font-semibold font-mono tracking-wide uppercase ${
+                isPro
+                  ? "bg-accent/20 text-accent border border-accent/30"
+                  : isBasic
+                  ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                  : "bg-surface-elevated text-secondary border border-border"
+              }`}
+            >
+              {isPro ? "Studio Pro" : isBasic ? "Director Basic" : "Free Explorer"}
+            </span>
+            <button
+              type="button"
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="rounded-xl border border-border bg-surface-elevated px-3 py-1.5 text-xs text-secondary hover:text-primary transition font-mono"
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
 
-        {/* Subscription Plan Overview */}
+        {/* Subscription Meta Grid */}
         <div className="grid gap-6 pt-6 sm:grid-cols-3">
-          <div className="rounded-2xl border border-border-subtle bg-surface-elevated p-5 space-y-1">
-            <span className="font-mono text-[11px] uppercase tracking-wider text-tertiary">Active Tier</span>
-            <p className="text-lg font-bold text-primary capitalize">{tier} Plan</p>
-            <p className="text-xs text-secondary">
-              {isPro
-                ? "Full unrestricted access"
-                : isBasic
-                ? "25 unlocks per cycle"
-                : "Standard catalog preview"}
+          <div className="space-y-1">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-tertiary">Current Tier</span>
+            <p className="text-base font-bold text-primary capitalize">
+              {tier === "pro" ? "Studio Pro" : tier === "basic" ? "Director Basic" : "Free Plan"}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border-subtle bg-surface-elevated p-5 space-y-1">
-            <span className="font-mono text-[11px] uppercase tracking-wider text-tertiary">Billing Cadence</span>
-            <p className="text-lg font-bold text-primary capitalize">{billingCycle}</p>
-            <p className="text-xs text-secondary">Renewal: {periodEnd}</p>
+          <div className="space-y-1">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-tertiary">Billing Cadence</span>
+            <p className="text-base font-bold text-primary capitalize">
+              {isFree ? "None" : `${billingCycle} Plan`}
+            </p>
           </div>
 
-          <div className="rounded-2xl border border-border-subtle bg-surface-elevated p-5 space-y-1">
-            <span className="font-mono text-[11px] uppercase tracking-wider text-tertiary">Status</span>
-            <p className="text-lg font-bold text-emerald-400 capitalize">{subData?.status || "Active"}</p>
-            <p className="text-xs text-secondary">Auto-renewal active</p>
+          <div className="space-y-1">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-tertiary">Renewal Date</span>
+            <p className="text-base font-bold text-primary">
+              {isFree ? "N/A" : periodEnd}
+            </p>
           </div>
         </div>
 
-        {/* Basic Tier Unlock Progress */}
+        {/* Basic Tier Monthly Progress Bar */}
         {isBasic && (
-          <div className="mt-8 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6 space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <h3 className="text-sm font-semibold text-primary">Monthly Recipe Unlocks</h3>
-                <p className="text-xs text-secondary mt-0.5">
-                  Your allowance resets back to {BASIC_TIER_MONTHLY_LIMIT} on every billing renewal date ({periodEnd}).
-                </p>
-              </div>
-              <div className="font-mono text-sm font-bold text-primary">
-                {unlocksUsed} / {BASIC_TIER_MONTHLY_LIMIT} Used
-              </div>
+          <div className="mt-8 rounded-2xl border border-border-subtle bg-surface/50 p-6 space-y-3">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-semibold text-primary">Monthly Recipe Unlocks</span>
+              <span className="font-mono text-tertiary">
+                <strong className="text-primary">{unlocksUsed}</strong> / {BASIC_TIER_MONTHLY_LIMIT} claimed
+              </span>
             </div>
 
             {/* Progress Bar */}
@@ -301,14 +316,27 @@ export function AccountView() {
           </div>
 
           {(isBasic || isPro) && (
-            <button
-              type="button"
-              disabled={cancelling}
-              onClick={handleCancelSubscription}
-              className="text-xs text-tertiary hover:text-red-400 underline transition disabled:opacity-50"
-            >
-              {cancelling ? "Processing cancellation..." : "Cancel Subscription"}
-            </button>
+            <div className="flex items-center gap-4">
+              {isPaddle ? (
+                <button
+                  type="button"
+                  disabled={openingPortal}
+                  onClick={handleOpenPaddlePortal}
+                  className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-xs font-semibold text-primary hover:border-border-bright transition disabled:opacity-50"
+                >
+                  {openingPortal ? "Opening Portal..." : "Manage Billing & Invoices ↗"}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={cancelling}
+                  onClick={handleCancelSubscription}
+                  className="text-xs text-tertiary hover:text-red-400 underline transition disabled:opacity-50"
+                >
+                  {cancelling ? "Processing cancellation..." : "Cancel Subscription"}
+                </button>
+              )}
+            </div>
           )}
         </div>
 

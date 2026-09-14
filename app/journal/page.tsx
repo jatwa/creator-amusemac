@@ -11,6 +11,21 @@ export const metadata: Metadata = {
   title: "Journal — Cinema Intelligence, Craft & Technology",
   description:
     "Rigorous studio benchmarks, cinematography analyses, prompt architecture critiques, and hybrid production breakdowns written by active directors and VFX supervisors.",
+  alternates: {
+    canonical: "https://creatorintels.com/journal",
+  },
+  openGraph: {
+    title: "Journal — Cinema Intelligence, Craft & Technology",
+    description:
+      "Rigorous studio benchmarks, cinematography analyses, prompt architecture critiques, and hybrid production breakdowns written by active directors and VFX supervisors.",
+    url: "https://creatorintels.com/journal",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Journal — Cinema Intelligence",
+    description: "Rigorous studio benchmarks, cinematography analyses, and hybrid production breakdowns.",
+  },
 };
 
 const JOURNAL_CATEGORIES = [

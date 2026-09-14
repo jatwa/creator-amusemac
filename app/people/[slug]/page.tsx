@@ -36,9 +36,27 @@ export async function generateMetadata({ params }: PersonSlugPageProps): Promise
     };
   }
 
+  const pageTitle = `${person.name} — ${person.primaryRole.replace(/_/g, " ")} Dossier | Creator Intel`;
+  const pageDesc = `${person.name} (${person.country}) — ${person.biography.slice(0, 150)}...`;
+  const pageUrl = `https://creatorintels.com/people/${person.slug}`;
+
   return {
-    title: `${person.name} — ${person.primaryRole.replace(/_/g, " ")} Dossier | Creator Intel`,
-    description: `${person.name} (${person.country}) — ${person.biography.slice(0, 150)}...`,
+    title: pageTitle,
+    description: pageDesc,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${person.name} — Filmmaker & Artist Dossier`,
+      description: person.biography.slice(0, 160),
+      url: pageUrl,
+      type: "profile",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${person.name} — ${person.primaryRole.replace(/_/g, " ")}`,
+      description: person.biography.slice(0, 160),
+    },
   };
 }
 

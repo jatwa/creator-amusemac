@@ -59,9 +59,27 @@ export async function generateMetadata({ params }: FestivalEditionProps): Promis
     };
   }
 
+  const pageTitle = `${festival.name} (${edition.year} Edition) — Deadlines, Fees & Premiere Intelligence | Creator Intel`;
+  const pageDesc = `Verified submission deadlines, entry fees, premiere exclusivity rules, and technical delivery requirements for ${festival.name} ${edition.year}.`;
+  const pageUrl = `https://creatorintels.com/festivals/${festival.slug}/${edition.year}`;
+
   return {
-    title: `${festival.name} (${edition.year} Edition) — Deadlines, Fees & Premiere Intelligence | Creator Intel`,
-    description: `Verified submission deadlines, entry fees, premiere exclusivity rules, and technical delivery requirements for ${festival.name} ${edition.year}.`,
+    title: pageTitle,
+    description: pageDesc,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${festival.name} (${edition.year} Edition) — Intelligence Dossier`,
+      description: pageDesc,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${festival.name} ${edition.year}`,
+      description: pageDesc,
+    },
   };
 }
 

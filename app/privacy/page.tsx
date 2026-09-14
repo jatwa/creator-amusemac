@@ -6,6 +6,20 @@ import { SectionHeading } from "@/components/section-heading";
 export const metadata: Metadata = {
   title: "Privacy Policy & Cookie Disclosure — Creator Intel",
   description: "Learn how Creator Intel collects, uses, and safeguards user data, cookies, and analytics.",
+  alternates: {
+    canonical: "https://creatorintels.com/privacy",
+  },
+  openGraph: {
+    title: "Privacy Policy & Cookie Disclosure — Creator Intel",
+    description: "Learn how Creator Intel collects, uses, and safeguards user data, cookies, and analytics.",
+    url: "https://creatorintels.com/privacy",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy — Creator Intel",
+    description: "Privacy practices, cookie disclosures, and data protection policies.",
+  },
 };
 
 export default function PrivacyPage() {

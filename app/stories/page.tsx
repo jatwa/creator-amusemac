@@ -8,6 +8,20 @@ import { getAllStories } from "@/data/content";
 export const metadata: Metadata = {
   title: "Production Stories & Case Studies — Creator Intel",
   description: "In-depth case studies and multi-model breakdowns of real AI-assisted films, commercials, and narrative projects.",
+  alternates: {
+    canonical: "https://creatorintels.com/stories",
+  },
+  openGraph: {
+    title: "Production Stories & Case Studies — Creator Intel",
+    description: "In-depth case studies and multi-model breakdowns of real AI-assisted films, commercials, and narrative projects.",
+    url: "https://creatorintels.com/stories",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Production Stories & Case Studies",
+    description: "In-depth case studies and breakdowns of real AI-assisted film and commercial productions.",
+  },
 };
 
 export default function StoriesPage() {

@@ -8,6 +8,12 @@ export async function GET(
   { params }: { params: Promise<{ projectId: string }> }
 ) {
   const { projectId } = await params;
+  if (!projectId || projectId === "undefined" || projectId === "null") {
+    return NextResponse.json(
+      { success: false, error: "Invalid project ID" },
+      { status: 404 }
+    );
+  }
   const session = await getServerSession(authOptions);
   const userId = session?.user?.id || req.headers.get("x-demo-user-id") || "usr-director-workspace";
 

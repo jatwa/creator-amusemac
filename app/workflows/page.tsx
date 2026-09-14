@@ -10,6 +10,21 @@ export const metadata: Metadata = {
   title: "Production Workflows & Cinematic Playbooks — Creator Intel",
   description:
     "Structured, repeatable filmmaking playbooks and pipeline blueprints for directors, cinematographers, post-production supervisors, and AI filmmakers.",
+  alternates: {
+    canonical: "https://creatorintels.com/workflows",
+  },
+  openGraph: {
+    title: "Production Workflows & Cinematic Playbooks — Creator Intel",
+    description:
+      "Structured, repeatable filmmaking playbooks and pipeline blueprints for directors, cinematographers, post-production supervisors, and AI filmmakers.",
+    url: "https://creatorintels.com/workflows",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Production Workflows & Playbooks",
+    description: "Filmmaking playbooks and pipeline blueprints for directors and cinematographers.",
+  },
 };
 
 export default function WorkflowsPage() {

@@ -1,7 +1,12 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { NeonPostgresAdapter } from "./neon-adapter";
-import { getUserSubscription, SubscriptionTier, SubscriptionStatus } from "@/lib/db/subscription-repo";
+import {
+  getUserSubscription,
+  linkPendingSubscriptionsToUser,
+  SubscriptionTier,
+  SubscriptionStatus,
+} from "@/lib/db/subscription-repo";
 
 export const authOptions: NextAuthOptions = {
   adapter: NeonPostgresAdapter(),
@@ -21,10 +26,14 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
+        token.email = user.email;
       }
       
       // Update token subscription data when session triggers or on initial token creation
       if (token.id) {
+        if (token.email) {
+          await linkPendingSubscriptionsToUser(token.id as string, token.email as string);
+        }
         const sub = await getUserSubscription(token.id as string);
         token.tier = sub.tier;
         token.status = sub.status;
@@ -32,6 +41,7 @@ export const authOptions: NextAuthOptions = {
         token.monthlyUnlocksUsed = sub.monthlyUnlocksUsed;
         token.monthlyUnlocksLimit = sub.monthlyUnlocksLimit;
         token.currentPeriodEnd = sub.currentPeriodEnd;
+        token.provider = sub.provider;
       }
 
       if (trigger === "update" && session?.tier) {

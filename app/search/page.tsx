@@ -8,6 +8,10 @@ import { SearchView } from "@/components/search-view";
 export const metadata: Metadata = {
   title: "Universal Search — Creator Intel",
   description: "Search across creator AI tools, prompt recipes, production workflows, tutorials, and head-to-head comparisons.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function SearchPage() {

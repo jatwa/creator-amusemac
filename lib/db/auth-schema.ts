@@ -2,7 +2,7 @@ import { queryNeon } from "./neon";
 
 /**
  * Initialize all tables required for NextAuth.js authentication,
- * Razorpay recurring subscriptions, and prompt unlock tracking.
+ * Razorpay recurring subscriptions, Paddle subscriptions, and prompt unlock tracking.
  */
 export async function initAuthAndSubscriptionTables(): Promise<boolean> {
   const schemaSql = `
@@ -51,21 +51,39 @@ export async function initAuthAndSubscriptionTables(): Promise<boolean> {
       PRIMARY KEY (identifier, token)
     );
 
-    -- 5. SUBSCRIPTIONS TABLE (Recurring Razorpay Plans)
+    -- 5. SUBSCRIPTIONS TABLE (Multi-provider: Razorpay & Paddle)
     CREATE TABLE IF NOT EXISTS subscriptions (
       id VARCHAR(128) PRIMARY KEY,
       user_id VARCHAR(128) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       tier VARCHAR(32) NOT NULL DEFAULT 'free', -- 'free' | 'basic' | 'pro'
       billing_cycle VARCHAR(32) NOT NULL DEFAULT 'monthly', -- 'monthly' | 'yearly'
       status VARCHAR(32) NOT NULL DEFAULT 'active', -- 'active' | 'cancelled' | 'expired' | 'past_due'
+      provider VARCHAR(32) DEFAULT 'razorpay', -- 'razorpay' | 'paddle'
       razorpay_customer_id VARCHAR(128),
       razorpay_subscription_id VARCHAR(128),
       razorpay_plan_id VARCHAR(128),
+      paddle_customer_id VARCHAR(128),
+      paddle_subscription_id VARCHAR(128),
+      paddle_price_id VARCHAR(128),
+      paddle_transaction_id VARCHAR(128),
+      paddle_status VARCHAR(64),
+      paddle_scheduled_change TIMESTAMP WITH TIME ZONE,
+      paddle_custom_data JSONB DEFAULT '{}'::jsonb,
       current_period_start TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       current_period_end TIMESTAMP WITH TIME ZONE,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
+
+    -- Backward-compatible column additions if table already exists
+    ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS provider VARCHAR(32) DEFAULT 'razorpay';
+    ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS paddle_customer_id VARCHAR(128);
+    ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS paddle_subscription_id VARCHAR(128);
+    ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS paddle_price_id VARCHAR(128);
+    ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS paddle_transaction_id VARCHAR(128);
+    ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS paddle_status VARCHAR(64);
+    ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS paddle_scheduled_change TIMESTAMP WITH TIME ZONE;
+    ALTER TABLE subscriptions ADD COLUMN IF NOT EXISTS paddle_custom_data JSONB DEFAULT '{}'::jsonb;
 
     -- 6. PROMPT UNLOCKS TABLE (Basic Tier Monthly 25-Prompt Tracking)
     CREATE TABLE IF NOT EXISTS prompt_unlocks (
@@ -78,11 +96,25 @@ export async function initAuthAndSubscriptionTables(): Promise<boolean> {
       CONSTRAINT unq_user_prompt_unlock UNIQUE(user_id, prompt_id)
     );
 
+    -- 7. PADDLE CUSTOMER EMAIL MIRROR TABLE
+    CREATE TABLE IF NOT EXISTS paddle_customers (
+      customer_id VARCHAR(128) PRIMARY KEY,
+      user_id VARCHAR(128) REFERENCES users(id) ON DELETE SET NULL,
+      email VARCHAR(255) NOT NULL,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+
     CREATE INDEX IF NOT EXISTS idx_accounts_user_id ON accounts(user_id);
     CREATE INDEX IF NOT EXISTS idx_sessions_user_id ON sessions(user_id);
     CREATE INDEX IF NOT EXISTS idx_subscriptions_user_id ON subscriptions(user_id);
     CREATE INDEX IF NOT EXISTS idx_subscriptions_status ON subscriptions(status);
+    CREATE INDEX IF NOT EXISTS idx_subscriptions_paddle_sub_id ON subscriptions(paddle_subscription_id);
+    CREATE INDEX IF NOT EXISTS idx_subscriptions_paddle_cust_id ON subscriptions(paddle_customer_id);
+    CREATE INDEX IF NOT EXISTS idx_subscriptions_provider ON subscriptions(provider);
     CREATE INDEX IF NOT EXISTS idx_prompt_unlocks_user_id ON prompt_unlocks(user_id);
+    CREATE INDEX IF NOT EXISTS idx_paddle_customers_email ON paddle_customers(email);
+    CREATE INDEX IF NOT EXISTS idx_paddle_customers_user_id ON paddle_customers(user_id);
   `;
 
   const res = await queryNeon(schemaSql);

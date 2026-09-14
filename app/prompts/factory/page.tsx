@@ -8,8 +8,22 @@ import { cameraLexiconData } from "@/data/lexicon-data";
 import { PromptFactory } from "@/components/prompt-factory";
 
 export const metadata: Metadata = {
-  title: "AI Prompt Factory & Model Syntax Translator — Creator Intel",
-  description: "Interactive director prompt translation studio. Convert plain creative concepts into 8-model diffusion syntax with the optical camera lexicon.",
+  title: "Director's Studio — Cinematography Intelligence & Model Translator — Creator Intel",
+  description: "Direct better. Create cinematically. Build professional AI shots by controlling camera rigs, lenses, lighting, and composition translated into 8-model diffusion syntax.",
+  alternates: {
+    canonical: "https://creatorintels.com/prompts/factory",
+  },
+  openGraph: {
+    title: "Director's Studio — Cinematography Intelligence & Model Translator — Creator Intel",
+    description: "Direct better. Create cinematically. Build professional AI shots by controlling camera rigs, lenses, lighting, and composition translated into 8-model diffusion syntax.",
+    url: "https://creatorintels.com/prompts/factory",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Director's Studio — Cinematography Intelligence & Model Translator",
+    description: "Direct better. Create cinematically with verified camera optics and model syntax.",
+  },
 };
 
 export default function PromptFactoryPage() {
@@ -21,9 +35,9 @@ export default function PromptFactoryPage() {
         <div className="shell">
           <SectionHeading
             as="h1"
-            label="Prompt Architecture Studio"
-            title="Interactive Prompt Factory &amp; Translator"
-            description="Translate natural language scene descriptions into verified model-specific syntax for Runway Gen-3, Kling AI, Google Veo, Luma, MiniMax, Midjourney, Flux.1, and Wan 2.1."
+            label="Director's Studio"
+            title="Cinematography Intelligence &amp; Recipe Studio"
+            description="Stop prompting. Start directing. Structure cinematic AI shots through camera rigs, lenses, lighting, and composition — generating dual Human Director Recipes and model-specific prompts for Runway, Kling, Veo, Luma, MiniMax, Midjourney, Flux, and Wan."
           />
         </div>
       </div>

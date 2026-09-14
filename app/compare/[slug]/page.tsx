@@ -31,9 +31,26 @@ export async function generateMetadata({
   const nameA = toolA?.name || "Tool A";
   const nameB = toolB?.name || "Tool B";
 
+  const pageTitle = `${nameA} vs ${nameB} — Creator Comparison — Creator Intel`;
+  const pageUrl = `https://creatorintels.com/compare/${comp.slug}`;
+
   return {
-    title: `${nameA} vs ${nameB} — Creator Comparison — Creator Intel`,
+    title: pageTitle,
     description: comp.summaryVerdict,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${nameA} vs ${nameB} — Head-to-Head Model Comparison`,
+      description: comp.summaryVerdict,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${nameA} vs ${nameB} — Head-to-Head Comparison`,
+      description: comp.summaryVerdict,
+    },
   };
 }
 

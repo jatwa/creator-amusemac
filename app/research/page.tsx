@@ -9,6 +9,20 @@ import { ResearchDiscoveryDesk } from "@/components/research-discovery-desk";
 export const metadata: Metadata = {
   title: "Cinema Research Desk — Source-Backed Intelligence | Creator Intel",
   description: "Go beyond the answer. Follow the evidence. Research films, filmmakers, festival governance, optical science, and synthetic media through verified source ledgers.",
+  alternates: {
+    canonical: "https://creatorintels.com/research",
+  },
+  openGraph: {
+    title: "Cinema Research Desk — Creator Intel",
+    description: "Go beyond the answer. Follow the evidence. Research films, filmmakers, festival governance, optical science, and synthetic media through verified source ledgers.",
+    url: "https://creatorintels.com/research",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cinema Research Desk",
+    description: "Verified source ledgers and research dossiers for cinema and AI production.",
+  },
 };
 
 export default function ResearchPage() {

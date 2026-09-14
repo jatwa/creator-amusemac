@@ -1,4 +1,4 @@
-import { FilmProject, ToolkitStage, ProjectSceneItem, ProjectVisualLanguage, ProjectPostPipelineItem } from "@/data/film-intelligence-types";
+import { FilmProject, FilmFormat, ProjectProjectType, ToolkitStage, ProjectSceneItem, ProjectVisualLanguage, ProjectPostPipelineItem } from "@/data/film-intelligence-types";
 import { queryNeon } from "./neon";
 
 // In-memory private storage fallback (keyed strictly by userId)
@@ -304,6 +304,21 @@ export async function createProject(
   const title = (data.title || "Untitled Cinematic Project").trim();
   const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || `project-${Date.now()}`;
 
+  const format: FilmFormat =
+    data.format ||
+    (data.projectType === "short" || data.projectType === "SHORT"
+      ? "SHORT"
+      : data.projectType === "documentary" || data.projectType === "DOCUMENTARY"
+      ? "DOCUMENTARY"
+      : data.projectType === "series_pilot" || data.projectType === "series" || data.projectType === "SERIES"
+      ? "PILOT"
+      : "FEATURE");
+
+  const runtimeMinutes = data.runtimeMinutes || data.estimatedRuntimeMinutes || (format === "SHORT" ? 15 : 90);
+  const countryOfOrigin = data.countryOfOrigin
+    ? (Array.isArray(data.countryOfOrigin) ? data.countryOfOrigin : [data.countryOfOrigin])
+    : ["United States"];
+
   const newProject: FilmProject = {
     id,
     slug: `${slug}-${id.slice(-4)}`,
@@ -312,16 +327,17 @@ export async function createProject(
     title,
     logline: data.logline || "",
     synopsis: data.synopsis || "",
-    format: data.format || "FEATURE",
+    format,
     genres: data.genres || ["Drama"],
-    projectType: data.projectType || "FEATURE",
-    currentStage: "CONCEPT_DEVELOPMENT",
+    projectType: (data.projectType || format.toLowerCase()) as ProjectProjectType,
+    currentStage: "01_CONCEPT",
     toolkitStage: "01_CONCEPT",
     completedStages: [],
     directorName: data.directorName || "Director",
-    runtimeMinutes: data.runtimeMinutes || 90,
+    runtimeMinutes,
+    estimatedRuntimeMinutes: runtimeMinutes,
     language: data.language || ["English"],
-    countryOfOrigin: data.countryOfOrigin || ["United States"],
+    countryOfOrigin,
     targetPremiereWindow: data.targetPremiereWindow || "TBD",
     targetPremiereType: data.targetPremiereType || "WORLD_PREMIERE",
     creativeIntent: data.creativeIntent || "",
@@ -489,6 +505,9 @@ function mapDbRowToFilmProject(r: any): FilmProject {
   const targetFestivals = typeof r.festival_checklist === "string" ? JSON.parse(r.festival_checklist || "[]") : r.festival_checklist || [];
   const researchIds = typeof r.attached_research_ids === "string" ? JSON.parse(r.attached_research_ids || "[]") : r.attached_research_ids || [];
 
+  const stage = (r.current_stage && r.current_stage.startsWith("0") ? r.current_stage : "01_CONCEPT") as ToolkitStage;
+  const runtime = r.runtime_minutes || 90;
+
   return {
     id: r.id,
     slug: r.slug,
@@ -499,10 +518,14 @@ function mapDbRowToFilmProject(r: any): FilmProject {
     synopsis: r.synopsis || "",
     format: r.format || "FEATURE",
     genres: Array.isArray(r.genres) ? r.genres : JSON.parse(r.genres || '["Drama"]'),
-    currentStage: r.current_stage || "CONCEPT_DEVELOPMENT",
-    toolkitStage: "01_CONCEPT",
+    currentStage: stage,
+    toolkitStage: stage,
     completedStages: [],
     directorName: r.director_name || "Director",
+    runtimeMinutes: runtime,
+    estimatedRuntimeMinutes: runtime,
+    countryOfOrigin: r.country_of_origin ? (Array.isArray(r.country_of_origin) ? r.country_of_origin : [r.country_of_origin]) : ["United States"],
+    projectType: (r.project_type || r.format?.toLowerCase() || "feature") as ProjectProjectType,
     targetPremiereWindow: r.target_premiere_window,
     targetPremiereType: r.target_premiere_type,
     researchIds,

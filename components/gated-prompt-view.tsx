@@ -9,14 +9,16 @@ import { BASIC_TIER_MONTHLY_LIMIT } from "@/lib/payment/razorpay-subscription";
 
 interface GatedPromptViewProps {
   prompt: Prompt;
+  initialUnlocked?: boolean;
 }
 
-export function GatedPromptView({ prompt }: GatedPromptViewProps) {
+export function GatedPromptView({ prompt, initialUnlocked = false }: GatedPromptViewProps) {
   const { data: session, status } = useSession();
+  const [activePrompt, setActivePrompt] = useState<Prompt>(prompt);
   const [unlocksUsed, setUnlocksUsed] = useState<number>(0);
   const [unlockedIds, setUnlockedIds] = useState<string[]>([]);
   const [isUnlocking, setIsUnlocking] = useState(false);
-  const [unlockSuccess, setUnlockSuccess] = useState(false);
+  const [unlockSuccess, setUnlockSuccess] = useState(initialUnlocked);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [hasCheckedDb, setHasCheckedDb] = useState(false);
 
@@ -48,6 +50,7 @@ export function GatedPromptView({ prompt }: GatedPromptViewProps) {
   }, [isAuthenticated, prompt.id]);
 
   const isAlreadyUnlocked =
+    initialUnlocked ||
     tier === "pro" ||
     unlockedIds.includes(prompt.id) ||
     unlockedIds.includes(prompt.slug) ||
@@ -80,6 +83,14 @@ export function GatedPromptView({ prompt }: GatedPromptViewProps) {
       if (typeof data.monthlyUnlocksUsed === "number") {
         setUnlocksUsed(data.monthlyUnlocksUsed);
       }
+      if (data.promptText) {
+        setActivePrompt((prev) => ({
+          ...prev,
+          promptText: data.promptText,
+          negativePrompt: data.negativePrompt ?? prev.negativePrompt,
+          variations: data.variations ?? prev.variations,
+        }));
+      }
     } catch (err: any) {
       console.error("[Unlock Error]:", err);
       setErrorMsg(err.message || "An error occurred while unlocking");
@@ -110,7 +121,7 @@ export function GatedPromptView({ prompt }: GatedPromptViewProps) {
           </div>
         )}
 
-        <PromptCustomizer prompt={prompt} />
+        <PromptCustomizer prompt={activePrompt} />
       </div>
     );
   }

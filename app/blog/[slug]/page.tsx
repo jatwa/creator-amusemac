@@ -23,17 +23,28 @@ export async function generateMetadata({
   const blog = await getDbBlogBySlug(slug);
   if (!blog) return { title: "Article Not Found — Creator Intel" };
 
+  const pageUrl = `https://creatorintels.com/blog/${blog.slug}`;
+
   return {
     title: `${blog.title} — Creator Journal`,
     description: blog.excerpt,
     authors: [{ name: blog.author.name }],
+    alternates: {
+      canonical: pageUrl,
+    },
     openGraph: {
       title: blog.title,
       description: blog.excerpt,
       type: "article",
+      url: pageUrl,
       publishedTime: blog.publishedAt,
       modifiedTime: blog.updatedAt,
       tags: blog.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: blog.excerpt,
     },
   };
 }

@@ -35,15 +35,28 @@ export async function generateMetadata({
   const cat = getCategoryBySlug(slug);
   if (!cat) return { title: "Category Not Found" };
 
+  const pageUrl = `https://creatorintels.com/categories/${cat.slug}`;
+
   if (slug === "video") {
     return {
       title: "AI Video Generation Intelligence Hub — Creator Intel",
       description:
         "Director-level comparison of AI video engines: Runway Gen-3 Alpha, Kling AI, Google Veo, Luma Dream Machine, MiniMax, Wan 2.1, and Flux animation pipelines.",
+      alternates: {
+        canonical: pageUrl,
+      },
       openGraph: {
         title: "AI Video Generation Intelligence Hub — Creator Intel",
         description:
           "Cinematic shot direction, diffusion models, transformer engines, camera syntax, and physics adherence for visual storytellers.",
+        url: pageUrl,
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "AI Video Generation Intelligence Hub",
+        description:
+          "Director-level comparison of AI video engines and camera syntax pipelines.",
       },
     };
   }
@@ -51,6 +64,20 @@ export async function generateMetadata({
   return {
     title: `${cat.name} AI Tools & Workflows — Creator Intel`,
     description: cat.description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${cat.name} AI Tools & Workflows`,
+      description: cat.description,
+      url: pageUrl,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${cat.name} AI Tools`,
+      description: cat.description,
+    },
   };
 }
 

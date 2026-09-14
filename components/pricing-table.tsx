@@ -1,17 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCurrency } from "@/context/currency-context";
 import { SUBSCRIPTION_TIERS, SubscriptionTierDetails } from "@/lib/payment/razorpay-subscription";
 import { CurrencySwitcher } from "@/components/currency-switcher";
-
-declare global {
-  interface Window {
-    Razorpay?: any;
-  }
-}
+import { initializePaddle, type Paddle, type Environments, CheckoutEventNames } from "@paddle/paddle-js";
 
 export function PricingTable() {
   const { data: session, status } = useSession();
@@ -21,8 +16,60 @@ export function PricingTable() {
   const [loadingTier, setLoadingTier] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const paddleRef = useRef<Paddle | null>(null);
 
   const currentTier = session?.user?.tier || "free";
+
+  // Pre-initialize Paddle.js client on mount if client token is available in bundle
+  useEffect(() => {
+    const clientToken = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN;
+    const paddleEnv =
+      (process.env.NEXT_PUBLIC_PADDLE_ENV as Environments) || "sandbox";
+
+    console.log(
+      `[Paddle Init Check] hasClientToken: ${Boolean(clientToken)}, environment: ${paddleEnv}`
+    );
+
+    if (!clientToken || clientToken.trim() === "") {
+      return;
+    }
+
+    if (paddleRef.current?.Initialized) {
+      return;
+    }
+
+    initializePaddle({
+      token: clientToken.trim(),
+      environment: paddleEnv,
+      eventCallback: (event) => {
+        if (event.name === CheckoutEventNames.CHECKOUT_COMPLETED) {
+          setSuccessMessage(
+            "Payment completed successfully! Activating your subscription..."
+          );
+          setTimeout(() => {
+            router.push("/account?subscribed=true");
+          }, 1800);
+        } else if (
+          event.name === CheckoutEventNames.CHECKOUT_ERROR ||
+          event.name === CheckoutEventNames.CHECKOUT_FAILED ||
+          event.name === CheckoutEventNames.CHECKOUT_PAYMENT_FAILED ||
+          event.name === CheckoutEventNames.CHECKOUT_PAYMENT_ERROR
+        ) {
+          setErrorMessage(
+            "An issue occurred during checkout. Please try again or refresh the page."
+          );
+        }
+      },
+    })
+      .then((p) => {
+        if (p) {
+          paddleRef.current = p;
+        }
+      })
+      .catch((err) => {
+        console.warn("[Paddle Init Warning]:", err?.message || err);
+      });
+  }, [router]);
 
   const handleSubscribe = async (tier: SubscriptionTierDetails) => {
     setErrorMessage(null);
@@ -38,8 +85,9 @@ export function PricingTable() {
     }
 
     if (status !== "authenticated") {
-      // Prompt sign in first
-      signIn("google", { callbackUrl: `/pricing?tier=${tier.id}&cycle=${billingCycle}` });
+      signIn("google", {
+        callbackUrl: `/pricing?tier=${tier.id}&cycle=${billingCycle}`,
+      });
       return;
     }
 
@@ -51,62 +99,110 @@ export function PricingTable() {
     setLoadingTier(tier.id);
 
     try {
-      const res = await fetch("/api/subscriptions/create", {
+      // 1. Fetch configured Paddle Price ID & runtime client token from server
+      const res = await fetch("/api/checkout/paddle", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           tier: tier.id,
           billingCycle,
-          currency,
         }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to initialize subscription checkout.");
+        throw new Error(
+          data.error || "Failed to initialize subscription checkout."
+        );
       }
 
-      // If simulated / mock checkout
-      if (data.isMock || !window.Razorpay) {
-        setSuccessMessage(`Subscription activated (${tier.name} - ${billingCycle}). Redirecting to your account...`);
-        setTimeout(() => {
-          router.push("/account");
-        }, 1500);
-        return;
+      const { priceId, clientToken: serverToken, environment: serverEnv } = data;
+
+      if (!priceId) {
+        throw new Error(
+          "Paddle Price ID not configured for this plan. Please verify environment settings."
+        );
       }
 
-      // Live Razorpay Checkout
-      const rzpOptions = {
-        key: data.keyId,
-        subscription_id: data.subscriptionId,
-        name: "Creator Intel",
-        description: `${tier.name} (${billingCycle === "yearly" ? "Annual" : "Monthly"} Plan)`,
-        image: "/favicon.ico",
-        currency: data.currency,
-        handler: function (response: any) {
-          setSuccessMessage("Payment successful! Updating your subscription...");
-          setTimeout(() => {
-            router.push("/account?subscribed=true");
-          }, 1500);
-        },
-        prefill: {
-          name: session?.user?.name || "",
-          email: session?.user?.email || "",
-        },
-        theme: {
-          color: "#6366F1",
-        },
-      };
+      // 2. Resolve client token (from bundle or server runtime fallback)
+      const activeToken =
+        (process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN &&
+         process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN.trim() !== "")
+          ? process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN.trim()
+          : (serverToken && serverToken.trim() !== "")
+          ? serverToken.trim()
+          : null;
 
-      const rzp = new window.Razorpay(rzpOptions);
-      rzp.on("payment.failed", function (response: any) {
-        setErrorMessage(response.error.description || "Payment failed. Please try again.");
+      if (!activeToken) {
+        throw new Error(
+          "Paddle client token is missing. Please set NEXT_PUBLIC_PADDLE_CLIENT_TOKEN in Vercel project environment variables and trigger a redeployment."
+        );
+      }
+
+      const activeEnv: Environments =
+        (process.env.NEXT_PUBLIC_PADDLE_ENV as Environments) ||
+        (serverEnv as Environments) ||
+        "sandbox";
+
+      // 3. Obtain or initialize active Paddle instance
+      let activePaddle = paddleRef.current;
+      if (!activePaddle || !activePaddle.Initialized) {
+        activePaddle =
+          (await initializePaddle({
+            token: activeToken,
+            environment: activeEnv,
+            eventCallback: (event) => {
+              if (event.name === "checkout.completed") {
+                setSuccessMessage(
+                  "Payment completed successfully! Activating your subscription..."
+                );
+                setTimeout(() => {
+                  router.push("/account?subscribed=true");
+                }, 1800);
+              }
+            },
+          })) || null;
+
+        if (activePaddle) {
+          paddleRef.current = activePaddle;
+        }
+      }
+
+      if (!activePaddle) {
+        throw new Error(
+          "Unable to load Paddle checkout library. Please verify your client token and network connection."
+        );
+      }
+
+      // 4. Open Paddle.js Overlay Checkout with user metadata in customData
+      activePaddle.Checkout.open({
+        items: [{ priceId, quantity: 1 }],
+        customer: session?.user?.email
+          ? {
+              email: session.user.email,
+            }
+          : undefined,
+        customData: {
+          userId: session?.user?.id,
+          userEmail: session?.user?.email,
+          tier: tier.id,
+          billingCycle,
+        },
+        settings: {
+          variant: "one-page",
+          displayMode: "overlay",
+          theme: "dark",
+          successUrl: `${window.location.origin}/account?subscribed=true`,
+        },
       });
-      rzp.open();
-    } catch (err: any) {
-      console.error("[Subscription Checkout Error]:", err);
-      setErrorMessage(err.message || "An unexpected error occurred. Please try again.");
+    } catch (err: unknown) {
+      const errorMsg =
+        err instanceof Error
+          ? err.message
+          : "An unexpected error occurred during checkout. Please try again.";
+      console.error("[Paddle Checkout Error]:", errorMsg);
+      setErrorMessage(errorMsg);
     } finally {
       setLoadingTier(null);
     }
@@ -172,7 +268,6 @@ export function PricingTable() {
         {SUBSCRIPTION_TIERS.map((tier) => {
           const isCurrent = currentTier === tier.id && status === "authenticated";
           const isPro = tier.id === "pro";
-          const isBasic = tier.id === "basic";
 
           const usdPrice = billingCycle === "yearly" ? tier.yearlyUSD : tier.monthlyUSD;
           const customOverrides =
@@ -277,7 +372,7 @@ export function PricingTable() {
                   {loadingTier === tier.id ? (
                     <span className="flex items-center justify-center gap-2">
                       <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                      Setting up checkout...
+                      Setting up Paddle checkout...
                     </span>
                   ) : isCurrent ? (
                     "Manage Subscription →"

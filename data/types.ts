@@ -236,6 +236,28 @@ export interface Tool {
   dossier?: DetailedToolDossier;
 }
 
+export interface DirectorShotConfig {
+  shotTitle?: string;
+  shotCategory?: string;
+  subject?: string;
+  action?: string;
+  cameraRig?: string;
+  cameraMovement?: string;
+  lens?: string;
+  framing?: string;
+  composition?: string;
+  lighting?: string;
+  environment?: string;
+  weather?: string;
+  timeOfDay?: string;
+  aspectRatio?: string;
+  fps?: string;
+  duration?: string;
+  visualStyle?: string;
+  mood?: string;
+  customNotes?: string;
+}
+
 export interface PromptVariable {
   key: string;
   label: string;

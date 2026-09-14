@@ -49,7 +49,7 @@ export const canonicalPeople: Person[] = [
       },
     ],
     socialLinks: {
-      website: "https://creatorintel.com/creators/marcus-vance",
+      website: "https://creatorintels.com/people/marcus-vance",
       vimeo: "https://vimeo.com/marcusvance",
       instagram: "https://instagram.com/marcusvance.film",
     },
@@ -94,7 +94,7 @@ export const canonicalPeople: Person[] = [
       },
     ],
     socialLinks: {
-      website: "https://creatorintel.com/creators/elena-rostova",
+      website: "https://creatorintels.com/people/elena-rostova",
       linkedin: "https://linkedin.com/in/elenarostova-vfx",
     },
     visibility: "PUBLIC",
@@ -131,7 +131,7 @@ export const canonicalPeople: Person[] = [
       },
     ],
     socialLinks: {
-      website: "https://creatorintel.com/creators/claire-delacroix",
+      website: "https://creatorintels.com/people/claire-delacroix",
       imdb: "https://imdb.com/name/nm10839210",
     },
     visibility: "PUBLIC",
@@ -168,7 +168,7 @@ export const canonicalPeople: Person[] = [
       },
     ],
     socialLinks: {
-      website: "https://creatorintel.com/creators/jean-luc-moreau",
+      website: "https://creatorintels.com/people/jean-luc-moreau",
       instagram: "https://instagram.com/jlmoreau.cinematography",
     },
     visibility: "PUBLIC",
@@ -205,7 +205,7 @@ export const canonicalPeople: Person[] = [
       },
     ],
     socialLinks: {
-      website: "https://creatorintel.com/creators/sora-nomura",
+      website: "https://creatorintels.com/people/sora-nomura",
       twitter: "https://x.com/soranomura_film",
     },
     visibility: "PUBLIC",
@@ -242,7 +242,7 @@ export const canonicalPeople: Person[] = [
       },
     ],
     socialLinks: {
-      website: "https://creatorintel.com/creators/mateo-alvarez",
+      website: "https://creatorintels.com/people/mateo-alvarez",
       vimeo: "https://vimeo.com/mateoalvarez",
     },
     visibility: "PUBLIC",
@@ -286,7 +286,7 @@ export const canonicalPeople: Person[] = [
       },
     ],
     socialLinks: {
-      website: "https://creatorintel.com/creators/kenji-sato",
+      website: "https://creatorintels.com/people/kenji-sato",
       vimeo: "https://vimeo.com/kenjisato",
     },
     visibility: "PUBLIC",

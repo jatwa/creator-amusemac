@@ -2,6 +2,14 @@ import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
+import { CinematicViewfinder } from "@/components/cinematic/cinematic-viewfinder";
+import { IntentDeck } from "@/components/cinematic/intent-deck";
+import { DirectorsStudioDemo } from "@/components/directors-studio-demo";
+import { KnowledgeCanvas } from "@/components/cinematic/knowledge-canvas";
+import { EightMindsMatrix } from "@/components/cinematic/eight-minds-matrix";
+import { DirectorsDesk } from "@/components/cinematic/directors-desk";
+import { TimelineTransition } from "@/components/cinematic/timeline-transition";
+import { FinalFrame } from "@/components/cinematic/final-frame";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import {
@@ -12,7 +20,6 @@ import {
   ComparisonCard,
   WorkflowCard,
 } from "@/components/ui-cards";
-import { CategoryGrid } from "@/components/category-grid";
 import {
   toolsData,
   promptsData,
@@ -34,50 +41,73 @@ export default function Home() {
   const latestVideos = db.getPublishedVideos().slice(0, 2);
 
   return (
-    <main className="min-h-screen bg-background text-primary transition-colors">
+    <main className="min-h-screen bg-neutral-950 text-neutral-100 selection:bg-amber-400 selection:text-neutral-950 overflow-x-hidden">
       <Navigation />
+
+      {/* 1. CINEMATIC HERO */}
       <Hero />
 
-      {/* STAGE 1: CREATIVE INTENT & DOMAINS */}
-      <section id="categories" className="shell py-20 sm:py-28 border-t border-border-subtle">
-        <Reveal variant="fade-up">
-          <SectionHeading
-            label="Domain Selection"
-            title="What are you making?"
-            description="Choose your creative discipline to explore curated tool stacks, prompt formulas, and production pipelines."
-            viewAllHref="/categories"
-            viewAllLabel="All Categories"
-          />
-          <CategoryGrid />
-        </Reveal>
-      </section>
+      {/* 2. DIRECTOR'S VIEWFINDER: LIVE TELEMETRY & OPTICAL HUD */}
+      <Reveal variant="fade-up">
+        <CinematicViewfinder />
+      </Reveal>
 
-      {/* STAGE 2: FLAGSHIP VIDEO GENERATION SPOTLIGHT BANNER */}
-      <section className="shell py-10">
+      {/* 3. "WHAT ARE YOU MAKING?": FORMAT ARCHETYPES INTENT DECK */}
+      <Reveal variant="fade-up">
+        <IntentDeck />
+      </Reveal>
+
+      {/* 4. DIRECTOR'S STUDIO INTERACTIVE WORKSTATION */}
+      <Reveal variant="fade-up">
+        <DirectorsStudioDemo />
+      </Reveal>
+
+      {/* 5. "EVERYTHING IN CINEMA IS CONNECTED": CINEMA INTELLIGENCE GRAPH */}
+      <Reveal variant="fade-up">
+        <KnowledgeCanvas />
+      </Reveal>
+
+      {/* 6. "ONE SCENE. EIGHT MINDS.": ENGINE TRANSLATION MATRIX */}
+      <Reveal variant="fade-up">
+        <EightMindsMatrix />
+      </Reveal>
+
+      {/* 7. "THE DIRECTOR'S DESK": LAYERED WORKSTATION DOSSIERS */}
+      <Reveal variant="fade-up">
+        <DirectorsDesk />
+      </Reveal>
+
+      {/* 8. KINETIC MILESTONE TIMELINE: IDEA → SHOT → SCENE → FILM */}
+      <Reveal variant="fade-up">
+        <TimelineTransition />
+      </Reveal>
+
+      {/* 9. FLAGSHIP VIDEO GENERATION SPOTLIGHT BANNER */}
+      <section className="shell py-12">
         <Reveal variant="fade-up">
-          <div className="surface p-8 sm:p-14 relative overflow-hidden bg-surface-elevated rounded-3xl border border-border shadow-subtle">
+          <div className="surface p-8 sm:p-12 relative overflow-hidden bg-neutral-900/80 rounded-3xl border border-white/[0.08] shadow-2xl">
             <div className="relative z-10 max-w-3xl">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-accent font-semibold mb-3 block">
-                Flagship Intelligence
+              <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-semibold mb-3 block">
+                Flagship Model Intelligence
               </span>
-              <h2 className="text-2xl sm:text-4xl font-semibold tracking-tight text-primary leading-tight">
-                Cinematic AI Video Generation Engine Matrix
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white leading-tight font-sans">
+                The Director&apos;s AI Model Guide
               </h2>
-              <p className="mt-4 text-sm sm:text-base text-secondary leading-relaxed font-normal">
-                Compare verified video engines including Runway Gen-3 Alpha, Kling AI 1.5, Google Veo 2, Luma Dream Machine, MiniMax Hailuo, and Wan 2.1 across camera coordinate syntax, character persistence, and physics coherence.
+              <p className="mt-4 text-sm sm:text-base text-neutral-300 leading-relaxed font-normal">
+                Compare AI video models by camera control, motion fidelity, visual consistency, physics, references, and production use cases.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Link
                   href="/categories/video"
-                  className="rounded-full bg-foreground px-6 py-2.5 text-xs sm:text-sm font-medium text-background transition-opacity hover:opacity-90 shadow-sm"
+                  className="rounded-xl bg-amber-400 px-6 py-3 text-xs sm:text-sm font-bold text-neutral-950 transition-all hover:bg-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.25)]"
                 >
                   Launch Video Hub →
                 </Link>
                 <Link
                   href="/compare/runway-vs-kling"
-                  className="text-xs sm:text-sm font-medium text-secondary hover:text-primary transition-colors"
+                  className="text-xs sm:text-sm font-mono text-neutral-400 hover:text-white transition-colors"
                 >
-                  Read Runway vs Kling Breakdown
+                  Read Runway vs Kling Breakdown →
                 </Link>
               </div>
             </div>
@@ -85,13 +115,13 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* STAGE 3: CURATED TOOL INTELLIGENCE */}
-      <section id="tools" className="shell py-20 sm:py-28 border-t border-border-subtle">
+      {/* 10. CURATED TOOL INTELLIGENCE */}
+      <section id="tools" className="shell py-20 sm:py-24 border-t border-white/[0.06]">
         <Reveal variant="fade-up">
           <SectionHeading
             label="Intelligence Dossiers"
-            title="Featured AI Production Tools"
-            description="Audited without hype. Real capabilities, commercial pricing breakdown, and verified filmmaking use cases."
+            title="The Filmmaker's AI Stack"
+            description="Production tools evaluated for real creative workflows — not just another AI tools directory."
             viewAllHref="/tools"
             viewAllLabel={`View all ${toolsData.length} Tools`}
           />
@@ -103,8 +133,8 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* STAGE 4: PRODUCTION STORIES & CASE STUDIES */}
-      <section id="stories" className="shell py-20 sm:py-28 border-t border-border-subtle">
+      {/* 11. PRODUCTION STORIES & CASE STUDIES */}
+      <section id="stories" className="shell py-20 sm:py-24 border-t border-white/[0.06]">
         <Reveal variant="fade-up">
           <SectionHeading
             label="Production Case Studies"
@@ -117,25 +147,25 @@ export default function Home() {
             {featuredStories.map((story) => (
               <div
                 key={story.id}
-                className="surface rounded-3xl border border-border bg-surface p-6 sm:p-8 flex flex-col justify-between space-y-4 hover:border-accent/40 transition group"
+                className="rounded-3xl border border-white/[0.08] bg-neutral-900/60 p-6 sm:p-8 flex flex-col justify-between space-y-4 hover:border-amber-400/40 transition group"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                    <span className="text-[10px] font-mono uppercase text-amber-400 font-semibold">
                       {story.genre}
                     </span>
-                    <span className="text-xs font-mono text-tertiary">{story.runtime}</span>
+                    <span className="text-xs font-mono text-neutral-500">{story.runtime}</span>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-primary group-hover:text-accent transition">
+                  <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-amber-300 transition">
                     <Link href={`/stories/${story.slug}`}>{story.title}</Link>
                   </h3>
-                  <p className="text-xs sm:text-sm text-secondary leading-relaxed">
+                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-sans">
                     {story.summary}
                   </p>
                 </div>
-                <div className="pt-3 border-t border-border-subtle flex items-center justify-between text-xs">
-                  <span className="text-tertiary font-mono">{story.director}</span>
-                  <Link href={`/stories/${story.slug}`} className="text-accent font-medium hover:underline">
+                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
+                  <span className="text-neutral-500 font-mono">{story.director}</span>
+                  <Link href={`/stories/${story.slug}`} className="text-amber-400 font-mono font-medium hover:underline">
                     Read Shot Breakdown →
                   </Link>
                 </div>
@@ -145,13 +175,67 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* STAGE 5: PROMPT RECIPES & FORMULA LIBRARY */}
-      <section id="prompts" className="shell py-20 sm:py-28 border-t border-border-subtle">
+      {/* 12. WHY VAULT? CONVERSION SECTION */}
+      <section id="why-vault" className="shell py-20 sm:py-24 border-t border-white/[0.06]">
+        <Reveal variant="fade-up">
+          <div className="surface p-8 sm:p-12 relative overflow-hidden bg-neutral-900/90 rounded-3xl border border-amber-400/30 shadow-2xl space-y-10">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 border-b border-white/[0.08] pb-6">
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-semibold mb-2 block">
+                  PRO VAULT INTELLIGENCE
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white font-serif">
+                  Why The Director's Vault?
+                </h2>
+              </div>
+              <Link
+                href="/vault"
+                className="rounded-xl bg-amber-400 px-6 py-2.5 text-xs sm:text-sm font-bold text-neutral-950 hover:bg-amber-300 transition shrink-0"
+              >
+                Explore The Vault →
+              </Link>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 font-sans text-xs">
+              <div className="rounded-2xl border border-white/[0.08] bg-black/40 p-5 space-y-2">
+                <span className="font-mono text-amber-400 font-bold text-sm block">01. Directorial Vision</span>
+                <p className="text-neutral-300 leading-relaxed">
+                  Lock narrative intent, character emotion, and motivated lighting tone before generating.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/[0.08] bg-black/40 p-5 space-y-2">
+                <span className="font-mono text-amber-400 font-bold text-sm block">02. Physical Optics</span>
+                <p className="text-neutral-300 leading-relaxed">
+                  Calibrated Cooke/Zeiss focal lengths, 2x anamorphic squeeze, and 3:1 key-to-fill ratios.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/[0.08] bg-black/40 p-5 space-y-2">
+                <span className="font-mono text-amber-400 font-bold text-sm block">03. Engine Translation</span>
+                <p className="text-neutral-300 leading-relaxed">
+                  Direct translation for Runway Gen-3, Kling 1.5, and Flux.1 with artifact-suppression negatives.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/[0.08] bg-black/40 p-5 space-y-2">
+                <span className="font-mono text-amber-400 font-bold text-sm block">04. Screen-Ready Takes</span>
+                <p className="text-neutral-300 leading-relaxed">
+                  Zero plastic sheen or jittery motion. Grounded physical inertia and natural highlight roll-off.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* 13. PROMPT RECIPES & FORMULA LIBRARY */}
+      <section id="prompts" className="shell py-20 sm:py-24 border-t border-white/[0.06]">
         <Reveal variant="fade-up">
           <SectionHeading
             label="Prompt Architecture"
-            title="Prompt Factory &amp; Model Translator"
-            description="Convert high-level creative concepts into model-specific syntax for Runway, Kling, Veo, Midjourney, and Flux."
+            title="Director Recipe Vault & Model Translators"
+            description="Calibrated cinematography blueprints for Runway, Kling, Luma, Midjourney, and Flux.1."
             viewAllHref="/prompts"
             viewAllLabel={`Explore ${promptsData.length} Prompts`}
           />
@@ -163,12 +247,12 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* STAGE 6: AI FILM FESTIVAL DIRECTORY SPOTLIGHT */}
-      <section id="festivals" className="shell py-20 sm:py-28 border-t border-border-subtle">
+      {/* 13. AI FILM FESTIVAL DIRECTORY SPOTLIGHT */}
+      <section id="festivals" className="shell py-20 sm:py-24 border-t border-white/[0.06]">
         <Reveal variant="fade-up">
           <SectionHeading
             label="Festival Intelligence"
-            title="AI Film Festival Directory &amp; Deadlines"
+            title="AI Film Festival Directory & Deadlines"
             description="Verified international deadlines, competition rules, prize grants, and ethical AI disclosure guidelines."
             viewAllHref="/festivals"
             viewAllLabel="All Film Festivals"
@@ -177,24 +261,24 @@ export default function Home() {
             {upcomingFestivals.map((fest) => (
               <div
                 key={fest.id}
-                className="surface rounded-2xl border border-border bg-surface p-6 flex flex-col justify-between space-y-4 shadow-subtle hover:border-accent/40 transition"
+                className="rounded-2xl border border-white/[0.08] bg-neutral-900/60 p-6 flex flex-col justify-between space-y-4 shadow-subtle hover:border-amber-400/40 transition"
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono uppercase text-accent font-semibold">
+                    <span className="text-[10px] font-mono uppercase text-amber-400 font-semibold">
                       {fest.hostCity}
                     </span>
                     <span className="text-xs font-mono text-rose-400 font-medium">
                       Due: {fest.deadline.split(",")[0]}
                     </span>
                   </div>
-                  <h3 className="text-base font-semibold text-primary">{fest.name}</h3>
-                  <p className="text-xs text-secondary">{fest.prizes}</p>
+                  <h3 className="text-base font-bold text-white">{fest.name}</h3>
+                  <p className="text-xs text-neutral-400">{fest.prizes}</p>
                 </div>
-                <div className="pt-2 border-t border-border-subtle flex justify-between items-center text-xs">
-                  <span className="text-tertiary font-mono">Season {fest.seasonYear}</span>
-                  <Link href="/festivals" className="text-accent font-medium hover:underline">
-                    Rules &amp; Checklist →
+                <div className="pt-2 border-t border-white/[0.06] flex justify-between items-center text-xs">
+                  <span className="text-neutral-500 font-mono">Season {fest.seasonYear}</span>
+                  <Link href="/festivals" className="text-amber-400 font-mono font-medium hover:underline">
+                    Rules & Checklist →
                   </Link>
                 </div>
               </div>
@@ -203,12 +287,12 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* STAGE 7: VERDICT-FIRST COMPARISONS */}
-      <section id="compare" className="shell py-20 sm:py-28 border-t border-border-subtle">
+      {/* 14. VERDICT-FIRST COMPARISONS */}
+      <section id="compare" className="shell py-20 sm:py-24 border-t border-white/[0.06]">
         <Reveal variant="fade-up">
           <SectionHeading
             label="Editorial Decisions"
-            title="Model &amp; Tool Comparisons"
+            title="Model & Tool Comparisons"
             description="Direct head-to-head assessments. Clear verdict summaries when competing models overlap."
             viewAllHref="/compare"
             viewAllLabel="All Comparisons"
@@ -221,8 +305,8 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* STAGE 8: PRODUCTION WORKFLOWS */}
-      <section id="workflows" className="shell py-20 sm:py-28 border-t border-border-subtle">
+      {/* 15. PRODUCTION WORKFLOWS */}
+      <section id="workflows" className="shell py-20 sm:py-24 border-t border-white/[0.06]">
         <Reveal variant="fade-up">
           <SectionHeading
             label="Pipeline Blueprints"
@@ -239,12 +323,12 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* STAGE 9: CREATOR JOURNAL & MASTERCLASSES */}
-      <section id="media" className="shell py-20 sm:py-28 border-t border-border-subtle">
+      {/* 16. CREATOR JOURNAL & MASTERCLASSES */}
+      <section id="media" className="shell py-20 sm:py-24 border-t border-white/[0.06]">
         <Reveal variant="fade-up">
           <SectionHeading
-            label="Media &amp; Essays"
-            title="Creator Journal &amp; Video Masterclasses"
+            label="Media & Essays"
+            title="Creator Journal & Video Masterclasses"
             description="Technical essays, benchmark dissections, and director timeline walkthroughs."
             viewAllHref="/blog"
             viewAllLabel="Read All Essays"
@@ -253,11 +337,11 @@ export default function Home() {
           <div className="grid gap-10 lg:grid-cols-2">
             {/* Journal Column */}
             <div className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
-                <span className="text-xs font-semibold uppercase tracking-wider text-secondary">
+              <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
+                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-400">
                   Creator Journal
                 </span>
-                <Link href="/blog" className="text-xs text-secondary hover:text-primary transition-colors">
+                <Link href="/blog" className="text-xs font-mono text-amber-400 hover:underline">
                   View Journal →
                 </Link>
               </div>
@@ -270,11 +354,11 @@ export default function Home() {
 
             {/* Masterclasses Column */}
             <div className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
-                <span className="text-xs font-semibold uppercase tracking-wider text-secondary">
+              <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
+                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-400">
                   Video Masterclasses
                 </span>
-                <Link href="/videos" className="text-xs text-secondary hover:text-primary transition-colors">
+                <Link href="/videos" className="text-xs font-mono text-amber-400 hover:underline">
                   View Masterclasses →
                 </Link>
               </div>
@@ -287,6 +371,11 @@ export default function Home() {
           </div>
         </Reveal>
       </section>
+
+      {/* 17. FINAL FRAME: "YOU HAVE THE IDEA. NOW DIRECT IT." */}
+      <Reveal variant="fade-up">
+        <FinalFrame />
+      </Reveal>
 
       <AdSlot slotId="home-bottom" label="Production Intelligence Sponsor" />
 

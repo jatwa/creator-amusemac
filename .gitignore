@@ -9,10 +9,17 @@
 *.tsbuildinfo
 
 # environment
+.env
+.env.*
 .env*.local
+!.env.example
 
 # logs
 *.log
 
 # vercel
 .vercel
+
+# agent & skills
+.agents
+skills-lock.json

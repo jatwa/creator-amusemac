@@ -35,9 +35,27 @@ export async function generateMetadata({ params }: TechniqueSlugPageProps): Prom
     };
   }
 
+  const pageTitle = `${technique.name} — Cinema Technique Dossier | Creator Intel`;
+  const pageDesc = `${technique.creativePurpose} ${technique.visualCharacteristics.slice(0, 140)}...`;
+  const pageUrl = `https://creatorintels.com/techniques/${technique.slug}`;
+
   return {
-    title: `${technique.name} — Cinema Technique Dossier | Creator Intel`,
-    description: `${technique.creativePurpose} ${technique.visualCharacteristics.slice(0, 140)}...`,
+    title: pageTitle,
+    description: pageDesc,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${technique.name} — Cinema Technique Dossier`,
+      description: technique.creativePurpose,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${technique.name} — Cinema Technique`,
+      description: technique.creativePurpose,
+    },
   };
 }
 

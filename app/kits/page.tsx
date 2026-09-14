@@ -9,6 +9,20 @@ import { AdSlot } from "@/components/ad-slot";
 export const metadata: Metadata = {
   title: "Production Kits & Starter Downloads — Creator Intel",
   description: "Downloadable shot list templates, 35mm LUTs, prompt formula worksheets, and pitch deck templates for filmmakers.",
+  alternates: {
+    canonical: "https://creatorintels.com/kits",
+  },
+  openGraph: {
+    title: "Production Kits & Starter Downloads — Creator Intel",
+    description: "Downloadable shot list templates, 35mm LUTs, prompt formula worksheets, and pitch deck templates for filmmakers.",
+    url: "https://creatorintels.com/kits",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Production Kits & Starter Downloads",
+    description: "Downloadable shot list templates, 35mm LUTs, and prompt formula worksheets.",
+  },
 };
 
 export default function KitsPage() {

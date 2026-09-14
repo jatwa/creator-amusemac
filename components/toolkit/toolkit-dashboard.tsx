@@ -14,6 +14,7 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
   const [projects, setProjects] = useState<FilmProject[]>(initialProjects);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // New project form state
   const [title, setTitle] = useState("");
@@ -27,31 +28,43 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
     if (!title.trim()) return;
 
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch("/api/toolkit/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title,
+          title: title.trim(),
           projectType,
-          logline,
+          logline: logline.trim(),
           estimatedRuntimeMinutes: runtime,
-          countryOfOrigin: country,
+          countryOfOrigin: country.trim() || undefined,
         }),
       });
 
       if (res.ok) {
         const data = await res.json();
-        const newProject: FilmProject = data.project || data;
-        if (newProject && (newProject.id || newProject.slug)) {
-          const targetId = newProject.id || newProject.slug;
+        const newProject: FilmProject | undefined = data.project || (data.id ? data : undefined);
+        const targetId = (newProject?.id && newProject.id !== "undefined")
+          ? newProject.id
+          : (newProject?.slug && newProject.slug !== "undefined")
+          ? newProject.slug
+          : null;
+
+        if (newProject && targetId) {
           setProjects((prev) => [newProject, ...prev.filter((p) => p.id !== newProject.id)]);
           setModalOpen(false);
           router.push(`/toolkit/${targetId}`);
+        } else {
+          setError("Failed to initialize project: invalid server response (missing project identifier).");
         }
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        setError(errData.error || "Failed to create project. Please verify inputs.");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to create project:", err);
+      setError(err?.message || "An unexpected error occurred.");
     } finally {
       setLoading(false);
     }
@@ -147,7 +160,13 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
                   (project.workflowIds?.length || 0) +
                   (project.festivalIds?.length || 0);
 
-                const targetId = project.id || project.slug;
+                const targetId = (project.id && project.id !== "undefined")
+                  ? project.id
+                  : (project.slug && project.slug !== "undefined")
+                  ? project.slug
+                  : null;
+
+                if (!targetId) return null;
 
                 return (
                   <Link
@@ -292,6 +311,11 @@ export function ToolkitDashboard({ initialProjects }: ToolkitDashboardProps) {
                   className="w-full rounded-xl border border-border bg-surface-elevated p-3 text-xs text-primary placeholder-tertiary focus:border-accent focus:outline-none leading-relaxed"
                 />
               </div>
+              {error && (
+                <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-xs font-mono text-rose-400">
+                  {error}
+                </div>
+              )}
             </div>
 
             <div className="flex items-center justify-end gap-3 pt-3 border-t border-border-subtle">

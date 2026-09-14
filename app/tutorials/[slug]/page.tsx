@@ -22,9 +22,26 @@ export async function generateMetadata({
   const tut = getTutorialBySlug(slug);
   if (!tut) return { title: "Tutorial Not Found" };
 
+  const pageTitle = `${tut.title} — Creator Intel`;
+  const pageUrl = `https://creatorintels.com/tutorials/${tut.slug}`;
+
   return {
-    title: `${tut.title} — Creator Intel`,
+    title: pageTitle,
     description: tut.goal,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${tut.title} — Filmmaking Workflow Tutorial`,
+      description: tut.goal,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${tut.title} — Production Tutorial`,
+      description: tut.goal,
+    },
   };
 }
 

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description:
       "Curated intelligence, official models, verified camera controls, and connected cinema knowledge graph for generative filmmaking.",
     type: "website",
-    url: "https://creatorintel.com/ai",
+    url: "https://creatorintels.com/ai",
   },
   twitter: {
     card: "summary_large_image",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
       "Curated intelligence, official models, verified camera controls, and connected cinema knowledge graph for generative filmmaking.",
   },
   alternates: {
-    canonical: "https://creatorintel.com/ai",
+    canonical: "https://creatorintels.com/ai",
   },
 };
 
@@ -49,7 +49,7 @@ export default function AIHubPage() {
     name: "AI Cinema Intelligence Hub",
     description:
       "Curated intelligence, verified models, and source library for generative AI in filmmaking.",
-    url: "https://creatorintel.com/ai",
+    url: "https://creatorintels.com/ai",
     mainEntity: {
       "@type": "ItemList",
       itemListElement: publicEntities.map((entity, index) => ({
@@ -65,7 +65,7 @@ export default function AIHubPage() {
             name: entity.developerOrganization,
           },
           description: entity.tagline,
-          url: `https://creatorintel.com/ai/${entity.slug}`,
+          url: `https://creatorintels.com/ai/${entity.slug}`,
         },
       })),
     },

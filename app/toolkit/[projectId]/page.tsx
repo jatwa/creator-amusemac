@@ -27,6 +27,11 @@ export default async function ToolkitProjectPage({
   params,
 }: ToolkitProjectPageProps) {
   const { projectId } = await params;
+
+  if (!projectId || projectId === "undefined" || projectId === "null") {
+    notFound();
+  }
+
   const session = await getServerSession(authOptions);
   const userId = session?.user?.id || "usr-director-workspace";
 

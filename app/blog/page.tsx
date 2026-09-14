@@ -12,6 +12,21 @@ export const metadata: Metadata = {
   title: "Creator Journal — AI Filmmaking & Cinematography Intelligence",
   description:
     "In-depth analysis, cinematography benchmarks, diffusion vs flow-matching deep dives, and production pipeline essays for modern filmmakers and designers.",
+  alternates: {
+    canonical: "https://creatorintels.com/blog",
+  },
+  openGraph: {
+    title: "Creator Journal — Creator Intel",
+    description:
+      "In-depth analysis, cinematography benchmarks, diffusion vs flow-matching deep dives, and production pipeline essays for modern filmmakers and designers.",
+    url: "https://creatorintels.com/blog",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Creator Journal — Creator Intel",
+    description: "Cinematography benchmarks, diffusion essays, and production pipeline breakdowns.",
+  },
 };
 
 export default async function BlogIndexPage() {

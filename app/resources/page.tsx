@@ -8,6 +8,20 @@ import { resourcesData } from "@/data/platform-data";
 export const metadata: Metadata = {
   title: "Creator Resources, Templates & LUTs — Creator Intel",
   description: "Free storyboard kits, cinematic camera cheat sheets, commercial treatment decks, and LUT packs.",
+  alternates: {
+    canonical: "https://creatorintels.com/resources",
+  },
+  openGraph: {
+    title: "Creator Resources, Templates & LUTs — Creator Intel",
+    description: "Free storyboard kits, cinematic camera cheat sheets, commercial treatment decks, and LUT packs.",
+    url: "https://creatorintels.com/resources",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Creator Resources, Templates & LUTs",
+    description: "Free storyboard kits, cinematic camera cheat sheets, and commercial treatment decks.",
+  },
 };
 
 export default function ResourcesPage() {

@@ -1,4 +1,5 @@
 import { initNeonTables, seedNeonToolsIfEmpty, queryNeon } from "../lib/db/neon";
+import { initAuthAndSubscriptionTables } from "../lib/db/auth-schema";
 import { blogsData } from "../data/platform-data";
 
 async function runMigration() {
@@ -21,11 +22,19 @@ async function runMigration() {
     return;
   }
 
-  console.log("2. Migrating static tool entries into Neon `tools` table...");
+  console.log("2. Initializing auth and subscription tables (Razorpay & Paddle schema)...");
+  const authSubInit = await initAuthAndSubscriptionTables();
+  if (authSubInit) {
+    console.log("✓ Auth & Subscription schema tables initialized with Paddle support.");
+  } else {
+    console.warn("⚠ Warning: Auth & Subscription tables initialization encountered an issue.");
+  }
+
+  console.log("3. Migrating static tool entries into Neon `tools` table...");
   const toolsCount = await seedNeonToolsIfEmpty();
   console.log(`✓ Seeded ${toolsCount} tools into Neon database.`);
 
-  console.log("3. Migrating existing blog posts into `blog_drafts` table...");
+  console.log("4. Migrating existing blog posts into `blog_drafts` table...");
   for (const blog of blogsData) {
     await queryNeon(
       `INSERT INTO blog_drafts (

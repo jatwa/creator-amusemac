@@ -7,6 +7,10 @@ import { AccountView } from "@/components/account-view";
 export const metadata: Metadata = {
   title: "Account & Subscriptions — Creator Intel",
   description: "Manage your Prompt Vault subscription tier, monthly unlock quotas, and unlocked recipe library.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function AccountPage() {

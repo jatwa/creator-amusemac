@@ -8,6 +8,20 @@ import { categoriesData } from "@/data/platform-data";
 export const metadata: Metadata = {
   title: "Creative Disciplines — Creator Intel",
   description: "Browse AI creative tools and workflows organized by production domains: Video, Image, Audio, Editing, VFX, and Systems.",
+  alternates: {
+    canonical: "https://creatorintels.com/categories",
+  },
+  openGraph: {
+    title: "Creative Disciplines — Creator Intel",
+    description: "Browse AI creative tools and workflows organized by production domains: Video, Image, Audio, Editing, VFX, and Systems.",
+    url: "https://creatorintels.com/categories",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Creative Disciplines & Production Domains",
+    description: "Browse AI tools and workflows organized by production discipline.",
+  },
 };
 
 export default function CategoriesPage() {

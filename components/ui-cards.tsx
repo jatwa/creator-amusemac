@@ -102,9 +102,13 @@ export function ToolCard({
 }
 
 /**
- * 2. PromptCard - Visual Studio Recipe Card
+ * 2. PromptCard - Visual Studio Recipe Card with Paywall Protection
  */
 export function PromptCard({ prompt }: { prompt: Prompt }) {
+  // Truncated preview text (first line / 15-20 words)
+  const previewText = prompt.promptText.split("\n")[0] || prompt.promptText;
+  const truncatedPreview = previewText.length > 90 ? previewText.slice(0, 90) + "..." : previewText;
+
   return (
     <motion.div
       whileHover={{ y: -3 }}
@@ -121,15 +125,10 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
             <span className="text-xs font-semibold tracking-wider uppercase text-accent font-sans">
               {prompt.subcategory || prompt.categoryGroup || prompt.useCase}
             </span>
-            {prompt.difficulty ? (
-              <span className="rounded-full bg-accent/10 border border-accent/20 px-2.5 py-0.5 text-xs text-accent font-sans font-medium">
-                {prompt.difficulty}
-              </span>
-            ) : (
-              <span className="text-xs text-tertiary font-sans">
-                {prompt.category}
-              </span>
-            )}
+            <span className="rounded-full bg-accent/10 border border-accent/20 px-2.5 py-0.5 text-xs text-accent font-sans font-medium flex items-center gap-1">
+              <span>🔒</span>
+              <span>Vault Recipe</span>
+            </span>
           </div>
 
           <h3 className="mt-3.5 text-lg font-bold text-primary group-hover:text-accent transition-colors leading-snug font-sans">
@@ -144,33 +143,41 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
           {(prompt.lens || prompt.camera || prompt.aspectRatio) && (
             <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-sans text-secondary">
               {prompt.lens && (
-                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5">
+                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5 font-mono text-[11px]">
                   🔍 {prompt.lens.split(" ")[0]} {prompt.lens.split(" ")[1] || ""}
                 </span>
               )}
               {prompt.aspectRatio && (
-                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5 font-mono">
+                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5 font-mono text-[11px]">
                   📐 {prompt.aspectRatio.split(" ")[0]}
                 </span>
               )}
               {prompt.recommendedDuration && (
-                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5">
+                <span className="rounded-md border border-border bg-surface-elevated px-2 py-0.5 font-mono text-[11px]">
                   ⏱ {prompt.recommendedDuration}
                 </span>
               )}
             </div>
           )}
 
-          {/* Syntax Window */}
-          <div className="mt-3.5 rounded-xl border border-border-subtle bg-surface-elevated p-3 font-mono text-xs sm:text-[13px] text-secondary line-clamp-3 leading-relaxed">
-            {prompt.promptText}
+          {/* Protected Syntax Window */}
+          <div className="relative mt-3.5 rounded-xl border border-border-subtle bg-surface-elevated p-3 font-mono text-xs text-secondary overflow-hidden">
+            <p className="text-primary font-medium">{truncatedPreview}</p>
+            <p className="mt-1 text-tertiary blur-[5px] select-none filter opacity-40">
+              anamorphic lens bokeh ARRI Alexa 35mm optical flare volumetric haze kodachrome
+            </p>
+            <div className="absolute inset-0 flex items-center justify-end pr-3 bg-gradient-to-l from-surface-elevated via-surface-elevated/80 to-transparent">
+              <span className="rounded-md bg-accent/10 border border-accent/30 px-2 py-0.5 text-[10px] font-mono text-accent font-bold">
+                PRO VAULT SPEC
+              </span>
+            </div>
           </div>
 
           {/* Variables list */}
           {prompt.variables && prompt.variables.length > 0 && (
             <div className="mt-3.5 flex flex-wrap items-center gap-1.5">
               <span className="text-xs text-tertiary font-sans">Params:</span>
-              {prompt.variables.slice(0, 4).map((v, i) => (
+              {prompt.variables.slice(0, 3).map((v, i) => (
                 <span
                   key={i}
                   className="rounded bg-accent/10 px-1.5 py-0.5 text-xs font-mono text-accent"
@@ -178,9 +185,9 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
                   [{v.key || v.label}]
                 </span>
               ))}
-              {prompt.variables.length > 4 && (
-                <span className="text-xs text-tertiary font-sans">
-                  +{prompt.variables.length - 4} more
+              {prompt.variables.length > 3 && (
+                <span className="text-xs text-tertiary font-sans font-mono">
+                  +{prompt.variables.length - 3} more
                 </span>
               )}
             </div>
@@ -192,7 +199,7 @@ export function PromptCard({ prompt }: { prompt: Prompt }) {
             {prompt.variables.length} parameters
           </span>
           <span className="font-semibold text-accent group-hover:translate-x-0.5 transition-transform duration-150 inline-flex items-center gap-1 font-sans">
-            Director Recipe →
+            Unlock in Vault →
           </span>
         </div>
       </Link>

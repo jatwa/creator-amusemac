@@ -36,10 +36,26 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const canonicalWf = getCanonicalWorkflowBySlug(slug);
+  const pageUrl = `https://creatorintels.com/workflows/${slug}`;
+
   if (canonicalWf) {
     return {
       title: `${canonicalWf.title} — Production Playbook — Creator Intel`,
       description: canonicalWf.summary,
+      alternates: {
+        canonical: pageUrl,
+      },
+      openGraph: {
+        title: `${canonicalWf.title} — Production Playbook`,
+        description: canonicalWf.summary,
+        url: pageUrl,
+        type: "article",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${canonicalWf.title} — Production Playbook`,
+        description: canonicalWf.summary,
+      },
     };
   }
 
@@ -48,6 +64,20 @@ export async function generateMetadata({
     return {
       title: `${legacyWf.title} — Production Pipeline Blueprint — Creator Intel`,
       description: legacyWf.summary,
+      alternates: {
+        canonical: pageUrl,
+      },
+      openGraph: {
+        title: `${legacyWf.title} — Production Pipeline Blueprint`,
+        description: legacyWf.summary,
+        url: pageUrl,
+        type: "article",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${legacyWf.title} — Production Blueprint`,
+        description: legacyWf.summary,
+      },
     };
   }
 

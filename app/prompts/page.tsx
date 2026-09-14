@@ -11,6 +11,20 @@ import { PromptFactory } from "@/components/prompt-factory";
 export const metadata: Metadata = {
   title: "Prompt Factory & Model Translator — Creator Intel",
   description: "Generate model-specific prompt syntax for Runway, Kling, Veo, Luma, Midjourney, and Flux. Explore the optical camera and lens lexicon.",
+  alternates: {
+    canonical: "https://creatorintels.com/prompts",
+  },
+  openGraph: {
+    title: "Prompt Factory & Model Translator — Creator Intel",
+    description: "Generate model-specific prompt syntax for Runway, Kling, Veo, Luma, Midjourney, and Flux. Explore the optical camera and lens lexicon.",
+    url: "https://creatorintels.com/prompts",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Prompt Factory & Model Translator",
+    description: "Generate model-specific prompt syntax with verified optical camera lexicon.",
+  },
 };
 
 export default async function PromptsPage() {

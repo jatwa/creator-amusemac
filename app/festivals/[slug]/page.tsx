@@ -41,9 +41,26 @@ export async function generateMetadata({ params }: FestivalProfileProps): Promis
     };
   }
 
+  const pageTitle = `${festival.name} — Festival Intelligence & Standing Profile | Creator Intel`;
+  const pageUrl = `https://creatorintels.com/festivals/${festival.slug}`;
+
   return {
-    title: `${festival.name} — Festival Intelligence & Standing Profile | Creator Intel`,
+    title: pageTitle,
     description: festival.description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${festival.name} — Film Festival Intelligence Profile`,
+      description: festival.description,
+      url: pageUrl,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${festival.name} — Festival Intelligence`,
+      description: festival.description,
+    },
   };
 }
 

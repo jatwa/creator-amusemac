@@ -47,20 +47,6 @@ export function AdSlot({
     );
   }
 
-  // If no AdSense client is set, render clean, non-intrusive editorial container placeholder
-  return (
-    <div
-      className={`my-8 rounded-2xl border border-dashed border-border-subtle bg-surface/20 p-4 text-center ${className}`}
-      aria-label="Advertisement Space"
-    >
-      <div className="flex flex-col items-center justify-center space-y-1">
-        <span className="text-[10px] font-mono uppercase tracking-widest text-tertiary">
-          {label}
-        </span>
-        <p className="text-xs text-secondary font-medium">
-          Creator Intel — Editorial Intelligence — Google AdSense Ready
-        </p>
-      </div>
-    </div>
-  );
+  // If no AdSense client is set, do not render intrusive placeholder banners
+  return null;
 }

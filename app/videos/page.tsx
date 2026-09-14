@@ -12,6 +12,21 @@ export const metadata: Metadata = {
   title: "Masterclasses & Synchronized Video Intelligence — Creator Intel",
   description:
     "Curated video masterclasses, timeline breakdowns, and camera control tutorials directly synced with prompt recipes and tool dossiers.",
+  alternates: {
+    canonical: "https://creatorintels.com/videos",
+  },
+  openGraph: {
+    title: "Masterclasses & Synchronized Video Intelligence — Creator Intel",
+    description:
+      "Curated video masterclasses, timeline breakdowns, and camera control tutorials directly synced with prompt recipes and tool dossiers.",
+    url: "https://creatorintels.com/videos",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Creator Video Masterclasses",
+    description: "Curated video masterclasses and timeline breakdowns for filmmakers.",
+  },
 };
 
 export default function VideosIndexPage() {

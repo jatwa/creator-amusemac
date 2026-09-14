@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: `${entity.name} — AI Cinema Intelligence Dossier`,
       description: entity.tagline,
       type: "article",
-      url: `https://creatorintel.com/ai/${entity.slug}`,
+      url: `https://creatorintels.com/ai/${entity.slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: entity.tagline,
     },
     alternates: {
-      canonical: `https://creatorintel.com/ai/${entity.slug}`,
+      canonical: `https://creatorintels.com/ai/${entity.slug}`,
     },
   };
 }
@@ -131,7 +131,7 @@ export default async function AIEntityDossierPage({ params }: PageProps) {
     },
     description: overviewText,
     featureList: capabilitiesList.join(", "),
-    url: `https://creatorintel.com/ai/${entity.slug}`,
+    url: `https://creatorintels.com/ai/${entity.slug}`,
     citation: (entity.sources || []).map((s) => ({
       "@type": "CreativeWork",
       name: s.title,

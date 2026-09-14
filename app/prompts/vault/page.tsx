@@ -12,6 +12,22 @@ export const metadata: Metadata = {
   title: "The Pro Prompts Vault — Director Recipes & Negative Blueprints — Creator Intel",
   description:
     "Unlock 65+ tested cinematic prompt recipes, negative constraint formulas, and optical lens tokens for Runway, Kling, Veo, Luma, Midjourney, and Flux.",
+  alternates: {
+    canonical: "https://creatorintels.com/prompts/vault",
+  },
+  openGraph: {
+    title: "The Pro Prompts Vault — Creator Intel",
+    description:
+      "Unlock 65+ tested cinematic prompt recipes, negative constraint formulas, and optical lens tokens for Runway, Kling, Veo, Luma, Midjourney, and Flux.",
+    url: "https://creatorintels.com/prompts/vault",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Pro Prompts Vault — Director Recipes",
+    description:
+      "Unlock tested cinematic prompt recipes, negative constraint formulas, and optical lens tokens.",
+  },
 };
 
 export default function PromptsVaultPage() {

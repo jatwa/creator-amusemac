@@ -7,6 +7,20 @@ import { SectionHeading } from "@/components/section-heading";
 export const metadata: Metadata = {
   title: "About & Editorial Philosophy — Creator Intel",
   description: "Creator Intel is an independent creative intelligence platform for filmmakers, directors, visual effects artists, and storytellers navigating generative media.",
+  alternates: {
+    canonical: "https://creatorintels.com/about",
+  },
+  openGraph: {
+    title: "About & Editorial Philosophy — Creator Intel",
+    description: "Creator Intel is an independent creative intelligence platform for filmmakers, directors, visual effects artists, and storytellers navigating generative media.",
+    url: "https://creatorintels.com/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Creator Intel",
+    description: "Independent creative intelligence platform for filmmakers and visual storytellers.",
+  },
 };
 
 export default function AboutPage() {

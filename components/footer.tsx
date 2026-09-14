@@ -23,13 +23,12 @@ export function Footer() {
           <p className="text-xs font-medium text-primary mb-3">Intelligence</p>
           <div className="space-y-2 text-xs text-secondary">
             <Link href="/tools" className="block transition hover:text-primary">Tools Directory</Link>
-            <Link href="/prompts" className="block transition hover:text-primary">Prompt Factory</Link>
+            <Link href="/prompts/factory" className="block font-medium text-accent transition hover:opacity-80">Director's Studio</Link>
+            <Link href="/vault" className="block transition hover:text-primary">The Vault</Link>
+            <Link href="/prompts" className="block transition hover:text-primary">Prompt Recipes</Link>
             <Link href="/compare" className="block transition hover:text-primary">Model Comparisons</Link>
-            <Link href="/stories" className="block transition hover:text-primary">Production Stories</Link>
             <Link href="/workflows" className="block transition hover:text-primary">Workflows</Link>
-            <Link href="/tutorials" className="block transition hover:text-primary">Tutorials</Link>
-            <Link href="/blog" className="block transition hover:text-primary">Creator Journal</Link>
-            <Link href="/videos" className="block transition hover:text-primary">Video Masterclasses</Link>
+            <Link href="/journal" className="block transition hover:text-primary">Creator Journal</Link>
           </div>
         </div>
 
@@ -43,7 +42,6 @@ export function Footer() {
             <Link href="/categories/audio" className="block transition hover:text-primary">Voice &amp; Audio</Link>
             <Link href="/categories/vfx" className="block transition hover:text-primary">Upscaling &amp; VFX</Link>
             <Link href="/festivals" className="block transition hover:text-primary">AI Film Festivals</Link>
-            <Link href="/kits" className="block transition hover:text-primary">Production Kits</Link>
           </div>
         </div>
 
@@ -51,11 +49,12 @@ export function Footer() {
         <div>
           <p className="text-xs font-medium text-primary mb-3">Trust &amp; Legal</p>
           <div className="space-y-2 text-xs text-secondary">
+            <Link href="/methodology" className="block transition hover:text-primary">Scoring Methodology</Link>
+            <Link href="/press" className="block transition hover:text-primary">Press &amp; Media Kit</Link>
             <Link href="/about" className="block transition hover:text-primary">About &amp; Philosophy</Link>
             <Link href="/privacy" className="block transition hover:text-primary">Privacy &amp; Cookies</Link>
             <Link href="/terms" className="block transition hover:text-primary">Terms of Service</Link>
             <Link href="/contact" className="block transition hover:text-primary">Contact &amp; Corrections</Link>
-            <Link href="/search" className="block transition hover:text-primary">Universal Search</Link>
           </div>
         </div>
       </div>

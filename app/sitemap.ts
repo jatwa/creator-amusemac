@@ -14,13 +14,21 @@ import { canonicalAIEntities } from "@/data/ai-entities-canonical";
 import { canonicalFilms, canonicalPeople } from "@/data/films-canonical";
 import { canonicalTechniques } from "@/data/techniques-canonical";
 import { canonicalResearchRecords } from "@/data/research-canonical";
+import { getAllStandingFestivals, getAllFestivalEditions } from "@/data/festivals-canonical";
+
+function toSafeIsoDate(d?: string | null): string {
+  if (!d) return new Date().toISOString();
+  const parsed = new Date(d);
+  return isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://creatorintels.com";
 
-  // Static routes
+  // Static indexable public routes
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
+    "/pricing",
     "/ai",
     "/tools",
     "/prompts",
@@ -39,7 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/workflows",
     "/categories",
     "/resources",
-    "/search",
     "/blog",
     "/videos",
     "/about",
@@ -50,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
     changeFrequency: "weekly",
-    priority: route === "" || route === "/ai" ? 1.0 : 0.8,
+    priority: route === "" || route === "/ai" ? 1.0 : route === "/pricing" ? 0.95 : 0.8,
   }));
 
   // Tool routes
@@ -58,7 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((t: any) => !t.status || t.status === "published")
     .map((tool) => ({
       url: `${baseUrl}/tools/${tool.slug}`,
-      lastModified: new Date(tool.updatedAt).toISOString(),
+      lastModified: toSafeIsoDate(tool.updatedAt),
       changeFrequency: "weekly",
       priority: 0.9,
     }));
@@ -78,7 +85,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((b) => !b.status || b.status === "published")
     .map((blog) => ({
       url: `${baseUrl}/blog/${blog.slug}`,
-      lastModified: new Date(blog.updatedAt).toISOString(),
+      lastModified: toSafeIsoDate(blog.updatedAt || blog.publishedAt),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    }));
+
+  // Journal routes
+  const journalRoutes: MetadataRoute.Sitemap = blogsData
+    .filter((b) => !b.status || b.status === "published")
+    .map((blog) => ({
+      url: `${baseUrl}/journal/${blog.slug}`,
+      lastModified: toSafeIsoDate(blog.updatedAt || blog.publishedAt),
       changeFrequency: "weekly",
       priority: 0.85,
     }));
@@ -88,7 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((v) => !v.status || v.status === "published")
     .map((video) => ({
       url: `${baseUrl}/videos/${video.slug}`,
-      lastModified: new Date(video.publishedAt).toISOString(),
+      lastModified: toSafeIsoDate(video.publishedAt),
       changeFrequency: "weekly",
       priority: 0.85,
     }));
@@ -98,7 +115,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((p: any) => !p.status || p.status === "published")
     .map((prompt) => ({
       url: `${baseUrl}/prompts/${prompt.slug}`,
-      lastModified: new Date(prompt.verifiedAt).toISOString(),
+      lastModified: toSafeIsoDate(prompt.verifiedAt),
       changeFrequency: "weekly",
       priority: 0.8,
     }));
@@ -106,7 +123,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Comparison routes
   const comparisonRoutes: MetadataRoute.Sitemap = comparisonsData.map((comp) => ({
     url: `${baseUrl}/compare/${comp.slug}`,
-    lastModified: new Date(comp.updatedAt).toISOString(),
+    lastModified: toSafeIsoDate(comp.updatedAt),
     changeFrequency: "monthly",
     priority: 0.85,
   }));
@@ -116,7 +133,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((t: any) => !t.status || t.status === "published")
     .map((tut) => ({
       url: `${baseUrl}/tutorials/${tut.slug}`,
-      lastModified: new Date(tut.updatedAt).toISOString(),
+      lastModified: toSafeIsoDate(tut.updatedAt),
       changeFrequency: "monthly",
       priority: 0.85,
     }));
@@ -126,7 +143,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((w: any) => !w.status || w.status === "published")
     .map((wf) => ({
       url: `${baseUrl}/workflows/${wf.slug}`,
-      lastModified: new Date(wf.lastUpdated).toISOString(),
+      lastModified: toSafeIsoDate(wf.lastUpdated),
       changeFrequency: "monthly",
       priority: 0.9,
     }));
@@ -140,6 +157,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     }));
+
+  // Standing Festival routes
+  const standingFestivals = getAllStandingFestivals();
+  const standingFestivalRoutes: MetadataRoute.Sitemap = standingFestivals.map((fest) => ({
+    url: `${baseUrl}/festivals/${fest.slug}`,
+    lastModified: toSafeIsoDate(fest.verifiedAt),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // Festival Edition routes
+  const festivalEditions = getAllFestivalEditions();
+  const festivalEditionRoutes: MetadataRoute.Sitemap = festivalEditions
+    .map((edition) => {
+      const fest = standingFestivals.find((f) => f.id === edition.festivalId);
+      if (!fest) return null;
+      return {
+        url: `${baseUrl}/festivals/${fest.slug}/${edition.year}`,
+        lastModified: toSafeIsoDate(fest.verifiedAt),
+        changeFrequency: "weekly",
+        priority: 0.85,
+      };
+    })
+    .filter(Boolean) as MetadataRoute.Sitemap;
 
   // Technique routes
   const techniqueRoutes: MetadataRoute.Sitemap = canonicalTechniques
@@ -192,6 +233,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticRoutes,
     ...aiEntityRoutes,
+    ...standingFestivalRoutes,
+    ...festivalEditionRoutes,
     ...techniqueRoutes,
     ...filmRoutes,
     ...peopleRoutes,
@@ -199,6 +242,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...toolRoutes,
     ...storyRoutes,
     ...blogRoutes,
+    ...journalRoutes,
     ...videoRoutes,
     ...promptRoutes,
     ...comparisonRoutes,

@@ -10,6 +10,21 @@ export const metadata: Metadata = {
   title: "Cinema Techniques Registry — Optical, Lighting, Color & AI Workflows | Creator Intel",
   description:
     "The canonical director's notebook for cinema techniques. Explore camera movement, anamorphic optics, Rembrandt lighting, ACES color management, Flux LoRA consistency, and DCI theatrical mastering.",
+  alternates: {
+    canonical: "https://creatorintels.com/techniques",
+  },
+  openGraph: {
+    title: "Cinema Techniques Registry — Creator Intel",
+    description:
+      "The canonical director's notebook for cinema techniques. Explore camera movement, anamorphic optics, Rembrandt lighting, ACES color management, Flux LoRA consistency, and DCI theatrical mastering.",
+    url: "https://creatorintels.com/techniques",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cinema Techniques Registry",
+    description: "The canonical director's notebook for optical, lighting, color, and AI workflows.",
+  },
 };
 
 export default function TechniquesPage() {

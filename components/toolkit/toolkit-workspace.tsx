@@ -24,7 +24,9 @@ interface ToolkitWorkspaceProps {
 export function ToolkitWorkspace({ initialProject }: ToolkitWorkspaceProps) {
   const [project, setProject] = useState<FilmProject>(initialProject);
   const [currentStage, setCurrentStage] = useState<ToolkitStage>(
-    (initialProject.currentStage as ToolkitStage) || "01_CONCEPT"
+    (initialProject.currentStage && STAGES.some((s) => s.id === initialProject.currentStage)
+      ? (initialProject.currentStage as ToolkitStage)
+      : "01_CONCEPT")
   );
   const [completedStages, setCompletedStages] = useState<ToolkitStage[]>(
     (initialProject.completedStages as ToolkitStage[]) || []

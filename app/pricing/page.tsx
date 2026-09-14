@@ -11,6 +11,22 @@ export const metadata: Metadata = {
   title: "Pricing Plans — Creator Intel Prompt Vault & Subscriptions",
   description:
     "Choose the right plan for your AI filmmaking and creative workflow. Unlock cinematic prompt recipes, negative constraint formulas, and optical lens tokens.",
+  alternates: {
+    canonical: "https://creatorintels.com/pricing",
+  },
+  openGraph: {
+    title: "Pricing Plans — Creator Intel Prompt Vault & Subscriptions",
+    description:
+      "Choose the right plan for your AI filmmaking and creative workflow. Unlock cinematic prompt recipes, negative constraint formulas, and optical lens tokens.",
+    url: "https://creatorintels.com/pricing",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Creator Intel Subscriptions & Pricing",
+    description:
+      "Unlock cinematic prompt recipes, negative constraint formulas, and optical lens tokens.",
+  },
 };
 
 export default function PricingPage() {

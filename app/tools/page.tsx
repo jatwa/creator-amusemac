@@ -6,10 +6,25 @@ import { SectionHeading } from "@/components/section-heading";
 import { ToolCard } from "@/components/ui-cards";
 import { getDbTools } from "@/lib/db/neon";
 import { DirectoryAtAGlance } from "@/components/directory-at-a-glance";
+import { ToolDecisionFinder } from "@/components/tools/tool-decision-finder";
 
 export const metadata: Metadata = {
   title: "AI Tools Directory — Creator Intel",
   description: "Browse verified AI tools for video generation, image direction, voice synthesis, editing, and VFX.",
+  alternates: {
+    canonical: "https://creatorintels.com/tools",
+  },
+  openGraph: {
+    title: "AI Tools Directory — Creator Intel",
+    description: "Browse verified AI tools for video generation, image direction, voice synthesis, editing, and VFX.",
+    url: "https://creatorintels.com/tools",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI Tools Directory — Creator Intel",
+    description: "Browse verified generative AI tools for video, image, and visual effects.",
+  },
 };
 
 export default async function ToolsPage() {
@@ -71,7 +86,10 @@ export default async function ToolsPage() {
         </div>
       </div>
 
-      <div className="shell py-12 space-y-12">
+      <div className="shell py-12 space-y-14">
+        {/* Flagship Filmmaker Decision Engine */}
+        <ToolDecisionFinder />
+
         {/* At A Glance Comparison Matrix */}
         <DirectoryAtAGlance tools={tools} />
 
