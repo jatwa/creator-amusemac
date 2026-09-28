@@ -82,7 +82,7 @@ export function Hero() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 px-7 py-3.5 text-xs sm:text-sm font-bold text-neutral-950 transition-all duration-200 shadow-[0_0_25px_rgba(245,158,11,0.25)] hover:shadow-[0_0_35px_rgba(245,158,11,0.4)] group"
               >
                 <Clapperboard className="w-4 h-4 text-neutral-950" />
-                <span>ENTER DIRECTOR&apos;S STUDIO</span>
+                <span>START DIRECTING</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </motion.div>
