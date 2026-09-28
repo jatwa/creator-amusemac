@@ -7,6 +7,7 @@ import { ToolCard } from "@/components/ui-cards";
 import { getDbTools } from "@/lib/db/neon";
 import { DirectoryAtAGlance } from "@/components/directory-at-a-glance";
 import { ToolDecisionFinder } from "@/components/tools/tool-decision-finder";
+import { toolsData } from "@/data/platform-data";
 
 export const metadata: Metadata = {
   title: "AI Tools Directory — Creator Intel",
@@ -87,6 +88,20 @@ export default async function ToolsPage() {
       </div>
 
       <div className="shell py-12 space-y-14">
+        <section className="grid gap-4 md:grid-cols-3">
+          {[
+            { label: "Core Models", value: toolsData.filter((tool) => tool.type === "model" || tool.type === "foundation_model").length, copy: "The engines underneath the filmmaking stack." },
+            { label: "Production Tools", value: toolsData.filter((tool) => tool.type && tool.type !== "model" && tool.type !== "foundation_model").length, copy: "Applications, platforms and production systems built around models." },
+            { label: "Connected Graph", value: toolsData.filter((tool) => (tool.supportedModels?.length || 0) > 0).length, copy: "Tools with explicit model relationships in the current catalogue." },
+          ].map((item) => (
+            <div key={item.label} className="rounded-2xl border border-border-subtle bg-surface/40 p-5">
+              <div className="font-mono text-[10px] uppercase tracking-widest text-accent">{item.label}</div>
+              <div className="mt-2 text-3xl font-semibold text-primary">{item.value}</div>
+              <p className="mt-2 text-xs leading-relaxed text-secondary">{item.copy}</p>
+            </div>
+          ))}
+        </section>
+
         {/* Flagship Filmmaker Decision Engine */}
         <ToolDecisionFinder />
 
