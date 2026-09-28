@@ -51,12 +51,12 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2, ease }}
             className="text-3xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight font-sans"
           >
-            DIRECT BETTER. <br />
+            STOP JUGGLING AI TOOLS. <br />
             <span className="font-serif italic font-normal text-amber-200 text-[26px] xs:text-3xl sm:text-6xl lg:text-7xl">
-              CREATE CINEMATICALLY.
+              START DIRECTING.
             </span>{" "}
             <br className="sm:hidden" />
-            <span className="text-neutral-400 font-sans font-semibold text-[26px] xs:text-3xl sm:text-6xl lg:text-7xl">WITH AI.</span>
+            <span className="text-neutral-400 font-sans font-semibold text-[26px] xs:text-3xl sm:text-6xl lg:text-7xl">WITH INTELLIGENCE.</span>
           </motion.h1>
 
           {/* Directorial Subheadline */}
@@ -66,7 +66,7 @@ export function Hero() {
             transition={{ duration: 0.45, delay: 0.3, ease }}
             className="mx-auto mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-neutral-300 font-normal"
           >
-            Professional cinematography intelligence, director recipes, camera optics, AI video workflows, and production intelligence — built for directors, cinematographers, and visual storytellers.
+            Creator Intel sits above your AI filmmaking stack — connecting research, directorial decisions, model selection, visualisation, generation and refinement in one filmmaker-first workflow.
           </motion.p>
 
           {/* Action Hub */}
@@ -93,7 +93,7 @@ export function Hero() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 hover:border-amber-400/40 bg-white/[0.03] hover:bg-white/[0.06] px-6 py-3.5 text-xs sm:text-sm font-semibold text-neutral-200 hover:text-white transition-all duration-200"
               >
                 <Sliders className="w-4 h-4 text-amber-400" />
-                <span>PRODUCTION TOOLKIT</span>
+                <span>EXPLORE THE INTELLIGENCE LAYER</span>
               </Link>
             </motion.div>
           </motion.div>
