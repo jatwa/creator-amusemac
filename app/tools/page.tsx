@@ -39,9 +39,9 @@ export default async function ToolsPage() {
         <div className="shell">
           <SectionHeading
             as="h1"
-            label="Editorial Intelligence Desk"
-            title="Curated AI Production Stack"
-            description="Deeply tested models and creative software for filmmakers, cinematographers, production designers, and editors. Verified capabilities and transparent pricing."
+            label="Filmmaker Intelligence Desk"
+            title="Filmmaker AI Intelligence Stack"
+            description="Find the right engine from the creative decision outward — with capabilities, workflow fit, production context, comparisons, prompts, tutorials and transparent pricing."
           />
 
           {/* Category Filter Pills */}
@@ -89,6 +89,17 @@ export default async function ToolsPage() {
       <div className="shell py-12 space-y-14">
         {/* Flagship Filmmaker Decision Engine */}
         <ToolDecisionFinder />
+
+        <div className="rounded-2xl border border-amber-400/20 bg-amber-400/[0.04] p-5 sm:p-6">
+          <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-amber-400">
+            <span>Decision Graph</span>
+            <span className="text-neutral-600">/</span>
+            <span className="text-neutral-500">IDEA → RESEARCH → DIRECT → SHOT → MODEL → PROMPT → GENERATE → REFINE</span>
+          </div>
+          <p className="mt-3 max-w-4xl text-sm leading-relaxed text-secondary">
+            A Creator Intel tool dossier is not just a listing. It connects the engine to filmmaking techniques, prompts, workflows, comparisons, films, research, tutorials and production decisions.
+          </p>
+        </div>
 
         {/* At A Glance Comparison Matrix */}
         <DirectoryAtAGlance tools={tools} />
