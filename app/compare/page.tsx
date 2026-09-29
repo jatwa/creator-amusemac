@@ -27,11 +27,11 @@ export const metadata: Metadata = {
 
 export default function ComparePage() {
   return (
-    <main className="min-h-screen bg-background text-primary transition-colors">
+    <main className="intel-page transition-colors">
       <Navigation />
 
       {/* Hero Banner */}
-      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
+      <div className="intel-header py-16 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"
