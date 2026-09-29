@@ -41,7 +41,7 @@ export default function CreateWorkspacePage() {
                 <label className="text-xs font-mono uppercase tracking-wider text-neutral-500">Your instruction</label>
                 <div className="mt-2 min-h-40 rounded-2xl border border-white/[0.08] bg-black/40 p-4 text-sm leading-relaxed text-neutral-200">{draft.query || "Write what you want Creator Intel to do with your story or scene."}</div>
               </div>
-              <button type="button" className="mt-5 w-full rounded-xl bg-amber-400 px-5 py-3 text-xs font-bold text-neutral-950">Continue to Story Analysis →</button>
+              <button type="button" onClick={handleContinue} disabled={starting} className="mt-5 w-full rounded-xl bg-amber-400 px-5 py-3 text-xs font-bold text-neutral-950 disabled:cursor-wait disabled:opacity-60">{starting ? "Opening Story Analysis…" : "Continue to Story Analysis →"}</button>\n              {error && <p role="alert" className="mt-3 text-xs text-rose-300">{error}</p>}
             </section>
 
             <section className="rounded-3xl border border-white/[0.09] bg-neutral-900/50 p-6 sm:p-8">
