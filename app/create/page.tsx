@@ -41,7 +41,7 @@ export default function CreateWorkspacePage() {
   };
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100">
+    <main className="min-h-screen intel-page">
       <div className="shell py-16 sm:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mb-10">
@@ -57,7 +57,7 @@ export default function CreateWorkspacePage() {
           </div>
 
           <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-            <section className="rounded-3xl border border-white/[0.09] bg-neutral-900/70 p-6 sm:p-8">
+            <section className="rounded-3xl border border-white/[0.09] bg-surface p-6 sm:p-8">
               <div className="flex items-center justify-between border-b border-white/[0.07] pb-4">
                 <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">INPUT</span>
                 <span className="text-[10px] font-mono text-emerald-400">WORKSPACE READY</span>
@@ -99,7 +99,7 @@ export default function CreateWorkspacePage() {
               {error && <p role="alert" className="mt-3 text-xs text-rose-300">{error}</p>}
             </section>
 
-            <section className="rounded-3xl border border-white/[0.09] bg-neutral-900/50 p-6 sm:p-8">
+            <section className="rounded-3xl border border-white/[0.09] bg-surface-elevated p-6 sm:p-8">
               <p className="text-[10px] font-mono uppercase tracking-widest text-amber-400">
                 WHAT YOU CAN CREATE
               </p>
