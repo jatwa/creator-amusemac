@@ -1,24 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Clapperboard, Sparkles, ArrowRight, Search, ArrowUpRight, Camera, Sliders } from '@/components/cinematic/icons';
+import { CreatorIntelligenceInput } from "@/components/creator-intelligence-input";
+import { Clapperboard, ArrowRight, Sliders } from "@/components/cinematic/icons";
 
 export function Hero() {
-  const [query, setQuery] = useState("");
-  const router = useRouter();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (query.trim()) {
-      router.push(`/search?q=${encodeURIComponent(query.trim())}`);
-    } else {
-      router.push("/search");
-    }
-  };
-
   const ease = [0.16, 1, 0.3, 1] as const;
 
   return (
@@ -98,29 +85,8 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Minimalist Cinematography Search */}
-          <motion.form
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.5, ease }}
-            onSubmit={handleSearch}
-            className="mx-auto mt-12 flex w-full max-w-xl items-center rounded-2xl border border-white/[0.09] bg-neutral-950/80 px-4 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition focus-within:border-amber-400/50 focus-within:shadow-[0_0_25px_rgba(245,158,11,0.12)] backdrop-blur-md"
-          >
-            <Search className="h-4 w-4 shrink-0 text-neutral-400 mr-3" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              aria-label="Search Creator Platform"
-              className="w-full min-w-0 bg-transparent text-xs sm:text-sm text-white outline-none placeholder:text-neutral-500 font-sans"
-              placeholder="Search recipes, lenses, rigs, lighting ratios, films, models..."
-            />
-            <button
-              type="submit"
-              className="shrink-0 text-xs font-mono font-semibold text-neutral-400 hover:text-amber-400 transition-colors px-2 py-1 uppercase"
-            >
-              SEARCH [↵]
-            </button>
-          </motion.form>
+          {/* Primary Creator Intelligence Input */}
+          <CreatorIntelligenceInput />
 
           {/* Live Telemetry Sensor Badges */}
           <motion.div
