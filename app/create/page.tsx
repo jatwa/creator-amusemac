@@ -12,7 +12,7 @@ export default function CreateWorkspacePage() {
   const [draft, setDraft] = useState<Draft>({});
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState("");
-  const [maxTextChars, setMaxTextChars] = useState(maxTextChars);
+  const [maxTextChars, setMaxTextChars] = useState(CREATOR_INTELLIGENCE_LIMITS.maxTextChars);
 
   useEffect(() => {
     fetch("/api/creator-intelligence/limits").then((response) => response.ok ? response.json() : null).then((data) => { if (data?.maxTextChars) setMaxTextChars(data.maxTextChars); }).catch(() => undefined);
