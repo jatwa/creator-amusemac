@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { ArrowRight, Search } from "@/components/cinematic/icons";
@@ -25,6 +25,14 @@ export function CreatorIntelligenceInput() {
   const [fileName, setFileName] = useState("");
   const [reading, setReading] = useState(false);
   const [error, setError] = useState("");
+  const [limits, setLimits] = useState(CREATOR_INTELLIGENCE_LIMITS);
+
+  useEffect(() => {
+    fetch("/api/creator-intelligence/limits")
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => { if (data) setLimits({ ...CREATOR_INTELLIGENCE_LIMITS, ...data }); })
+      .catch(() => undefined);
+  }, []);
 
   const persistAndOpen = (text: string, name = "") => {
     sessionStorage.setItem(
