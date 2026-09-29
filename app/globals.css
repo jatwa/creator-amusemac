@@ -15,9 +15,9 @@
   --muted: #eaeaec;
   --muted-foreground: #6e6e73;
   --tertiary: #86868b;
-  --accent: #0071e3;
+  --accent: #b8892d;
   --accent-foreground: #ffffff;
-  --accent-muted: rgba(0, 113, 227, 0.08);
+  --accent-muted: rgba(184, 137, 45, 0.10);
 }
 
 .dark {
@@ -33,9 +33,9 @@
   --muted: #1c1c1e;
   --muted-foreground: #a1a1a6;
   --tertiary: #636366;
-  --accent: #2997ff;
+  --accent: #d4a646;
   --accent-foreground: #ffffff;
-  --accent-muted: rgba(41, 151, 255, 0.15);
+  --accent-muted: rgba(212, 166, 70, 0.15);
 }
 
 @layer base {
@@ -126,6 +126,24 @@
   }
   .surface {
     @apply rounded-2xl border border-border bg-surface transition-all duration-200;
+  }
+  .intel-page {
+    @apply min-h-screen bg-background text-primary;
+  }
+  .intel-header {
+    @apply border-b border-border-subtle bg-surface/70 backdrop-blur-xl;
+  }
+  .intel-card {
+    @apply rounded-3xl border border-border-subtle bg-surface shadow-[0_18px_70px_rgba(0,0,0,0.08)];
+  }
+  .intel-card-muted {
+    @apply rounded-2xl border border-border-subtle bg-surface-elevated;
+  }
+  .intel-eyebrow {
+    @apply text-[10px] font-mono uppercase tracking-[0.2em] text-accent;
+  }
+  .intel-mono {
+    @apply font-mono text-xs text-tertiary;
   }
   .surface-hover {
     @apply hover:border-border-bright hover:bg-surface-hover;
