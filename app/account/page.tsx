@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 
 export default function AccountPage() {
   return (
-    <main className="min-h-screen bg-background text-primary transition-colors">
+    <main className="intel-page transition-colors">
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-border-subtle bg-surface/30 py-12 sm:py-16">
+      <div className="intel-header py-12 sm:py-16">
         <div className="shell">
           <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-tertiary mb-4">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
