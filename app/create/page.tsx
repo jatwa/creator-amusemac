@@ -12,8 +12,12 @@ export default function CreateWorkspacePage() {
   const [draft, setDraft] = useState<Draft>({});
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState("");
+  const [maxTextChars, setMaxTextChars] = useState(maxTextChars);
 
   useEffect(() => {
+    fetch("/api/creator-intelligence/limits").then((response) => response.ok ? response.json() : null).then((data) => { if (data?.maxTextChars) setMaxTextChars(data.maxTextChars); }).catch(() => undefined);
+
+    
     try {
       const raw = sessionStorage.getItem("ci_intelligence_draft");
       if (raw) setDraft(JSON.parse(raw) as Draft);
@@ -29,9 +33,9 @@ export default function CreateWorkspacePage() {
       return;
     }
 
-    if (query.length > CREATOR_INTELLIGENCE_LIMITS.maxTextChars) {
+    if (query.length > maxTextChars) {
       setError(
-        `Text exceeds the ${CREATOR_INTELLIGENCE_LIMITS.maxTextChars.toLocaleString()} character limit.`
+        `Text exceeds the ${maxTextChars.toLocaleString()} character limit.`
       );
       return;
     }
@@ -79,7 +83,7 @@ export default function CreateWorkspacePage() {
                     Your instruction
                   </label>
                   <span className="text-[10px] font-mono text-neutral-600">
-                    {(draft.query || "").length.toLocaleString()} / {CREATOR_INTELLIGENCE_LIMITS.maxTextChars.toLocaleString()}
+                    {(draft.query || "").length.toLocaleString()} / {maxTextChars.toLocaleString()}
                   </span>
                 </div>
                 <div className="min-h-40 rounded-2xl border border-white/[0.08] bg-black/40 p-4 text-sm leading-relaxed text-neutral-200">
