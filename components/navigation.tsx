@@ -38,15 +38,15 @@ export function Navigation() {
     };
   }, [mobileMenuOpen]);
 
-  // Core Product Navigation Links
+  // Core Product Navigation Links with IA micro-descriptions
   const primaryNavLinks = [
-    { name: "Tools", href: "/tools" },
-    { name: "Director's Studio", href: "/prompts/factory" },
-    { name: "The Vault", href: "/vault" },
-    { name: "Prompts", href: "/prompts" },
-    { name: "Compare", href: "/compare" },
-    { name: "Workflows", href: "/workflows" },
-    { name: "Journal", href: "/journal" },
+    { name: "Tools", href: "/tools", desc: "Catalog & Dossiers" },
+    { name: "Director's Studio", href: "/prompts/factory", desc: "AI Cinema Workbench" },
+    { name: "The Vault", href: "/vault", desc: "Cinematic Recipes" },
+    { name: "Prompts", href: "/prompts", desc: "Prompt Directory" },
+    { name: "Compare", href: "/compare", desc: "Which tool should I use?" },
+    { name: "Workflows", href: "/workflows", desc: "How do I make it?" },
+    { name: "Journal", href: "/journal", desc: "What changed?" },
   ];
 
   return (
@@ -199,9 +199,19 @@ export function Navigation() {
                       key={link.name}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-between text-2xl font-semibold tracking-tight text-primary hover:text-accent transition-colors"
+                      className="flex items-center justify-between py-1 text-primary hover:text-accent transition-colors group"
                     >
-                      <span>{link.name}</span>
+                      <div>
+                        <span className="text-xl font-semibold tracking-tight block">{link.name}</span>
+                        {link.desc && (
+                          <span className="text-xs text-secondary font-normal block font-sans">
+                            {link.desc}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-xs font-mono text-tertiary group-hover:text-accent group-hover:translate-x-0.5 transition-transform">
+                        →
+                      </span>
                     </Link>
                   ))}
                   

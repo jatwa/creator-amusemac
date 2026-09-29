@@ -57,6 +57,15 @@ export const CANONICAL_FEATURE_MATRIX: FeatureEntitlement[] = [
     pro: true,
   },
   {
+    featureId: "ai_prompt_customizer",
+    name: "AI Prompt Customizer (Natural Language)",
+    category: "Directing",
+    description: "Describe your scene in natural language to deterministically match canonical recipes and compile camera-locked model syntax.",
+    free: "1 preview / day",
+    basic: "25 AI generations / month",
+    pro: "Unlimited AI generations",
+  },
+  {
     featureId: "vault_recipe_access",
     name: "Director Recipe Vault Unlocks",
     category: "Vault",

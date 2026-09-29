@@ -38,6 +38,39 @@
   --accent-muted: rgba(41, 151, 255, 0.15);
 }
 
+/* ADMIN COMMAND CENTER SCOPED TOKENS */
+[data-admin-theme="dark"], #ci-admin-scope.dark {
+  --admin-bg: #09090b;
+  --admin-card: #18181b;
+  --admin-card-elevated: #27272a;
+  --admin-inset: #09090b;
+  --admin-border: #27272a;
+  --admin-border-subtle: rgba(255, 255, 255, 0.08);
+  --admin-text-primary: #ffffff;
+  --admin-text-secondary: #a1a1aa;
+  --admin-text-muted: #71717a;
+  --admin-accent: #fbbf24;
+  --admin-accent-bg: rgba(251, 191, 36, 0.1);
+  --admin-accent-border: rgba(251, 191, 36, 0.3);
+  --admin-header-bg: rgba(24, 24, 27, 0.95);
+}
+
+[data-admin-theme="light"], #ci-admin-scope.light {
+  --admin-bg: #f4f4f5;
+  --admin-card: #ffffff;
+  --admin-card-elevated: #f4f4f5;
+  --admin-inset: #f8fafc;
+  --admin-border: #e4e4e7;
+  --admin-border-subtle: rgba(0, 0, 0, 0.06);
+  --admin-text-primary: #09090b;
+  --admin-text-secondary: #52525b;
+  --admin-text-muted: #71717a;
+  --admin-accent: #d97706;
+  --admin-accent-bg: rgba(217, 119, 6, 0.08);
+  --admin-accent-border: rgba(217, 119, 6, 0.3);
+  --admin-header-bg: rgba(255, 255, 255, 0.95);
+}
+
 @layer base {
   * {
     border-color: var(--border);

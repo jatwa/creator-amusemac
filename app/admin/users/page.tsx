@@ -43,19 +43,19 @@ export default async function AdminUsersPage({
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-line pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-zinc-800 pb-5">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-2">
-            <Link href="/admin" className="hover:text-white">Admin</Link>
+          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-1.5">
+            <Link href="/admin" className="hover:text-amber-400 transition">Admin</Link>
             <span>/</span>
             <span className="text-zinc-200">Users</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-            User Management &amp; Subscribers
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+            User Intelligence &amp; Subscriber Directory
           </h1>
-          <p className="mt-1 text-xs sm:text-sm text-zinc-400">
+          <p className="mt-1 text-xs text-zinc-400">
             Search registered accounts, inspect active plans, unlock volume, and film projects.
           </p>
         </div>
@@ -66,12 +66,12 @@ export default async function AdminUsersPage({
             type="text"
             name="q"
             defaultValue={searchQuery}
-            placeholder="Search by name, email, or ID..."
-            className="rounded-xl border border-line bg-black/60 px-4 py-2 text-xs text-white placeholder-zinc-500 focus:border-lime focus:outline-none w-64"
+            placeholder="Search name, email, or ID..."
+            className="rounded border border-zinc-700 bg-zinc-950 px-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400 w-64 font-mono transition"
           />
           <button
             type="submit"
-            className="rounded-xl bg-panel border border-line px-4 py-2 text-xs font-semibold text-white hover:border-lime transition"
+            className="rounded border border-zinc-700 bg-zinc-800 px-3.5 py-1.5 text-xs font-semibold text-zinc-200 hover:text-white hover:bg-zinc-700 hover:border-zinc-600 transition"
           >
             Search
           </button>
@@ -79,26 +79,26 @@ export default async function AdminUsersPage({
       </div>
 
       {/* Users Table */}
-      <section className="surface p-6 rounded-2xl border border-line space-y-4">
+      <section className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-white font-mono">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-300 font-mono">
             {users.length} {users.length === 1 ? "User" : "Users"} Displayed
           </h2>
           {searchQuery && (
-            <Link href="/admin/users" className="text-xs text-lime hover:underline font-mono">
+            <Link href="/admin/users" className="text-xs text-amber-400 hover:underline font-mono">
               Clear search filter ✕
             </Link>
           )}
         </div>
 
         {users.length === 0 ? (
-          <div className="rounded-xl border border-line bg-black/40 p-12 text-center text-xs text-zinc-500 font-mono">
+          <div className="rounded border border-zinc-800 bg-zinc-950/60 p-10 text-center text-xs text-zinc-400 font-mono">
             {searchQuery ? `No users matched "${searchQuery}".` : "No registered users in database yet."}
           </div>
         ) : (
-          <div className="rounded-xl border border-line overflow-x-auto">
+          <div className="rounded border border-zinc-800 overflow-x-auto">
             <table className="w-full text-left text-xs font-mono min-w-[700px]">
-              <thead className="border-b border-line bg-black/60 text-zinc-400 uppercase text-[10px]">
+              <thead className="border-b border-zinc-800 bg-zinc-950 text-zinc-400 uppercase text-[10px]">
                 <tr>
                   <th className="p-3">User</th>
                   <th className="p-3">Plan Tier</th>
@@ -109,22 +109,22 @@ export default async function AdminUsersPage({
                   <th className="p-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-line text-zinc-300">
+              <tbody className="divide-y divide-zinc-800 text-zinc-300">
                 {users.map((u) => {
                   const tier = u.tier || "free";
                   const isPro = tier === "pro";
                   const isBasic = tier === "basic";
 
                   return (
-                    <tr key={u.id} className="hover:bg-white/[0.02]">
+                    <tr key={u.id} className="hover:bg-zinc-800/40 transition">
                       <td className="p-3">
                         <div className="flex items-center gap-3">
-                          <div className="h-8 w-8 rounded-full bg-panel border border-line flex items-center justify-center font-bold text-white text-xs">
+                          <div className="h-7 w-7 rounded bg-zinc-800 border border-zinc-700 flex items-center justify-center font-bold text-white text-xs">
                             {u.name ? u.name[0].toUpperCase() : "U"}
                           </div>
                           <div>
                             <p className="font-semibold text-white">{u.name || "Anonymous User"}</p>
-                            <p className="text-[11px] text-zinc-500">{u.email}</p>
+                            <p className="text-[11px] text-zinc-400">{u.email}</p>
                           </div>
                         </div>
                       </td>
@@ -132,29 +132,38 @@ export default async function AdminUsersPage({
                         <span
                           className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase ${
                             isPro
-                              ? "bg-accent/10 border border-accent/30 text-accent"
+                              ? "bg-amber-400/10 border border-amber-400/30 text-amber-400"
                               : isBasic
-                              ? "bg-lime/10 border border-lime/30 text-lime"
-                              : "bg-zinc-800 text-zinc-400"
+                              ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
+                              : "bg-zinc-800 border border-zinc-700 text-zinc-400"
                           }`}
                         >
                           {tier}
                         </span>
                       </td>
                       <td className="p-3">
-                        <span className="text-emerald-400">{u.sub_status || "active"}</span>
+                        <span className="inline-flex items-center gap-1.5 text-emerald-400">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                          {u.sub_status || "active"}
+                        </span>
                       </td>
                       <td className="p-3 text-zinc-400 uppercase">
                         {u.sub_provider || "free"}
                       </td>
-                      <td className="p-3 text-center text-white">{u.unlock_count || 0}</td>
-                      <td className="p-3 text-center text-white">{u.project_count || 0}</td>
-                      <td className="p-3 text-right">
+                      <td className="p-3 text-center text-white font-bold">{u.unlock_count || 0}</td>
+                      <td className="p-3 text-center text-white font-bold">{u.project_count || 0}</td>
+                      <td className="p-3 text-right space-x-2">
+                        <Link
+                          href={`/admin/users/${encodeURIComponent(u.id)}`}
+                          className="rounded border border-zinc-700 bg-zinc-800 px-2.5 py-1 text-[11px] font-semibold text-zinc-200 hover:text-white hover:border-zinc-500 transition inline-block"
+                        >
+                          X-Ray ↗
+                        </Link>
                         <Link
                           href={`/admin/access-debugger?email=${encodeURIComponent(u.email || u.id)}`}
-                          className="rounded border border-line bg-panel px-2.5 py-1 text-[11px] font-semibold text-lime hover:border-lime transition inline-block"
+                          className="rounded border border-amber-400/40 bg-amber-400/10 px-2.5 py-1 text-[11px] font-semibold text-amber-300 hover:bg-amber-400/20 transition inline-block"
                         >
-                          Diagnose ↗
+                          Debug ↗
                         </Link>
                       </td>
                     </tr>

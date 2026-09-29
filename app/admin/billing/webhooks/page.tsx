@@ -35,33 +35,33 @@ export default async function AdminWebhooksPage() {
   return (
     <div className="space-y-10">
       {/* Header */}
-      <div className="border-b border-line pb-6">
+      <div className="border-b border-zinc-800 pb-6">
         <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-2">
-          <Link href="/admin" className="hover:text-white">Admin</Link>
-          <span>/</span>
-          <Link href="/admin/billing" className="hover:text-white">Billing</Link>
-          <span>/</span>
+          <Link href="/admin" className="hover:text-amber-400">Admin</Link>
+          <span className="text-zinc-600">/</span>
+          <Link href="/admin/billing" className="hover:text-amber-400">Billing</Link>
+          <span className="text-zinc-600">/</span>
           <span className="text-zinc-200">Webhooks</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-mono">
           Paddle Webhook Verification &amp; Event Monitor
         </h1>
-        <p className="mt-1 text-xs sm:text-sm text-zinc-400">
+        <p className="mt-1 text-xs sm:text-sm text-zinc-400 font-mono">
           HMAC-SHA256 signature verification status, endpoint health, and synced subscription events.
         </p>
       </div>
 
       {/* Endpoint Configuration Status */}
-      <section className="surface p-6 rounded-2xl border border-line space-y-4">
-        <h2 className="text-base font-bold text-white">Webhook Notification Endpoint</h2>
+      <section className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4">
+        <h2 className="text-sm font-bold uppercase text-white tracking-wider font-mono">Webhook Notification Endpoint</h2>
         <div className="grid gap-4 sm:grid-cols-3 text-xs font-mono">
-          <div className="rounded-xl border border-line bg-black/40 p-4 sm:col-span-2">
-            <span className="text-zinc-500 block">Production Ingestion URL</span>
-            <span className="text-lime font-bold text-sm mt-1 block">{webhookEndpoint}</span>
+          <div className="rounded-lg border border-zinc-800 bg-zinc-950/70 p-4 sm:col-span-2">
+            <span className="text-zinc-400 block font-bold text-[11px] uppercase">Production Ingestion URL</span>
+            <span className="text-amber-400 font-bold text-sm mt-1 block font-mono">{webhookEndpoint}</span>
           </div>
-          <div className="rounded-xl border border-line bg-black/40 p-4">
-            <span className="text-zinc-500 block">Signature Verification</span>
-            <span className={`font-bold text-sm mt-1 block ${hasSecret ? "text-emerald-400" : "text-amber-400"}`}>
+          <div className="rounded-lg border border-zinc-800 bg-zinc-950/70 p-4">
+            <span className="text-zinc-400 block font-bold text-[11px] uppercase">Signature Verification</span>
+            <span className={`font-bold text-sm mt-1 block font-mono ${hasSecret ? "text-emerald-400" : "text-amber-400"}`}>
               {hasSecret ? "HMAC-SHA256 ACTIVE" : "SECRET STANDBY"}
             </span>
           </div>
@@ -69,23 +69,23 @@ export default async function AdminWebhooksPage() {
       </section>
 
       {/* Supported Lifecycle Event Handlers */}
-      <section className="surface p-6 rounded-2xl border border-line space-y-4">
-        <h2 className="text-base font-bold text-white">Supported Paddle Event Handlers</h2>
-        <div className="rounded-xl border border-line overflow-hidden">
+      <section className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4">
+        <h2 className="text-sm font-bold uppercase text-white tracking-wider font-mono">Supported Paddle Event Handlers</h2>
+        <div className="rounded-lg border border-zinc-800 overflow-hidden">
           <table className="w-full text-left text-xs font-mono">
-            <thead className="border-b border-line bg-black/60 text-zinc-400 uppercase text-[10px]">
+            <thead className="border-b border-zinc-800 bg-zinc-950 text-zinc-400 uppercase text-[10px] font-semibold">
               <tr>
                 <th className="p-3">Paddle Event Name</th>
                 <th className="p-3">Lifecycle Phase</th>
                 <th className="p-3 text-right">Synchronization Handler</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line text-zinc-300">
+            <tbody className="divide-y divide-zinc-800 text-zinc-300">
               {supportedPaddleEvents.map((ev) => (
-                <tr key={ev.event} className="hover:bg-white/[0.02]">
+                <tr key={ev.event} className="hover:bg-zinc-800/40 transition">
                   <td className="p-3 font-semibold text-white">{ev.event}</td>
                   <td className="p-3 text-zinc-400">{ev.lifecycle}</td>
-                  <td className="p-3 text-right text-emerald-400">{ev.handled}</td>
+                  <td className="p-3 text-right text-emerald-400 font-semibold">{ev.handled}</td>
                 </tr>
               ))}
             </tbody>
@@ -94,16 +94,16 @@ export default async function AdminWebhooksPage() {
       </section>
 
       {/* Synced Subscription Records */}
-      <section className="surface p-6 rounded-2xl border border-line space-y-4">
-        <h2 className="text-base font-bold text-white">Recent Database Synchronizations</h2>
+      <section className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4">
+        <h2 className="text-sm font-bold uppercase text-white tracking-wider font-mono">Recent Database Synchronizations</h2>
         {recentEvents.length === 0 ? (
-          <div className="rounded-xl border border-line bg-black/40 p-8 text-center text-xs text-zinc-500 font-mono">
+          <div className="rounded-lg border border-zinc-800 bg-zinc-950/70 p-8 text-center text-xs text-zinc-400 font-mono">
             No Paddle webhook events recorded in local database yet.
           </div>
         ) : (
-          <div className="rounded-xl border border-line overflow-hidden">
+          <div className="rounded-lg border border-zinc-800 overflow-hidden">
             <table className="w-full text-left text-xs font-mono">
-              <thead className="border-b border-line bg-black/60 text-zinc-400 uppercase text-[10px]">
+              <thead className="border-b border-zinc-800 bg-zinc-950 text-zinc-400 uppercase text-[10px] font-semibold">
                 <tr>
                   <th className="p-3">User ID</th>
                   <th className="p-3">Tier</th>
@@ -112,18 +112,18 @@ export default async function AdminWebhooksPage() {
                   <th className="p-3 text-right">Last Synced</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-line text-zinc-300">
+              <tbody className="divide-y divide-zinc-800 text-zinc-300">
                 {recentEvents.map((r) => (
-                  <tr key={r.id} className="hover:bg-white/[0.02]">
+                  <tr key={r.id} className="hover:bg-zinc-800/40 transition">
                     <td className="p-3 text-white font-semibold">{r.user_id}</td>
-                    <td className="p-3 uppercase text-lime">{r.tier}</td>
+                    <td className="p-3 uppercase text-amber-400 font-semibold">{r.tier}</td>
                     <td className="p-3">
-                      <span className="rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[10px]">
+                      <span className="rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold uppercase">
                         {r.status}
                       </span>
                     </td>
-                    <td className="p-3 text-zinc-400">{r.paddle_subscription_id || "—"}</td>
-                    <td className="p-3 text-right text-zinc-500">{new Date(r.updated_at).toLocaleString()}</td>
+                    <td className="p-3 text-zinc-400 font-mono">{r.paddle_subscription_id || "—"}</td>
+                    <td className="p-3 text-right text-zinc-400">{new Date(r.updated_at).toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>

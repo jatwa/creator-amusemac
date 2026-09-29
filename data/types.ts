@@ -610,6 +610,47 @@ export interface CameraLexiconItem {
   commonMistake: string;
 }
 
+export interface AiCustomizerRequest {
+  concept: string;
+  engine?: string;
+  recipeId?: string;
+}
+
+export interface AiCustomizerResponse {
+  matchedRecipe: {
+    id: string;
+    slug: string;
+    title: string;
+    category: string;
+    useCase: string;
+  };
+  matchScore: number;
+  matchPercentage: number;
+  dimensionScores: {
+    subject: number;
+    environment: number;
+    action: number;
+    genreMood: number;
+    category: number;
+  };
+  explanation: string;
+  topAlternatives: {
+    id: string;
+    slug: string;
+    title: string;
+    matchPercentage: number;
+  }[];
+  directorShotConfig: DirectorShotConfig;
+  directorSlip: string;
+  engine: string;
+  isLocked: boolean;
+  quotaRemaining: number | null;
+  quotaLimit: number | null;
+  promptPreview: string;
+  promptFull: string | null;
+  negativePrompt: string | null;
+}
+
 // -------------------------------------------------------------
 // RE-EXPORT PHASE 2 FILM INTELLIGENCE TYPE SYSTEM
 // -------------------------------------------------------------

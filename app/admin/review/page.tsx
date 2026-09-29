@@ -76,28 +76,28 @@ export default function AdminReviewPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800 pb-6">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-lime font-semibold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-semibold">
             Trust &amp; Verification Desk
           </span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
             Pricing &amp; Model Drift Review
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-mono">
             Review changes detected by the daily pricing check cron. Approving immediately updates the live Neon record and bumps verified date to today.
           </p>
         </div>
         <button
           onClick={fetchChanges}
-          className="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-mono text-zinc-200 transition self-start sm:self-auto"
+          className="px-4 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-xs font-mono text-zinc-200 border border-zinc-700 transition self-start sm:self-auto font-semibold"
         >
           ↻ Refresh List
         </button>
       </div>
 
       {feedback && (
-        <div className="p-4 rounded-xl border border-lime/30 bg-lime/10 text-lime text-xs font-mono">
+        <div className="p-4 rounded-xl border border-amber-400/40 bg-amber-400/10 text-amber-300 text-xs font-mono">
           {feedback}
         </div>
       )}
@@ -105,18 +105,18 @@ export default function AdminReviewPage() {
       {/* Pending Items Section */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+          <h2 className="text-base font-semibold text-white flex items-center gap-2 font-mono">
             <span>Pending Approvals</span>
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
+            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold">
               {pendingList.length} Needs Review
             </span>
           </h2>
         </div>
 
         {loading ? (
-          <p className="text-xs font-mono text-zinc-500">Loading pending changes...</p>
+          <p className="text-xs font-mono text-zinc-400">Loading pending changes...</p>
         ) : pendingList.length === 0 ? (
-          <div className="p-8 rounded-2xl border border-dashed border-line bg-panel/30 text-center text-zinc-400 text-xs font-mono">
+          <div className="p-8 rounded-xl border border-dashed border-zinc-800 bg-zinc-900/60 text-center text-zinc-400 text-xs font-mono">
             ✓ Zero pending drift alerts. All tool pricing and feature tiers match verified specifications.
           </div>
         ) : (
@@ -124,9 +124,9 @@ export default function AdminReviewPage() {
             {pendingList.map((change) => (
               <div
                 key={change.id}
-                className="rounded-2xl border border-line bg-panel p-6 space-y-4 shadow-subtle"
+                className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-4 font-mono"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-line/60 pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
                   <div>
                     <span className="text-xs font-bold text-white">
                       {change.tool_name || change.tool_id}
@@ -142,8 +142,8 @@ export default function AdminReviewPage() {
 
                 {/* Diff View */}
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="p-3 rounded-xl border border-rose-500/20 bg-rose-500/5 space-y-1">
-                    <span className="text-[10px] font-mono uppercase text-rose-400 block font-semibold">
+                  <div className="p-3 rounded-lg border border-red-500/30 bg-red-500/10 space-y-1">
+                    <span className="text-[10px] font-mono uppercase text-red-400 block font-bold">
                       Current Stored Price
                     </span>
                     <p className="text-xs text-zinc-200 font-mono">
@@ -151,8 +151,8 @@ export default function AdminReviewPage() {
                     </p>
                   </div>
 
-                  <div className="p-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 space-y-1">
-                    <span className="text-[10px] font-mono uppercase text-emerald-400 block font-semibold">
+                  <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 space-y-1">
+                    <span className="text-[10px] font-mono uppercase text-emerald-400 block font-bold">
                       Detected New Price
                     </span>
                     <p className="text-xs text-emerald-300 font-mono font-bold">
@@ -162,7 +162,7 @@ export default function AdminReviewPage() {
                 </div>
 
                 {change.notes && (
-                  <p className="text-xs text-zinc-300 bg-ink/60 p-3 rounded-xl border border-line">
+                  <p className="text-xs text-zinc-300 bg-zinc-950/70 p-3 rounded-lg border border-zinc-800">
                     <span className="font-semibold text-zinc-400">Notes: </span>
                     {change.notes}
                   </p>
@@ -173,7 +173,7 @@ export default function AdminReviewPage() {
                     href={change.source_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-mono text-lime hover:underline"
+                    className="text-xs font-mono text-amber-400 hover:underline"
                   >
                     View Official Source Page ↗
                   </a>
@@ -182,14 +182,14 @@ export default function AdminReviewPage() {
                     <button
                       disabled={processingId === change.id}
                       onClick={() => handleAction(change.id, "reject")}
-                      className="px-4 py-1.5 rounded-lg border border-rose-500/40 text-rose-400 hover:bg-rose-500/10 text-xs font-medium transition disabled:opacity-50"
+                      className="px-4 py-1.5 rounded border border-red-500/40 text-red-400 hover:bg-red-500/10 text-xs font-semibold transition disabled:opacity-50"
                     >
                       Reject
                     </button>
                     <button
                       disabled={processingId === change.id}
                       onClick={() => handleAction(change.id, "approve")}
-                      className="px-4 py-1.5 rounded-lg bg-lime hover:bg-lime/90 text-ink text-xs font-bold transition disabled:opacity-50 shadow-sm"
+                      className="px-4 py-1.5 rounded bg-amber-400 hover:bg-amber-300 text-zinc-950 text-xs font-bold transition disabled:opacity-50 shadow-sm"
                     >
                       ✓ Approve &amp; Update Live
                     </button>
@@ -203,25 +203,25 @@ export default function AdminReviewPage() {
 
       {/* Audit History */}
       {historyList.length > 0 && (
-        <div className="space-y-4 pt-6 border-t border-line">
-          <h2 className="text-base font-semibold text-zinc-300">Resolved History</h2>
+        <div className="space-y-4 pt-6 border-t border-zinc-800 font-mono">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-300">Resolved History</h2>
           <div className="grid gap-2">
             {historyList.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between p-3.5 rounded-xl border border-line/60 bg-panel/40 text-xs font-mono"
+                className="flex items-center justify-between p-3.5 rounded-lg border border-zinc-800 bg-zinc-900 text-xs font-mono"
               >
                 <div className="flex items-center gap-3">
                   <span
-                    className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                    className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${
                       item.status === "approved"
-                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                        : "bg-zinc-800 text-zinc-400"
+                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                        : "bg-zinc-800 text-zinc-400 border-zinc-700"
                     }`}
                   >
                     {item.status.toUpperCase()}
                   </span>
-                  <span className="text-zinc-200">{item.tool_name || item.tool_id}</span>
+                  <span className="text-zinc-200 font-semibold">{item.tool_name || item.tool_id}</span>
                 </div>
                 <span className="text-zinc-400">{item.detected_date}</span>
               </div>
@@ -230,8 +230,8 @@ export default function AdminReviewPage() {
         </div>
       )}
 
-      <div className="border-t border-line pt-6">
-        <Link href="/admin" className="text-xs text-lime font-mono hover:underline">
+      <div className="border-t border-zinc-800 pt-6">
+        <Link href="/admin" className="text-xs text-amber-400 font-mono hover:underline font-semibold">
           ← Back to Admin Control Center
         </Link>
       </div>

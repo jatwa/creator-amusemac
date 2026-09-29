@@ -65,50 +65,50 @@ export default function AdminDraftsPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800 pb-6">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-widest text-lime font-semibold">
+          <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400 font-semibold">
             Editorial CMS Desk
           </span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mt-1 font-mono">
             Automated Drafts &amp; Recipes Hub
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+          <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-mono">
             Review daily AI news digest articles and generated prompt recipes. Publishing makes them live on `/blog` and `/prompts`.
           </p>
         </div>
         <button
           onClick={fetchDrafts}
-          className="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-mono text-zinc-200 transition self-start sm:self-auto"
+          className="px-4 py-2 rounded bg-zinc-800 hover:bg-zinc-700 text-xs font-mono text-zinc-200 border border-zinc-700 transition self-start sm:self-auto font-semibold"
         >
           ↻ Refresh Drafts
         </button>
       </div>
 
       {feedback && (
-        <div className="p-4 rounded-xl border border-lime/30 bg-lime/10 text-lime text-xs font-mono">
+        <div className="p-4 rounded-xl border border-amber-400/40 bg-amber-400/10 text-amber-300 text-xs font-mono">
           {feedback}
         </div>
       )}
 
       {/* Tabs */}
-      <div className="flex items-center gap-3 border-b border-line pb-4">
+      <div className="flex items-center gap-3 border-b border-zinc-800 pb-4">
         <button
           onClick={() => setActiveTab("blogs")}
-          className={`px-4 py-2 rounded-xl text-xs font-mono font-medium transition ${
+          className={`px-4 py-2 rounded text-xs font-mono font-bold transition ${
             activeTab === "blogs"
-              ? "bg-lime text-ink font-bold shadow-sm"
-              : "bg-panel text-zinc-400 hover:text-white"
+              ? "bg-amber-400 text-zinc-950"
+              : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
           }`}
         >
           Blog &amp; News Drafts ({blogs.length})
         </button>
         <button
           onClick={() => setActiveTab("prompts")}
-          className={`px-4 py-2 rounded-xl text-xs font-mono font-medium transition ${
+          className={`px-4 py-2 rounded text-xs font-mono font-bold transition ${
             activeTab === "prompts"
-              ? "bg-lime text-ink font-bold shadow-sm"
-              : "bg-panel text-zinc-400 hover:text-white"
+              ? "bg-amber-400 text-zinc-950"
+              : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
           }`}
         >
           Prompt Recipe Drafts ({prompts.length})
@@ -119,9 +119,9 @@ export default function AdminDraftsPage() {
       {activeTab === "blogs" && (
         <div className="space-y-4">
           {loading ? (
-            <p className="text-xs font-mono text-zinc-500">Loading blog drafts...</p>
+            <p className="text-xs font-mono text-zinc-400">Loading blog drafts...</p>
           ) : blogs.length === 0 ? (
-            <div className="p-8 rounded-2xl border border-dashed border-line bg-panel/30 text-center text-zinc-400 text-xs font-mono">
+            <div className="p-8 rounded-xl border border-dashed border-zinc-800 bg-zinc-900/60 text-center text-zinc-400 text-xs font-mono">
               No blog drafts found. The daily digest cron runs at 00:30 UTC.
             </div>
           ) : (
@@ -129,15 +129,15 @@ export default function AdminDraftsPage() {
               {blogs.map((b) => (
                 <div
                   key={b.id}
-                  className="rounded-2xl border border-line bg-panel p-6 space-y-4 shadow-subtle"
+                  className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-4 font-mono"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-line/60 pb-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
                     <div>
-                      <span className="text-[10px] font-mono uppercase text-lime bg-lime/10 px-2 py-0.5 rounded border border-lime/20 mr-2">
+                      <span className="text-[10px] font-mono uppercase text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30 mr-2 font-bold">
                         {b.category || "Editorial"}
                       </span>
                       <span className="text-xs font-mono text-zinc-400">
-                        Status: <strong className={b.status === "published" ? "text-emerald-400" : "text-amber-400"}>{b.status}</strong>
+                        Status: <strong className={b.status === "published" ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>{b.status}</strong>
                       </span>
                     </div>
                     <span className="text-xs font-mono text-zinc-400">
@@ -146,17 +146,17 @@ export default function AdminDraftsPage() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-bold text-white">{b.title}</h3>
+                    <h3 className="text-lg font-bold text-white font-mono">{b.title}</h3>
                     <p className="text-xs text-zinc-300 mt-2 leading-relaxed font-normal">
                       {b.excerpt}
                     </p>
                   </div>
 
-                  <div className="p-4 bg-ink/70 rounded-xl border border-line text-xs font-mono text-zinc-300 max-h-48 overflow-y-auto whitespace-pre-wrap leading-relaxed">
+                  <div className="p-4 bg-zinc-950/70 rounded-lg border border-zinc-800 text-xs font-mono text-zinc-300 max-h-48 overflow-y-auto whitespace-pre-wrap leading-relaxed">
                     {b.content}
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-line/60">
+                  <div className="flex items-center justify-between pt-2 border-t border-zinc-800">
                     <span className="text-xs text-zinc-400 font-mono">
                       Author: {b.author_name}
                     </span>
@@ -167,14 +167,14 @@ export default function AdminDraftsPage() {
                           <button
                             disabled={processingId === b.id}
                             onClick={() => handleDraftAction("blog", b.id, "reject")}
-                            className="px-4 py-1.5 rounded-lg border border-rose-500/40 text-rose-400 hover:bg-rose-500/10 text-xs font-medium transition disabled:opacity-50"
+                            className="px-4 py-1.5 rounded border border-red-500/40 text-red-400 hover:bg-red-500/10 text-xs font-semibold transition disabled:opacity-50"
                           >
                             Reject
                           </button>
                           <button
                             disabled={processingId === b.id}
                             onClick={() => handleDraftAction("blog", b.id, "publish")}
-                            className="px-5 py-1.5 rounded-lg bg-lime hover:bg-lime/90 text-ink text-xs font-bold transition disabled:opacity-50 shadow-sm"
+                            className="px-5 py-1.5 rounded bg-amber-400 hover:bg-amber-300 text-zinc-950 text-xs font-bold transition disabled:opacity-50 shadow-sm"
                           >
                             ✓ Publish to Live /blog
                           </button>
@@ -184,7 +184,7 @@ export default function AdminDraftsPage() {
                         <Link
                           href={`/blog/${b.slug}`}
                           target="_blank"
-                          className="text-xs font-mono text-lime hover:underline"
+                          className="text-xs font-mono text-amber-400 hover:underline font-semibold"
                         >
                           View Live Post ↗
                         </Link>
@@ -202,9 +202,9 @@ export default function AdminDraftsPage() {
       {activeTab === "prompts" && (
         <div className="space-y-4">
           {loading ? (
-            <p className="text-xs font-mono text-zinc-500">Loading prompt drafts...</p>
+            <p className="text-xs font-mono text-zinc-400">Loading prompt drafts...</p>
           ) : prompts.length === 0 ? (
-            <div className="p-8 rounded-2xl border border-dashed border-line bg-panel/30 text-center text-zinc-400 text-xs font-mono">
+            <div className="p-8 rounded-xl border border-dashed border-zinc-800 bg-zinc-900/60 text-center text-zinc-400 text-xs font-mono">
               No prompt drafts found. New tool prompt recipes generate with daily digest.
             </div>
           ) : (
@@ -212,24 +212,24 @@ export default function AdminDraftsPage() {
               {prompts.map((p) => (
                 <div
                   key={p.id}
-                  className="rounded-2xl border border-line bg-panel p-6 space-y-4 shadow-subtle"
+                  className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-4 font-mono"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-line/60 pb-3">
-                    <span className="text-[10px] font-mono uppercase text-lime bg-lime/10 px-2 py-0.5 rounded border border-lime/20">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
+                    <span className="text-[10px] font-mono uppercase text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/30 font-bold">
                       {p.use_case || p.category}
                     </span>
                     <span className="text-xs font-mono text-zinc-400">
-                      Status: <strong className={p.status === "published" ? "text-emerald-400" : "text-amber-400"}>{p.status}</strong>
+                      Status: <strong className={p.status === "published" ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>{p.status}</strong>
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-base font-bold text-white">{p.title}</h3>
+                    <h3 className="text-base font-bold text-white font-mono">{p.title}</h3>
                     <p className="text-xs text-zinc-300 mt-1">{p.description}</p>
                   </div>
 
-                  <div className="p-4 bg-ink/70 rounded-xl border border-line space-y-2">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-lime block font-semibold">
+                  <div className="p-4 bg-zinc-950/70 rounded-lg border border-zinc-800 space-y-2">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 block font-bold">
                       Prompt Formula:
                     </span>
                     <p className="text-xs font-mono text-zinc-200 leading-relaxed">
@@ -237,12 +237,12 @@ export default function AdminDraftsPage() {
                     </p>
                     {p.negative_prompt && (
                       <p className="text-xs font-mono text-zinc-400 pt-1">
-                        <span className="text-rose-400">Negative:</span> {p.negative_prompt}
+                        <span className="text-red-400 font-semibold">Negative:</span> {p.negative_prompt}
                       </p>
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-line/60">
+                  <div className="flex items-center justify-between pt-2 border-t border-zinc-800">
                     <span className="text-xs text-zinc-400 font-mono">
                       Target Models: {Array.isArray(p.compatible_tool_ids) ? p.compatible_tool_ids.join(", ") : p.compatible_tool_ids}
                     </span>
@@ -253,14 +253,14 @@ export default function AdminDraftsPage() {
                           <button
                             disabled={processingId === p.id}
                             onClick={() => handleDraftAction("prompt", p.id, "reject")}
-                            className="px-4 py-1.5 rounded-lg border border-rose-500/40 text-rose-400 hover:bg-rose-500/10 text-xs font-medium transition disabled:opacity-50"
+                            className="px-4 py-1.5 rounded border border-red-500/40 text-red-400 hover:bg-red-500/10 text-xs font-semibold transition disabled:opacity-50"
                           >
                             Reject
                           </button>
                           <button
                             disabled={processingId === p.id}
                             onClick={() => handleDraftAction("prompt", p.id, "publish")}
-                            className="px-5 py-1.5 rounded-lg bg-lime hover:bg-lime/90 text-ink text-xs font-bold transition disabled:opacity-50 shadow-sm"
+                            className="px-5 py-1.5 rounded bg-amber-400 hover:bg-amber-300 text-zinc-950 text-xs font-bold transition disabled:opacity-50 shadow-sm"
                           >
                             ✓ Publish to Live /prompts
                           </button>
@@ -270,7 +270,7 @@ export default function AdminDraftsPage() {
                         <Link
                           href={`/prompts/${p.slug}`}
                           target="_blank"
-                          className="text-xs font-mono text-lime hover:underline"
+                          className="text-xs font-mono text-amber-400 hover:underline font-semibold"
                         >
                           View Live Recipe ↗
                         </Link>
@@ -284,8 +284,8 @@ export default function AdminDraftsPage() {
         </div>
       )}
 
-      <div className="border-t border-line pt-6">
-        <Link href="/admin" className="text-xs text-lime font-mono hover:underline">
+      <div className="border-t border-zinc-800 pt-6">
+        <Link href="/admin" className="text-xs text-amber-400 font-mono hover:underline font-semibold">
           ← Back to Admin Control Center
         </Link>
       </div>
