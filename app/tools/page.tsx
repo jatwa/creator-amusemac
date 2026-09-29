@@ -32,11 +32,11 @@ export default async function ToolsPage() {
   const tools = await getDbTools();
 
   return (
-    <main className="min-h-screen bg-background text-primary transition-colors">
+    <main className="intel-page transition-colors">
       <Navigation />
 
       {/* Directory Hero Banner */}
-      <div className="border-b border-border-subtle bg-surface/30 py-14 sm:py-18">
+      <div className="intel-header py-14 sm:py-18">
         <div className="shell">
           <SectionHeading
             as="h1"
