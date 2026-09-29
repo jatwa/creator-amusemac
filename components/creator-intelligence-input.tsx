@@ -47,9 +47,9 @@ export function CreatorIntelligenceInput() {
     setError("");
     const trimmed = query.trim();
 
-    if (trimmed.length > CREATOR_INTELLIGENCE_LIMITS.maxTextChars) {
+    if (trimmed.length > limits.maxTextChars) {
       setError(
-        `Text is limited to ${CREATOR_INTELLIGENCE_LIMITS.maxTextChars.toLocaleString()} characters.`
+        `Text is limited to ${limits.maxTextChars.toLocaleString()} characters.`
       );
       return;
     }
@@ -72,12 +72,12 @@ export function CreatorIntelligenceInput() {
       return;
     }
 
-    if (file.size > CREATOR_INTELLIGENCE_LIMITS.maxFileBytes) {
+    if (file.size > limits.maxFileBytes) {
       setFileName("");
       if (fileRef.current) fileRef.current.value = "";
       setError(
         `File is too large. Maximum size is ${formatFileSize(
-          CREATOR_INTELLIGENCE_LIMITS.maxFileBytes
+          limits.maxFileBytes
         )}.`
       );
       return;
@@ -90,10 +90,10 @@ export function CreatorIntelligenceInput() {
       try {
         const text = await file.text();
 
-        if (text.length > CREATOR_INTELLIGENCE_LIMITS.maxTextChars) {
-          setQuery(text.slice(0, CREATOR_INTELLIGENCE_LIMITS.maxTextChars));
+        if (text.length > limits.maxTextChars) {
+          setQuery(text.slice(0, limits.maxTextChars));
           setError(
-            `Text was trimmed to ${CREATOR_INTELLIGENCE_LIMITS.maxTextChars.toLocaleString()} characters.`
+            `Text was trimmed to ${limits.maxTextChars.toLocaleString()} characters.`
           );
         } else {
           setQuery(text);
@@ -128,15 +128,15 @@ export function CreatorIntelligenceInput() {
             value={query}
             onChange={(event) => {
               const next = event.target.value;
-              if (next.length <= CREATOR_INTELLIGENCE_LIMITS.maxTextChars) {
+              if (next.length <= limits.maxTextChars) {
                 setQuery(next);
                 setError("");
               } else {
                 setQuery(
-                  next.slice(0, CREATOR_INTELLIGENCE_LIMITS.maxTextChars)
+                  next.slice(0, limits.maxTextChars)
                 );
                 setError(
-                  `Text limit reached: ${CREATOR_INTELLIGENCE_LIMITS.maxTextChars.toLocaleString()} characters.`
+                  `Text limit reached: ${limits.maxTextChars.toLocaleString()} characters.`
                 );
               }
             }}
@@ -214,10 +214,10 @@ export function CreatorIntelligenceInput() {
 
         <div className="flex items-center justify-between gap-3 px-4 pb-3 sm:px-5">
           <span className="text-[10px] font-mono text-neutral-600">
-            {query.length.toLocaleString()} / {CREATOR_INTELLIGENCE_LIMITS.maxTextChars.toLocaleString()} chars
+            {query.length.toLocaleString()} / {limits.maxTextChars.toLocaleString()} chars
           </span>
           <span className="text-right text-[10px] font-mono text-neutral-600">
-            Max file {formatFileSize(CREATOR_INTELLIGENCE_LIMITS.maxFileBytes)} · PDF · DOCX · TXT · MD
+            Max file {formatFileSize(limits.maxFileBytes)} · PDF · DOCX · TXT · MD
           </span>
         </div>
 
