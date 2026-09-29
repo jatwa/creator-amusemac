@@ -1,6 +1,7 @@
+import { CREATOR_INTELLIGENCE_PLANS } from "@/lib/creator-intelligence-plans";
+
 export const CREATOR_INTELLIGENCE_LIMITS = {
-  maxFileBytes: 4 * 1024 * 1024,
-  maxTextChars: 50_000,
+  ...CREATOR_INTELLIGENCE_PLANS.free,
   allowedExtensions: [".pdf", ".docx", ".txt", ".md"] as const,
 } as const;
 
