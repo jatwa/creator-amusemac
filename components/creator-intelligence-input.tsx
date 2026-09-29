@@ -132,9 +132,7 @@ export function CreatorIntelligenceInput() {
                 setQuery(next);
                 setError("");
               } else {
-                setQuery(
-                  next.slice(0, limits.maxTextChars)
-                );
+                setQuery(next.slice(0, limits.maxTextChars));
                 setError(
                   `Text limit reached: ${limits.maxTextChars.toLocaleString()} characters.`
                 );
@@ -222,10 +220,7 @@ export function CreatorIntelligenceInput() {
         </div>
 
         {error && (
-          <p
-            role="alert"
-            className="border-t border-rose-400/10 px-4 py-3 text-xs text-rose-300 sm:px-5"
-          >
+          <p role="alert" className="border-t border-rose-400/10 px-4 py-3 text-xs text-rose-300 sm:px-5">
             {error}
           </p>
         )}
@@ -252,7 +247,7 @@ export function CreatorIntelligenceInput() {
       </div>
 
       <p className="mt-3 text-center text-[10px] font-mono text-neutral-600">
-        PDF • DOCX • TXT • MD · 4 MB max file · 50K max characters
+        PDF • DOCX • TXT • MD · {formatFileSize(limits.maxFileBytes)} max file · {limits.maxTextChars.toLocaleString()} max characters
       </p>
     </div>
   );
