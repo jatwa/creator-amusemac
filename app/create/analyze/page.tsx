@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CreatorIntelligenceExecutionPicker } from "@/components/creator-intelligence-execution-picker";
+import { CreatorIntelligenceRunPanel } from "@/components/creator-intelligence-run-panel";
 
 type Draft = { query?: string; fileName?: string };
 
@@ -32,6 +33,8 @@ export default function StoryAnalysisPage() {
           <div className="mt-8">
             <CreatorIntelligenceExecutionPicker />
           </div>
+
+          <CreatorIntelligenceRunPanel />
 
           <div className="mt-10 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
             <section className="rounded-3xl border border-white/[0.09] bg-neutral-900/70 p-6 sm:p-8">
