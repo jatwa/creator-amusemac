@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { AccountView } from "@/components/account-view";
-import { AccountAiUsage } from "@/components/account-ai-usage";
 
 export const metadata: Metadata = {
   title: "Account & Subscriptions — Creator Intel",
@@ -39,7 +38,6 @@ export default function AccountPage() {
 
       <div className="shell py-12">
         <AccountView />
-        <AccountAiUsage />
       </div>
 
       <Footer />
