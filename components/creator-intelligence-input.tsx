@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { ArrowRight, Search } from "@/components/cinematic/icons";
+import {\n  CREATOR_INTELLIGENCE_LIMITS,\n  formatFileSize,\n  getFileExtension,\n  isAllowedCreatorIntelligenceFile,\n} from "@/lib/creator-intelligence-limits";
 
 const EXAMPLES = [
   "Analyse my script",
@@ -17,7 +18,7 @@ export function CreatorIntelligenceInput() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
   const [fileName, setFileName] = useState("");
-  const [reading, setReading] = useState(false);
+  const [reading, setReading] = useState(false);\n  const [error, setError] = useState("");\n  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const persistAndOpen = (text: string, name = "") => {
     sessionStorage.setItem("ci_intelligence_draft", JSON.stringify({
@@ -36,7 +37,7 @@ export function CreatorIntelligenceInput() {
     if (file.type === "text/plain" || /\.(md|txt)$/i.test(file.name)) {
       setReading(true);
       try {
-        setQuery((await file.text()).slice(0, 120000));
+        const text = await file.text();\n        if (text.length > CREATOR_INTELLIGENCE_LIMITS.maxTextChars) {\n          setQuery(text.slice(0, CREATOR_INTELLIGENCE_LIMITS.maxTextChars));\n          setError(`Text was trimmed to ${CREATOR_INTELLIGENCE_LIMITS.maxTextChars.toLocaleString()} characters.`);\n        } else {\n          setQuery(text);\n        }
       } finally {
         setReading(false);
       }
@@ -57,7 +58,7 @@ export function CreatorIntelligenceInput() {
           <Search className="mt-1 h-5 w-5 shrink-0 text-amber-400" />
           <textarea
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {\n              const next = event.target.value;\n              if (next.length <= CREATOR_INTELLIGENCE_LIMITS.maxTextChars) {\n                setQuery(next);\n                setError("");\n              } else {\n                setQuery(next.slice(0, CREATOR_INTELLIGENCE_LIMITS.maxTextChars));\n                setError(`Text limit reached: ${CREATOR_INTELLIGENCE_LIMITS.maxTextChars.toLocaleString()} characters.`);\n              }\n            }}
             rows={3}
             aria-label="Ask Creator Intel about your story, scene, script or visual idea"
             placeholder="What are you creating? Ask about a script, scene, character, shot or visual idea..."
@@ -114,7 +115,7 @@ export function CreatorIntelligenceInput() {
         ))}
       </div>
 
-      <p className="mt-3 text-center text-[10px] font-mono text-neutral-600">PDF • DOCX • TXT • MD · Your creative workspace starts here</p>
+      <p className="mt-3 text-center text-[10px] font-mono text-neutral-600">PDF • DOCX • TXT • MD · 4 MB max file · 50K max characters</p>
     </div>
   );
 }
