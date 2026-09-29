@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { CreatorIntelligenceExecutionPicker } from "@/components/creator-intelligence-execution-picker";
 
 type Draft = { query?: string; fileName?: string };
 
@@ -27,6 +28,10 @@ export default function StoryAnalysisPage() {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-400">
             Creator Intel has captured your instruction and document intake. This step prepares the material for scene, shot and model decisions.
           </p>
+
+          <div className="mt-8">
+            <CreatorIntelligenceExecutionPicker />
+          </div>
 
           <div className="mt-10 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
             <section className="rounded-3xl border border-white/[0.09] bg-neutral-900/70 p-6 sm:p-8">
