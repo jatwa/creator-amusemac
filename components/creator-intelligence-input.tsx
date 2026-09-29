@@ -204,44 +204,40 @@ export function CreatorIntelligenceInput({
   };
 
   return (
-    <div className="space-y-6 font-mono">
-      {/* Tier Badges & Limits Info Strip */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-          <span className="text-xs font-bold uppercase text-zinc-900 dark:text-white">
-            Plan Capacity: <span className="text-amber-500 dark:text-amber-400">{limits.label}</span>
-          </span>
-        </div>
-        <div className="flex flex-wrap items-center gap-3 text-[11px] text-zinc-600 dark:text-zinc-400 font-sans">
-          <span>Max File: <strong className="font-mono text-zinc-900 dark:text-zinc-200">{limits.maxFileSizeFormatted}</strong></span>
-          <span>•</span>
-          <span>Max Chars: <strong className="font-mono text-zinc-900 dark:text-zinc-200">{limits.maxCharactersFormatted}</strong></span>
-          <span>•</span>
-          <span>Formats: <strong className="font-mono text-zinc-900 dark:text-zinc-200">{limits.supportedFormats.join(" ")}</strong></span>
-        </div>
+    <div className="space-y-6 font-mono text-left">
+      {/* Intake Header Hierarchy */}
+      <div className="space-y-2 pb-1">
+        <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-amber-400 font-semibold block">
+          START WITH YOUR MATERIAL
+        </span>
+        <h2 className="text-xl sm:text-3xl font-bold tracking-tight text-white font-sans">
+          Give Creator Intel something to direct.
+        </h2>
+        <p className="text-xs sm:text-sm text-neutral-400 font-sans leading-relaxed">
+          Upload a screenplay, paste a scene, or start from a curated film scenario.
+        </p>
       </div>
 
       {/* Input Mode Navigation Tabs */}
-      <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-3 text-xs">
+      <div className="flex flex-wrap items-center gap-2 border-b border-white/[0.08] pb-3 text-xs">
         <button
           type="button"
           onClick={() => setTab("file")}
-          className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 font-semibold transition ${
+          className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 font-semibold transition ${
             tab === "file"
-              ? "bg-amber-500 text-zinc-950 font-bold dark:bg-amber-400"
-              : "border border-zinc-300 bg-zinc-100 text-zinc-700 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white"
+              ? "bg-amber-400 text-neutral-950 font-bold shadow-md shadow-amber-400/20"
+              : "border border-white/10 bg-white/[0.03] text-neutral-300 hover:border-amber-400/40 hover:text-white"
           }`}
         >
-          <span>📁 File Upload (.pdf, .docx, .txt, .md)</span>
+          <span>📁 File Upload</span>
         </button>
         <button
           type="button"
           onClick={() => setTab("paste")}
-          className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 font-semibold transition ${
+          className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 font-semibold transition ${
             tab === "paste"
-              ? "bg-amber-500 text-zinc-950 font-bold dark:bg-amber-400"
-              : "border border-zinc-300 bg-zinc-100 text-zinc-700 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white"
+              ? "bg-amber-400 text-neutral-950 font-bold shadow-md shadow-amber-400/20"
+              : "border border-white/10 bg-white/[0.03] text-neutral-300 hover:border-amber-400/40 hover:text-white"
           }`}
         >
           <span>✍ Direct Script Paste</span>
@@ -249,14 +245,29 @@ export function CreatorIntelligenceInput({
         <button
           type="button"
           onClick={() => setTab("samples")}
-          className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 font-semibold transition ${
+          className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 font-semibold transition ${
             tab === "samples"
-              ? "bg-amber-500 text-zinc-950 font-bold dark:bg-amber-400"
-              : "border border-zinc-300 bg-zinc-100 text-zinc-700 hover:text-zinc-950 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white"
+              ? "bg-amber-400 text-neutral-950 font-bold shadow-md shadow-amber-400/20"
+              : "border border-white/10 bg-white/[0.03] text-neutral-300 hover:border-amber-400/40 hover:text-white"
           }`}
         >
           <span>🎬 Curated Film Scenarios</span>
         </button>
+      </div>
+
+      {/* Secondary Capacity Strip */}
+      <div className="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2 rounded-xl bg-black/40 border border-white/[0.06] text-[11px] font-mono text-neutral-400">
+        <span className="flex items-center gap-1.5 font-sans font-medium text-neutral-200">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+          {limits.label}
+        </span>
+        <div className="flex flex-wrap items-center gap-2 text-neutral-400">
+          <span>{limits.maxFileSizeFormatted}</span>
+          <span>·</span>
+          <span>{limits.maxCharactersFormatted}</span>
+          <span>·</span>
+          <span>TXT / MD / PDF / DOCX</span>
+        </div>
       </div>
 
       {/* Error Alert */}
