@@ -50,15 +50,14 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
-    font-size: 1rem; /* 16px default */
-    line-height: 1.65; /* 1.55–1.7 readable line height */
+    font-size: 1rem;
+    line-height: 1.65;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  /* Accessible focus indicators */
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
@@ -68,7 +67,6 @@
     box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
   }
 
-  /* Respect reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
     *,
     ::before,
@@ -131,7 +129,7 @@
     @apply min-h-screen bg-background text-primary;
   }
   .intel-header {
-    @apply border-b border-border-subtle bg-surface/70 backdrop-blur-xl;
+    @apply border-b border-border-subtle bg-surface backdrop-blur-xl;
   }
   .intel-card {
     @apply rounded-3xl border border-border-subtle bg-surface shadow-[0_18px_70px_rgba(0,0,0,0.08)];
@@ -152,7 +150,6 @@
     @apply border-t border-border-subtle my-16 sm:my-24;
   }
 
-  /* Cinema Long-form Reading Prose */
   .prose-cinema {
     @apply text-base text-secondary leading-relaxed font-sans;
   }
@@ -188,7 +185,6 @@
   }
 }
 
-/* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
