@@ -27,51 +27,51 @@ export default async function AdminAnalyticsPage() {
   return (
     <div className="space-y-10">
       {/* Header */}
-      <div className="border-b border-line pb-6">
+      <div className="border-b border-zinc-800 pb-6">
         <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-2">
-          <Link href="/admin" className="hover:text-white">Admin</Link>
-          <span>/</span>
+          <Link href="/admin" className="hover:text-amber-400">Admin</Link>
+          <span className="text-zinc-600">/</span>
           <span className="text-zinc-200">Analytics</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-mono">
           Platform Telemetry &amp; Conversion Analytics
         </h1>
-        <p className="mt-1 text-xs sm:text-sm text-zinc-400">
+        <p className="mt-1 text-xs sm:text-sm text-zinc-400 font-mono">
           Audited production metrics derived from PostgreSQL database activity. Zero synthetic analytics.
         </p>
       </div>
 
       {/* Real Metric Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 font-mono text-xs">
-        <div className="surface p-5 rounded-2xl border border-line">
-          <span className="text-zinc-400 block">Registered Users</span>
+        <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 space-y-1">
+          <span className="text-zinc-400 block font-bold text-[11px] uppercase">Registered Users</span>
           <span className="text-3xl font-bold text-white mt-1 block">{userRegistrationsCount}</span>
-          <span className="text-zinc-500 text-[11px]">Google OAuth verified</span>
+          <span className="text-zinc-500 text-[10px]">Google OAuth verified</span>
         </div>
 
-        <div className="surface p-5 rounded-2xl border border-line">
-          <span className="text-zinc-400 block">Active Subscriptions</span>
-          <span className="text-3xl font-bold text-lime mt-1 block">{activeSubscriptionsCount}</span>
-          <span className="text-zinc-500 text-[11px]">Paid Basic &amp; Pro members</span>
+        <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 space-y-1">
+          <span className="text-zinc-400 block font-bold text-[11px] uppercase">Active Subscriptions</span>
+          <span className="text-3xl font-bold text-emerald-400 mt-1 block">{activeSubscriptionsCount}</span>
+          <span className="text-zinc-500 text-[10px]">Paid Basic &amp; Pro members</span>
         </div>
 
-        <div className="surface p-5 rounded-2xl border border-line">
-          <span className="text-zinc-400 block">Total Recipe Unlocks</span>
+        <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 space-y-1">
+          <span className="text-zinc-400 block font-bold text-[11px] uppercase">Total Recipe Unlocks</span>
           <span className="text-3xl font-bold text-white mt-1 block">{totalUnlocksCount}</span>
-          <span className="text-zinc-500 text-[11px]">Vault prompt claims</span>
+          <span className="text-zinc-500 text-[10px]">Vault prompt claims</span>
         </div>
 
-        <div className="surface p-5 rounded-2xl border border-line">
-          <span className="text-zinc-400 block">Film Projects Created</span>
+        <div className="bg-zinc-900 p-5 rounded-xl border border-zinc-800 space-y-1">
+          <span className="text-zinc-400 block font-bold text-[11px] uppercase">Film Projects Created</span>
           <span className="text-3xl font-bold text-white mt-1 block">{filmProjectsCount}</span>
-          <span className="text-zinc-500 text-[11px]">Active film director workbenches</span>
+          <span className="text-zinc-500 text-[10px]">Active film director workbenches</span>
         </div>
       </div>
 
       {/* Telemetry Tracking Note */}
-      <section className="surface p-6 rounded-2xl border border-line space-y-3 text-xs text-zinc-300">
-        <h2 className="text-base font-bold text-white">Truthful Telemetry Disclosure</h2>
-        <p className="leading-relaxed">
+      <section className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-3 text-xs text-zinc-300 font-mono">
+        <h2 className="text-sm font-bold uppercase text-white tracking-wider">Truthful Telemetry Disclosure</h2>
+        <p className="leading-relaxed text-zinc-400">
           Creator Intel computes analytics strictly from confirmed database transactions and persistent entity tables. Third-party client telemetry and invasive browser tracking are disabled by default in adherence with our privacy commitments.
         </p>
       </section>

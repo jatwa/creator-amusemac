@@ -31,11 +31,11 @@ export default function WorkflowsPage() {
   const canonicalWorkflows = getAllPublicWorkflows();
 
   return (
-    <main className="min-h-screen bg-background text-primary transition-colors">
+    <main className="intel-page transition-colors">
       <Navigation />
 
       {/* Header */}
-      <div className="border-b border-border-subtle bg-surface/30 py-16 sm:py-20">
+      <div className="intel-header py-16 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"

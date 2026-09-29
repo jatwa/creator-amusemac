@@ -29,11 +29,11 @@ export default function ResearchPage() {
   const records = getAllPublicResearch();
 
   return (
-    <main className="min-h-screen bg-background text-primary transition-colors">
+    <main className="intel-page transition-colors">
       <Navigation />
 
       {/* Editorial Header */}
-      <div className="border-b border-border-subtle bg-surface/30 py-14 sm:py-20">
+      <div className="intel-header py-14 sm:py-20">
         <div className="shell">
           <SectionHeading
             as="h1"

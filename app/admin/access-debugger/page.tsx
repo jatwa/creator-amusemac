@@ -78,17 +78,17 @@ export default async function AdminAccessDebuggerPage({
   return (
     <div className="space-y-10">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-line pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-zinc-800 pb-6">
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-2">
-            <Link href="/admin" className="hover:text-white">Admin</Link>
-            <span>/</span>
+            <Link href="/admin" className="hover:text-amber-400">Admin</Link>
+            <span className="text-zinc-600">/</span>
             <span className="text-zinc-200">Access Debugger</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-mono">
             User Entitlement &amp; Access Debugger
           </h1>
-          <p className="mt-1 text-xs sm:text-sm text-zinc-400">
+          <p className="mt-1 text-xs sm:text-sm text-zinc-400 font-mono">
             Compare Expected vs Actual entitlements, diagnose billing linkage, and verify prompt unlock quotas.
           </p>
         </div>
@@ -100,11 +100,11 @@ export default async function AdminAccessDebuggerPage({
             name="email"
             defaultValue={lookupKey}
             placeholder="Enter user email or ID..."
-            className="rounded-xl border border-line bg-black/60 px-4 py-2 text-xs text-white placeholder-zinc-500 focus:border-lime focus:outline-none w-64 font-mono"
+            className="rounded border border-zinc-700 bg-zinc-900 px-4 py-2 text-xs text-white placeholder-zinc-500 focus:border-amber-400 focus:outline-none w-64 font-mono"
           />
           <button
             type="submit"
-            className="rounded-xl bg-panel border border-line px-4 py-2 text-xs font-semibold text-white hover:border-lime transition"
+            className="rounded bg-zinc-800 border border-zinc-700 px-4 py-2 text-xs font-semibold text-zinc-200 hover:text-white hover:border-zinc-500 transition font-mono"
           >
             Diagnose
           </button>
@@ -112,42 +112,42 @@ export default async function AdminAccessDebuggerPage({
       </div>
 
       {!lookupKey ? (
-        <div className="surface p-12 rounded-2xl border border-line text-center text-xs text-zinc-500 font-mono">
+        <div className="bg-zinc-900 p-12 rounded-xl border border-zinc-800 text-center text-xs text-zinc-400 font-mono">
           Enter a user email address or user ID above to run live entitlement calculations.
         </div>
       ) : !userData ? (
-        <div className="surface p-12 rounded-2xl border border-line text-center text-xs text-amber-400 font-mono">
+        <div className="bg-zinc-900 p-12 rounded-xl border border-zinc-800 text-center text-xs text-amber-400 font-mono">
           No user found matching "{lookupKey}".
         </div>
       ) : (
         <div className="space-y-8">
           {/* User Record Card */}
           <div className="grid gap-6 lg:grid-cols-3">
-            <div className="surface p-6 rounded-2xl border border-line space-y-3 font-mono text-xs">
-              <span className="text-zinc-500 block uppercase">User Identity</span>
+            <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-3 font-mono text-xs">
+              <span className="text-zinc-400 block uppercase font-bold text-[11px]">User Identity</span>
               <p className="text-base font-bold text-white">{userData.name || "Anonymous User"}</p>
-              <p className="text-zinc-400">{userData.email}</p>
+              <p className="text-zinc-300">{userData.email}</p>
               <p className="text-[11px] text-zinc-500">ID: {userData.id}</p>
               <p className="text-[11px] text-zinc-500">Created: {new Date(userData.created_at).toLocaleDateString()}</p>
             </div>
 
-            <div className="surface p-6 rounded-2xl border border-line space-y-3 font-mono text-xs">
-              <span className="text-zinc-500 block uppercase">Subscription State</span>
+            <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-3 font-mono text-xs">
+              <span className="text-zinc-400 block uppercase font-bold text-[11px]">Subscription State</span>
               <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-lime uppercase">{rawTier}</span>
-                <span className="rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[10px]">
+                <span className="text-lg font-bold text-amber-400 uppercase">{rawTier}</span>
+                <span className="rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold uppercase">
                   {rawStatus}
                 </span>
               </div>
-              <p className="text-zinc-400">Provider: {subData?.provider || "free"}</p>
+              <p className="text-zinc-300">Provider: {subData?.provider || "free"}</p>
               <p className="text-[11px] text-zinc-500">
                 Period End: {subData?.current_period_end ? new Date(subData.current_period_end).toLocaleDateString() : "None"}
               </p>
             </div>
 
-            <div className="surface p-6 rounded-2xl border border-line space-y-3 font-mono text-xs">
-              <span className="text-zinc-500 block uppercase">Vault Unlock Quota</span>
-              <p className="text-2xl font-bold text-white">
+            <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-3 font-mono text-xs">
+              <span className="text-zinc-400 block uppercase font-bold text-[11px]">Vault Unlock Quota</span>
+              <p className="text-3xl font-bold text-white">
                 {unlockCount} / {rawTier === "pro" ? "∞" : rawTier === "basic" ? "25" : "0"}
               </p>
               <p className="text-zinc-400">
@@ -162,7 +162,7 @@ export default async function AdminAccessDebuggerPage({
 
           {/* Diagnostic Warnings */}
           {diagnosticDiagnosis.length > 0 && (
-            <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5 space-y-2 text-xs font-mono text-amber-300">
+            <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-5 space-y-2 text-xs font-mono text-amber-300">
               <span className="font-bold flex items-center gap-2">
                 <span>⚠ Diagnostic Flags Detected:</span>
               </span>
@@ -175,11 +175,11 @@ export default async function AdminAccessDebuggerPage({
           )}
 
           {/* Expected vs Actual Entitlements */}
-          <section className="surface p-6 rounded-2xl border border-line space-y-4">
-            <h2 className="text-base font-bold text-white">Calculated Feature Entitlements</h2>
-            <div className="rounded-xl border border-line overflow-x-auto">
+          <section className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4">
+            <h2 className="text-sm font-bold uppercase text-white tracking-wider font-mono">Calculated Feature Entitlements</h2>
+            <div className="rounded-lg border border-zinc-800 overflow-x-auto">
               <table className="w-full text-left text-xs font-mono min-w-[650px]">
-                <thead className="border-b border-line bg-black/60 text-zinc-400 uppercase text-[10px]">
+                <thead className="border-b border-zinc-800 bg-zinc-950 text-zinc-400 uppercase text-[10px] font-semibold">
                   <tr>
                     <th className="p-3">Feature Key</th>
                     <th className="p-3">Expected (Plan Baseline)</th>
@@ -187,23 +187,23 @@ export default async function AdminAccessDebuggerPage({
                     <th className="p-3 text-right">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-line text-zinc-300">
+                <tbody className="divide-y divide-zinc-800 text-zinc-300">
                   {CANONICAL_FEATURE_MATRIX.map((f) => {
                     const expectedVal = f[rawTier];
                     const actualVal = resolution.entitlements[f.featureId];
                     const matches = expectedVal === actualVal;
 
                     return (
-                      <tr key={f.featureId} className="hover:bg-white/[0.02]">
+                      <tr key={f.featureId} className="hover:bg-zinc-800/40 transition">
                         <td className="p-3 font-semibold text-white">{f.name}</td>
                         <td className="p-3 text-zinc-400">{String(expectedVal)}</td>
-                        <td className="p-3 text-lime">{String(actualVal)}</td>
+                        <td className="p-3 text-amber-400 font-semibold">{String(actualVal)}</td>
                         <td className="p-3 text-right">
                           <span
-                            className={`rounded px-2 py-0.5 text-[10px] ${
+                            className={`rounded px-2 py-0.5 text-[10px] font-bold ${
                               matches
-                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                                : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
+                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                                : "bg-amber-500/10 text-amber-400 border border-amber-500/30"
                             }`}
                           >
                             {matches ? "MATCHED" : "DIVERGENT"}

@@ -1,24 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Clapperboard, Sparkles, ArrowRight, Search, ArrowUpRight, Camera, Sliders } from '@/components/cinematic/icons';
+import { CreatorIntelligenceInput } from "@/components/creator-intelligence-input";
+import { Clapperboard, ArrowRight, Sliders } from "@/components/cinematic/icons";
 
 export function Hero() {
-  const [query, setQuery] = useState("");
-  const router = useRouter();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (query.trim()) {
-      router.push(`/search?q=${encodeURIComponent(query.trim())}`);
-    } else {
-      router.push("/search");
-    }
-  };
-
   const ease = [0.16, 1, 0.3, 1] as const;
 
   return (
@@ -51,12 +38,12 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2, ease }}
             className="text-3xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight font-sans"
           >
-            DIRECT BETTER. <br />
+            STOP JUGGLING AI TOOLS. <br />
             <span className="font-serif italic font-normal text-amber-200 text-[26px] xs:text-3xl sm:text-6xl lg:text-7xl">
-              CREATE CINEMATICALLY.
+              START DIRECTING.
             </span>{" "}
             <br className="sm:hidden" />
-            <span className="text-neutral-400 font-sans font-semibold text-[26px] xs:text-3xl sm:text-6xl lg:text-7xl">WITH AI.</span>
+            <span className="text-neutral-400 font-sans font-semibold text-[26px] xs:text-3xl sm:text-6xl lg:text-7xl">WITH INTELLIGENCE.</span>
           </motion.h1>
 
           {/* Directorial Subheadline */}
@@ -66,7 +53,7 @@ export function Hero() {
             transition={{ duration: 0.45, delay: 0.3, ease }}
             className="mx-auto mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-neutral-300 font-normal"
           >
-            Professional cinematography intelligence, director recipes, camera optics, AI video workflows, and production intelligence — built for directors, cinematographers, and visual storytellers.
+            Creator Intel sits above your AI filmmaking stack — connecting research, directorial decisions, model selection, visualisation, generation and refinement in one filmmaker-first workflow.
           </motion.p>
 
           {/* Action Hub */}
@@ -82,7 +69,7 @@ export function Hero() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 px-7 py-3.5 text-xs sm:text-sm font-bold text-neutral-950 transition-all duration-200 shadow-[0_0_25px_rgba(245,158,11,0.25)] hover:shadow-[0_0_35px_rgba(245,158,11,0.4)] group"
               >
                 <Clapperboard className="w-4 h-4 text-neutral-950" />
-                <span>ENTER DIRECTOR&apos;S STUDIO</span>
+                <span>START DIRECTING</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </motion.div>
@@ -93,34 +80,13 @@ export function Hero() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 hover:border-amber-400/40 bg-white/[0.03] hover:bg-white/[0.06] px-6 py-3.5 text-xs sm:text-sm font-semibold text-neutral-200 hover:text-white transition-all duration-200"
               >
                 <Sliders className="w-4 h-4 text-amber-400" />
-                <span>PRODUCTION TOOLKIT</span>
+                <span>EXPLORE THE INTELLIGENCE LAYER</span>
               </Link>
             </motion.div>
           </motion.div>
 
-          {/* Minimalist Cinematography Search */}
-          <motion.form
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.5, ease }}
-            onSubmit={handleSearch}
-            className="mx-auto mt-12 flex w-full max-w-xl items-center rounded-2xl border border-white/[0.09] bg-neutral-950/80 px-4 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition focus-within:border-amber-400/50 focus-within:shadow-[0_0_25px_rgba(245,158,11,0.12)] backdrop-blur-md"
-          >
-            <Search className="h-4 w-4 shrink-0 text-neutral-400 mr-3" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              aria-label="Search Creator Platform"
-              className="w-full min-w-0 bg-transparent text-xs sm:text-sm text-white outline-none placeholder:text-neutral-500 font-sans"
-              placeholder="Search recipes, lenses, rigs, lighting ratios, films, models..."
-            />
-            <button
-              type="submit"
-              className="shrink-0 text-xs font-mono font-semibold text-neutral-400 hover:text-amber-400 transition-colors px-2 py-1 uppercase"
-            >
-              SEARCH [↵]
-            </button>
-          </motion.form>
+          {/* Primary Creator Intelligence Input */}
+          <CreatorIntelligenceInput />
 
           {/* Live Telemetry Sensor Badges */}
           <motion.div

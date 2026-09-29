@@ -12,83 +12,15 @@ interface PromptFactoryProps {
   lexicon: CameraLexiconItem[];
 }
 
-export type TargetEngine =
-  | "runway"
-  | "kling"
-  | "veo"
-  | "luma"
-  | "minimax"
-  | "midjourney"
-  | "flux"
-  | "wan";
+import { TargetEngine, ENGINE_CONFIGS } from "@/lib/ai/engine-configs";
+import {
+  compileDirectorRecipe,
+  compileModelPrompt,
+  compileNegativePrompt,
+} from "@/lib/ai/prompt-compiler";
 
-export const ENGINE_CONFIGS: Record<
-  TargetEngine,
-  {
-    name: string;
-    icon: string;
-    category: "video" | "image";
-    syntaxHint: string;
-    negativeHint: string;
-  }
-> = {
-  runway: {
-    name: "Runway Gen-3 Alpha",
-    icon: "✦",
-    category: "video",
-    syntaxHint: "Injects directional 6-DOF camera coordinate syntax and anamorphic lens emulation.",
-    negativeHint: "Removes warp artifacts, erratic camera shakes, and unnatural acceleration.",
-  },
-  kling: {
-    name: "Kling AI 1.5",
-    icon: "🌊",
-    category: "video",
-    syntaxHint: "Injects spatio-temporal physical mass, momentum, and fluid hydrodynamic modifiers.",
-    negativeHint: "Suppresses sudden morphing, wheel deformation, and bad physics.",
-  },
-  veo: {
-    name: "Google Veo 2",
-    icon: "🎥",
-    category: "video",
-    syntaxHint: "Injects professional cinematographic lens language and 4K lighting falloff parameters.",
-    negativeHint: "Prevents overexposed highlights, muddy contrast, and synthetic plastic sheen.",
-  },
-  luma: {
-    name: "Luma Dream Machine",
-    icon: "⚡",
-    category: "video",
-    syntaxHint: "Injects 3D camera parallax and high-speed motion vectors.",
-    negativeHint: "Avoids 3D mesh artifacting and spatial background smearing.",
-  },
-  minimax: {
-    name: "MiniMax / Hailuo",
-    icon: "👤",
-    category: "video",
-    syntaxHint: "Injects natural skin texture, eye contact saccades, and organic lighting.",
-    negativeHint: "Suppresses robotic gestures, wax skin, and artificial eye reflections.",
-  },
-  midjourney: {
-    name: "Midjourney v6.1",
-    icon: "🎨",
-    category: "image",
-    syntaxHint: "Appends `--ar [ratio] --style raw --v 6.1` and 35mm film stock emulsion tags.",
-    negativeHint: "Uses `--no` parameter flags for non-photographic artifacts.",
-  },
-  flux: {
-    name: "Flux.1 Pro",
-    icon: "🔤",
-    category: "image",
-    syntaxHint: "Applies natural language descriptive syntax and high-fidelity typography parameters.",
-    negativeHint: "Suppresses CGI render aesthetic, oversaturation, and low-res details.",
-  },
-  wan: {
-    name: "Wan 2.1 (ComfyUI)",
-    icon: "🔒",
-    category: "video",
-    syntaxHint: "Applies ComfyUI node prompt conditioning for open-weight local pipelines.",
-    negativeHint: "Filters out frame ghosting, flickering illumination, and noisy latent artifacts.",
-  },
-};
+export type { TargetEngine };
+export { ENGINE_CONFIGS };
 
 // Preset Director Shot Templates
 const PRESET_SHOTS: (DirectorShotConfig & { name: string })[] = [
@@ -304,6 +236,29 @@ export function PromptFactory({ prompts, lexicon }: PromptFactoryProps) {
   const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
   const [saveErrorMsg, setSaveErrorMsg] = useState<string | null>(null);
 
+  // Hydrate from AI Prompt Customizer handoff if available in sessionStorage
+  useEffect(() => {
+    try {
+      const handoffRaw = sessionStorage.getItem("creatorintel_studio_handoff");
+      if (handoffRaw) {
+        const handoff = JSON.parse(handoffRaw);
+        if (handoff && typeof handoff === "object") {
+          setShotConfig((prev) => ({
+            ...prev,
+            ...handoff,
+          }));
+          if (handoff.engine) {
+            setSelectedEngine(handoff.engine);
+          }
+          setActiveMode("director");
+          sessionStorage.removeItem("creatorintel_studio_handoff");
+        }
+      }
+    } catch (err) {
+      console.warn("[Director's Studio] Handoff hydration error:", err);
+    }
+  }, []);
+
   // Fetch user projects if authenticated
   useEffect(() => {
     if (status !== "authenticated") return;
@@ -345,25 +300,12 @@ export function PromptFactory({ prompts, lexicon }: PromptFactoryProps) {
     );
   }, [shotConfig.cameraRig, lexicon]);
 
-  // OUTPUT A: Human-Readable Director Recipe Slip
+  // OUTPUT A: Human-Readable Director Recipe Slip (Reusing pure compiler)
   const directorRecipeText = useMemo(() => {
-    const lines = [
-      `SHOT: ${shotConfig.shotTitle || "Untitled Cinematic Shot"}`,
-      `CATEGORY: ${shotConfig.shotCategory || "DIRECTOR RECIPE"}`,
-      `SUBJECT: ${shotConfig.subject || "Subject"}`,
-      `ACTION: ${shotConfig.action || "Action"}`,
-      `CAMERA: ${shotConfig.cameraRig || "Rig"} — ${shotConfig.cameraMovement || "Movement"}`,
-      `LENS: ${shotConfig.lens || "Lens"}`,
-      `FRAMING: ${shotConfig.framing || "Framing"} (${shotConfig.composition || "Composition"})`,
-      `LIGHTING: ${shotConfig.lighting || "Lighting"}`,
-      `ENVIRONMENT: ${shotConfig.environment || "Environment"} (${shotConfig.timeOfDay || "Time"}, ${shotConfig.weather || "Weather"})`,
-      `FORMAT: ${shotConfig.aspectRatio || "2.39:1"} | ${shotConfig.fps || "24fps"} | ${shotConfig.duration || "5s"}`,
-      `VISUAL INTENT: ${shotConfig.visualStyle || "Cinematic"} — ${shotConfig.mood || "Atmospheric"}`,
-    ];
-    return lines.join("\n");
+    return compileDirectorRecipe(shotConfig);
   }, [shotConfig]);
 
-  // OUTPUT B: Model-Specific Prompt Compiler
+  // OUTPUT B: Model-Specific Prompt Compiler (Reusing pure compiler)
   const modelPrompt = useMemo(() => {
     if (activeMode === "freeform") {
       const clean = conceptText.trim().replace(/\.+$/, "");
@@ -389,66 +331,12 @@ export function PromptFactory({ prompts, lexicon }: PromptFactoryProps) {
       }
     }
 
-    // Structured Director Decisions compile:
-    const s = shotConfig.subject || "subject";
-    const a = shotConfig.action || "in motion";
-    const env = shotConfig.environment || "environment";
-    const w = shotConfig.weather || "clear atmosphere";
-    const t = shotConfig.timeOfDay || "night";
-    const rig = shotConfig.cameraRig || "camera rig";
-    const move = shotConfig.cameraMovement || "tracking shot";
-    const lens = shotConfig.lens || "35mm prime";
-    const frame = shotConfig.framing || "cinematic shot";
-    const comp = shotConfig.composition || "rule of thirds";
-    const light = shotConfig.lighting || "motivated lighting";
-    const style = shotConfig.visualStyle || "cinematic feature";
-    const fps = (shotConfig.fps || "24fps").split(" ")[0];
-    const arRaw = (shotConfig.aspectRatio || "2.39:1").split(" ")[0];
-
-    switch (selectedEngine) {
-      case "runway":
-        return `[Camera: ${rig} - ${move} at ${fps}] ${frame} of ${s} ${a} through ${env} at ${t} during ${w}, ${comp}, dynamic reflections across surfaces, controlled ${light}, shot on ${lens}, ${style} cinematography, ${arRaw}, ${fps}.`;
-      case "kling":
-        return `${frame} of ${s} ${a} through ${env} at ${t} during ${w}, ${rig} ${move}, natural physical momentum and realistic atmospheric physics, controlled ${light}, ${lens} optics, ${comp}, ${shotConfig.duration || "10s"} continuous take, ${fps}.`;
-      case "veo":
-        return `Cinematic 4K shot: ${frame} of ${s} ${a} through ${env}, ${rig} ${move}, ${lens} optics with natural atmospheric falloff, ${light}, ${comp}, photorealistic color science, ${arRaw}, ${fps}.`;
-      case "luma":
-        return `Dynamic 3D ${rig} ${move} shot of ${s} ${a} in ${env} during ${w}, high-speed spatial parallax, ${light}, ${lens} optical rendering, ${style} cadence.`;
-      case "minimax":
-        return `Intimate ${frame} of ${s} ${a} in ${env}, natural textures and organic atmospheric interactions, ${move}, ${light}, ${lens}, ${fps}.`;
-      case "midjourney":
-        return `A cinematic 35mm film still of ${s} ${a} in ${env} at ${t} during ${w}, ${frame}, ${rig} perspective, ${comp}, ${light}, shot on ${lens}, Kodak film stock emulsion, ${style} --ar ${arRaw} --style raw --v 6.1`;
-      case "flux":
-        return `A photorealistic editorial photograph: ${frame} of ${s} ${a} in ${env} at ${t}, ${comp}, ${light}, shot on ${lens}, razor sharp focus, ${style}.`;
-      case "wan":
-        return `Master video plate: ${frame} of ${s} ${a} in ${env}, ComfyUI Wan 2.1 14B diffusion pass, ${rig} ${move}, ${light}, ${lens}, cinematic LoRA weights (0.85).`;
-      default:
-        return `${frame} of ${s} ${a} in ${env}, ${rig}, ${lens}, ${light}, ${fps}.`;
-    }
+    return compileModelPrompt(shotConfig, selectedEngine);
   }, [shotConfig, selectedEngine, activeMode, conceptText]);
 
-  // OUTPUT C: Engine-Aware Resolved Negative Prompt
+  // OUTPUT C: Engine-Aware Resolved Negative Prompt (Reusing pure compiler)
   const negativePrompt = useMemo(() => {
-    switch (selectedEngine) {
-      case "midjourney":
-        return `--no plastic, oversaturated, deformed, blurry, extra limbs, watermark, text, signature`;
-      case "runway":
-        return `Distorted geometry, warped chassis, unnatural motion acceleration, morphing objects, erratic camera jitter, low resolution, blown-out highlights`;
-      case "kling":
-        return `Unnatural physics, sudden morphing, jittery frame interpolation, bad anatomy, deformed wheels, floating artifacts, compression noise`;
-      case "veo":
-        return `Overexposed, muddy shadows, low dynamic range, cartoonish render, unnatural face geometry, plastic textures, artificial sheen`;
-      case "luma":
-        return `3D model artifacting, spatial warping, blurry background smearing, sudden jump cuts, deformed meshes, ghosting vectors`;
-      case "minimax":
-        return `Wax skin, artificial eye reflections, unnatural head movements, robotic gestures, flickering shadows, deformed fingers`;
-      case "flux":
-        return `Blurry, cartoon, CGI render, 3d illustration, low quality, oversaturated, missing details, malformed proportions`;
-      case "wan":
-        return `Deformed hands, bad anatomy, frame ghosting, flickering lighting, noisy artifacts, unnatural jump cuts`;
-      default:
-        return `Blurry, low resolution, deformed, morphing, unnatural artifacts`;
-    }
+    return compileNegativePrompt(selectedEngine);
   }, [selectedEngine]);
 
   const copyToClipboard = async (text: string, type: string) => {

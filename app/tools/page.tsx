@@ -7,6 +7,7 @@ import { ToolCard } from "@/components/ui-cards";
 import { getDbTools } from "@/lib/db/neon";
 import { DirectoryAtAGlance } from "@/components/directory-at-a-glance";
 import { ToolDecisionFinder } from "@/components/tools/tool-decision-finder";
+import { toolsData } from "@/data/platform-data";
 
 export const metadata: Metadata = {
   title: "AI Tools Directory — Creator Intel",
@@ -31,17 +32,17 @@ export default async function ToolsPage() {
   const tools = await getDbTools();
 
   return (
-    <main className="min-h-screen bg-background text-primary transition-colors">
+    <main className="intel-page transition-colors">
       <Navigation />
 
       {/* Directory Hero Banner */}
-      <div className="border-b border-border-subtle bg-surface/30 py-14 sm:py-18">
+      <div className="intel-header py-14 sm:py-18">
         <div className="shell">
           <SectionHeading
             as="h1"
-            label="Editorial Intelligence Desk"
-            title="Curated AI Production Stack"
-            description="Deeply tested models and creative software for filmmakers, cinematographers, production designers, and editors. Verified capabilities and transparent pricing."
+            label="Filmmaker Intelligence Desk"
+            title="Filmmaker AI Intelligence Stack"
+            description="Find the right engine from the creative decision outward — with capabilities, workflow fit, production context, comparisons, prompts, tutorials and transparent pricing."
           />
 
           {/* Category Filter Pills */}
@@ -87,8 +88,33 @@ export default async function ToolsPage() {
       </div>
 
       <div className="shell py-12 space-y-14">
+        <section className="grid gap-4 md:grid-cols-3">
+          {[
+            { label: "Core Models", value: toolsData.filter((tool) => tool.type === "model" || tool.type === "foundation_model").length, copy: "The engines underneath the filmmaking stack." },
+            { label: "Production Tools", value: toolsData.filter((tool) => tool.type && tool.type !== "model" && tool.type !== "foundation_model").length, copy: "Applications, platforms and production systems built around models." },
+            { label: "Connected Graph", value: toolsData.filter((tool) => (tool.supportedModels?.length || 0) > 0).length, copy: "Tools with explicit model relationships in the current catalogue." },
+          ].map((item) => (
+            <div key={item.label} className="rounded-2xl border border-border-subtle bg-surface/40 p-5">
+              <div className="font-mono text-[10px] uppercase tracking-widest text-accent">{item.label}</div>
+              <div className="mt-2 text-3xl font-semibold text-primary">{item.value}</div>
+              <p className="mt-2 text-xs leading-relaxed text-secondary">{item.copy}</p>
+            </div>
+          ))}
+        </section>
+
         {/* Flagship Filmmaker Decision Engine */}
         <ToolDecisionFinder />
+
+        <div className="rounded-2xl border border-amber-400/20 bg-amber-400/[0.04] p-5 sm:p-6">
+          <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-amber-400">
+            <span>Decision Graph</span>
+            <span className="text-neutral-600">/</span>
+            <span className="text-neutral-500">IDEA → RESEARCH → DIRECT → SHOT → MODEL → PROMPT → GENERATE → REFINE</span>
+          </div>
+          <p className="mt-3 max-w-4xl text-sm leading-relaxed text-secondary">
+            A Creator Intel tool dossier is not just a listing. It connects the engine to filmmaking techniques, prompts, workflows, comparisons, films, research, tutorials and production decisions.
+          </p>
+        </div>
 
         {/* At A Glance Comparison Matrix */}
         <DirectoryAtAGlance tools={tools} />

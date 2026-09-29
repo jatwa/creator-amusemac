@@ -15,9 +15,9 @@
   --muted: #eaeaec;
   --muted-foreground: #6e6e73;
   --tertiary: #86868b;
-  --accent: #0071e3;
+  --accent: #b8892d;
   --accent-foreground: #ffffff;
-  --accent-muted: rgba(0, 113, 227, 0.08);
+  --accent-muted: rgba(184, 137, 45, 0.10);
 }
 
 .dark {
@@ -33,9 +33,42 @@
   --muted: #1c1c1e;
   --muted-foreground: #a1a1a6;
   --tertiary: #636366;
-  --accent: #2997ff;
+  --accent: #d4a646;
   --accent-foreground: #ffffff;
-  --accent-muted: rgba(41, 151, 255, 0.15);
+  --accent-muted: rgba(212, 166, 70, 0.15);
+}
+
+/* ADMIN COMMAND CENTER SCOPED TOKENS */
+[data-admin-theme="dark"], #ci-admin-scope.dark {
+  --admin-bg: #09090b;
+  --admin-card: #18181b;
+  --admin-card-elevated: #27272a;
+  --admin-inset: #09090b;
+  --admin-border: #27272a;
+  --admin-border-subtle: rgba(255, 255, 255, 0.08);
+  --admin-text-primary: #ffffff;
+  --admin-text-secondary: #a1a1aa;
+  --admin-text-muted: #71717a;
+  --admin-accent: #fbbf24;
+  --admin-accent-bg: rgba(251, 191, 36, 0.1);
+  --admin-accent-border: rgba(251, 191, 36, 0.3);
+  --admin-header-bg: rgba(24, 24, 27, 0.95);
+}
+
+[data-admin-theme="light"], #ci-admin-scope.light {
+  --admin-bg: #f4f4f5;
+  --admin-card: #ffffff;
+  --admin-card-elevated: #f4f4f5;
+  --admin-inset: #f8fafc;
+  --admin-border: #e4e4e7;
+  --admin-border-subtle: rgba(0, 0, 0, 0.06);
+  --admin-text-primary: #09090b;
+  --admin-text-secondary: #52525b;
+  --admin-text-muted: #71717a;
+  --admin-accent: #d97706;
+  --admin-accent-bg: rgba(217, 119, 6, 0.08);
+  --admin-accent-border: rgba(217, 119, 6, 0.3);
+  --admin-header-bg: rgba(255, 255, 255, 0.95);
 }
 
 @layer base {
@@ -50,15 +83,14 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
-    font-size: 1rem; /* 16px default */
-    line-height: 1.65; /* 1.55–1.7 readable line height */
+    font-size: 1rem;
+    line-height: 1.65;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  /* Accessible focus indicators */
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
@@ -68,7 +100,6 @@
     box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--accent);
   }
 
-  /* Respect reduced motion preference */
   @media (prefers-reduced-motion: reduce) {
     *,
     ::before,
@@ -127,6 +158,24 @@
   .surface {
     @apply rounded-2xl border border-border bg-surface transition-all duration-200;
   }
+  .intel-page {
+    @apply min-h-screen bg-background text-primary;
+  }
+  .intel-header {
+    @apply border-b border-border-subtle bg-surface backdrop-blur-xl;
+  }
+  .intel-card {
+    @apply rounded-3xl border border-border-subtle bg-surface shadow-[0_18px_70px_rgba(0,0,0,0.08)];
+  }
+  .intel-card-muted {
+    @apply rounded-2xl border border-border-subtle bg-surface-elevated;
+  }
+  .intel-eyebrow {
+    @apply text-[10px] font-mono uppercase tracking-[0.2em] text-accent;
+  }
+  .intel-mono {
+    @apply font-mono text-xs text-tertiary;
+  }
   .surface-hover {
     @apply hover:border-border-bright hover:bg-surface-hover;
   }
@@ -134,7 +183,6 @@
     @apply border-t border-border-subtle my-16 sm:my-24;
   }
 
-  /* Cinema Long-form Reading Prose */
   .prose-cinema {
     @apply text-base text-secondary leading-relaxed font-sans;
   }
@@ -170,7 +218,6 @@
   }
 }
 
-/* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
