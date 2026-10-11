@@ -89,13 +89,13 @@ export default function CreateAnalyzePage() {
         <div className="border-b border-zinc-800 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-2">
-              <Link href="/create" className="hover:text-amber-400 transition">
-                Intake
+              <Link href="/create" className="hover:text-amber-400 transition flex items-center gap-1">
+                <span>← Back to Edit</span>
               </Link>
               <span className="text-zinc-600">/</span>
-              <span className="text-amber-400 font-semibold">Workspace</span>
+              <span className="text-amber-400 font-semibold">Workspace Review</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-mono">
+            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-sans">
               FILMMAKER INTELLIGENCE WORKSPACE
             </h1>
             <p className="mt-1 text-xs sm:text-sm text-zinc-400 font-sans">
@@ -108,7 +108,7 @@ export default function CreateAnalyzePage() {
               {limits.label}
             </span>
             <span className="rounded border border-zinc-800 bg-zinc-900 px-3 py-1 text-zinc-300">
-              Mode: {modeConfig.title}
+              Protocol: {modeConfig.title}
             </span>
           </div>
         </div>
@@ -120,17 +120,17 @@ export default function CreateAnalyzePage() {
             {/* SOURCE IDENTITY CARD */}
             <section className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6 space-y-4 shadow-sm">
               <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
-                <h3 className="text-xs font-bold uppercase text-white tracking-wider flex items-center gap-2">
+                <h3 className="text-xs font-bold uppercase text-white tracking-wider flex items-center gap-2 font-mono">
                   <span>📄 Source Audit &amp; Metadata</span>
                 </h3>
                 <span
-                  className={`rounded px-2.5 py-0.5 text-[10px] font-bold uppercase border ${
+                  className={`rounded px-2.5 py-0.5 text-[10px] font-bold uppercase border font-mono ${
                     staged.extractionStatus === "ready"
                       ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
                       : "border-amber-500/30 bg-amber-500/10 text-amber-400"
                   }`}
                 >
-                  {staged.extractionStatus === "ready" ? "Text Extracted & Verified" : "Document Staged"}
+                  {staged.extractionStatus === "ready" ? "Text ready" : "File staged — extraction pending"}
                 </span>
               </div>
 
@@ -159,7 +159,7 @@ export default function CreateAnalyzePage() {
 
               <div className="text-xs text-zinc-400 space-y-1 pt-1 font-sans">
                 <p>
-                  Source Label: <strong className="font-mono text-zinc-200">{staged.sourceName}</strong>
+                  Source Title: <strong className="font-mono text-zinc-200">{staged.sourceName}</strong>
                 </p>
                 {staged.fileName && (
                   <p>
@@ -173,7 +173,7 @@ export default function CreateAnalyzePage() {
             <section className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6 space-y-3 shadow-sm">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-bold uppercase text-white tracking-wider">
-                  Source Content Inspection
+                  Source Material Inspection
                 </h3>
                 <span className="text-[11px] text-zinc-500">
                   {staged.textAvailable ? "Local Memory Buffer" : "Binary Stream Staged"}
@@ -191,7 +191,7 @@ export default function CreateAnalyzePage() {
                     Document Text Extraction Pending
                   </h4>
                   <p className="text-xs text-zinc-400 font-sans max-w-sm mx-auto leading-relaxed">
-                    Raw {staged.fileExtension.toUpperCase()} file is staged securely. Server-side deep text extraction will parse sluglines and dialogue upon project initialization.
+                    Raw {staged.fileExtension.toUpperCase()} file is staged securely in your session. Text parsing will take place upon full project indexing in your workspace.
                   </p>
                 </div>
               )}
@@ -207,7 +207,7 @@ export default function CreateAnalyzePage() {
                   <span>⚡ Active Intelligence Plan</span>
                 </h3>
                 <span className="text-xs font-mono text-amber-400 font-bold">
-                  {totalTokens.formatted}
+                  {totalTokens.formatted} (Est.)
                 </span>
               </div>
 
@@ -220,7 +220,7 @@ export default function CreateAnalyzePage() {
                       className="rounded-xl border border-zinc-800/90 bg-zinc-950 p-3 space-y-1.5"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-zinc-200">{mod.name}</span>
+                        <span className="text-xs font-bold text-zinc-200 font-sans">{mod.name}</span>
                         <span className="text-[10px] font-mono text-amber-400 font-semibold">
                           {est.formatted}
                         </span>
@@ -266,7 +266,7 @@ export default function CreateAnalyzePage() {
                       {item.step}
                     </span>
                     <div>
-                      <h5 className="font-bold text-zinc-200 text-xs">{item.title}</h5>
+                      <h5 className="font-bold text-zinc-200 text-xs font-sans">{item.title}</h5>
                       <p className="text-[11px] text-zinc-400 font-sans">{item.desc}</p>
                     </div>
                   </div>
@@ -293,7 +293,7 @@ export default function CreateAnalyzePage() {
                 <button
                   type="button"
                   onClick={handleConfirmHandoff}
-                  className="w-full rounded-xl bg-amber-400 hover:bg-amber-300 py-3.5 text-xs font-bold text-zinc-950 transition-all font-mono shadow-[0_0_20px_rgba(245,158,11,0.25)] flex items-center justify-center gap-2"
+                  className="w-full rounded-xl bg-amber-400 hover:bg-amber-300 py-3.5 text-xs font-bold text-zinc-950 transition-all font-mono shadow-[0_0_20px_rgba(245,158,11,0.25)] flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>STAGE TO DIRECTOR&apos;S WORKSPACE</span>
                   <span>→</span>
